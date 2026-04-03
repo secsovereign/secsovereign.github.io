@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>Article — SecureSovereign</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --background: #121212;
+            --primary: #0099ff;
+            --secondary: #f5f5f5;
+            --accent: #ff6b6b;
+            --light-gray: #2a2a2a;
+            --border: #333333;
+            --text-muted: #999999;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--secondary);
+            line-height: 1.65;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .site-nav {
+            max-width: 880px;
+            margin: 0 auto 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px 20px;
+        }
+
+        .site-nav a {
+            color: var(--primary);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+        }
+
+        .site-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .site-nav .sep {
+            color: var(--border);
+            user-select: none;
+        }
+
+        .article-wrap {
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        .article-body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            font-size: 1.05rem;
+        }
+
+        .article-body h1 {
+            font-size: 1.85rem;
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .article-body h2 {
+            font-size: 1.35rem;
+            color: var(--accent);
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.35rem;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+        }
+
+        .article-body h3 {
+            font-size: 1.15rem;
+            color: var(--secondary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .article-body h4, .article-body h5, .article-body h6 {
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .article-body p {
+            margin-bottom: 1rem;
+        }
+
+        .article-body a {
+            color: var(--primary);
+        }
+
+        .article-body a:hover {
+            color: #33adff;
+        }
+
+        .article-body ul, .article-body ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .article-body li {
+            margin: 0.35rem 0;
+        }
+
+        .article-body li::marker {
+            color: var(--accent);
+        }
+
+        .article-body blockquote {
+            border-left: 4px solid var(--primary);
+            margin: 1.25rem 0;
+            padding: 0.5rem 0 0.5rem 1.25rem;
+            color: var(--text-muted);
+            background: var(--light-gray);
+            border-radius: 0 6px 6px 0;
+        }
+
+        .article-body blockquote p:last-child {
+            margin-bottom: 0;
+        }
+
+        .article-body hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        .article-body strong {
+            color: var(--secondary);
+        }
+
+        .article-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .article-body th, .article-body td {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+
+        .article-body th {
+            background: var(--light-gray);
+            color: var(--primary);
+        }
+
+        #status {
+            font-family: 'Courier New', monospace;
+            color: var(--text-muted);
+        }
+
+        #status.error {
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <nav class="site-nav">
+        <a href="index.html">← Home</a>
+        <span class="sep">/</span>
+        <span id="nav-title" style="color: var(--text-muted); font-family: 'Courier New', monospace; font-size: 0.9rem;">Article</span>
+    </nav>
+
+    <div class="article-wrap">
+        <p id="status" class="mb-3">Loading…</p>
+        <article id="content" class="article-body" hidden></article>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const doc = params.get('doc');
+            const statusEl = document.getElementById('status');
+            const contentEl = document.getElementById('content');
+            const navTitleEl = document.getElementById('nav-title');
+
+            function fail(msg) {
+                statusEl.textContent = msg;
+                statusEl.classList.add('error');
+            }
+
+            if (!doc || !/^[a-zA-Z0-9][a-zA-Z0-9._-]*\.md$/.test(doc)) {
+                fail('Missing or invalid article. Open an article from the home page.');
+                return;
+            }
+
+            marked.setOptions({
+                gfm: true,
+                breaks: false
+            });
+
+            var noCache = { cache: 'no-store' };
+
+            fetch('articles.json', noCache)
+                .then(function (r) {
+                    if (!r.ok) throw new Error('Could not load article list.');
+                    return r.json();
+                })
+                .then(function (manifest) {
+                    var list = manifest.articles || [];
+                    var allowed = new Set(list.map(function (a) { return a.file; }));
+                    if (!allowed.has(doc)) {
+                        throw new Error('Unknown article.');
+                    }
+                    var meta = list.find(function (a) { return a.file === doc; });
+                    if (meta && meta.title) {
+                        document.title = meta.title + ' — SecureSovereign';
+                        navTitleEl.textContent = meta.title;
+                    } else {
+                        navTitleEl.textContent = doc;
+                    }
+                    return fetch(encodeURI(doc), noCache);
+                })
+                .then(function (r) {
+                    if (!r.ok) throw new Error('Could not load article file.');
+                    return r.text();
+                })
+                .then(function (md) {
+                    contentEl.innerHTML = marked.parse(md);
+                    var used = Object.create(null);
+                    function slugify(text) {
+                        var s = text.trim().toLowerCase()
+                            .replace(/<[^>]+>/g, '')
+                            .replace(/[^\w\u00c0-\u024f\u4e00-\u9fff-]+/g, '-')
+                            .replace(/-+/g, '-')
+                            .replace(/^-|-$/g, '');
+                        return s || 'section';
+                    }
+                    contentEl.querySelectorAll('h2, h3').forEach(function (h) {
+                        var base = slugify(h.textContent);
+                        var id = base;
+                        var n = 2;
+                        while (used[id]) {
+                            id = base + '-' + n++;
+                        }
+                        used[id] = true;
+                        h.id = id;
+                    });
+                    statusEl.hidden = true;
+                    contentEl.hidden = false;
+                    var hash = window.location.hash;
+                    if (hash && hash.length > 1) {
+                        var target = document.getElementById(decodeURIComponent(hash.slice(1)));
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'auto', block: 'start' });
+                        }
+                    }
+                })
+                .catch(function (e) {
+                    fail(e.message || 'Something went wrong.');
+                });
+        })();
+    </script>
+</body>
+</html>

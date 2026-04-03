@@ -1,0 +1,24 @@
+{
+  "articles": [
+    {
+      "file": "bitcoin_demographics_breakdown.md",
+      "title": "Bitcoin Appeal By Demographics"
+    },
+    {
+      "file": "bitcoin_governance.md",
+      "title": "Who Controls Bitcoin"
+    },
+    {
+      "file": "bitcoin_governance_argument_map.md",
+      "title": "Bitcoin Governance: Argument Map"
+    },
+    {
+      "file": "bitcoin_social_capture.md",
+      "title": "The Social Layer Is the Attack Surface"
+    },
+    {
+      "file": "the_last_uncaptured_asset.md",
+      "title": "The Last Uncaptured Asset"
+    }
+  ]
+}

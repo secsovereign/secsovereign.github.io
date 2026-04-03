@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecureSovereign - Bitcoin Security Specialist</title>
+    <title>SecureSovereign — Bitcoin Consensus & Security</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -64,7 +64,10 @@
             height: 120px;
             border-radius: 50%;
             border: 3px solid var(--primary);
-            background-color: var(--light-gray); /* Placeholder background */
+            background-color: var(--light-gray);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
         }
 
         h1 {
@@ -91,9 +94,23 @@
             color: var(--primary);
             text-decoration: none;
             font-size: 24px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
+            line-height: 1;
+        }
+
+        /* Body uses Courier; keep Font Awesome’s icon fonts (exclude .fa-twitter — custom 𝕏 glyph) */
+        .social-links .fab:not(.fa-twitter) {
+            font-family: "Font Awesome 6 Brands", sans-serif;
+            font-weight: 400;
+            line-height: 1;
+        }
+
+        .social-links .fa-solid {
+            font-family: "Font Awesome 6 Free", sans-serif;
+            font-weight: 900;
+            line-height: 1;
         }
 
         /* Section Styles */
@@ -211,17 +228,6 @@
             color: var(--accent);
         }
 
-        /* Button Styles */
-        .btn-primary {
-            background-color: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .btn-primary:hover {
-            background-color: #0077cc;
-            border-color: #0077cc;
-        }
-
         /* Media Queries */
         @media (max-width: 600px) {
             .profile-section {
@@ -239,11 +245,11 @@
     <div class="container">
         <header>
             <div class="profile-section">
-                <div class="profile-image" style="background-image:url('https://avatars.githubusercontent.com/u/184555205?s=400&u=8143175c14f11d40c1bf9f63629ff032941247dc&v=4'); background-size: contain"></div>
+                <div class="profile-image" style="background-image: url('https://avatars.githubusercontent.com/u/184555205?s=400&u=8143175c14f11d40c1bf9f63629ff032941247dc&v=4');"></div>
                 <div style="text-align: center;">
                     <h1>Josh</h1>
                     <h2 style="margin-top: 5px; margin-bottom: 15px; font-size: 1.3rem; color: var(--accent);">"Secure Sovereign"</h2>
-                    <h2>Bitcoin Security Specialist & Full-Stack Developer</h2>
+                    <h2>Bitcoin Builder & Governance Researcher | Certified Bitcoin Professional (CBP)</h2>
                     <div class="social-links">
                         <a href="https://github.com/secsovereign" target="_blank" title="GitHub">
                             <i class="fab fa-github"></i>
@@ -253,9 +259,6 @@
                         </a>
                         <a href="https://t.me/secsovereign" target="_blank" title="Telegram">
                             <i class="fab fa-telegram"></i>
-                        </a>
-                        <a href="https://calendly.com/secsovereign" target="_blank" title="Calendar">
-                            <i class="far fa-calendar-alt"></i>
                         </a>
                         <a href="https://strike.me/secsovereign" target="_blank" title="Send a Tip">
                             <i class="fa-solid fa-hand-holding-heart"></i>
@@ -267,35 +270,32 @@
 
         <section>
             <h2>// About</h2>
-            <p>IT professional specializing in Bitcoin security, self-custody solutions, and full-stack development. Holding Bitcoin since 2010 and experienced in implementing secure Bitcoin storage solutions. Available for consultations at Strategy₿ Hub.</p>
+            <p>Bitcoin holder since 2010. Founder of The Bitcoin Commons, a ground-up alternative Bitcoin node implementation written in Rust, built from a formal mathematical specification. Author of <a href="https://github.com/secsovereign/bitcoin-governance-research" target="_blank" rel="noopener noreferrer">quantitative Bitcoin governance research</a> and <a href="article.html?doc=bitcoin_demographics_breakdown.md">demographic analysis</a>. Based at <a href="https://strategy.com/hub" target="_blank" rel="noopener noreferrer">Strategy₿ Hub</a> in Tysons Corner, Virginia.</p>
         </section>
 
         <div class="two-column">
             <section class="column">
                 <h2>// Expertise</h2>
                 <ul>
-                    <li>Full-Stack Web Development</li>
+                    <li>Bitcoin Consensus Engineering</li>
+                    <li>Formal Consensus Specification and Verification</li>
+                    <li>Bitcoin Governance Research</li>
                     <li>Bitcoin Security & Self-Custody</li>
-                    <li>Project Management</li>
-                    <li>Technical Strategy & Implementation</li>
-                </ul>
-            </section>
-
-            <section class="column">
-                <h2>// Credentials</h2>
-                <ul>
-                    <li>Certified Bitcoin Professional (CBP)</li>
-                    <!--<li>CompTIA Security+</li>-->
-                    <!--<li>ISACA Cybersecurity Fundamentals</li>-->
-                    <li>Computer Science Degree</li>
                 </ul>
             </section>
         </div>
 
         <section>
-            <h2>// Investment Disclosures</h2>
-            <p>For transparency, I disclose the following investments:</p>
+            <h2>// Disclosures</h2>
+            <p>For transparency, I disclose the following affiliations and holdings:</p>
             <div class="cards">
+                <div class="custom-card card-half">
+                    <div class="card-icon blue-bg">TBC</div>
+                    <div class="card-content">
+                        <p class="card-title"><a href="https://thebitcoincommons.org">Bitcoin Commons / BLVM</a></p>
+                        <p class="card-subtitle">Bitcoin Node</p>
+                    </div>
+                </div>
                 <div class="custom-card card-half">
                     <div class="card-icon blue-bg">BV</div>
                     <div class="card-content">
@@ -321,18 +321,22 @@
         </section>
 
         <section>
-            <h2>// Projects</h2>
+            <h2>// Writing</h2>
             <div class="project-card">
-                <a href="https://github.com/secsovereign/secsovereign.github.io/blob/main/bitcoin_demographics_breakdown.md">Bitcoin Appeal By Demographics</a>
+                <a href="article.html?doc=bitcoin_demographics_breakdown.md">Bitcoin Appeal By Demographics</a>
             </div>
-        </section>
-
-        <section>
-            <h2>// Schedule a Meeting</h2>
-            <p>I'm available for consultations at Strategy₿ Hub. Use the calendar link below to schedule a meeting:</p>
-            <a href="https://calendly.com/secsovereign" target="_blank" class="btn btn-primary">
-                <i class="far fa-calendar-alt me-2"></i> Schedule Appointment
-            </a>
+            <div class="project-card">
+                <a href="article.html?doc=bitcoin_governance.md">Who Controls Bitcoin</a>
+            </div>
+            <div class="project-card">
+                <a href="article.html?doc=bitcoin_governance_argument_map.md">Bitcoin Governance: Argument Map</a>
+            </div>
+            <div class="project-card">
+                <a href="article.html?doc=bitcoin_social_capture.md">The Social Layer Is the Attack Surface</a>
+            </div>
+            <div class="project-card">
+                <a href="article.html?doc=the_last_uncaptured_asset.md">The Last Uncaptured Asset</a>
+            </div>
         </section>
     </div>
 
