@@ -44,6 +44,21 @@
 <h2 id="ii-taxonomy-of-channels-by-cost">II. Taxonomy of Channels by Cost</h2>
 <p>Arbitrary data reaches the chain through channels that differ enormously in cost. Whether consensus can close a channel depends on that cost. The per-vbyte fee is only part of the picture. There is also the risk of building a business on a channel that node operators may come to treat as hostile, filter, or route around. Rollup and other L2 projects posting data availability to Bitcoin's base layer are the clearest current example. The bytes may clear at prevailing fee rates, but the business depends on a channel operators may refuse to treat as ordinary Bitcoin use.</p>
 <p>That second risk does not show up in any fee calculation. It works like a deprecated dependency in a software project: not a hard blocker today, but a liability any serious builder has to price in. The taxonomy below tracks technical cost only. Fee math alone will not tell you what gets built when the politics turn against a channel.</p>
+<figure class="article-chart chart-flowchart" role="img" aria-label="Channel cost ladder from free to dedicated embedding channels">
+<div class="flowchart-ladder" aria-hidden="true">
+  <span class="flow-node">Free</span>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <span class="flow-node">Near-free</span>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <span class="flow-node">Expensive</span>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <span class="flow-node">Unenforced</span>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <span class="flow-node">Dedicated</span>
+</div>
+</figure>
+
+<p><em>Figure: Channel cost ladder. Embedding cost rises toward dedicated fields; consensus can close the top tiers without touching monetary fields.</em></p>
 <p><strong>Free channels</strong> cost nothing beyond the ordinary fee of sending a transaction.</p>
 <p>The first is any field that holds a hash of something rather than the thing itself: a P2PKH or P2WPKH destination, an HTLC preimage commitment, a P2SH or P2WSH script hash. A hash reveals nothing about its preimage by design. A fake 20 or 32 byte string chosen at random looks the same as the hash of a real spending condition. This is documented as Pay-to-Fake-Key and Pay-to-Fake-Multisig in the academic literature. It predates OP_RETURN as the dominant method of data insertion. The 2010 WikiLeaks Cablegate dump was spread across the chain this way.</p>
 <p>A more refined version, called Inviscription, generalizes the same idea. Ciphertext is chunked and disguised as ordinary-looking hash locks, multisig pubkey slots, or CLTV timestamp values. A later transaction can carry the decryption key, or the plaintext may never appear on-chain at all.</p>
@@ -58,6 +73,22 @@
 <p>The Taproot annex is a witness stack element reserved for future use and excluded from the signature hash by design. It sits in the same category, present in a transaction's witness with essentially no constraint on its contents today. Both unenforced categories are far less constrained than the free channels above, not because forging them is cheap, but because nothing currently checks them at all.</p>
 <p><strong>Dedicated channels</strong> are fields built to carry no monetary function, or general-purpose script space that happens to hold large uninterpreted data.</p>
 <p>OP_RETURN is the clearest example: an output whose entire purpose is a return value with no spending condition. The Taproot envelope pattern pushes data inside an OP_FALSE OP_IF branch that never executes. That is the script-level equivalent. SegWit's four-to-one witness discount and Taproot's removal of the old 10,000 byte tapscript ceiling made it viable.</p>
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Channel</th><th>Embedding cost</th><th>Closable at consensus?</th><th>Cost to close</th></tr>
+</thead>
+<tbody>
+<tr class="close-yes"><td>Dedicated</td><td>Fee-paid, large payloads</td><td>Yes</td><td>None for monetary function</td></tr>
+<tr class="close-yes"><td>Unenforced</td><td>Low; no validation yet</td><td>Yes</td><td>Narrow upgrade hooks</td></tr>
+<tr class="close-partial"><td>Expensive</td><td>Exponential with chosen bits</td><td>No</td><td>Cost is the only limit</td></tr>
+<tr class="close-partial"><td>Near-free</td><td>~2 trial attempts</td><td>Partial</td><td>Filters are ineffective</td></tr>
+<tr class="close-no"><td>Free</td><td>None beyond tx fee</td><td>No</td><td>Sacrifices privacy, precision, or auditability</td></tr>
+</tbody>
+</table>
+<figcaption>Closability matrix by channel type</figcaption>
+</figure>
+
 <h2 id="iii-what-consensus-can-actually-close">III. What Consensus Can Actually Close</h2>
 <p>The dedicated channels are the ones an unrestricted consensus authority can close outright, because nothing about their function needs preserving. The unenforced channels are close behind, closable not because the data they carry is expensive to produce, but because the validation gap that leaves them open is itself a temporary design choice rather than a permanent structural necessity.</p>
 <p>Moving OP_RETURN from policy to consensus, with a small hard byte cap enforced as a block validity rule, closes the largest and cheapest channel immediately and binds every participant. Policy limits bind only the operators who choose to run them.</p>
@@ -65,6 +96,23 @@
 <p>The unenforced channels close by narrowing the upgrade hooks that leave them open, not removing them permanently. Restricting spends to currently-defined witness versions closes the OP_SUCCESS gap while leaving room for future soft forks to define new versions when needed. The annex can be disallowed outright or capped like any other witness field. A bounded control block size limit closes a related gap: an oversized control block lets a spender claim an implausibly deep Taproot Merkle path and hide bytes disguised as path-proof data.</p>
 <p>A dynamic minimum output value, tied to the prevailing fee rate and enforced at consensus, raises the cost of creating large numbers of low-value outputs. That matters for the UTXO set even when the bytes inside each output are nearly free to embed, because it prices output count, not just output content.</p>
 <p>None of these changes have to do the whole job alone. Sustained demand for block space raises the baseline fee rate everyone competes against, and every consensus change above bites harder as that baseline rises. The consensus changes set the ceiling. A healthy fee market pushes the floor up underneath.</p>
+<figure class="article-chart chart-flowchart" role="img" aria-label="Consensus-closable channels versus the irreducible embedding floor">
+<div class="flowchart-layers" aria-hidden="true">
+  <div class="flowchart-row">
+    <span class="flow-node">Closable at consensus</span>
+    <span class="flow-arrow" aria-hidden="true">→</span>
+    <span class="flow-node">Raises ceiling</span>
+  </div>
+  <p class="flow-link">fee market</p>
+  <div class="flowchart-row">
+    <span class="flow-node">Irreducible floor</span>
+    <span class="flow-arrow" aria-hidden="true">→</span>
+    <span class="flow-node">Grinding limit</span>
+  </div>
+</div>
+</figure>
+
+<p><em>Figure: Two layers. Section III closes OP_RETURN, envelope, annex, control block, and min-output channels; Section IV fields (hashes, amounts, sequence, locktime, ordering) are structural requirements, not oversights.</em></p>
 <h2 id="iv-why-the-free-channels-resist-closure">IV. Why the Free Channels Resist Closure</h2>
 <p>Every attempt to close the free and near-free channels either fails to raise cost meaningfully or succeeds only by removing something Bitcoin needs for reasons unrelated to spam.</p>
 <p><strong>Curve-membership checks on pubkey fields</strong> sound like they should close the fake pubkey channel. They do not. Near-free grinding means a validity requirement filters out almost nothing. The attacker just tries the next candidate string.</p>

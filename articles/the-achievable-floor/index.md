@@ -33,6 +33,22 @@ Arbitrary data reaches the chain through channels that differ enormously in cost
 
 That second risk does not show up in any fee calculation. It works like a deprecated dependency in a software project: not a hard blocker today, but a liability any serious builder has to price in. The taxonomy below tracks technical cost only. Fee math alone will not tell you what gets built when the politics turn against a channel.
 
+<figure class="article-chart chart-flowchart" role="img" aria-label="Channel cost ladder from free to dedicated embedding channels">
+<div class="flowchart-ladder" aria-hidden="true">
+  <span class="flow-node">Free</span>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <span class="flow-node">Near-free</span>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <span class="flow-node">Expensive</span>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <span class="flow-node">Unenforced</span>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <span class="flow-node">Dedicated</span>
+</div>
+</figure>
+
+*Figure: Channel cost ladder. Embedding cost rises toward dedicated fields; consensus can close the top tiers without touching monetary fields.*
+
 **Free channels** cost nothing beyond the ordinary fee of sending a transaction.
 
 The first is any field that holds a hash of something rather than the thing itself: a P2PKH or P2WPKH destination, an HTLC preimage commitment, a P2SH or P2WSH script hash. A hash reveals nothing about its preimage by design. A fake 20 or 32 byte string chosen at random looks the same as the hash of a real spending condition. This is documented as Pay-to-Fake-Key and Pay-to-Fake-Multisig in the academic literature. It predates OP_RETURN as the dominant method of data insertion. The 2010 WikiLeaks Cablegate dump was spread across the chain this way.
@@ -61,6 +77,22 @@ The Taproot annex is a witness stack element reserved for future use and exclude
 
 OP_RETURN is the clearest example: an output whose entire purpose is a return value with no spending condition. The Taproot envelope pattern pushes data inside an OP_FALSE OP_IF branch that never executes. That is the script-level equivalent. SegWit's four-to-one witness discount and Taproot's removal of the old 10,000 byte tapscript ceiling made it viable.
 
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Channel</th><th>Embedding cost</th><th>Closable at consensus?</th><th>Cost to close</th></tr>
+</thead>
+<tbody>
+<tr class="close-yes"><td>Dedicated</td><td>Fee-paid, large payloads</td><td>Yes</td><td>None for monetary function</td></tr>
+<tr class="close-yes"><td>Unenforced</td><td>Low; no validation yet</td><td>Yes</td><td>Narrow upgrade hooks</td></tr>
+<tr class="close-partial"><td>Expensive</td><td>Exponential with chosen bits</td><td>No</td><td>Cost is the only limit</td></tr>
+<tr class="close-partial"><td>Near-free</td><td>~2 trial attempts</td><td>Partial</td><td>Filters are ineffective</td></tr>
+<tr class="close-no"><td>Free</td><td>None beyond tx fee</td><td>No</td><td>Sacrifices privacy, precision, or auditability</td></tr>
+</tbody>
+</table>
+<figcaption>Closability matrix by channel type</figcaption>
+</figure>
+
 ## III. What Consensus Can Actually Close
 
 The dedicated channels are the ones an unrestricted consensus authority can close outright, because nothing about their function needs preserving. The unenforced channels are close behind, closable not because the data they carry is expensive to produce, but because the validation gap that leaves them open is itself a temporary design choice rather than a permanent structural necessity.
@@ -74,6 +106,24 @@ The unenforced channels close by narrowing the upgrade hooks that leave them ope
 A dynamic minimum output value, tied to the prevailing fee rate and enforced at consensus, raises the cost of creating large numbers of low-value outputs. That matters for the UTXO set even when the bytes inside each output are nearly free to embed, because it prices output count, not just output content.
 
 None of these changes have to do the whole job alone. Sustained demand for block space raises the baseline fee rate everyone competes against, and every consensus change above bites harder as that baseline rises. The consensus changes set the ceiling. A healthy fee market pushes the floor up underneath.
+
+<figure class="article-chart chart-flowchart" role="img" aria-label="Consensus-closable channels versus the irreducible embedding floor">
+<div class="flowchart-layers" aria-hidden="true">
+  <div class="flowchart-row">
+    <span class="flow-node">Closable at consensus</span>
+    <span class="flow-arrow" aria-hidden="true">→</span>
+    <span class="flow-node">Raises ceiling</span>
+  </div>
+  <p class="flow-link">fee market</p>
+  <div class="flowchart-row">
+    <span class="flow-node">Irreducible floor</span>
+    <span class="flow-arrow" aria-hidden="true">→</span>
+    <span class="flow-node">Grinding limit</span>
+  </div>
+</div>
+</figure>
+
+*Figure: Two layers. Section III closes OP_RETURN, envelope, annex, control block, and min-output channels; Section IV fields (hashes, amounts, sequence, locktime, ordering) are structural requirements, not oversights.*
 
 ## IV. Why the Free Channels Resist Closure
 

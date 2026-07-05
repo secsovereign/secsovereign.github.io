@@ -1,32 +1,26 @@
 {
   "articles": [
     {
-      "file": "bitcoin_demographics_breakdown.md",
       "slug": "bitcoin-demographics-breakdown",
       "title": "Bitcoin Appeal By Demographics"
     },
     {
-      "file": "bitcoin_governance.md",
       "slug": "bitcoin-governance",
       "title": "Who Controls Bitcoin"
     },
     {
-      "file": "bitcoin_governance_argument_map.md",
       "slug": "bitcoin-governance-argument-map",
       "title": "Bitcoin Governance: Argument Map"
     },
     {
-      "file": "bitcoin_social_capture.md",
       "slug": "bitcoin-social-capture",
       "title": "The Social Layer Is the Attack Surface"
     },
     {
-      "file": "the_last_uncaptured_asset.md",
       "slug": "the-last-uncaptured-asset",
       "title": "The Last Uncaptured Asset"
     },
     {
-      "file": "the_achievable_floor.md",
       "slug": "the-achievable-floor",
       "title": "The Achievable Floor"
     }

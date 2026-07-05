@@ -47,6 +47,26 @@ The informal merge authority structure means there is no formal process, no publ
 
 The same research finds extreme merge concentration (Gini on PR-weighted activity ~0.851), high contributor churn (many participants with minimal sustained engagement), near-total voting-bloc cohesion among top reviewers in the dataset, and a pattern of governance paralysis on major protocol improvements that would have reduced dependence on the current institutional infrastructure.
 
+```mermaid
+xychart-beta
+    title "Merge share (Bitcoin Core)"
+    x-axis ["Top 3 mergers", "Everyone else"]
+    y-axis "Merges %" 0 --> 100
+    bar [81, 19]
+```
+
+*Figure: Merge concentration from [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research). PR-weighted contribution Gini ~0.851.*
+
+```mermaid
+xychart-beta
+    title "L1 protocol dev funding (2023)"
+    x-axis ["Bitcoin Core-oriented", "Ethereum L1 core"]
+    y-axis "USD millions" 0 --> 35
+    bar [8.4, 32]
+```
+
+*Figure: Protocol-layer grants, not total ecosystem spend. Bitcoin ~$2T market cap vs Ethereum's smaller cap at the time makes the funding gap starker on a ratio basis.*
+
 > The oligarchic structure is not a theoretical concern. It is documented across sixteen years of governance data. Reality overrides theory.
 
 ---

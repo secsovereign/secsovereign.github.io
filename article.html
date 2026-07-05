@@ -31,10 +31,12 @@
             }
 
             function fileToSlug(file) {
-                return file.replace(/\.md$/, '').replace(/_/g, '-');
+                var base = file.replace(/\.md$/, '');
+                if (base === 'index') return null;
+                return base.replace(/_/g, '-');
             }
 
-            if (!doc || !/^[a-zA-Z0-9][a-zA-Z0-9._-]*\.md$/.test(doc)) {
+            if (!doc || !/^[a-zA-Z0-9][a-zA-Z0-9._/-]*\.md$/.test(doc)) {
                 fail('Missing or invalid article. Open an article from the home page.');
                 return;
             }
@@ -46,7 +48,10 @@
                 })
                 .then(function (manifest) {
                     var list = manifest.articles || [];
-                    var entry = list.find(function (a) { return a.file === doc; });
+                    var slugFromDoc = fileToSlug(doc.split('/').pop());
+                    var entry = list.find(function (a) {
+                        return a.file === doc || (slugFromDoc && a.slug === slugFromDoc);
+                    });
                     if (!entry) {
                         throw new Error('Unknown article.');
                     }

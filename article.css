@@ -11,6 +11,7 @@
 body {
     background-color: var(--background);
     color: var(--secondary);
+    color-scheme: dark;
     line-height: 1.65;
     padding: 20px;
     min-height: 100vh;
@@ -157,5 +158,118 @@ body {
 }
 
 #status.error {
+    color: var(--accent);
+}
+
+.article-chart {
+    margin: 1.25rem auto;
+    padding: 0.55rem 0.75rem;
+    background: var(--light-gray);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.article-chart.chart-flowchart {
+    max-width: 520px;
+}
+
+.flowchart-ladder,
+.flowchart-layers .flowchart-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem 0.25rem;
+}
+
+.flowchart-layers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.flow-node {
+    display: inline-block;
+    padding: 0.32rem 0.55rem;
+    background: var(--background);
+    border: 1px solid var(--primary);
+    border-radius: 4px;
+    color: var(--secondary);
+    font-size: 0.75rem;
+    line-height: 1.25;
+}
+
+.flow-arrow {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.flow-link {
+    margin: 0;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.article-chart .chart-svg {
+    display: flex;
+    justify-content: center;
+}
+
+.article-chart .chart-svg svg.mermaid-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.article-chart.chart-xychart .chart-svg svg.mermaid-svg {
+    max-width: 420px;
+    max-height: 220px;
+}
+
+.article-chart.chart-xychart .chart-svg svg.mermaid-svg text,
+.article-chart.chart-xychart .chart-svg svg.mermaid-svg .label text,
+.article-chart.chart-xychart .chart-svg svg.mermaid-svg .nodeLabel {
+    fill: var(--secondary);
+}
+
+.article-chart figcaption {
+    margin-top: 0.75rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.article-chart table.chart-matrix {
+    margin: 0;
+    font-size: 0.88rem;
+}
+
+.article-chart table.chart-matrix th {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.article-chart table.chart-matrix td:first-child {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.article-chart table.chart-matrix tr.close-yes td:last-child {
+    color: #5dca8a;
+}
+
+.article-chart table.chart-matrix tr.close-partial td:last-child {
+    color: #e8b84a;
+}
+
+.article-chart table.chart-matrix tr.close-no td:last-child {
     color: var(--accent);
 }
