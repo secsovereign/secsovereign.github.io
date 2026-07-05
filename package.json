@@ -1,0 +1,11 @@
+{
+  "name": "secsov.com",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-articles.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "marked": "^15.0.6"
+  }
+}
