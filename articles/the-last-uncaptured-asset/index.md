@@ -37,6 +37,32 @@ Taxation runs into the one thing that capital does better than almost anything e
 
 These three exits are not offered in good faith. They are offered because a government that acknowledges no exit exists cannot sustain the legitimacy it needs to continue operating. The performance of trying the conventional options buys time and political cover while the actual resolution proceeds through other mechanisms entirely.
 
+<figure class="article-chart chart-flowchart chart-exits">
+<div class="chart-heading">Public exits vs actual resolution</div>
+<div class="exits-compare" role="img" aria-label="Governments publicly offer growth, austerity, and taxation while debt resolves through inflation, financial repression, and seizure">
+<div class="exits-col exits-theater">
+<div class="exits-label">Offered publicly</div>
+<div class="flowchart-row">
+<span class="flow-node flow-node-muted">Growth</span>
+<span class="flow-node flow-node-muted">Austerity</span>
+<span class="flow-node flow-node-muted">Taxation</span>
+</div>
+</div>
+<p class="exits-bridge">while debt resolves via</p>
+<div class="exits-col exits-actual">
+<div class="exits-label">Actual playbook</div>
+<div class="flowchart-row">
+<span class="flow-node">Inflation</span>
+<span class="flow-arrow" aria-hidden="true">→</span>
+<span class="flow-node">Repression</span>
+<span class="flow-arrow" aria-hidden="true">→</span>
+<span class="flow-node">Seizure</span>
+</div>
+</div>
+</div>
+<figcaption>Political theater buys time. The mechanisms in §III deploy in combination, usually while one of the public exits is still being debated.</figcaption>
+</figure>
+
 ---
 
 ## III. The Historical Playbook

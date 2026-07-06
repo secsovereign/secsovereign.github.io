@@ -276,6 +276,23 @@
 
 *These arguments address the claim that Knots provides meaningful competition to Core.*
 
+<figure class="article-chart chart-stackbar">
+<div class="chart-heading">Reachable node client share (approx.)</div>
+<div class="stackbar" role="img" aria-label="Bitcoin Core about 77 percent of reachable nodes, Knots about 22.5 percent">
+<span class="stack-seg stack-major" style="width:77%">Core 77%</span>
+<span class="stack-seg stack-knots" style="width:22.5%">Knots 22.5%</span>
+</div>
+<div class="stackbar-legend">
+<span><strong style="color:var(--primary)">■</strong> Bitcoin Core</span>
+<span><strong style="color:#5a7a8a">■</strong> Knots (≈95% Core codebase)</span>
+</div>
+<dl class="chart-stats">
+<div><dt>Effective Core lineage</dt><dd>~98%+ of menu</dd></div>
+<div><dt>Knots policy fork</dt><dd>margins only</dd></div>
+</dl>
+<figcaption>Public node crawl snapshots vary by methodology. Knots inherits Core architecture; the two shares do not represent independent implementations.</figcaption>
+</figure>
+
 88. **One kitchen is preparing 98%+ of the menu.** Core runs on roughly 77% of nodes directly. Knots runs on roughly 22.5%. Knots is 95% Core's codebase. That means one kitchen is preparing 98%+ of the menu, because the only other kitchen is using 95% the same recipes. Nobody is forcing you to eat anything. But if one kitchen is preparing every dish on every menu in every restaurant in town, that kitchen is governing what you eat whether they hold a gun to your head or not.
 
 89. **Knots is the counterargument to Core's dominance. Knots is 95% Core. That is not a counterargument.** Knots is a fork of Core. It inherits Core's architecture, Core's codebase, and Core's technical debt. The only people who can maintain it are people who understand Core deeply enough to track its changes and merge them selectively. If Core ships a bug, Knots inherits it. If Core's architecture makes something impossible, Knots cannot do it either. That is not a free market in implementations. That is one implementation with a small permission slip to disagree on policy at the margins.

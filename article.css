@@ -174,6 +174,241 @@ body {
     max-width: 520px;
 }
 
+.chart-heading {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 0.45rem;
+    text-align: center;
+}
+
+.stackbar {
+    display: flex;
+    height: 2rem;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.stack-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.2rem;
+}
+
+.stack-major {
+    background: var(--primary);
+    color: #121212;
+}
+
+.stack-minor {
+    background: var(--border);
+    color: var(--text-muted);
+}
+
+.stack-knots {
+    background: #3a5a6a;
+    color: var(--secondary);
+}
+
+.fund-network {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.net-tier {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem 0.5rem;
+    width: 100%;
+}
+
+.net-tier-bridge {
+    padding: 0.1rem 0;
+}
+
+.net-tier-target {
+    margin-top: 0.15rem;
+}
+
+.net-node {
+    display: inline-block;
+    padding: 0.32rem 0.55rem;
+    background: var(--background);
+    border: 1px solid var(--primary);
+    border-radius: 4px;
+    color: var(--secondary);
+    font-size: 0.75rem;
+    line-height: 1.25;
+    text-align: center;
+}
+
+.net-node-target {
+    border-color: var(--accent);
+    font-weight: 600;
+}
+
+.net-conn {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.net-bridge {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+}
+
+.net-tag {
+    display: block;
+    font-size: 0.62rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: 0.1rem;
+}
+
+.article-chart.chart-network {
+    max-width: 480px;
+}
+
+.exits-compare {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.exits-col {
+    width: 100%;
+    text-align: center;
+}
+
+.exits-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.35rem;
+}
+
+.exits-bridge {
+    margin: 0;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.flow-node-muted {
+    border-color: var(--border);
+    color: var(--text-muted);
+    border-style: dashed;
+}
+
+.article-chart.chart-exits {
+    max-width: 520px;
+}
+
+.article-chart.chart-exits .flowchart-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem 0.25rem;
+}
+
+.stackbar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.25rem;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.chart-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.25rem;
+    margin: 0.65rem 0 0;
+    font-size: 0.78rem;
+}
+
+.chart-stats div {
+    display: flex;
+    gap: 0.35rem;
+}
+
+.chart-stats dt {
+    color: var(--text-muted);
+    font-weight: normal;
+}
+
+.chart-stats dd {
+    margin: 0;
+    color: var(--secondary);
+    font-weight: 600;
+}
+
+.intensity-row {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.45rem;
+}
+
+.intensity-name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.intensity-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+}
+
+.intensity-track {
+    flex: 1;
+    background: var(--background);
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    height: 1.5rem;
+    overflow: hidden;
+}
+
+.intensity-fill {
+    display: block;
+    height: 100%;
+    min-width: 2px;
+    background: var(--primary);
+}
+
+.intensity-value {
+    font-size: 0.75rem;
+    color: var(--secondary);
+    white-space: nowrap;
+    min-width: 3.25rem;
+    text-align: right;
+}
+
 .flowchart-ladder,
 .flowchart-layers .flowchart-row {
     display: flex;
@@ -272,4 +507,24 @@ body {
 
 .article-chart table.chart-matrix tr.close-no td:last-child {
     color: var(--accent);
+}
+
+@media (max-width: 600px) {
+    .article-chart table.chart-matrix {
+        font-size: 0.78rem;
+    }
+
+    .article-chart table.chart-matrix th,
+    .article-chart table.chart-matrix td {
+        padding: 0.4rem 0.5rem;
+    }
+
+    .intensity-row {
+        grid-template-columns: 4.75rem 1fr;
+    }
+
+    .net-node {
+        font-size: 0.7rem;
+        padding: 0.28rem 0.45rem;
+    }
 }

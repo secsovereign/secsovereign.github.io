@@ -47,25 +47,41 @@ The informal merge authority structure means there is no formal process, no publ
 
 The same research finds extreme merge concentration (Gini on PR-weighted activity ~0.851), high contributor churn (many participants with minimal sustained engagement), near-total voting-bloc cohesion among top reviewers in the dataset, and a pattern of governance paralysis on major protocol improvements that would have reduced dependence on the current institutional infrastructure.
 
-```mermaid
-xychart-beta
-    title "Merge share (Bitcoin Core)"
-    x-axis ["Top 3 mergers", "Everyone else"]
-    y-axis "Merges %" 0 --> 100
-    bar [81, 19]
-```
+<figure class="article-chart chart-stackbar">
+<div class="chart-heading">Historical merge share (Bitcoin Core, full-history rollup)</div>
+<div class="stackbar" role="img" aria-label="Top three merger roles accounted for 81 percent of merges; all other contributors 19 percent">
+<span class="stack-seg stack-major" style="width:81%">81%</span>
+<span class="stack-seg stack-minor" style="width:19%">19%</span>
+</div>
+<div class="stackbar-legend">
+<span><strong style="color:var(--primary)">■</strong> Top 3 merger roles</span>
+<span><strong style="color:var(--border)">■</strong> All other contributors</span>
+</div>
+<dl class="chart-stats">
+<div><dt>PR-weighted Gini</dt><dd>~0.851</dd></div>
+<div><dt>Merge holders today</dt><dd>5 on bitcoin/bitcoin</dd></div>
+</dl>
+<figcaption>Merge concentration from <a href="https://github.com/secsovereign/bitcoin-governance-research">Bitcoin Governance Research</a>. A handful of accounts land most code in the reference client.</figcaption>
+</figure>
 
-*Figure: Merge concentration from [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research). PR-weighted contribution Gini ~0.851.*
-
-```mermaid
-xychart-beta
-    title "L1 protocol dev funding (2023)"
-    x-axis ["Bitcoin Core-oriented", "Ethereum L1 core"]
-    y-axis "USD millions" 0 --> 35
-    bar [8.4, 32]
-```
-
-*Figure: Protocol-layer grants, not total ecosystem spend. Bitcoin ~$2T market cap vs Ethereum's smaller cap at the time makes the funding gap starker on a ratio basis.*
+<figure class="article-chart chart-intensity">
+<div class="chart-heading">L1 protocol funding per $1T native market cap (2023, approx.)</div>
+<div class="intensity-row">
+<span class="intensity-name">Bitcoin</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:2.9%"></span></div>
+<span class="intensity-value">$4.2M</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Ethereum</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
+<span class="intensity-value">~$145M</span>
+</div>
+</div>
+<figcaption>Protocol-layer grants only, not total ecosystem spend. Bitcoin ~$8.4M on ~$2T market cap; Ethereum ~$32M on ~$220B market cap. Raw dollar totals understate the gap because Bitcoin secures far more value.</figcaption>
+</figure>
 
 > The oligarchic structure is not a theoretical concern. It is documented across sixteen years of governance data. Reality overrides theory.
 
@@ -104,6 +120,33 @@ Launched in late 2024 with founding donors Mark Casey and Wences Casares and boa
 ---
 
 ## IV. The Personnel Revolving Door
+
+<figure class="article-chart chart-network">
+<div class="chart-heading">Institutional funding map (schematic)</div>
+<ul class="fund-network" aria-label="Funding institutions with overlapping personnel and grant paths to Bitcoin Core maintainers">
+<li class="net-tier">
+<span class="net-node">Chaincode</span>
+<span class="net-conn" aria-hidden="true">↔</span>
+<span class="net-node">Blockstream</span>
+</li>
+<li class="net-tier net-tier-bridge"><span class="net-bridge">shared founders · cross-employment</span></li>
+<li class="net-tier">
+<span class="net-node">Brink</span>
+<span class="net-conn" aria-hidden="true">·</span>
+<span class="net-node">OpenSats <span class="net-tag">~90% Dorsey</span></span>
+</li>
+<li class="net-tier net-tier-bridge"><span class="net-bridge">grants · fellowships · board overlap</span></li>
+<li class="net-tier">
+<span class="net-node">Spiral</span>
+<span class="net-conn" aria-hidden="true">·</span>
+<span class="net-node">Localhost</span>
+</li>
+<li class="net-tier net-tier-target">
+<span class="net-node net-node-target">Core maintainers · merge access</span>
+</li>
+</ul>
+<figcaption>Schematic, not exhaustive. Shows documented employment, grant, hosting, and donor concentration described in §III–IV.</figcaption>
+</figure>
 
 The pattern is not incidental. The people who fund Bitcoin Core development circulate through the same small set of institutions. Blockstream founders become Chaincode employees. Chaincode alumni found Brink. Brink's co-founder came from Blockstream. Brink's operations director came from Chaincode. **Current** merge holders map onto that same map (**Chaincode payroll, Localhost-style hosting, Spiral, Brink-funded paths**) in combinations that shift over time but **do not** dissolve the concentration. The governance research underlying these findings is published in [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research). The people deciding what ships in Bitcoin Core are employees and grantees of institutions whose founders and funders have direct financial interests in specific protocol directions.
 
