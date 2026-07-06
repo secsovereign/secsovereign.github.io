@@ -21,7 +21,7 @@ But pruning isn't a free discard, it's a trade. A pruned node has given up the a
 
 This distinction is where the argument usually goes wrong, because people talk as though refusing to relay something is the same as banning it, when it isn't. A transaction that pays enough fee will find a path onto the chain through some miner or some more permissive node regardless of what any individual operator's mempool policy says. Policy limits on dedicated data fields like OP_RETURN can be raised, lowered, or abandoned entirely by whoever runs the defaults, while proposals to enforce similar caps at consensus bind every participant or fail to activate. The gap between what policy discourages and what consensus permits has been the recurring fault line in every round of this debate.
 
-The debate is almost always fought as a political question: consensus capture, forking risk, whether a minority of node operators get to decide which use cases count as legitimate. That framing is real, but it sits on top of a harder technical question.
+The debate is almost always fought as a political question: consensus capture, forking risk, whether a minority of node operators get to decide which use cases count as legitimate. That framing is real, but it sits on top of a harder technical question. For the governance and adversarial context behind OP_RETURN, BIP-110, and data-embedding politics, see *[Who Controls Bitcoin, §V](/articles/bitcoin-governance/#v-the-adversarial-layer-when-conflicts-become-visible)* and *[Argument Map, Parts VI–VII](/articles/bitcoin-governance-argument-map/#part-vi-forced-participation)*.
 
 That question still matters even in a world where the political fight is over, where every participant agrees tomorrow to change consensus however a majority wants.
 
@@ -106,6 +106,25 @@ The unenforced channels close by narrowing the upgrade hooks that leave them ope
 A dynamic minimum output value, tied to the prevailing fee rate and enforced at consensus, raises the cost of creating large numbers of low-value outputs. That matters for the UTXO set even when the bytes inside each output are nearly free to embed, because it prices output count, not just output content.
 
 None of these changes have to do the whole job alone. Sustained demand for block space raises the baseline fee rate everyone competes against, and every consensus change above bites harder as that baseline rises. The consensus changes set the ceiling. A healthy fee market pushes the floor up underneath.
+
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Consensus measure</th><th>Channel closed</th><th>Independent soft fork?</th></tr>
+</thead>
+<tbody>
+<tr class="close-yes"><td>OP_RETURN hard byte cap</td><td>Dedicated (OP_RETURN outputs)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Taproot envelope push cap</td><td>Dedicated (OP_FALSE OP_IF branches)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Witness version restriction</td><td>Unenforced (OP_SUCCESS hooks)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Annex disallow or cap</td><td>Unenforced (Taproot annex)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Control block size cap</td><td>Unenforced (deep Merkle path hiding)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Dynamic minimum output value</td><td>Low-value UTXO spam (output count)</td><td>Yes</td></tr>
+<tr class="close-partial"><td>UTXO set commitments</td><td>Permanent storage burden (§V)</td><td>Parallel; not required for above</td></tr>
+<tr class="close-partial"><td>Selective sync (assumeUTXO-style)</td><td>Initial block download cost</td><td>After commitments live</td></tr>
+</tbody>
+</table>
+<figcaption>Section III closable measures. Free-channel fields (§IV) are not listed; they are structural, not oversights.</figcaption>
+</figure>
 
 <figure class="article-chart chart-flowchart" role="img" aria-label="Consensus-closable channels versus the irreducible embedding floor">
 <div class="flowchart-layers" aria-hidden="true">

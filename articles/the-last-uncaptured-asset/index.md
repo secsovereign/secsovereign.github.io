@@ -19,7 +19,7 @@
 
 Every government in history has faced the same structural temptation. Spending buys loyalty, wages wars, builds empires, and wins elections. Taxation is unpopular and has limits. The gap between what governments want to spend and what they can extract from their populations always widens over time, and the mechanism for filling that gap is always the same: borrow, defer, and let the next generation worry about it.
 
-This is not a modern pathology. The Roman Empire debased its currency across three centuries, shaving the silver content of the denarius from near purity down to a thin plating over bronze. The Spanish crown defaulted on its debts fourteen times between 1557 and 1696 despite controlling the most productive silver mines in the world. Revolutionary France issued assignats backed by confiscated church property and watched them collapse to worthlessness within five years. The British Empire financed two world wars through bond issuance, then spent much of the twentieth century in managed decline — liquidating assets to service debts its economy could no longer outgrow.
+This is not a modern pathology. The Roman Empire debased its currency across three centuries, shaving the silver content of the denarius from near purity down to a thin plating over bronze. The Spanish crown defaulted on its debts fourteen times between 1557 and 1696 despite controlling the most productive silver mines in the world. Revolutionary France issued assignats backed by confiscated church property and watched them collapse to worthlessness within five years. The British Empire financed two world wars through bond issuance, then spent much of the twentieth century in managed decline, liquidating assets to service debts its economy could no longer outgrow.
 
 The pattern is not coincidental. It is structural. Governments that can borrow will borrow. Debt that accumulates long enough becomes impossible to repay at face value. At that point the math forces a reckoning, and the reckoning always takes one of three forms.
 
@@ -77,6 +77,20 @@ Seizure is the bluntest instrument and the most honest. When inflation and repre
 
 The playbook runs in this order because each step is more politically costly than the last. Inflation is invisible until it isn't. Financial repression is bureaucratic and dull. Seizure is naked and remembered. But when the debt is large enough and the crisis acute enough, governments reach all the way to the end.
 
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Mechanism</th><th>How it works</th><th>Historical example</th><th>Political cost</th></tr>
+</thead>
+<tbody>
+<tr><td>Inflation</td><td>Repay nominal debt in debased currency</td><td>Weimar 1921–23; US WWII debt (1940s–50s)</td><td>Low until visible</td></tr>
+<tr><td>Financial repression</td><td>Force captive capital into sovereign debt at negative real rates</td><td>US 1945–early 1970s (debt/GDP &gt;100% → manageable)</td><td>Low (bureaucratic)</td></tr>
+<tr><td>Seizure</td><td>Direct transfer of assets at below-market price</td><td>EO 6102 (1933): gold at $20.67, revalued to $35</td><td>High (remembered)</td></tr>
+</tbody>
+</table>
+<figcaption>Actual debt-resolution playbook, usually deployed while public exits in §II are still debated.</figcaption>
+</figure>
+
 ---
 
 ## IV. Why Hard Assets Were Always the Refuge, and Always Failed
@@ -91,9 +105,24 @@ Roosevelt's confiscation order worked for the reasons the seizure playbook alrea
 
 Real estate is the other traditional hard asset. Land doesn't disappear. Productive property generates income. And yet governments can tax real property into effective confiscation through property taxes that exceed rental income. They can zone it, condemn it, nationalize it outright, or simply regulate its use until its economic value evaporates. Agricultural collectivization across the Soviet bloc in the late 1920s and 1930s transferred the productive value of farmland from private holders to the state through a combination of legal mandate and violence. It was the most comprehensive seizure of a hard asset class in modern history, and the holders had no recourse.
 
-Foreign accounts and foreign currency offered partial escape. Move assets into a jurisdiction with stronger rule of law, a harder currency, or less political instability. This works until the home government decides it doesn't. Capital controls have been imposed by dozens of governments in crisis, from Argentina's corralito in 2001 to Cyprus's bank deposit haircut in 2013 to Greece's ATM withdrawal limits in 2015. The SWIFT messaging system and correspondent banking relationships give the United States extraordinary leverage over cross-border asset movement — leverage used explicitly as a foreign policy tool and available for domestic use in a sufficiently severe fiscal crisis.
+Foreign accounts and foreign currency offered partial escape. Move assets into a jurisdiction with stronger rule of law, a harder currency, or less political instability. This works until the home government decides it doesn't. Capital controls have been imposed by dozens of governments in crisis, from Argentina's corralito in 2001 to Cyprus's bank deposit haircut in 2013 to Greece's ATM withdrawal limits in 2015. The SWIFT messaging system and correspondent banking relationships give the United States extraordinary leverage over cross-border asset movement, leverage used explicitly as a foreign policy tool and available for domestic use in a sufficiently severe fiscal crisis.
 
 Every hard asset, without exception, has a physical location or a jurisdictional address. That location or address is the attack surface. A sufficiently motivated government with adequate enforcement capacity can reach it.
+
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Asset</th><th>Attack surface</th><th>Historical example</th><th>Why refuge failed</th></tr>
+</thead>
+<tbody>
+<tr><td>Gold</td><td>Physical bulk; bank and safe-deposit records</td><td>EO 6102 (1933)</td><td>Detectable; unusable if hidden</td></tr>
+<tr><td>Real estate</td><td>Fixed jurisdiction; tax, zoning, condemnation</td><td>Soviet collectivization (1920s–30s)</td><td>Location is the title</td></tr>
+<tr><td>Foreign accounts / FX</td><td>Capital controls; correspondent banking; SWIFT</td><td>Argentina 2001; Cyprus 2013; Greece 2015</td><td>Cross-border rails are jurisdictional</td></tr>
+<tr><td>Bitcoin (theoretical)</td><td>No physical object; key is a number</td><td>n/a</td><td>Self-custody can avoid location; access layer reintroduces it (§VI–IX)</td></tr>
+</tbody>
+</table>
+<figcaption>Hard assets and seizure surfaces. Bitcoin's theoretical case rests on combining scarcity, jurisdictionlessness, and self-custody (§V).</figcaption>
+</figure>
 
 ---
 
@@ -121,7 +150,7 @@ Mining is the process by which transactions are confirmed and new blocks are add
 
 Software development is more concentrated still. Bitcoin Core, the dominant implementation of the Bitcoin protocol, is maintained by a small number of developers who are identifiable, located primarily in western jurisdictions, and reachable through ordinary legal process. The repository lives on GitHub, an American company subject to American law. The communication channels where development decisions are made are monitored and archived. There is no anonymity in the Bitcoin Core developer community worth speaking of.
 
-Node operators are the network's validators — the participants who enforce the rules and reject blocks that violate them. Running a node is the deepest form of participation in the network's consensus. But node operators are also individuals running software on hardware connected to the internet in physical locations. The jurisdictional reach problem applies to them as directly as it applies to miners.
+Node operators are the network's validators, the participants who enforce the rules and reject blocks that violate them. Running a node is the deepest form of participation in the network's consensus. But node operators are also individuals running software on hardware connected to the internet in physical locations. The jurisdictional reach problem applies to them as directly as it applies to miners.
 
 What this means is that Bitcoin's human layer has the properties of any other human institution: identifiable people in specific locations, with social relationships, financial dependencies, and legal exposure. The protocol's properties do not transfer automatically to the people who implement and maintain it.
 
@@ -129,9 +158,9 @@ What this means is that Bitcoin's human layer has the properties of any other hu
 
 ## VII. The Undefended Social Graph
 
-Bitcoin Core's governance, by design and by philosophy, is informal. There is no formal specification that defines what Bitcoin is. There is no governance structure with defined roles, decision rights, or accountability mechanisms. The authority to merge code into the dominant implementation rests with a small number of maintainers whose legitimacy derives from social consensus within a community whose membership and norms are themselves informally defined.
+Bitcoin Core's governance, by design and by philosophy, is informal. There is no formal specification that defines what Bitcoin is. There is no governance structure with defined roles, decision rights, or accountability mechanisms. The authority to merge code into the dominant implementation rests with a small number of maintainers whose legitimacy derives from social consensus within a community whose membership and norms are themselves informally defined. For the funding map, merge concentration, and documented adversarial cases, see *[Who Controls Bitcoin](/articles/bitcoin-governance/)*.
 
-This was intended to make the system resistant to capture by any single actor. Instead it created what might be called an undefended social graph: a network of trust relationships between identifiable people, with no threat modeling applied to those relationships, no awareness that the relationships themselves are an attack surface, no documentation trail that would make influence visible, and no protocols for detecting when someone in the network has been compromised or turned. The structural logic of why that graph is so easy to influence — and why cryptography was never the relevant battleground — is developed at length in *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture/)*.
+This was intended to make the system resistant to capture by any single actor. Instead it created what might be called an undefended social graph: a network of trust relationships between identifiable people, with no threat modeling applied to those relationships, no awareness that the relationships themselves are an attack surface, no documentation trail that would make influence visible, and no protocols for detecting when someone in the network has been compromised or turned. The structural logic of why that graph is so easy to influence (and why cryptography was never the relevant battleground) is developed at length in *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture/)*.
 
 Intelligence agencies and influence operations have been working social graphs for as long as intelligence agencies have existed. The Bitcoin developer community is an unusually legible, concentrated, and high-value target. The absence of formal governance doesn't make it harder to influence. It makes it easier, because there are no formal accountability structures to work around.
 
@@ -151,7 +180,7 @@ Roosevelt didn't melt the gold. He transferred it. The confiscation order of 193
 
 Applied to Bitcoin, the equivalent operation looks less like a cyberattack and more like a regulatory framework. Declare Bitcoin a strategic financial asset requiring registration. Mandate disclosure of all holdings above a threshold. Make unregistered holdings a criminal offense rather than merely an unregulated one. Use the existing surveillance apparatus to identify and prosecute high-profile non-compliant holders as examples. Offer a compliance window with favorable terms to encourage voluntary registration before enforcement begins.
 
-The Bitcoin industry has been building the infrastructure for this operation voluntarily, in exchange for legitimacy and growth. The mechanism is not a cyberattack. It is the access layer — detailed in the next section. These decisions were rational for the companies that made them. They are catastrophic for the system's seizure resistance properties in aggregate.
+The Bitcoin industry has been building the infrastructure for this operation voluntarily, in exchange for legitimacy and growth. The mechanism is not a cyberattack. It is the access layer, detailed in the next section. These decisions were rational for the companies that made them. They are catastrophic for the system's seizure resistance properties in aggregate.
 
 ---
 
@@ -179,7 +208,7 @@ Every asset that governments have eventually captured went through the same phas
 
 For gold, the window between the Federal Reserve Act of 1913 and Roosevelt's confiscation order of 1933 was twenty years. People who understood monetary history used those years to accumulate gold and move it beyond government reach. Most people didn't, because the scenario seemed extreme until the morning it happened.
 
-Bitcoin's window opened when its value registered as a fiscal resource worth capturing. It has been closing ever since — from the first regulated on-ramps and custodial products through the access-layer capture described above. The window is not yet closed. Self-custody works. Peer-to-peer transactions work. The parts of the protocol that matter are still intact.
+Bitcoin's window opened when its value registered as a fiscal resource worth capturing. It has been closing ever since, from the first regulated on-ramps and custodial products through the access-layer capture described above. The window is not yet closed. Self-custody works. Peer-to-peer transactions work. The parts of the protocol that matter are still intact.
 
 What would keep the window open is not primarily a technical question. The cryptography is not the vulnerability. What would keep it open is implementation diversity across jurisdictions, so that no single government can reach the entire developer community through ordinary legal process. It is formal specification of the consensus rules, so that the protocol's definition exists in mathematics rather than in the social consensus of a small group of identifiable people. It is node operation distributed widely enough that the enforcement cost of shutting down participation exceeds the political benefit of attempting it.
 

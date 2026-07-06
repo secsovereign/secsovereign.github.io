@@ -401,6 +401,67 @@ body {
     background: var(--primary);
 }
 
+.intensity-fill.intensity-alt {
+    background: #3a6a8a;
+}
+
+.intensity-fill.intensity-review {
+    background: var(--accent);
+}
+
+.stack-active {
+    background: #2a6a4a;
+    color: var(--secondary);
+}
+
+.article-chart.chart-gini {
+    max-width: 480px;
+}
+
+.compare-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+}
+
+.compare-col {
+    padding: 0.5rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--background);
+}
+
+.compare-open {
+    border-color: var(--primary);
+}
+
+.compare-gated {
+    border-color: var(--accent);
+}
+
+.compare-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--secondary);
+    margin-bottom: 0.35rem;
+}
+
+.compare-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+}
+
+.compare-list li {
+    margin: 0.2rem 0;
+}
+
+.article-chart.chart-compare {
+    max-width: 520px;
+}
+
 .intensity-value {
     font-size: 0.75rem;
     color: var(--secondary);
@@ -521,6 +582,10 @@ body {
 
     .intensity-row {
         grid-template-columns: 4.75rem 1fr;
+    }
+
+    .compare-cols {
+        grid-template-columns: 1fr;
     }
 
     .net-node {

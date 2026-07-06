@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Achievable Floor — SecureSovereign</title>
+    <title>The Achievable Floor | SecureSovereign</title>
     <meta name="description" content="Most public debate about spam on Bitcoin collapses a distinction that actually matters. Consensus rules force every validating node to accept whatever is ins...">
     <link rel="canonical" href="https://secsov.com/articles/the-achievable-floor/">
     <meta property="og:type" content="article">
@@ -38,7 +38,7 @@
 <p>Most public debate about spam on Bitcoin collapses a distinction that actually matters. Consensus rules force every validating node to accept whatever is inside a valid block, monkey jpegs included, while relay and storage sit on the policy side of the line and remain fully discretionary, since nothing forces a node to relay a transaction before it confirms, and nothing forces a node to keep storing everything after validation either. Pruning exists precisely because that requirement isn't absolute.</p>
 <p>But pruning isn't a free discard, it's a trade. A pruned node has given up the ability to independently re-verify the full history of the chain from its own copy, and re-establishing that ability means asking some other node for the data back, which is an external dependency and a trust assumption that didn't exist while the node held the data itself. That's a real cost paid in self-sovereignty, not a loophole in the rule that storage is discretionary. Storage is optional, and giving it up is not costless.</p>
 <p>This distinction is where the argument usually goes wrong, because people talk as though refusing to relay something is the same as banning it, when it isn't. A transaction that pays enough fee will find a path onto the chain through some miner or some more permissive node regardless of what any individual operator's mempool policy says. Policy limits on dedicated data fields like OP_RETURN can be raised, lowered, or abandoned entirely by whoever runs the defaults, while proposals to enforce similar caps at consensus bind every participant or fail to activate. The gap between what policy discourages and what consensus permits has been the recurring fault line in every round of this debate.</p>
-<p>The debate is almost always fought as a political question: consensus capture, forking risk, whether a minority of node operators get to decide which use cases count as legitimate. That framing is real, but it sits on top of a harder technical question.</p>
+<p>The debate is almost always fought as a political question: consensus capture, forking risk, whether a minority of node operators get to decide which use cases count as legitimate. That framing is real, but it sits on top of a harder technical question. For the governance and adversarial context behind OP_RETURN, BIP-110, and data-embedding politics, see <em><a href="/articles/bitcoin-governance/#v-the-adversarial-layer-when-conflicts-become-visible">Who Controls Bitcoin, §V</a></em> and <em><a href="/articles/bitcoin-governance-argument-map/#part-vi-forced-participation">Argument Map, Parts VI–VII</a></em>.</p>
 <p>That question still matters even in a world where the political fight is over, where every participant agrees tomorrow to change consensus however a majority wants.</p>
 <p>That harder question is this: if consensus could be changed without political friction, how low could arbitrary data on Bitcoin actually be pushed, and where is the hard limit?</p>
 <h2 id="ii-taxonomy-of-channels-by-cost">II. Taxonomy of Channels by Cost</h2>
@@ -96,6 +96,25 @@
 <p>The unenforced channels close by narrowing the upgrade hooks that leave them open, not removing them permanently. Restricting spends to currently-defined witness versions closes the OP_SUCCESS gap while leaving room for future soft forks to define new versions when needed. The annex can be disallowed outright or capped like any other witness field. A bounded control block size limit closes a related gap: an oversized control block lets a spender claim an implausibly deep Taproot Merkle path and hide bytes disguised as path-proof data.</p>
 <p>A dynamic minimum output value, tied to the prevailing fee rate and enforced at consensus, raises the cost of creating large numbers of low-value outputs. That matters for the UTXO set even when the bytes inside each output are nearly free to embed, because it prices output count, not just output content.</p>
 <p>None of these changes have to do the whole job alone. Sustained demand for block space raises the baseline fee rate everyone competes against, and every consensus change above bites harder as that baseline rises. The consensus changes set the ceiling. A healthy fee market pushes the floor up underneath.</p>
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Consensus measure</th><th>Channel closed</th><th>Independent soft fork?</th></tr>
+</thead>
+<tbody>
+<tr class="close-yes"><td>OP_RETURN hard byte cap</td><td>Dedicated (OP_RETURN outputs)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Taproot envelope push cap</td><td>Dedicated (OP_FALSE OP_IF branches)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Witness version restriction</td><td>Unenforced (OP_SUCCESS hooks)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Annex disallow or cap</td><td>Unenforced (Taproot annex)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Control block size cap</td><td>Unenforced (deep Merkle path hiding)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Dynamic minimum output value</td><td>Low-value UTXO spam (output count)</td><td>Yes</td></tr>
+<tr class="close-partial"><td>UTXO set commitments</td><td>Permanent storage burden (§V)</td><td>Parallel; not required for above</td></tr>
+<tr class="close-partial"><td>Selective sync (assumeUTXO-style)</td><td>Initial block download cost</td><td>After commitments live</td></tr>
+</tbody>
+</table>
+<figcaption>Section III closable measures. Free-channel fields (§IV) are not listed; they are structural, not oversights.</figcaption>
+</figure>
+
 <figure class="article-chart chart-flowchart" role="img" aria-label="Consensus-closable channels versus the irreducible embedding floor">
 <div class="flowchart-layers" aria-hidden="true">
   <div class="flowchart-row">

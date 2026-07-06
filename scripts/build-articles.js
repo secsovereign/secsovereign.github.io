@@ -182,7 +182,7 @@ function escapeHtml(s) {
 function renderPage({ title, description, slug, bodyHtml }) {
   const url = `${SITE}/articles/${slug}/`;
   const desc = escapeHtml(description);
-  const pageTitle = escapeHtml(title + ' — SecureSovereign');
+  const pageTitle = escapeHtml(title + ' | SecureSovereign');
   const navTitle = escapeHtml(title);
   return `<!DOCTYPE html>
 <html lang="en">

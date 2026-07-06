@@ -20,7 +20,7 @@
 
 This document addresses the structural logic underneath Bitcoin's governance problem. The evidentiary case, the funding maps, the personnel history, and the primary source documentation live in **[Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research)** and in the on-site articles *[Who Controls Bitcoin](/articles/bitcoin-governance/)* and *[Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map/)*. This document is concerned with why the structure produces the outcomes it produces, regardless of individual intent.
 
-For the fiscal and access-layer frame — why states capture assets through ownership rather than destruction, and how the industry built the surveillance infrastructure voluntarily — see the companion piece *[The Last Uncaptured Asset](/articles/the-last-uncaptured-asset/)*.
+For the fiscal and access-layer frame (why states capture assets through ownership rather than destruction, and how the industry built the surveillance infrastructure voluntarily), see the companion piece *[The Last Uncaptured Asset](/articles/the-last-uncaptured-asset/)*.
 
 ---
 
@@ -38,13 +38,13 @@ This is the paradox at the center of Bitcoin's governance problem. The same soci
 
 Start at the bottom of the stack.
 
-The 21 million cap is not a law of nature. It is a rule that every participant in the network agrees to enforce by running software that rejects blocks violating it. The proof-of-work difficulty adjustment, the block reward schedule, the UTXO model — none of these are written into the structure of the universe. They exist because people keep running software that enforces them, and because other people keep accepting outputs from that network as valuable on the basis that the enforcement is real.
+The 21 million cap is not a law of nature. It is a rule that every participant in the network agrees to enforce by running software that rejects blocks violating it. The proof-of-work difficulty adjustment, the block reward schedule, the UTXO model: none of these are written into the structure of the universe. They exist because people keep running software that enforces them, and because other people keep accepting outputs from that network as valuable on the basis that the enforcement is real.
 
 The cryptography enforces the math. The social layer enforces the cryptography's relevance. Strip the social agreement away and the cryptography becomes an elaborate puzzle with no monetary significance. Bitcoin is worth what it is worth because enough people agree that the rules are real, that they will continue to be enforced, and that no one can unilaterally change them. That agreement is social. It happens to be expressed through cryptographic coordination, but the coordination serves the agreement rather than replacing it.
 
 Satoshi understood this. The design is not an attempt to escape the social substrate but to restructure it so that the incentives for maintaining the rules are distributed broadly enough that no single actor can corrupt them. The genius is in how those incentives are aligned, not in somehow making Bitcoin independent of human agreement. Satoshi built a social institution with unusually robust properties, which is a different and more interesting thing than building something that transcends social reality entirely.
 
-The distinction matters because it locates the attack surface accurately. Bitcoin's cryptography has not been broken and is unlikely to be. The attack surface was never there. It is in the social layer — specifically in the mechanisms that determine what software gets written, what changes get made, who gets funded to do the work, and whose voices shape what counts as legitimate participation in the network's development.
+The distinction matters because it locates the attack surface accurately. Bitcoin's cryptography has not been broken and is unlikely to be. The attack surface was never there. It is in the social layer, specifically in the mechanisms that determine what software gets written, what changes get made, who gets funded to do the work, and whose voices shape what counts as legitimate participation in the network's development.
 
 ---
 
@@ -57,6 +57,29 @@ The Bitcoin network is permissionless. Anyone can transact. Anyone can run a nod
 The Bitcoin development process is not permissionless in any meaningful sense. Getting a proposal taken seriously requires social legitimacy among the people who control the channels through which proposals move. Getting funded to build alternative implementations requires social legitimacy with funders who have decided, by and large, that Core's existing structure is not a problem worth solving. Getting criticism heard requires not being removed from the platforms where the criticism would matter. Getting code merged requires the approval of a small number of people whose judgments are shaped by the same funding relationships and social networks that shape everything else.
 
 Permission in this context is not called permission. It is called legitimacy, or rough consensus, or community acceptance. The word changes but the function is identical. A social layer that determines whose contributions count, whose criticisms are heard, and whose proposals advance is a permissioned layer regardless of what it calls itself.
+
+<figure class="article-chart chart-compare">
+<div class="chart-heading">Two layers, two permission models</div>
+<div class="compare-cols" role="img" aria-label="The Bitcoin network is permissionless; Core development is gated by legitimacy, funding, and merge authority">
+<div class="compare-col compare-open">
+<div class="compare-label">Bitcoin network</div>
+<ul class="compare-list">
+<li>Anyone can transact</li>
+<li>Anyone can run a node</li>
+<li>Anyone can mine</li>
+</ul>
+</div>
+<div class="compare-col compare-gated">
+<div class="compare-label">Core development</div>
+<ul class="compare-list">
+<li>Proposals need social legitimacy</li>
+<li>Funding flows through funder networks</li>
+<li>Merge requires maintainer approval</li>
+</ul>
+</div>
+</div>
+<figcaption>The conflation of the left column with the right is the move that makes structural critique sound like confusion.</figcaption>
+</figure>
 
 The conflation of network-layer permissionlessness with development-layer permissionlessness is the move that does the most political work in Bitcoin discourse. Once accepted, it makes structural critique impossible by framing it as a misunderstanding.
 
@@ -118,7 +141,7 @@ This pattern is not unique to Bitcoin. Institutional capture reliably produces c
 
 The most durable form of capture is one that does not need to be maintained because its subjects maintain it for themselves. The conflation of network permissionlessness with development permissionlessness functions as exactly that kind of self-sustaining immune system.
 
-People who hold this belief sincerely — who are not assets of any operation and have no financial stake in Core's monopoly — repeat it in every governance debate. They do so because they believe it is true, because it follows logically from premises they have accepted, and because the social environment of Bitcoin discourse has consistently rewarded it and punished the alternative.
+People who hold this belief sincerely (who are not assets of any operation and have no financial stake in Core's monopoly) repeat it in every governance debate. They do so because they believe it is true, because it follows logically from premises they have accepted, and because the social environment of Bitcoin discourse has consistently rewarded it and punished the alternative.
 
 The mythology does suppression work without requiring anyone to coordinate the suppression. Every time someone raises the governance critique and gets back "anyone can fork it" from a dozen independent voices, the effect is identical to coordinated dismissal even if every one of those voices is acting in complete good faith. The social proof looks organic because it is organic. The ideology has been successfully installed at the level of common sense.
 
@@ -150,10 +173,10 @@ The argument and the proof are the same artifact. If the permissionless mytholog
 
 Implementation diversity with formal specification is not an attack on Bitcoin. It is the completion of what Bitcoin's design actually requires. A network that runs one implementation governed by a captured social layer is not decentralized where decentralization matters.
 
-The consensus rules are sound. The development infrastructure built around them is fragile in ways that the cryptography cannot fix, because the fragility is social rather than mathematical. Visible rules, accountable decision-making, and genuine alternatives that can be built and proven without the incumbent's cooperation are what make the social enforcement of Bitcoin's properties durable — rather than dependent on the continued good behavior of a small number of institutions whose interests do not always align with the network's.
+The consensus rules are sound. The development infrastructure built around them is fragile in ways that the cryptography cannot fix, because the fragility is social rather than mathematical. Visible rules, accountable decision-making, and genuine alternatives that can be built and proven without the incumbent's cooperation are what make the social enforcement of Bitcoin's properties durable, rather than dependent on the continued good behavior of a small number of institutions whose interests do not always align with the network's.
 
 Bitcoin survived because it redistributed trust more robustly than anything that came before it. The next step is applying the same logic to the layer that maintains it.
 
 ---
 
-*Evidentiary basis: [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) and companion articles on [secsov.com](https://secsov.com/).*
+*Evidentiary basis: [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research); companion articles [Who Controls Bitcoin](/articles/bitcoin-governance/), [Argument Map](/articles/bitcoin-governance-argument-map/), and [The Last Uncaptured Asset](/articles/the-last-uncaptured-asset/).*

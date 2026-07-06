@@ -23,7 +23,7 @@
 
 Bitcoin is described, by default, as decentralized open-source software maintained by a global community of volunteers. That description is technically accurate and functionally misleading. The network's consensus rules are decentralized. The development of the software that enforces those rules is not. Roughly 99% of economic nodes run software from that single upstream lineage, overwhelmingly the Bitcoin Core project’s releases, with a minority on Core-derived clients such as Knots. A small, interconnected group of funded developers decides what ships in that codebase. A smaller group holds merge authority. The people funding those developers have direct financial interests in specific protocol outcomes. When that funding map is examined alongside the personnel history and the decisions that have and have not been made over sixteen years, what emerges is not a conspiracy but a structural capture vector operating exactly as structural capture vectors operate: through acculturated judgment, financial dependency, and the quiet exclusion of inconvenient arguments from legitimate venues.
 
-This document presents the structural argument in full, supported by the adversarial funding and personnel evidence. It is intended as an analytical reference for reasoning about Bitcoin governance accurately.
+This document presents the structural argument in full, supported by the adversarial funding and personnel evidence. It is intended as an analytical reference for reasoning about Bitcoin governance accurately. For a numbered argument map, see *[Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map/)*. For why the structure produces these outcomes without requiring conspiracy, see *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture/)*.
 
 ---
 
@@ -39,7 +39,7 @@ Bitcoin has never had a formal mathematical specification of its consensus rules
 
 ### The Merge Authority Structure
 
-Sixteen years of Bitcoin Core governance data in [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) document a **PR-weighted contribution Gini coefficient of ~0.851** (and similarly extreme concentration in reviews), with the **top three merger roles accounting for roughly 80%+ of historical merges** in the full-history rollup (`findings/EXECUTIVE_SUMMARY.md`, `GINI_COEFFICIENT_EXPLANATION.md`). **Merge and commit permissions on [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin) are authoritative;** the live roster is currently **five** merge holders (Gloria Zhao no longer holds that role). The structural point is unchanged: **a small, fixed-capacity set** of people can land code in the reference implementation, and **their institutional ties overlap the funding map**, including Chaincode employment, Brink grants, Spiral (Block’s Bitcoin arm), Localhost-style hosts, and similar channels. These are not anonymous volunteers in the aggregate; they are employees and grantees of a **small, identifiable** set of institutions, and those institutions have financial entanglements with commercial operations that benefit from specific protocol directions.
+Sixteen years of Bitcoin Core governance data in [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) document a **PR-weighted contribution Gini coefficient of ~0.851** (and similarly extreme concentration in reviews), with the **top three merger roles accounting for roughly 80%+ of historical merges** in the full-history rollup ([`findings/EXECUTIVE_SUMMARY.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/EXECUTIVE_SUMMARY.md), [`findings/GINI_COEFFICIENT_EXPLANATION.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GINI_COEFFICIENT_EXPLANATION.md)). **Merge and commit permissions on [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin) are authoritative;** the live roster is currently **five** merge holders (Gloria Zhao no longer holds that role). The structural point is unchanged: **a small, fixed-capacity set** of people can land code in the reference implementation, and **their institutional ties overlap the funding map**, including Chaincode employment, Brink grants, Spiral (Block’s Bitcoin arm), Localhost-style hosts, and similar channels. These are not anonymous volunteers in the aggregate; they are employees and grantees of a **small, identifiable** set of institutions, and those institutions have financial entanglements with commercial operations that benefit from specific protocol directions.
 
 The informal merge authority structure means there is no formal process, no published criteria, and no accountability mechanism for what gets merged and what does not. Core developers disclaim ownership and authority over Bitcoin while exercising exactly that authority through PR closure and moderation. When critics name conflicts of interest on GitHub, they get moderated off. In the 2025 OP_RETURN controversy, someone flagged a conflict of interest in the discussion thread and was banned. That is not the behavior of a commons with no governance. That is governance defending itself.
 
@@ -65,22 +65,65 @@ The same research finds extreme merge concentration (Gini on PR-weighted activit
 </figure>
 
 <figure class="article-chart chart-intensity">
-<div class="chart-heading">L1 protocol funding per $1T native market cap (2023, approx.)</div>
+<div class="chart-heading">L1 protocol funding per $1T native market cap (approx.)</div>
 <div class="intensity-row">
 <span class="intensity-name">Bitcoin</span>
 <div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:2.9%"></span></div>
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:3.4%"></span></div>
 <span class="intensity-value">$4.2M</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Polkadot</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:0.6%"></span></div>
+<span class="intensity-value">~$0.7M</span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">Ethereum</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
-<span class="intensity-value">~$145M</span>
+<span class="intensity-value">~$125M</span>
 </div>
 </div>
-<figcaption>Protocol-layer grants only, not total ecosystem spend. Bitcoin ~$8.4M on ~$2T market cap; Ethereum ~$32M on ~$220B market cap. Raw dollar totals understate the gap because Bitcoin secures far more value.</figcaption>
+<figcaption>Protocol-layer grants only. Bitcoin ~$8.4M (2023) on ~$2T cap; Polkadot ~$16.8M (2024) on ~$24B cap; Ethereum ~$50M (2024) on ~$400B cap. Normalized for apples-to-apples comparison.</figcaption>
+</figure>
+
+<figure class="article-chart chart-gini">
+<div class="chart-heading">Concentration indexes (0 = equal share, 1 = one actor)</div>
+<div class="intensity-row">
+<span class="intensity-name">PR contribution</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:85.1%"></span></div>
+<span class="intensity-value">0.851</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">PR reviews</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-review" style="width:92%"></span></div>
+<span class="intensity-value">~0.92</span>
+</div>
+</div>
+<figcaption>PR-weighted Gini from <a href="https://github.com/secsovereign/bitcoin-governance-research">Bitcoin Governance Research</a>. Review activity concentrates even more than authorship.</figcaption>
+</figure>
+
+<figure class="article-chart chart-stackbar">
+<div class="chart-heading">Qualifying contributors: sustained engagement</div>
+<div class="stackbar" role="img" aria-label="41 active contributors and 91 inactive of 132 qualifying contributors">
+<span class="stack-seg stack-active" style="width:31%">41 active</span>
+<span class="stack-seg stack-minor" style="width:69%">91 inactive</span>
+</div>
+<div class="stackbar-legend">
+<span><strong style="color:var(--primary)">■</strong> Active in pipeline</span>
+<span><strong style="color:var(--border)">■</strong> Inactive</span>
+</div>
+<dl class="chart-stats">
+<div><dt>Qualifying pool</dt><dd>132 authors</dd></div>
+<div><dt>Threshold</dt><dd>≥5 PRs · quality ≥0.3</dd></div>
+</dl>
+<figcaption>From <a href="https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/CONTRIBUTOR_TIMELINE_ANALYSIS.md"><code>findings/CONTRIBUTOR_TIMELINE_ANALYSIS.md</code></a>. High churn: most participants with meaningful PR history do not stay active.</figcaption>
 </figure>
 
 > The oligarchic structure is not a theoretical concern. It is documented across sixteen years of governance data. Reality overrides theory.
@@ -111,11 +154,43 @@ John Pfeffer, one of Brink's founding donors, also invested in Alpen Labs, a ZK 
 
 ### OpenSats and the Dorsey Concentration Problem
 
-OpenSats operates with a nine-person volunteer board and presents itself as a decentralized funding vehicle. In 2024 it received $23.6 million in donations, of which $21 million, roughly 90%, came from Jack Dorsey's StartSmall initiative alone. Dorsey's footprint across Bitcoin's governance infrastructure is wider than any other single actor. He is the dominant funder of OpenSats, a major donor to Brink, and the founder of Spiral, which **directly employs at least one Bitcoin Core maintainer with merge access**. He has also donated tens of millions to the Human Rights Foundation's Bitcoin Development Fund and Btrust. That means Dorsey's money touches a sitting maintainer directly through Spiral, the primary developer grant organization at 90% of its funding, and multiple secondary grant channels simultaneously. A single donor with that reach across the governance infrastructure represents a structural concentration of influence that has no parallel in Bitcoin's development history.
+OpenSats operates with a nine-person volunteer board and presents itself as a decentralized funding vehicle. In 2024 it received $23.6 million in donations, of which $21 million, roughly 90%, came from Jack Dorsey's StartSmall initiative alone.
+
+<figure class="article-chart chart-stackbar">
+<div class="chart-heading">OpenSats 2024 donations by source</div>
+<div class="stackbar" role="img" aria-label="90 percent from StartSmall, 10 percent from all other donors">
+<span class="stack-seg stack-major" style="width:90%">StartSmall 90%</span>
+<span class="stack-seg stack-minor" style="width:10%">Other 10%</span>
+</div>
+<dl class="chart-stats">
+<div><dt>StartSmall (Dorsey)</dt><dd>~$21M</dd></div>
+<div><dt>Total raised</dt><dd>$23.6M</dd></div>
+</dl>
+<figcaption>Single-donor concentration in the primary public grant channel.</figcaption>
+</figure>
+
+Dorsey's footprint across Bitcoin's governance infrastructure is wider than any other single actor. He is the dominant funder of OpenSats, a major donor to Brink, and the founder of Spiral, which **directly employs at least one Bitcoin Core maintainer with merge access**. He has also donated tens of millions to the Human Rights Foundation's Bitcoin Development Fund and Btrust. That means Dorsey's money touches a sitting maintainer directly through Spiral, the primary developer grant organization at 90% of its funding, and multiple secondary grant channels simultaneously. A single donor with that reach across the governance infrastructure represents a structural concentration of influence that has no parallel in Bitcoin's development history.
 
 ### Localhost Research
 
 Launched in late 2024 with founding donors Mark Casey and Wences Casares and board members Matt Corallo and Denise Terry. The founding team is Mark Erhardt and Ava Chow. **Chow has held Bitcoin Core merge access while housed there.** Casares, as noted above, also seeded Brink and invested in Alpen Labs. Matt Corallo previously worked at Blockstream before moving to Chaincode. Localhost is a **new node** in the network: it **hosts** Core maintainers and is funded by investors with **active** financial interests in protocol-adjacent commercial ventures.
+
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Institution</th><th>Founded</th><th>Role in Core governance</th><th>Headline figures / ties</th></tr>
+</thead>
+<tbody>
+<tr><td>Chaincode Labs</td><td>2014</td><td>Funds Core contributors; residency pipeline</td><td>HRT self-funded; Morcos on Coin Center board</td></tr>
+<tr><td>Blockstream</td><td>2014</td><td>Employs Core developers; L2 commercial interests</td><td>$651M raised; founding team from maintainer class</td></tr>
+<tr><td>Brink</td><td>2020</td><td>Grants, fellowships; maintainer selection filter</td><td>Coinbase $3.6M; StartSmall $5M/5yr; VanEck ETF share</td></tr>
+<tr><td>OpenSats</td><td>2020</td><td>Primary public grant channel</td><td>$23.6M raised (2024); ~90% StartSmall (Dorsey)</td></tr>
+<tr><td>Spiral (Block)</td><td>2021</td><td>Direct employer of Core maintainer(s)</td><td>Dorsey; merge access on payroll</td></tr>
+<tr><td>Localhost Research</td><td>2024</td><td>Hosts Core maintainers</td><td>Casares, Casey donors; Chow merge access while housed</td></tr>
+</tbody>
+</table>
+<figcaption>Funding and hosting institutions (§III). Narrative detail and primary sources in subsections above.</figcaption>
+</figure>
 
 ---
 
@@ -166,7 +241,7 @@ Balaji Srinivasan had previously donated $500,000 to Chaincode Labs after losing
 
 ### The Lopp/Citrea/BIP-110 Pattern
 
-Citrea launched its mainnet on January 28, 2026. On testnet, its data-availability usage reached almost 10% of Bitcoin's monthly bandwidth at one point, before full mainnet adoption. One month after Citrea's mainnet launched, Lopp published a piece arguing that BIP-110, the only active proposal that would restrict arbitrary data embedding in Bitcoin transactions, is "reckless and doomed to fail." He is also the author of the Goldiblocks dynamic block size proposal, which would expand Bitcoin's block capacity based on fee levels. Lopp holds equity in a company that by design places significant, ongoing data load on Bitcoin's base layer. He is on public record opposing the proposal that would restrict that behavior and promoting the proposal that would give it more headroom. Every public policy position aligns with his investment portfolio.
+Citrea launched its mainnet on January 28, 2026. On testnet, its data-availability usage reached almost 10% of Bitcoin's monthly bandwidth at one point, before full mainnet adoption. One month after Citrea's mainnet launched, Lopp published a piece arguing that BIP-110, the only active proposal that would restrict arbitrary data embedding in Bitcoin transactions, is "reckless and doomed to fail." He is also the author of the Goldiblocks dynamic block size proposal, which would expand Bitcoin's block capacity based on fee levels. Lopp holds equity in a company that by design places significant, ongoing data load on Bitcoin's base layer. He is on public record opposing the proposal that would restrict that behavior and promoting the proposal that would give it more headroom. Every public policy position aligns with his investment portfolio. For the technical taxonomy of embedding channels and what consensus can close, see *[The Achievable Floor](/articles/the-achievable-floor/)*.
 
 ### The Dual Positioning of Brink's Founders
 
@@ -178,7 +253,7 @@ John Pfeffer seeded Brink at founding and invested in Alpen Labs, a competing ZK
 
 The most important structural element of the implementation monopoly is the one least discussed. Bitcoin Core has never produced a formal mathematical specification of its consensus rules. This is not an oversight. It is the mechanism that makes the monopoly permanent. Without a specification, any alternative implementation must reverse-engineer undocumented behavior from Core itself. This means every alternative is architecturally dependent on Core by definition. Independent implementations are risky because a single validation bug can cause a chain split. So in practice, alternatives stay close to Core's codebase. Serious non-Core consensus implementations remain a **negligible fraction of deployed nodes** in public crawls, not enough to constitute real implementation competition, while everyone still validates against Core-shaped behavior without an independent spec. The market did not freely choose Core-derived code. It converged on the only option safe enough to run without a specification to validate against.
 
-The "you can just fork it" response to governance critique is a non-answer in this context. A Core fork inherits the same monolithic architecture, the same 300,000 lines of technical debt, the same undocumented consensus behavior, and the same governance capture vectors. New maintainers on the same throne are not a structural fix. The fix is multiple independent implementations with proven consensus compatibility and genuinely different governance structures. That requires a formal specification as the independent standard against which consensus compatibility can be proven. The absence of that specification, over fifteen years, is the structural condition that makes everything else in this document stable.
+The "you can just fork it" response to governance critique is a non-answer in this context. A Core fork inherits the same monolithic architecture, the same 300,000 lines of technical debt, the same undocumented consensus behavior, and the same governance capture vectors. New maintainers on the same throne are not a structural fix. The fix is multiple independent implementations with proven consensus compatibility and genuinely different governance structures. That requires a formal specification as the independent standard against which consensus compatibility can be proven. The absence of that specification, over fifteen years, is the structural condition that makes everything else in this document stable. See *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture/#vi-the-no-spec-moat-as-predictable-output)* for why the moat persists and *[Argument Map, Part XV](/articles/bitcoin-governance-argument-map/#part-xv-what-alternatives-actually-require)* for what genuine alternatives require.
 
 > Without a formal specification, the "you can fork it" response concedes the governance critique rather than refuting it. It acknowledges the enormous switching cost while offering it as proof that no governance problem exists.
 

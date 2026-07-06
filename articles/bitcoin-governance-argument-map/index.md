@@ -1,5 +1,7 @@
 # Bitcoin Governance: Argument Map
 
+Numbered arguments for debate and analysis. Narrative evidence, funding maps, and primary sources are in *[Who Controls Bitcoin](/articles/bitcoin-governance/)*; structural logic in *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture/)*.
+
 ---
 
 ## Contents
@@ -31,6 +33,19 @@
 ## Part I. Structure and Power
 
 1. **Merge authority is the actual governance mechanism, not miners or nodes.** **Five** people hold merge authority on the reference client ([bitcoin/bitcoin](https://github.com/bitcoin/bitcoin)) today (e.g. after Gloria Zhao stepped down from that role). **Live GitHub permissions are authoritative**; rosters change; this document does not enumerate names. They decide what code enters releases. If code never merges, there is nothing for nodes to signal for. The bottleneck is upstream of any user choice.
+
+<figure class="article-chart chart-stackbar">
+<div class="chart-heading">Historical merge share (Bitcoin Core)</div>
+<div class="stackbar" role="img" aria-label="Top three merger roles 81 percent, all others 19 percent">
+<span class="stack-seg stack-major" style="width:81%">81%</span>
+<span class="stack-seg stack-minor" style="width:19%">19%</span>
+</div>
+<dl class="chart-stats">
+<div><dt>Merge holders today</dt><dd>5</dd></div>
+<div><dt>Source</dt><dd><a href="https://github.com/secsovereign/bitcoin-governance-research">Bitcoin Governance Research</a></dd></div>
+</dl>
+<figcaption>Full-history rollup. Merge authority is a fixed-capacity gate, not a diffuse volunteer pool.</figcaption>
+</figure>
 
 2. **"Miners can run what they want and don't have to upgrade" misdescribes practice.** Miners can in principle run any consensus-compatible software and skip a release. In practice, industrial hash rate overwhelmingly follows the path of least operational friction: pool stacks, hosting providers, and automated deployment adopt new Core (or Core-derived) binaries on maintenance schedules. Most operators do not perform an independent line-by-line or consensus audit of every release; they stay compatible with peers, with pool software, and with what the dominant client ships. A theoretical veto that almost nobody exercises is not a distributed check on merge authority. It is latency dressed up as choice.
 
@@ -76,7 +91,65 @@
 
 17. **The funding-to-market-cap disparity is documented.** **Same pairing as §14:** **$8.4 million** (Bitcoin L1 / Core-oriented dev funding, **2023**) vs **~$2T** BTC market cap (**~0.42%** ratio). **Polkadot** (~**$16.8M** protocol/core-style spend, **2024**) vs **DOT market cap ~1.2% of BTC’s** at comparable snapshots. **Ethereum** ~**$50M** (**2024**) on similar **L1 client/protocol** definitions. Bitcoin is **among the most underfunded major L1s on a funding-to-native-market-cap basis** in this sample, not a claim about every possible definition of “protocol spend.”
 
-18. **Few merge gates vs enormous secured value.** [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) documents **extreme concentration** in who authors and merges (e.g. **contribution Gini ~0.851**, **review Gini ~0.92**, **top three merger roles ~81% of historical merges**; see `findings/EXECUTIVE_SUMMARY.md` / `GINI_COEFFICIENT_EXPLANATION.md`). **Merge rights** on the reference repo are **always a small, fixed-capacity set** (currently **five** merge holders on [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin); confirm **live** permissions). Separately, `findings/CONTRIBUTOR_TIMELINE_ANALYSIS.md` (dataset `findings/data/contributor_timeline_analysis.json`) analyzes **132** contributors who meet **≥5 authored PRs** and **average quality score ≥0.3**; of those, **41** are classified **active** and **91 inactive** (definitions per that pipeline: **PR-based**, full-history, **not** “commits in 2023”). Large commercial organizations employ tens of thousands of engineers on systems with comparable economic footprint; Bitcoin’s **permissioned merge bottleneck** and **thin sustained PR bench** sit on a **handful of merge keys** and a **small active cohort**. That gap is a **governance risk**, not “conservative engineering” by itself.
+<figure class="article-chart chart-intensity">
+<div class="chart-heading">L1 protocol funding per $1T native market cap (approx.)</div>
+<div class="intensity-row">
+<span class="intensity-name">Bitcoin</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:3.4%"></span></div>
+<span class="intensity-value">$4.2M</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Polkadot</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:0.6%"></span></div>
+<span class="intensity-value">~$0.7M</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Ethereum</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
+<span class="intensity-value">~$125M</span>
+</div>
+</div>
+<figcaption>Normalized comparison from §14–§17 definitions. See <a href="/articles/bitcoin-governance/#what-the-quantitative-record-shows">Who Controls Bitcoin, quantitative record</a>.</figcaption>
+</figure>
+
+18. **Few merge gates vs enormous secured value.** [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) documents **extreme concentration** in who authors and merges (e.g. **contribution Gini ~0.851**, **review Gini ~0.92**, **top three merger roles ~81% of historical merges**; see [`findings/EXECUTIVE_SUMMARY.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/EXECUTIVE_SUMMARY.md) / [`findings/GINI_COEFFICIENT_EXPLANATION.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GINI_COEFFICIENT_EXPLANATION.md)). **Merge rights** on the reference repo are **always a small, fixed-capacity set** (currently **five** merge holders on [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin); confirm **live** permissions). Separately, [`findings/CONTRIBUTOR_TIMELINE_ANALYSIS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/CONTRIBUTOR_TIMELINE_ANALYSIS.md) (dataset [`findings/data/contributor_timeline_analysis.json`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/data/contributor_timeline_analysis.json)) analyzes **132** contributors who meet **≥5 authored PRs** and **average quality score ≥0.3**; of those, **41** are classified **active** and **91 inactive** (definitions per that pipeline: **PR-based**, full-history, **not** “commits in 2023”). Large commercial organizations employ tens of thousands of engineers on systems with comparable economic footprint; Bitcoin’s **permissioned merge bottleneck** and **thin sustained PR bench** sit on a **handful of merge keys** and a **small active cohort**. That gap is a **governance risk**, not “conservative engineering” by itself.
+
+<figure class="article-chart chart-gini">
+<div class="chart-heading">Concentration indexes (0 = equal share, 1 = one actor)</div>
+<div class="intensity-row">
+<span class="intensity-name">PR contribution</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:85.1%"></span></div>
+<span class="intensity-value">0.851</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">PR reviews</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-review" style="width:92%"></span></div>
+<span class="intensity-value">~0.92</span>
+</div>
+</div>
+<figcaption>Gini metrics from <a href="https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GINI_COEFFICIENT_EXPLANATION.md">Bitcoin Governance Research</a>. Reviews concentrate more than merges.</figcaption>
+</figure>
+
+<figure class="article-chart chart-stackbar">
+<div class="chart-heading">Qualifying contributors: sustained engagement</div>
+<div class="stackbar" role="img" aria-label="41 active and 91 inactive of 132 qualifying contributors">
+<span class="stack-seg stack-active" style="width:31%">41 active</span>
+<span class="stack-seg stack-minor" style="width:69%">91 inactive</span>
+</div>
+<dl class="chart-stats">
+<div><dt>Qualifying pool</dt><dd>132 authors</dd></div>
+<div><dt>Merge holders today</dt><dd>5</dd></div>
+</dl>
+<figcaption>From <a href="https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/CONTRIBUTOR_TIMELINE_ANALYSIS.md">contributor timeline analysis</a>. Thin sustained bench relative to secured value.</figcaption>
+</figure>
 
 19. **Pipeline control: developers on funder boards decide who gets funded next.** OpenSats has Core developers on its board making grant decisions. That is a closed loop. Brink dominates incubation. The funding pipeline is controlled by overlapping cohorts with no external accountability.
 
@@ -93,6 +166,23 @@
 ---
 
 ## Part V. Governance Paralysis in Practice
+
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Improvement</th><th>Consensus</th><th>Status</th><th>Documented since</th></tr>
+</thead>
+<tbody>
+<tr><td>Wallet / node separation</td><td>Universal</td><td>Not shipped</td><td>~12 years</td></tr>
+<tr><td>UTXO set commitments</td><td>Research-complete</td><td>Not shipped</td><td>2014</td></tr>
+<tr><td>Full node sync burden</td><td>Symptom of above</td><td>~700GB (Nov 2025), growing</td><td>Solvable since 2014</td></tr>
+<tr><td>Formal verification integration</td><td>Tooling exists</td><td>Not integrated into Core process</td><td>n/a</td></tr>
+<tr><td>Networking upgrades</td><td>Clear wins, no opposition</td><td>Waiting in same limbo</td><td>n/a</td></tr>
+<tr><td>Implementation vs consensus ossification</td><td>Conflated deliberately</td><td>Non-consensus fixes blocked</td><td>Ongoing</td></tr>
+</tbody>
+</table>
+<figcaption>Stalled or deferred items with broad agreement (§25–31). Bottleneck is structural, not technical.</figcaption>
+</figure>
 
 25. **Wallet and node separation: 12 years, universal agreement, not done.** No opposition exists. The feature has broad consensus. It has not shipped. The bottleneck is structural, not technical.
 
@@ -111,6 +201,8 @@
 ---
 
 ## Part VI. Forced Participation
+
+For the consensus-vs-policy distinction and which embedding channels consensus can close, see *[The Achievable Floor](/articles/the-achievable-floor/)*.
 
 32. **The actual problem with blockchain spam: you cannot opt out.** The problem is not that spam exists. It is that every full node must download, store, and validate all of it forever to participate in Bitcoin. Policy defaults and relay configurations are theater. Consensus validity is what matters.
 
@@ -162,11 +254,11 @@
 
 50. **CVE-2018-17144: the technical proof.** An inflation bug in Bitcoin Core sat in production for 18 months. It could have allowed Bitcoin to be created out of thin air. A second implementation running differential tests against the same blocks would have caught it immediately. The bug was in Core, not in Bitcoin. Core's implementation monopoly is what made the bug dangerous.
 
-51. **Who benefits if L1 competitive upgrades stall?** Stablecoins: over $300 billion in market cap, 49% annual growth, over $33 trillion in annual transaction volume often compared to Visa (see **empirical sourcing** note: on-chain volume ≠ card settlement). Banks: trillions annually in transaction fees on legacy rails. States: Bitcoin framed as non-threatening digital gold rather than bearer money competing with state monetary monopolies. **Listing aligned interests is not proof of coordinated intent**; it maps **who gains when base-layer payment competitiveness moves slowly.** For **structure without conspiracy** and **outcomes without requiring individual malice**, see [Who Controls Bitcoin, IV. The Personnel Revolving Door](https://secsov.com/articles/bitcoin-governance/#iv-the-personnel-revolving-door) and [VII. Summary](https://secsov.com/articles/bitcoin-governance/#vii-the-structural-argument-in-summary).
+51. **Who benefits if L1 competitive upgrades stall?** Stablecoins: over $300 billion in market cap, 49% annual growth, over $33 trillion in annual transaction volume often compared to Visa (see **empirical sourcing** note: on-chain volume ≠ card settlement). Banks: trillions annually in transaction fees on legacy rails. States: Bitcoin framed as non-threatening digital gold rather than bearer money competing with state monetary monopolies. **Listing aligned interests is not proof of coordinated intent**; it maps **who gains when base-layer payment competitiveness moves slowly.** For **structure without conspiracy** and **outcomes without requiring individual malice**, see [Who Controls Bitcoin, IV. The Personnel Revolving Door](/articles/bitcoin-governance/#iv-the-personnel-revolving-door) and [VII. Summary](/articles/bitcoin-governance/#vii-the-structural-argument-in-summary).
 
-52. **Paralysis as default outcome.** You do not need Bitcoin to make wrong decisions. You only need it to make no decisions. The result can **function like** controlled opposition: revolutionary origin story, implementation that **defaults to** not shipping contested upgrades. The governance structure **tends to preserve** paralysis while merge bottlenecks and incentive maps in §51 persist. **Not every actor need intend that outcome.** Same **intent vs structure** distinction: [§IV](https://secsov.com/articles/bitcoin-governance/#iv-the-personnel-revolving-door), [§VII](https://secsov.com/articles/bitcoin-governance/#vii-the-structural-argument-in-summary).
+52. **Paralysis as default outcome.** You do not need Bitcoin to make wrong decisions. You only need it to make no decisions. The result can **function like** controlled opposition: revolutionary origin story, implementation that **defaults to** not shipping contested upgrades. The governance structure **tends to preserve** paralysis while merge bottlenecks and incentive maps in §51 persist. **Not every actor need intend that outcome.** Same **intent vs structure** distinction: [§IV](/articles/bitcoin-governance/#iv-the-personnel-revolving-door), [§VII](/articles/bitcoin-governance/#vii-the-structural-argument-in-summary).
 
-53. **BCH failed as a solution.** Bitcoin Cash forked the chain and moved the same governance vulnerabilities to different maintainers with the same monolithic architecture, the same informal merge authority, and the same capture vectors. The problem was governance structure, not block size.
+53. **BCH failed as a solution.** Bitcoin Cash forked the chain and moved the same governance vulnerabilities to different maintainers with the same monolithic architecture, the same informal merge authority, and the same capture vectors. The problem was governance structure, not block size. See *[The Social Layer Is the Attack Surface, §VII](/articles/bitcoin-social-capture/#vii-controlled-opposition-and-the-chain-fork-trap)*.
 
 ---
 
@@ -236,11 +328,27 @@
 
 75. **Implementation diversity is the structural fix, not a personnel change at Core.** **Swapping one small maintainer cohort for another** without changing the **monopoly implementation + informal merge** structure reproduces the same capture vector. The fix is eliminating the single point of failure, which requires multiple independent implementations with proven consensus compatibility and different governance models.
 
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Approach</th><th>Relationship to Core</th><th>Why not a structural fix</th></tr>
+</thead>
+<tbody>
+<tr><td>Fork Core</td><td>Same codebase lineage</td><td>Same architecture, debt, and merge capture</td></tr>
+<tr><td>Knots</td><td>Core fork (~95% shared code)</td><td>Same structural problems; more concentrated control</td></tr>
+<tr><td>Btcd</td><td>Independent implementation</td><td>Active development abandoned</td></tr>
+<tr><td>Libbitcoin</td><td>Independent implementation</td><td>Dropped UTXO set and mempool; ecosystem isolation</td></tr>
+<tr><td>Formal spec + differential testing</td><td>Independent mathematical standard</td><td>Required path; not yet deployed at scale (§73–74)</td></tr>
+</tbody>
+</table>
+<figcaption>Existing alternatives and the fix they fail to provide (§71–75).</figcaption>
+</figure>
+
 ---
 
 ## Part XVI. Broader Implications
 
-76. **Quantitative analysis over 16 years: data over theory.** The oligarchic structure is not a theoretical concern. It is documented in **[Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research)** from Git history: **PR-weighted contribution Gini ~0.851** (and **review activity Gini even higher**), **merge share** concentrated in a **tiny set of merger accounts** (e.g. **~81% of merges** from **top three** in their full-history rollup), plus **bloc/cohesion** statistics; see `findings/EXECUTIVE_SUMMARY.md`, `GINI_COEFFICIENT_EXPLANATION.md`, `RESEARCH_METHODOLOGY.md`. Those are **repository-activity metrics**, not every possible definition of “who is a developer.” Qualitative accounts from Core insiders about **process** (e.g. maintainer influence) can sit alongside those numbers without implying any insider **audited or endorsed** the Bitcoin Governance Research pipeline.
+76. **Quantitative analysis over 16 years: data over theory.** The oligarchic structure is not a theoretical concern. It is documented in **[Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research)** from Git history: **PR-weighted contribution Gini ~0.851** (and **review activity Gini even higher**), **merge share** concentrated in a **tiny set of merger accounts** (e.g. **~81% of merges** from **top three** in their full-history rollup), plus **bloc/cohesion** statistics; see [`findings/EXECUTIVE_SUMMARY.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/EXECUTIVE_SUMMARY.md), [`findings/GINI_COEFFICIENT_EXPLANATION.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GINI_COEFFICIENT_EXPLANATION.md), [`findings/RESEARCH_METHODOLOGY.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/RESEARCH_METHODOLOGY.md). Those are **repository-activity metrics**, not every possible definition of “who is a developer.” Qualitative accounts from Core insiders about **process** (e.g. maintainer influence) can sit alongside those numbers without implying any insider **audited or endorsed** the Bitcoin Governance Research pipeline.
 
 77. **Concentrated development is a FOSS-wide threat, not Bitcoin-specific.** Network effects override license terms. The "open source therefore free" framing ignores that infrastructure control matters regardless of license. The Linux Foundation facing pressure for identity verification requirements illustrates that open source projects with network effects face the same capture dynamics as closed ones.
 
@@ -277,20 +385,22 @@
 *These arguments address the claim that Knots provides meaningful competition to Core.*
 
 <figure class="article-chart chart-stackbar">
-<div class="chart-heading">Reachable node client share (approx.)</div>
-<div class="stackbar" role="img" aria-label="Bitcoin Core about 77 percent of reachable nodes, Knots about 22.5 percent">
+<div class="chart-heading">Effective Core codebase share on reachable nodes</div>
+<div class="stackbar" role="img" aria-label="About 98 percent of reachable nodes run Core lineage code: 77 percent Core directly plus 21 percent Knots running mostly Core code">
 <span class="stack-seg stack-major" style="width:77%">Core 77%</span>
-<span class="stack-seg stack-knots" style="width:22.5%">Knots 22.5%</span>
+<span class="stack-seg stack-knots" style="width:21.4%">Knots · Core code 21%</span>
+<span class="stack-seg stack-minor" style="width:1.6%">~1%</span>
 </div>
 <div class="stackbar-legend">
 <span><strong style="color:var(--primary)">■</strong> Bitcoin Core</span>
-<span><strong style="color:#5a7a8a">■</strong> Knots (≈95% Core codebase)</span>
+<span><strong style="color:#5a7a8a">■</strong> Knots (95% Core codebase)</span>
+<span><strong style="color:var(--border)">■</strong> Knots-only delta</span>
 </div>
 <dl class="chart-stats">
-<div><dt>Effective Core lineage</dt><dd>~98%+ of menu</dd></div>
-<div><dt>Knots policy fork</dt><dd>margins only</dd></div>
+<div><dt>Node split</dt><dd>77% Core · 22.5% Knots</dd></div>
+<div><dt>Effective same recipe</dt><dd>~98%+</dd></div>
 </dl>
-<figcaption>Public node crawl snapshots vary by methodology. Knots inherits Core architecture; the two shares do not represent independent implementations.</figcaption>
+<figcaption>77% + (22.5% × 95% Core code) ≈ 98%. Node share alone understates how much of the network runs the same implementation lineage.</figcaption>
 </figure>
 
 88. **One kitchen is preparing 98%+ of the menu.** Core runs on roughly 77% of nodes directly. Knots runs on roughly 22.5%. Knots is 95% Core's codebase. That means one kitchen is preparing 98%+ of the menu, because the only other kitchen is using 95% the same recipes. Nobody is forcing you to eat anything. But if one kitchen is preparing every dish on every menu in every restaurant in town, that kitchen is governing what you eat whether they hold a gun to your head or not.
@@ -318,6 +428,21 @@
 96. **Ostrom's failure modes describe Bitcoin's current situation closely.** Ostrom documented how commons fail: rules are invisible, decision-making is captured by a small group, participants cannot see who is making decisions on their behalf, and exit options are theoretical rather than practical. A small group controls what 77% of the network runs, banned critics for naming conflicts of interest, and blocked a formal spec for fifteen years. That is not friction. That is Ostrom's failure pattern.
 
 97. **Good governance and formalized government are not the same thing.** The goal is not foundations, steering committees, or stakeholder processes. Those are capture vectors. The goal is the same thing Ostrom's successful commons had: visible rules, visible decision-making, accountability to participants, and genuine alternatives so that exit is real rather than theoretical. That is compatible with everything Bitcoin's defenders claim to value. It is what they are not currently delivering.
+
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Ostrom requirement</th><th>Bitcoin Core development today</th></tr>
+</thead>
+<tbody>
+<tr><td>Visible rules</td><td>Informal process; no adopted formal consensus specification</td></tr>
+<tr><td>Visible decision-making</td><td>Concentrated merge authority; unpublished merge criteria</td></tr>
+<tr><td>Accountability to participants</td><td>Critics moderated off conflicts; no appeal mechanism</td></tr>
+<tr><td>Genuine alternatives</td><td>Core lineage runs ~98%+ of nodes; exit is costly and exceptional</td></tr>
+</tbody>
+</table>
+<figcaption>Ostrom's successful-commons criteria applied to reference-client governance (§95–97).</figcaption>
+</figure>
 
 ---
 
