@@ -53,7 +53,7 @@ Numbered arguments for debate and analysis. Narrative evidence, funding maps, an
 
 4. **The menu problem.** Users choose from options Core provides, not from all possible options. "Just don't upgrade" is not deciding what features exist. It is choosing from the menu, not what gets put on it.
 
-5. **Success likelihood correlates with maintainer proximity and social relationships.** Governance is political and relationship-driven: people go out of their way to stay credible with maintainers because outcomes depend on it. That is not necessarily improper; it is still a concentration of informal gatekeeping. Jon Atack, a Bitcoin Core insider since 2019, **described** those dynamics in a public interview (not as commentary on any specific third-party research project): https://rumble.com/v75tyny-bitcoin-code-governance-jon-atack-plan-forum.html
+5. **Success likelihood correlates with maintainer proximity and social relationships.** Governance is political and relationship-driven: people go out of their way to stay credible with maintainers because outcomes depend on it. That is not necessarily improper; it is still a concentration of informal gatekeeping. Jon Atack, a Bitcoin Core insider since 2019, described those dynamics at the [Plan B Forum](https://rumble.com/v75tyny-bitcoin-code-governance-jon-atack-plan-forum.html). On funding self-censorship and the office path to maintainership, see [BIS #195](https://www.bitcoininfinityshow.com/bitcoin-core-from-the-inside-jon-atack-bis-195/), a later return appearance (2026), and points 19a and 58a below.
 
 6. **The security assumption mismatch.** Bitcoin's network security model assumes adversarial nodes but not an adversarial **merge layer** (the small group that can land code in the reference client). **Merge holders are typically publicly identifiable** and often under **U.S.-adjacent jurisdiction**; that profile is **not modeled** as an adversary class in the system's usual security story. That assumption needs updating.
 
@@ -152,6 +152,8 @@ Numbered arguments for debate and analysis. Narrative evidence, funding maps, an
 </figure>
 
 19. **Pipeline control: developers on funder boards decide who gets funded next.** OpenSats has Core developers on its board making grant decisions. That is a closed loop. Brink dominates incubation. The funding pipeline is controlled by overlapping cohorts with no external accountability.
+
+19a. **Funding shapes what contributors say before anyone sends a memo.** On [BIS #195](https://www.bitcoininfinityshow.com/bitcoin-core-from-the-inside-jon-atack-bis-195/), Atack explained withdrawing from co-authorship credit on Knut Svanholm's first Bitcoin book while pursuing Square Crypto funding. In a later return appearance on The Bitcoin Infinity Show (2026), Atack said he self-censored for seven years with grant renewal in the background, that Spiral declined to renew after four years with a rationale he called nonsense, that Maelstrom did not renew in favor of another developer, and that a maintainer and a senior developer went to the OpenSats board about his funding without telling him or naming them on air. See [Who Controls Bitcoin, §III](/articles/bitcoin-governance/#opensats-and-the-dorsey-concentration-problem).
 
 20. **The liability contradiction.** The MIT license is what protects Core from liability for bugs like the wallet deletion incident. That license exists because Bitcoin is a commons. You cannot hide behind the commons when convenient and claim owner authority to exclude proposals when it is not.
 
@@ -277,6 +279,8 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 57. **Nobody gets paid to replicate.** The open source economy rewards innovation and improvement, not unglamorous consensus-correctness work. Pure replication has no intellectual reward and no natural funding mechanism. The incentive structure selects against the exact work that implementation diversity requires.
 
 58. **Major alternative implementations to date each carried a distinct agenda.** Libbitcoin abandoned the UTXO set and mempool. Btcd prioritized its own architecture. The mindset required to build a pure consensus-compatible alternative with no improvement agenda is exactly what the entire pipeline selects against.
+
+58a. **Office rotation as an unwritten maintainership path.** In a later return appearance on The Bitcoin Infinity Show (2026), Atack said he asked a South African contributor how he reached maintainership without a fixed Core-affiliated office and quoted the reply: rotation through those offices on a roughly three month cycle. The requirement appears in no published Core process. Points 56 through 58 describe a thin talent pool; geography and physical presence narrow it further. See [Who Controls Bitcoin, §III (Brink)](/articles/bitcoin-governance/#brink).
 
 59. **The talent pool is structurally thin before funding and gatekeeping constraints even apply.** The multi-domain requirement spanning C++, applied cryptography, distributed systems, security engineering, economics, and open source governance narrows the globally available pool to dozens to hundreds of people. This is not a Bitcoin-specific problem. It is a structural constraint on the entire development ecosystem.
 

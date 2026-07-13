@@ -45,7 +45,7 @@ The informal merge authority structure means there is no formal process, no publ
 
 ### What the Quantitative Record Shows
 
-The same research finds extreme merge concentration (Gini on PR-weighted activity ~0.851), high contributor churn (many participants with minimal sustained engagement), near-total voting-bloc cohesion among top reviewers in the dataset, and a pattern of governance paralysis on major protocol improvements that would have reduced dependence on the current institutional infrastructure.
+The same research finds extreme merge concentration (Gini on PR-weighted activity ~0.851), high contributor churn (many participants with minimal sustained engagement), near-total voting-bloc cohesion among top reviewers in the dataset, and a pattern of governance paralysis on major protocol improvements that would have reduced dependence on the current institutional infrastructure. Contributor accounts in Section III describe how funding dependency and institutional geography further narrow who sustains engagement in that dataset.
 
 <figure class="article-chart chart-stackbar">
 <div class="chart-heading">Historical merge share (Bitcoin Core, full-history rollup)</div>
@@ -152,6 +152,8 @@ Founded in 2020 by John Newbery, who came out of Chaincode Labs, and Mike Schmid
 
 John Pfeffer, one of Brink's founding donors, also invested in Alpen Labs, a ZK rollup project building on Bitcoin. Wences Casares, the other founding donor, also invested in Alpen Labs and is a founding donor to Localhost Research, the organization now housing two Bitcoin Core maintainers. These are people simultaneously funding the developers who govern the base layer and investing in commercial operations whose success depends on how those developers govern it.
 
+Brink documents the first tier. In a later return appearance on The Bitcoin Infinity Show (2026), Jon Atack said he asked a South African contributor how he had become maintainer without a fixed desk at Chaincode, Brink, or Blockstream. Atack quoted the reply: the contributor had rotated through Core-affiliated offices on a roughly three month cycle, visiting every institution and every key person in turn. Atack said that was what needed to be done. Nothing in Core's published process requires office rotation. Developers who will not relocate or stay on the road continuously are filtered out by geography and institutional access before technical merit gets a full hearing.
+
 ### OpenSats and the Dorsey Concentration Problem
 
 OpenSats operates with a nine-person volunteer board and presents itself as a decentralized funding vehicle. In 2024 it received $23.6 million in donations, of which $21 million, roughly 90%, came from Jack Dorsey's StartSmall initiative alone.
@@ -170,6 +172,8 @@ OpenSats operates with a nine-person volunteer board and presents itself as a de
 </figure>
 
 Dorsey's footprint across Bitcoin's governance infrastructure is wider than any other single actor. He is the dominant funder of OpenSats, a major donor to Brink, and the founder of Spiral, which **directly employs at least one Bitcoin Core maintainer with merge access**. He has also donated tens of millions to the Human Rights Foundation's Bitcoin Development Fund and Btrust. That means Dorsey's money touches a sitting maintainer directly through Spiral, the primary developer grant organization at 90% of its funding, and multiple secondary grant channels simultaneously. A single donor with that reach across the governance infrastructure represents a structural concentration of influence that has no parallel in Bitcoin's development history.
+
+Jon Atack has described how that funding map behaves from the contributor side. On [BIS #195](https://www.bitcoininfinityshow.com/bitcoin-core-from-the-inside-jon-atack-bis-195/), Knut Svanholm asked why Atack had withdrawn from co-authorship credit on Svanholm's first Bitcoin book; Atack explained he was pursuing Square Crypto funding and needed to keep a low-controversy public profile. In a later return appearance on The Bitcoin Infinity Show (2026), Atack said that he had self-censored for seven years while grant renewal sat in the background, that Spiral funded him for four years before declining to renew with a stated rationale he described as nonsense, that Maelstrom did not renew in favor of another developer, and that a maintainer and a senior developer went to the OpenSats board and talked about his funding behind his back without naming them on air. Nobody sent a memo about what to avoid. He inferred the lines from who holds the grant keys.
 
 ### Localhost Research
 
@@ -223,7 +227,7 @@ Launched in late 2024 with founding donors Mark Casey and Wences Casares and boa
 <figcaption>Schematic, not exhaustive. Shows documented employment, grant, hosting, and donor concentration described in §III–IV.</figcaption>
 </figure>
 
-The pattern is not incidental. The people who fund Bitcoin Core development circulate through the same small set of institutions. Blockstream founders become Chaincode employees. Chaincode alumni found Brink. Brink's co-founder came from Blockstream. Brink's operations director came from Chaincode. **Current** merge holders map onto that same map (**Chaincode payroll, Localhost-style hosting, Spiral, Brink-funded paths**) in combinations that shift over time but **do not** dissolve the concentration. The governance research underlying these findings is published in [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research). The people deciding what ships in Bitcoin Core are employees and grantees of institutions whose founders and funders have direct financial interests in specific protocol directions.
+The pattern is not incidental. The people who fund Bitcoin Core development circulate through the same small set of institutions. Blockstream founders become Chaincode employees. Chaincode alumni found Brink. Brink's co-founder came from Blockstream. Brink's operations director came from Chaincode. **Current** merge holders map onto that same map (**Chaincode payroll, Localhost-style hosting, Spiral, Brink-funded paths**) in combinations that shift over time but **do not** dissolve the concentration. The governance research underlying these findings is published in [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research). The people deciding what ships in Bitcoin Core are employees and grantees of institutions whose founders and funders have direct financial interests in specific protocol directions. Contributor accounts of grant pressure and geographic filtering in Section III describe how that map operates from inside the pipeline.
 
 This network is not assembled by explicit coordination. It is assembled by the normal operation of financial incentives, social trust, and institutional gravity. People fund what they understand. They hire from networks they trust. They develop intellectual frameworks that align with the interests of the institutions they work for. No individual needs to be corrupt for the system to produce captured outcomes. The mechanism is structural, not conspiratorial.
 
