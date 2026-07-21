@@ -73,7 +73,7 @@ Undefined witness versions and OP_SUCCESS opcodes are upgrade hooks. Consensus t
 
 **Dedicated channels** carry no monetary function, or hold large uninterpreted script data.
 
-OP_RETURN is an output with no spending condition. Core v30 relay policy allows up to 100,000 bytes of aggregate `OP_RETURN` `scriptPubKey` per transaction, with multiple outputs, while consensus places no byte cap. The Taproot envelope pushes data inside an `OP_FALSE OP_IF` branch that never executes. SegWit's witness discount and Taproot's removal of the 10,000 byte tapscript ceiling made large envelope payloads practical.
+OP_RETURN is an output with no spending condition. Core v30 relay policy allows up to 100,000 bytes of aggregate `OP_RETURN` `scriptPubKey` per transaction, with multiple outputs, while consensus places no byte cap. In June 2023, PR #27832 narrowed the documented scope of `-datacarriersize` from all data carrier transactions to `scriptPubKey` outputs only, leaving witness and script-path inscription fields outside the setting's documented scope before Core v30 removed the relay cap in 2025. The Taproot envelope pushes data inside an `OP_FALSE OP_IF` branch that never executes. SegWit's witness discount and Taproot's removal of the 10,000 byte tapscript ceiling made large envelope payloads practical.
 
 <figure class="article-chart">
 <table class="chart-matrix">
@@ -186,7 +186,7 @@ Dedicated and witness-discounted channels drove bandwidth. What remains is built
 
 Hidden data capacity is structural. In Bitcoin the carrying fields are security requirements.
 
-The blockspace impact is measured, not guessed. A full chain scan across 912,723 blocks and roughly 1.235 billion transactions yields specific numbers. Spam's share of blockspace intensified about 17-fold relative to its pre-inscription baseline. Non-monetary data accounts for an estimated 12 to 19% of total chain storage. 29.6% of all UTXOs are inscription-related, holding about 415 BTC in total value per Mempool Research. Blocks ran between 91 and 97% full across multiple weeks in 2026. The negligible-impact claim requires ignoring documented methodology and published measurements.
+The blockspace impact is measured, not guessed. A full chain scan across 912,723 blocks and roughly 1.235 billion transactions finds spam's share of blockspace intensified about 17-fold relative to its pre-inscription baseline. Non-monetary data accounts for an estimated 12 to 19% of total chain storage; 29.6% of all UTXOs are inscription-related, holding about 415 BTC in total value per Mempool Research. Blocks ran between 91 and 97% full across multiple weeks in 2026. Post-merge, [Renaud Cuny's December 2025 analysis](https://blockspaceweekly.substack.com/p/issue-3-three-years-of-spam) found large OP_RETURN activity activating immediately after Core v30's uncap while inscription witness data continued at scale — roughly 36% of blockspace non-financial as of December 2025. The merge opened a new channel without closing the old one. The negligible-impact claim requires ignoring documented methodology and published measurements. For the governance timeline behind the uncap, see *[Who Controls Bitcoin, §V](/articles/bitcoin-governance/#v-the-adversarial-layer-when-conflicts-become-visible)*.
 
 ### Cost per embedded byte
 
