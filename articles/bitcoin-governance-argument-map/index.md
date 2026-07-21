@@ -27,6 +27,7 @@ Numbered arguments for debate and analysis. Narrative evidence, funding maps, an
 - [Part XIX. Answering "You Can Just Ignore It"](#part-xix-answering-you-can-just-ignore-it)
 - [Part XX. When Defenders Concede Every Fact](#part-xx-when-defenders-concede-every-fact)
 - [Part XXI. The Language Analogy and Its Limits](#part-xxi-the-language-analogy-and-its-limits)
+- [Part XXII. Blockspace Governance and Relay-Policy Failure](#part-xxii-blockspace-governance-and-relay-policy-failure)
 
 ---
 
@@ -59,7 +60,7 @@ Numbered arguments for debate and analysis. Narrative evidence, funding maps, an
 
 7. **The "rough consensus" definition is controlled by the same people who invoke it.** Ava Chow closed a PR because it "was obviously controversial and had no hope of reaching a conclusion acceptable to everyone." No external arbiter defines rough consensus. The maintainer defines it unilaterally and invokes it as justification for closure. That is unlimited discretion with a rule-shaped wrapper.
 
-8. **The "janitorial function" framing versus material reality.** Jameson Lopp wrote in 2018 that maintainer accounts have merge ability but this is "more of a janitorial function than a position of power." The material reality is that this function determines what improvements are available for anyone to use. Janitorial framing obscures structural authority.
+8. **The "janitorial function" framing versus material reality.** Maintainer-adjacent commentary has described merge ability as "more of a janitorial function than a position of power." The material reality is that this function determines what improvements are available for anyone to use. Janitorial framing obscures structural authority.
 
 ---
 
@@ -218,7 +219,7 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 35. **Change merged despite broad, documented opposition.** The proposal was pushed through over opposition from Dashjr, Mow, and dozens of others. An open letter from 31 Core developers argued for the pro-removal position, meaning even the internal pro-change camp needed a letter to push it through. Community opposition was extensive, public, and named. It did not matter.
 
-36. **Bitcoin Mechanic banned from GitHub for naming a conflict of interest.** On April 28, 2025, Bitcoin Mechanic tweeted: "Someone pushing for a major change to Bitcoin is affiliated with a company whose current exploit of Bitcoin was the motivation for the change. Pointing this out on the github discussion has resulted in me being banned." The contributor in question was a VC backer of Citrea, a for-profit project that directly benefits from lifting the OP_RETURN limit. Raising a documented conflict of interest resulted in removal from the discussion platform.
+36. **Bitcoin Mechanic banned from GitHub for naming a conflict of interest.** On April 28, 2025, Bitcoin Mechanic tweeted: "Someone pushing for a major change to Bitcoin is affiliated with a company whose current exploit of Bitcoin was the motivation for the change. Pointing this out on the github discussion has resulted in me being banned." The contributor in question was a VC backer of a for-profit rollup project that posts data to Bitcoin's base layer and directly benefits from lifting the OP_RETURN limit. Raising a documented conflict of interest resulted in removal from the discussion platform.
 
 37. **Luke Dashjr muted on the same PR.** A 15-plus year Bitcoin Core contributor was locked out of the discussion on the most contested change of 2025.
 
@@ -472,4 +473,16 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 ---
 
-*102 arguments across 21 sections.*
+## Part XXII. Blockspace Governance and Relay-Policy Failure
+
+*These arguments address the blockspace governance crisis of 2025 to 2026: relay-policy collapse, consensus paralysis, and design-purpose drift.*
+
+103. **The policy enforcement collapse.** For approximately 14 years, the blockspace policy against non-monetary data held not because of multiple independent implementations but because Bitcoin Core's single dominant implementation enforced it. That monoculture was precisely what made the policy viable. The relay bypass infrastructure that eventually made the policy unenforceable, direct submission APIs, alternative relay networks, and private pool peering, was built as a side effect of legitimate mining infrastructure development, not originally to circumvent spam protections. By the time inscriptions arrived, the enforcement mechanism had already been hollowed out by infrastructure that Core itself had accommodated. Core v30's OP_RETURN uncap did not cause this failure. It ratified a surrender that the infrastructure had already produced. The correct engineering response to relay policy becoming unenforceable was to move protections to consensus. The actual response was to remove the policy and call it pragmatism.
+
+104. **When documented consensus proposals stall.** Independent chain analysis now exists at scale: full scans across hundreds of thousands of blocks, spam-matching criteria, and measured intensification in non-monetary use relative to pre-inscription baselines. Proposals to cap dedicated embedding channels at consensus can cite that record and face no credible technical refutation of the underlying rules. Activation support nonetheless stays negligible. Defenders cite the non-activation as proof that Bitcoin's consensus process works. It is evidence of the opposite. When empirical support cannot convert into forward movement against coordinated social pressure and incumbent inertia, the bottleneck is governance structure, not technical merit. The failure mode is process, not proof.
+
+105. **The impedance mismatch.** Bitcoin's original OP_RETURN limit was not arbitrary. It existed because Bitcoin was not designed to carry non-monetary data, and the limit was the impedance mismatch between that design and the demand to use it otherwise. Removing the limit is not a pragmatic adaptation to revealed demand. It is the removal of an intentional friction that existed to keep the system aligned with its design purpose. The demand it accommodates is itself a governance capture outcome: a set of actors with financial interest in using Bitcoin as a subsidized data storage bus successfully pressured the development process to remove the friction standing between their use case and the network's resources. Calling this pragmatism requires accepting that the demand was legitimate to begin with. That premise was never established.
+
+---
+
+*105 arguments across 22 sections. Last updated July 2026.*

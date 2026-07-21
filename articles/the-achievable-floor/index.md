@@ -17,13 +17,15 @@
 
 Bitcoin spam debate blurs two layers. Consensus forces every validating node to accept whatever is in a valid block, monkey jpegs included. Relay and storage are policy. No node must relay a transaction before confirmation, and no node must keep storing everything after validation. Pruning exists because storage is optional.
 
-Pruning costs self-sovereignty. A pruned node cannot re-verify the full chain from its own copy without asking another node.
+Pruning costs self-sovereignty. A pruned node cannot re-verify the full chain from its own copy without asking another node. Pruning also does not remove initial sync cost. Every pruned node still downloads and validates the full chain history, including non-monetary data, during initial block download. The spam passes through every new node at first sync whether that node keeps the data afterward. Bandwidth and validation time at sync are permanent costs on every participant who joins. Pruning shifts when storage is paid. It does not eliminate the download.
 
 Refusing to relay is not banning. A transaction that pays enough fee reaches the chain through some miner or permissive node, whatever one operator's mempool policy says. Policy limits on OP_RETURN and similar fields can be raised, lowered, or dropped by whoever runs the defaults. Consensus caps bind every participant or fail to activate.
 
-The fight is usually about consensus capture, forking risk, and who decides which use cases are legitimate. For OP_RETURN, BIP-110, and data-embedding politics, see *[Who Controls Bitcoin, §V](/articles/bitcoin-governance/#v-the-adversarial-layer-when-conflicts-become-visible)* and *[Argument Map, Parts VI–VII](/articles/bitcoin-governance-argument-map/#part-vi-forced-participation)*.
+The fight is usually about consensus capture, forking risk, and who decides which use cases are legitimate. For OP_RETURN and data-embedding politics, see *[Who Controls Bitcoin, §V](/articles/bitcoin-governance/#v-the-adversarial-layer-when-conflicts-become-visible)* and *[Argument Map, Parts VI–VII and XXII](/articles/bitcoin-governance-argument-map/#part-vi-forced-participation)*.
 
 Set politics aside. If consensus could change freely, how low can arbitrary data be pushed, and where is the hard limit?
+
+Spam has a workable definition. A spam transaction has no monetary settlement function and pushes costs permanently onto every validating node with no recovery path. Lightning channel opens and closes have settlement functions. Timelocked outputs and multisig setups have settlement functions. A JPEG in a Taproot envelope does not. That follows from Bitcoin's design as a distributed consensus state machine whose validity depends on the complete chain of prior state transitions. Using the settlement layer as a subsidized data bus imposes externalities on a system not built to carry them. Demands for an impossible alternative definition are rhetorical, not technical. The definition was always available.
 
 ## II. Taxonomy of Channels by Cost
 
@@ -90,6 +92,8 @@ OP_RETURN is an output with no spending condition. Core v30 relay policy allows 
 </figure>
 
 ## III. What Consensus Can Actually Close
+
+Closable and unclosable channels are not the same problem. OP_RETURN embedding and Taproot envelope embedding are closable at consensus. Out-of-band submission to mining pools, private peering between miners, and direct transaction injection are not closable at consensus without redesigning mining architecture. The honest claim after closing closable channels is that some spam may still reach blocks through paths consensus cannot shut. That is not an argument against closing the channels consensus can shut. It is a category error to treat them as one objection.
 
 Dedicated and unenforced channels can close at consensus. Neither carries monetary function Bitcoin needs.
 
@@ -182,6 +186,8 @@ Dedicated and witness-discounted channels drove bandwidth. What remains is built
 
 Hidden data capacity is structural. In Bitcoin the carrying fields are security requirements.
 
+The blockspace impact is measured, not guessed. A full chain scan across 912,723 blocks and roughly 1.235 billion transactions yields specific numbers. Spam's share of blockspace intensified about 17-fold relative to its pre-inscription baseline. Non-monetary data accounts for an estimated 12 to 19% of total chain storage. 29.6% of all UTXOs are inscription-related, holding about 415 BTC in total value per Mempool Research. Blocks ran between 91 and 97% full across multiple weeks in 2026. The negligible-impact claim requires ignoring documented methodology and published measurements.
+
 ### Cost per embedded byte
 
 Structural arithmetic on §II channel sizes, BIP141 accounting, and Core v30 relay defaults. Not chain measurements.
@@ -215,7 +221,7 @@ Policy and fees still matter. Consensus can close high-bandwidth channels and li
 
 ## VII. Implementation Path
 
-The OP_RETURN cap and envelope push cap are straightforward. They subtract from valid transaction shapes. Witness version, annex, and control block caps need language for reopening a version or redefining a placeholder later. The dynamic minimum output value needs a fee-rate reference and update cadence; static dust thresholds already run as policy on several implementations.
+The OP_RETURN cap and envelope push cap are straightforward. They subtract from valid transaction shapes. Witness version, annex, and control block caps need language for reopening a version or redefining a placeholder later. The dynamic minimum output value needs a fee-rate reference and update cadence; static dust thresholds already run as policy on several implementations. Consensus caps on dedicated embedding channels do not close every free input-side channel. Inputs still carry low-cost fields such as nSequence, nLockTime, and ordering. A dynamic minimum output value, recomputed on a fee-rate percentile schedule, closes those channels indirectly. Inputs spend previously created outputs. If new outputs carry a minting cost at consensus, exploiting input-side free fields requires spending outputs that were not free to create. The floor does not ban input fields directly. It removes the economic incentive to mint outputs for free and then encode through inputs. Dedicated-channel caps and a dynamic output floor are complementary, not competing proposals.
 
 UTXO commitments and selective sync are more involved, mainly on trust model tightening.
 
