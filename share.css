@@ -10,9 +10,24 @@
     margin-left: auto;
 }
 
+.social-links {
+    position: relative;
+}
+
 .social-links .share-widget {
     position: relative;
     overflow: visible;
+}
+
+.social-links .share-menu .share-menu-item {
+    font-size: 0.58rem;
+    text-decoration: none;
+    color: var(--secondary);
+    display: flex;
+}
+
+.social-links .share-menu .share-menu-item i {
+    font-size: 1rem;
 }
 
 .share-trigger {
@@ -215,14 +230,32 @@
 @media (max-width: 600px) {
     .share-menu.is-open {
         grid-template-columns: repeat(3, 1fr);
-        min-width: 200px;
+    }
+
+    .social-links .share-widget {
+        position: static;
     }
 
     .social-links .share-menu {
-        right: auto;
+        position: absolute;
+        top: calc(100% + 8px);
         left: 50%;
+        right: auto;
         transform: translateX(-50%);
-        min-width: min(280px, calc(100vw - 40px));
+        width: min(240px, calc(100vw - 32px));
+        max-width: calc(100vw - 32px);
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 0.4rem;
+    }
+
+    .social-links .share-menu .share-menu-item {
+        font-size: 0.52rem;
+        padding: 0.4rem 0.15rem;
+    }
+
+    .social-links .share-menu .share-menu-item i {
+        font-size: 0.9rem;
     }
 
     .site-nav {
