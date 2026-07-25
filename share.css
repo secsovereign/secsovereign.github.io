@@ -165,7 +165,7 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem 0.75rem;
-    margin-bottom: 1.25rem;
+    margin-top: 1.25rem;
     padding: 0.65rem 0.75rem;
     background: var(--light-gray);
     border: 1px solid var(--border);

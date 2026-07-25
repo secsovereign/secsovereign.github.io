@@ -230,8 +230,8 @@ function renderPage({ title, description, slug, bodyHtml }) {
         ${shareWidgetHtml({ ...shareCtx, extraClass: 'nav-share' })}
     </nav>
     <div class="article-wrap">
-        ${articleShareBarHtml(shareCtx)}
         <article class="article-body">${bodyHtml}</article>
+        ${articleShareBarHtml(shareCtx)}
     </div>
     <script src="/share.js"></script>
 </body>
