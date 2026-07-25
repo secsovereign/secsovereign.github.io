@@ -163,24 +163,35 @@
             menu.appendChild(createActionElement(action, ctx));
         });
 
+        var outsideClickHandler = null;
+
         function closeMenu() {
             menu.classList.remove('is-open');
             trigger.setAttribute('aria-expanded', 'false');
+            if (outsideClickHandler) {
+                document.removeEventListener('click', outsideClickHandler, true);
+                document.removeEventListener('touchend', outsideClickHandler, true);
+                outsideClickHandler = null;
+            }
         }
 
         function openMenu() {
             menu.classList.add('is-open');
             trigger.setAttribute('aria-expanded', 'true');
+            outsideClickHandler = function (ev) {
+                if (!widget.contains(ev.target)) closeMenu();
+            };
+            setTimeout(function () {
+                document.addEventListener('click', outsideClickHandler, true);
+                document.addEventListener('touchend', outsideClickHandler, true);
+            }, 0);
         }
 
         trigger.addEventListener('click', function (ev) {
+            ev.preventDefault();
             ev.stopPropagation();
             if (menu.classList.contains('is-open')) closeMenu();
             else openMenu();
-        });
-
-        document.addEventListener('click', function (ev) {
-            if (!widget.contains(ev.target)) closeMenu();
         });
 
         document.addEventListener('keydown', function (ev) {

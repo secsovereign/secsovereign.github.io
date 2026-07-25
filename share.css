@@ -12,30 +12,7 @@
 
 .social-links .share-widget {
     position: relative;
-}
-
-.social-links .share-trigger {
-    color: var(--primary);
-    font-size: 24px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    padding: 0;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.social-links .share-trigger:hover,
-.social-links .share-trigger[aria-expanded="true"] {
-    color: var(--primary);
-}
-
-.social-links .share-trigger .fa-solid {
-    font-family: "Font Awesome 6 Free", sans-serif;
-    font-weight: 900;
-    line-height: 1;
+    overflow: visible;
 }
 
 .share-trigger {
@@ -51,10 +28,43 @@
     border-radius: 4px;
     cursor: pointer;
     line-height: 1;
+    appearance: none;
+    -webkit-appearance: none;
+    box-shadow: none;
+    touch-action: manipulation;
+}
+
+.share-trigger-icon,
+.share-trigger-icon:hover,
+.share-trigger-icon:focus,
+.share-trigger-icon[aria-expanded="true"] {
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
+    width: auto;
+    height: auto;
+    font-size: 24px;
+    font-family: inherit;
+    color: var(--primary);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    line-height: 1;
+}
+
+.share-trigger-icon .fa-solid {
+    font-family: "Font Awesome 6 Free", sans-serif;
+    font-weight: 900;
+    line-height: 1;
+    font-size: 1em;
 }
 
 .share-trigger:hover,
-.share-trigger[aria-expanded="true"] {
+.share-trigger[aria-expanded="true"]:not(.share-trigger-icon) {
     border-color: var(--primary);
     color: var(--secondary);
 }
@@ -63,7 +73,7 @@
     position: absolute;
     top: calc(100% + 6px);
     right: 0;
-    z-index: 100;
+    z-index: 1000;
     min-width: 220px;
     padding: 0.5rem;
     background: var(--light-gray);
@@ -206,6 +216,13 @@
     .share-menu.is-open {
         grid-template-columns: repeat(3, 1fr);
         min-width: 200px;
+    }
+
+    .social-links .share-menu {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: min(280px, calc(100vw - 40px));
     }
 
     .site-nav {
