@@ -202,7 +202,8 @@ function renderPage({ title, description, slug, bodyHtml }) {
   const desc = escapeHtml(description);
   const pageTitle = escapeHtml(title + ' | SecureSovereign');
   const navTitle = escapeHtml(title);
-  const shareCtx = { url, title, text: description };
+  const shareText = description ? `${title} — ${description}` : title;
+  const shareCtx = { url, title, text: shareText };
   return `<!DOCTYPE html>
 <html lang="en">
 <head>

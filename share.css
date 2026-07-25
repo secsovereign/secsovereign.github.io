@@ -10,6 +10,34 @@
     margin-left: auto;
 }
 
+.social-links .share-widget {
+    position: relative;
+}
+
+.social-links .share-trigger {
+    color: var(--primary);
+    font-size: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.social-links .share-trigger:hover,
+.social-links .share-trigger[aria-expanded="true"] {
+    color: var(--primary);
+}
+
+.social-links .share-trigger .fa-solid {
+    font-family: "Font Awesome 6 Free", sans-serif;
+    font-weight: 900;
+    line-height: 1;
+}
+
 .share-trigger {
     display: inline-flex;
     align-items: center;
