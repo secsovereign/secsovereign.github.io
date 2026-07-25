@@ -179,11 +179,30 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
+function shareWidgetHtml({ url, title, text, extraClass = '' }) {
+  const esc = escapeHtml;
+  return `<div class="share-widget ${extraClass}" data-share-url="${esc(url)}" data-share-title="${esc(title)}" data-share-text="${esc(text)}">
+        <button type="button" class="share-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Share">
+            <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Share
+        </button>
+        <div class="share-menu" role="menu"></div>
+    </div>`;
+}
+
+function articleShareBarHtml({ url, title, text }) {
+  const esc = escapeHtml;
+  return `<div class="article-share-bar" data-share-url="${esc(url)}" data-share-title="${esc(title)}" data-share-text="${esc(text)}">
+        <span class="share-label">Share</span>
+        <div class="article-share-icons"></div>
+    </div>`;
+}
+
 function renderPage({ title, description, slug, bodyHtml }) {
   const url = `${SITE}/articles/${slug}/`;
   const desc = escapeHtml(description);
   const pageTitle = escapeHtml(title + ' | SecureSovereign');
   const navTitle = escapeHtml(title);
+  const shareCtx = { url, title, text: description };
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -198,17 +217,22 @@ function renderPage({ title, description, slug, bodyHtml }) {
     <meta property="og:url" content="${url}">
     <meta property="og:site_name" content="SecureSovereign">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/article.css" rel="stylesheet">
+    <link href="/share.css" rel="stylesheet">
 </head>
 <body>
     <nav class="site-nav">
         <a href="/">← Home</a>
         <span class="sep">/</span>
         <span style="color: var(--text-muted); font-family: 'Courier New', monospace; font-size: 0.9rem;">${navTitle}</span>
+        ${shareWidgetHtml({ ...shareCtx, extraClass: 'nav-share' })}
     </nav>
     <div class="article-wrap">
+        ${articleShareBarHtml(shareCtx)}
         <article class="article-body">${bodyHtml}</article>
     </div>
+    <script src="/share.js"></script>
 </body>
 </html>
 `;

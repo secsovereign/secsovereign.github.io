@@ -1,0 +1,186 @@
+/* Share widget — dropdown / popup with platform icons */
+
+.share-widget {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.share-widget.nav-share {
+    margin-left: auto;
+}
+
+.share-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.65rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: var(--primary);
+    background: var(--light-gray);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.share-trigger:hover,
+.share-trigger[aria-expanded="true"] {
+    border-color: var(--primary);
+    color: var(--secondary);
+}
+
+.share-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    z-index: 100;
+    min-width: 220px;
+    padding: 0.5rem;
+    background: var(--light-gray);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    display: none;
+}
+
+.share-menu.is-open {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.35rem;
+}
+
+.share-menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.55rem 0.25rem;
+    border-radius: 4px;
+    color: var(--secondary);
+    text-decoration: none;
+    font-size: 0.62rem;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    line-height: 1.2;
+}
+
+.share-menu-item:hover,
+.share-menu-item:focus-visible {
+    background: var(--background);
+    color: var(--primary);
+    outline: none;
+}
+
+.share-menu-item i {
+    font-size: 1.15rem;
+    line-height: 1;
+}
+
+.share-menu-item .fab:not(.fa-twitter) {
+    font-family: "Font Awesome 6 Brands", sans-serif;
+    font-weight: 400;
+}
+
+.share-menu-item .fa-solid {
+    font-family: "Font Awesome 6 Free", sans-serif;
+    font-weight: 900;
+}
+
+.share-menu-item .fab.fa-twitter::before {
+    content: "𝕏";
+    font-family: sans-serif;
+    font-size: 1.05rem;
+}
+
+.share-menu-item.is-hidden {
+    display: none;
+}
+
+.share-menu-item.is-copied {
+    color: #5dca8a;
+}
+
+/* Article: persistent icon bar below nav */
+.article-share-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 1.25rem;
+    padding: 0.65rem 0.75rem;
+    background: var(--light-gray);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.article-share-bar .share-label {
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-right: 0.25rem;
+}
+
+.article-share-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.article-share-icons a,
+.article-share-icons button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 4px;
+    color: var(--primary);
+    background: var(--background);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+}
+
+.article-share-icons a:hover,
+.article-share-icons button:hover,
+.article-share-icons button:focus-visible {
+    border-color: var(--primary);
+    color: var(--secondary);
+    outline: none;
+}
+
+.article-share-icons .fab:not(.fa-twitter) {
+    font-family: "Font Awesome 6 Brands", sans-serif;
+    font-weight: 400;
+}
+
+.article-share-icons .fa-solid {
+    font-family: "Font Awesome 6 Free", sans-serif;
+    font-weight: 900;
+}
+
+.article-share-icons .fab.fa-twitter::before {
+    content: "𝕏";
+    font-family: sans-serif;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+    .share-menu.is-open {
+        grid-template-columns: repeat(3, 1fr);
+        min-width: 200px;
+    }
+
+    .site-nav {
+        gap: 8px 12px;
+    }
+}

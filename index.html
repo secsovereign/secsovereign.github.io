@@ -8,6 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/share.css" rel="stylesheet">
     <style>
         /* Dark Theme Colors */
         :root {
@@ -82,12 +83,20 @@
             margin-bottom: 10px;
         }
 
+        .header-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
         .social-links {
             display: flex;
             gap: 20px;
             justify-content: center;
             align-items: center;
-            margin-top: 10px;
         }
 
         .social-links a {
@@ -250,19 +259,27 @@
                     <h1>Josh</h1>
                     <h2 style="margin-top: 5px; margin-bottom: 15px; font-size: 1.3rem; color: var(--accent);">"Secure Sovereign"</h2>
                     <h2>Bitcoin Builder & Governance Researcher | Certified Bitcoin Professional (CBP)</h2>
-                    <div class="social-links">
-                        <a href="https://github.com/secsovereign" target="_blank" title="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://x.com/secsovereign" target="_blank" title="X">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="https://t.me/secsovereign" target="_blank" title="Telegram">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <a href="https://strike.me/secsovereign" target="_blank" title="Send a Tip">
-                            <i class="fa-solid fa-hand-holding-heart"></i>
-                        </a>
+                    <div class="header-actions">
+                        <div class="social-links">
+                            <a href="https://github.com/secsovereign" target="_blank" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://x.com/secsovereign" target="_blank" title="X">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://t.me/secsovereign" target="_blank" title="Telegram">
+                                <i class="fab fa-telegram"></i>
+                            </a>
+                            <a href="https://strike.me/secsovereign" target="_blank" title="Send a Tip">
+                                <i class="fa-solid fa-hand-holding-heart"></i>
+                            </a>
+                        </div>
+                        <div class="share-widget" data-share-url="https://secsov.com/" data-share-title="SecureSovereign — Bitcoin Consensus &amp; Security" data-share-text="Josh — Bitcoin Builder &amp; Governance Researcher | Certified Bitcoin Professional">
+                            <button type="button" class="share-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Share">
+                                <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Share
+                            </button>
+                            <div class="share-menu" role="menu"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -310,6 +327,13 @@
                         <p class="card-subtitle">Bitcoin Services</p>
                     </div>
                 </div>
+                <div class="custom-card card-half">
+                    <div class="card-icon blue-bg">PF</div>
+                    <div class="card-content">
+                        <p class="card-title"><a href="https://plebly.fund">Plebly Fund</a></p>
+                        <p class="card-subtitle">Open Bitcoin Work Funding</p>
+                    </div>
+                </div>
                 <div class="custom-card card-full">
                     <div class="card-icon red-bg"><i class="fab fa-bitcoin"></i></div>
                     <div class="card-content">
@@ -345,5 +369,6 @@
 
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <script src="/share.js"></script>
 </body>
 </html>
