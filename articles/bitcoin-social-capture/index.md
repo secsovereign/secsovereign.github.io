@@ -26,11 +26,11 @@ For the fiscal and access-layer frame (why states capture assets through ownersh
 
 ## I. The Paradox
 
-Bitcoin is described as trustless. That description is both the most important thing about it and, taken too literally, the source of a dangerous confusion.
+Bitcoin is described as trustless. That description is both the most important thing about it and, taken too literally, **the source of a dangerous confusion.**
 
-Bitcoin did not eliminate trust. It redistributed it. The protocol replaced trust in banks, governments, and payment processors with trust in mathematics, distributed computation, and the collective agreement of network participants to enforce a common set of rules. That is a genuine achievement and it is the foundation of Bitcoin's value as sound money. But redistribution is not elimination. The trust went somewhere, and where it went has a surface that can be manipulated.
+Bitcoin did not eliminate trust. **It redistributed it.** The protocol replaced trust in banks, governments, and payment processors with trust in mathematics, distributed computation, and the collective agreement of network participants to enforce a common set of rules. That is a genuine achievement and it is the foundation of Bitcoin's value as sound money. But redistribution is not elimination. The trust went somewhere, and where it went has a surface that can be manipulated.
 
-This is the paradox at the center of Bitcoin's governance problem. The same social layer that makes Bitcoin's rules enforceable also makes those rules vulnerable to the forces that shape every other social layer: funding, credentialing, platform control, and the accumulated weight of institutional interest.
+This is the paradox at the center of Bitcoin's governance problem. **The same social layer that makes Bitcoin's rules enforceable also makes those rules vulnerable** to the forces that shape every other social layer: funding, credentialing, platform control, and the accumulated weight of institutional interest.
 
 ---
 
@@ -40,11 +40,11 @@ Start at the bottom of the stack.
 
 The 21 million cap is not a law of nature. It is a rule that every participant in the network agrees to enforce by running software that rejects blocks violating it. The proof-of-work difficulty adjustment, the block reward schedule, the UTXO model: none of these are written into the structure of the universe. They exist because people keep running software that enforces them, and because other people keep accepting outputs from that network as valuable on the basis that the enforcement is real.
 
-The cryptography enforces the math. The social layer enforces the cryptography's relevance. Strip the social agreement away and the cryptography becomes an elaborate puzzle with no monetary significance. Bitcoin is worth what it is worth because enough people agree that the rules are real, that they will continue to be enforced, and that no one can unilaterally change them. That agreement is social. It happens to be expressed through cryptographic coordination, but the coordination serves the agreement rather than replacing it.
+**The cryptography enforces the math. The social layer enforces the cryptography's relevance.** Strip the social agreement away and the cryptography becomes an elaborate puzzle with no monetary significance. Bitcoin is worth what it is worth because enough people agree that the rules are real, that they will continue to be enforced, and that no one can unilaterally change them. That agreement is social. It happens to be expressed through cryptographic coordination, but the coordination serves the agreement rather than replacing it.
 
 Satoshi understood this. The design is not an attempt to escape the social substrate but to restructure it so that the incentives for maintaining the rules are distributed broadly enough that no single actor can corrupt them. The genius is in how those incentives are aligned, not in somehow making Bitcoin independent of human agreement. Satoshi built a social institution with unusually robust properties, which is a different and more interesting thing than building something that transcends social reality entirely.
 
-The distinction matters because it locates the attack surface accurately. Bitcoin's cryptography has not been broken and is unlikely to be. The attack surface was never there. It is in the social layer, specifically in the mechanisms that determine what software gets written, what changes get made, who gets funded to do the work, and whose voices shape what counts as legitimate participation in the network's development.
+The distinction matters because it locates the attack surface accurately. Bitcoin's cryptography has not been broken and is unlikely to be. **The attack surface was never there.** It is in the social layer, specifically in the mechanisms that determine what software gets written, what changes get made, who gets funded to do the work, and whose voices shape what counts as legitimate participation in the network's development.
 
 ---
 
@@ -54,9 +54,9 @@ The most effective ideological defense Bitcoin has is the conflation of two thin
 
 The Bitcoin network is permissionless. Anyone can transact. Anyone can run a node. Anyone can mine. The base layer enforces no identity requirements, no institutional approval, no permission from any authority. This is true and it is important.
 
-The Bitcoin development process is not permissionless in any meaningful sense. Getting a proposal taken seriously requires social legitimacy among the people who control the channels through which proposals move. Getting funded to build alternative implementations requires social legitimacy with funders who have decided, by and large, that Core's existing structure is not a problem worth solving. Getting criticism heard requires not being removed from the platforms where the criticism would matter. Getting code merged requires the approval of a small number of people whose judgments are shaped by the same funding relationships and social networks that shape everything else.
+**The Bitcoin development process is not permissionless in any meaningful sense.** Getting a proposal taken seriously requires social legitimacy among the people who control the channels through which proposals move. Getting funded to build alternative implementations requires social legitimacy with funders who have decided, by and large, that Core's existing structure is not a problem worth solving. Getting criticism heard requires not being removed from the platforms where the criticism would matter. Getting code merged requires the approval of a small number of people whose judgments are shaped by the same funding relationships and social networks that shape everything else.
 
-Permission in this context is not called permission. It is called legitimacy, or rough consensus, or community acceptance. The word changes but the function is identical. A social layer that determines whose contributions count, whose criticisms are heard, and whose proposals advance is a permissioned layer regardless of what it calls itself.
+Permission in this context is not called permission. It is called legitimacy, or rough consensus, or community acceptance. The word changes but the function is identical. **A social layer that determines whose contributions count, whose criticisms are heard, and whose proposals advance is a permissioned layer** regardless of what it calls itself.
 
 <figure class="article-chart chart-compare">
 <div class="chart-heading">Two layers, two permission models</div>
@@ -105,7 +105,7 @@ The surface dispute was about block size. The structural outcome was the permane
 
 Primary source documentation exists for the coordinated institutional interest in shaping that outcome: emails placing legacy financial institutions in direct contact with the developers and institutions involved in the debate; funding relationships between the organizations arguing for specific technical outcomes and the commercial operations whose revenues depended on those outcomes; academic institutions whose rescue of Core's development infrastructure after the Bitcoin Foundation's collapse was financed through channels with documented conflicts of interest.
 
-The point is not that the small block position was wrong. Preserving decentralization is genuinely important and the arguments for it are technically sound. The point is that the war itself, regardless of which side was correct on the technical merits, consumed the governance bandwidth that implementation diversity required and produced governance paralysis as its durable output. You do not need Bitcoin to make wrong decisions. You only need it to make no decisions. Paralysis was a victory condition for every institutional interest threatened by functional peer-to-peer money, and the blocksize war delivered it.
+The point is not that the small block position was wrong. Preserving decentralization is genuinely important and the arguments for it are technically sound. **The point is that the war itself, regardless of which side was correct on the technical merits, consumed the governance bandwidth that implementation diversity required and produced governance paralysis as its durable output.** You do not need Bitcoin to make wrong decisions. **You only need it to make no decisions.** Paralysis was a victory condition for every institutional interest threatened by functional peer-to-peer money, and the blocksize war delivered it.
 
 Whether that outcome was coordinated or emergent from the collision of financial interests that happened to align is ultimately less important than the structural reality it produced. The outcome is identical in both cases and it is documented.
 
@@ -119,7 +119,7 @@ The usual explanation is that a specification would ossify the protocol, or that
 
 A formal specification would make it possible for alternative implementations to prove consensus compatibility without inheriting Core's codebase. It would break the architectural dependency that keeps every alternative tethered to Core by definition. It would transform the "just build an alternative" dismissal from a theoretical option into a practical one. Every one of those consequences threatens the social conditions that make the current governance structure stable.
 
-The absence of a spec is not an oversight. It is the most important structural element of the implementation monopoly, and it is self-perpetuating. Any alternative serious enough to run on mainnet stays close to Core's codebase and inherits Core's governance vulnerabilities. The monopoly reproduces itself through the same mechanism that makes breaking it appear to require the monopoly's cooperation.
+The absence of a spec is not an oversight. **It is the most important structural element of the implementation monopoly**, and it is self-perpetuating. Any alternative serious enough to run on mainnet stays close to Core's codebase and inherits Core's governance vulnerabilities. The monopoly reproduces itself through the same mechanism that makes breaking it appear to require the monopoly's cooperation.
 
 A social environment shaped to treat the spec as perpetually not-quite-the-right-time does not need to issue that judgment explicitly. It just needs to make other work feel more urgent, more legitimate, more fundable. Over fifteen years, that is exactly what happened. The absence has a beneficiary, and the beneficiary is the existing structure.
 
@@ -129,7 +129,7 @@ A social environment shaped to treat the spec as perpetually not-quite-the-right
 
 The blocksize war showed how this routing works in practice. The critics who came closest to identifying Bitcoin's actual governance problem were channeled toward a solution that left the underlying structure intact.
 
-Bitcoin Cash is the clearest example. The critique of Core's implementation monopoly was real. The solution, forking the chain, moved the same governance vulnerabilities to different maintainers operating the same monolithic architecture with the same informal merge authority and the same capture vectors. The problem was never which people held the throne. The problem was the existence of a single throne. Forking the chain built a second throne and called it revolution.
+Bitcoin Cash is the clearest example. The critique of Core's implementation monopoly was real. The solution, forking the chain, moved the same governance vulnerabilities to different maintainers operating the same monolithic architecture with the same informal merge authority and the same capture vectors. **The problem was never which people held the throne. The problem was the existence of a single throne.** Forking the chain built a second throne and called it revolution.
 
 The structural consequence was that the critique became about block size rather than the governance layer that made block size a battleground in the first place. Bitcoin's capture vector survived intact because the most energetic opposition directed its energy at the consensus rules rather than the development infrastructure.
 
@@ -157,7 +157,7 @@ The argument in this document does not depend on the existence of bad actors and
 
 Acculturated judgment, funding dependency, and shaped incentive environments produce the same outputs as deliberate coordination. A developer who has spent years inside a funding and social structure that treats implementation diversity as dangerous does not need to be consciously protecting that structure to reliably produce arguments that protect it. The acculturation did the work. The judgment is genuine. The output serves the same function as if the judgment had been purchased.
 
-This is the serious version of the governance critique and it is more serious than the conspiracy version for a specific reason. Conspiracies can be disrupted by exposing the coordination. Structural capture cannot be disrupted by exposing anything, because there is no coordination to expose. The people involved are largely acting in good faith according to values they genuinely hold. Replacing them with different people who enter the same structural environment will produce the same outputs through the same mechanisms. The capture is in the structure, not the personnel. The fix has to be structural.
+This is the serious version of the governance critique and it is more serious than the conspiracy version for a specific reason. **Conspiracies can be disrupted by exposing the coordination. Structural capture cannot be disrupted by exposing anything**, because there is no coordination to expose. The people involved are largely acting in good faith according to values they genuinely hold. Replacing them with different people who enter the same structural environment will produce the same outputs through the same mechanisms. **The capture is in the structure, not the personnel.** The fix has to be structural.
 
 This is also why the "show me the smoking gun" dismissal fails as a counter-argument. The absence of documented coordination is not evidence that the structure is healthy. It is evidence that the structure is working as designed, because structures that produce capture through incentives rather than instructions do not leave smoking guns. They leave funding maps, personnel histories, and fifteen years of a formal specification that never got written.
 
@@ -171,11 +171,11 @@ The Bitcoin Commons project is a ground-up Rust implementation built from the Or
 
 The argument and the proof are the same artifact. If the permissionless mythology were correct, this work would have been unnecessary because alternatives would have been easy to build and numerous. If the no-spec moat were an oversight rather than a structural feature, the response to this work would be welcome rather than hostile. The structural predictions the governance critique makes are testable, and the test is underway.
 
-Implementation diversity with formal specification is not an attack on Bitcoin. It is the completion of what Bitcoin's design actually requires. A network that runs one implementation governed by a captured social layer is not decentralized where decentralization matters.
+Implementation diversity with formal specification is not an attack on Bitcoin. **It is the completion of what Bitcoin's design actually requires.** A network that runs one implementation governed by a captured social layer is not decentralized where decentralization matters.
 
-The consensus rules are sound. The development infrastructure built around them is fragile in ways that the cryptography cannot fix, because the fragility is social rather than mathematical. Visible rules, accountable decision-making, and genuine alternatives that can be built and proven without the incumbent's cooperation are what make the social enforcement of Bitcoin's properties durable, rather than dependent on the continued good behavior of a small number of institutions whose interests do not always align with the network's.
+The consensus rules are sound. The development infrastructure built around them is fragile in ways that the cryptography cannot fix, because **the fragility is social rather than mathematical.** Visible rules, accountable decision-making, and genuine alternatives that can be built and proven without the incumbent's cooperation are what make the social enforcement of Bitcoin's properties durable, rather than dependent on the continued good behavior of a small number of institutions whose interests do not always align with the network's.
 
-Bitcoin survived because it redistributed trust more robustly than anything that came before it. The next step is applying the same logic to the layer that maintains it.
+**Bitcoin survived because it redistributed trust more robustly than anything that came before it.** The next step is applying the same logic to the layer that maintains it.
 
 ---
 

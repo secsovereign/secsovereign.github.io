@@ -26,7 +26,7 @@
 
 This is a **structured taxonomy**: for many demographic slices, it lists **plausible reasons** Bitcoin might resonate. It is **not** a weighted statistical study. There is no claim here that each bullet is true for a majority of that group, or that the sections are equally important in the real economy.
 
-**Why that matters.** Real adoption is skewed by access, regulation, culture, wealth, and self-selection. Surveys that ask about “cryptocurrency” often **mix Bitcoin with altcoins**; on-the-ground usage (P2P, remittance, savings) may not show up cleanly in household surveys. Treat the lists below as **hypotheses and narratives** worth testing against data, not as established facts per segment.
+**Why that matters.** Real adoption is skewed by access, regulation, culture, wealth, and self-selection. Surveys that ask about “cryptocurrency” often **mix Bitcoin with altcoins**; on-the-ground usage (P2P, remittance, savings) may not show up cleanly in household surveys. Treat the lists below as **hypotheses and narratives** worth testing against data, not as established facts per segment. This document maps plausible appeal vectors — it does not measure them.
 
 ## Introduction
 
@@ -632,7 +632,7 @@ At the till or checkout, Bitcoin competes with cards, cash, and local payment ap
 
 ## I. The Premise
 
-Bitcoin is described, by default, as decentralized open-source software maintained by a global community of volunteers. That description is technically accurate and functionally misleading. The network's consensus rules are decentralized. The development of the software that enforces those rules is not. Roughly 99% of economic nodes run software from that single upstream lineage, overwhelmingly the Bitcoin Core project’s releases, with a minority on Core-derived clients such as Knots. A small, interconnected group of funded developers decides what ships in that codebase. A smaller group holds merge authority. The people funding those developers have direct financial interests in specific protocol outcomes. When that funding map is examined alongside the personnel history and the decisions that have and have not been made over sixteen years, what emerges is not a conspiracy but a structural capture vector operating exactly as structural capture vectors operate: through acculturated judgment, financial dependency, and the quiet exclusion of inconvenient arguments from legitimate venues.
+Bitcoin is described, by default, as decentralized open-source software maintained by a global community of volunteers. That description is technically accurate and functionally misleading. **The network's consensus rules are decentralized. The development of the software that enforces those rules is not.** Roughly 99% of economic nodes run software from that single upstream lineage, overwhelmingly the Bitcoin Core project’s releases, with a minority on Core-derived clients such as Knots. A small, interconnected group of funded developers decides what ships in that codebase. A smaller group holds merge authority. The people funding those developers have direct financial interests in specific protocol outcomes. When that funding map is examined alongside the personnel history and the decisions that have and have not been made over sixteen years, what emerges is not a conspiracy but **a structural capture vector operating exactly as structural capture vectors operate:** through acculturated judgment, financial dependency, and the quiet exclusion of inconvenient arguments from legitimate venues.
 
 This document presents the structural argument in full, supported by the adversarial funding and personnel evidence. It is intended as an analytical reference for reasoning about Bitcoin governance accurately. For a numbered argument map, see *[Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map)*. For why the structure produces these outcomes without requiring conspiracy, see *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture)*.
 
@@ -642,17 +642,17 @@ This document presents the structural argument in full, supported by the adversa
 
 ### The Implementation Monopoly
 
-When the same upstream lineage supplies almost all economically relevant consensus nodes, the distinction between Bitcoin the network and “whatever Bitcoin Core’s maintainers ship” becomes practically meaningless. The network enforces what that lineage releases. The consensus rules are what that software encodes. This is not a theoretical concern. CVE-2018-17144, an inflation bug that could have allowed Bitcoin to be created out of thin air, sat in production in Bitcoin Core for eighteen months. A second independent implementation running differential tests against the same blocks would have caught it immediately. The bug was in Core. Core's monopoly is what made it dangerous.
+When the same upstream lineage supplies almost all economically relevant consensus nodes, **the distinction between Bitcoin the network and “whatever Bitcoin Core’s maintainers ship” becomes practically meaningless.** The network enforces what that lineage releases. The consensus rules are what that software encodes. This is not a theoretical concern. CVE-2018-17144, an inflation bug that could have allowed Bitcoin to be created out of thin air, sat in production in Bitcoin Core for eighteen months. A second independent implementation running differential tests against the same blocks would have caught it immediately. The bug was in Core. **Core's monopoly is what made it dangerous.**
 
-A common objection points to miners: they may run any consensus-compatible software and need not adopt every release. That permission is real; the practiced behavior is not a distributed audit. Industrial mining largely follows operational defaults: pool infrastructure, hosting providers, and routine upgrades to stay compatible with peers and with the dominant client, rather than a deliberate, release-by-release review of consensus changes by the majority of hash rate. A veto almost no one pays the cost to exercise is not the same as decentralized control over what merges.
+A common objection points to miners: they may run any consensus-compatible software and need not adopt every release. That permission is real; the practiced behavior is not a distributed audit. Industrial mining largely follows operational defaults: pool infrastructure, hosting providers, and routine upgrades to stay compatible with peers and with the dominant client, rather than a deliberate, release-by-release review of consensus changes by the majority of hash rate. **A veto almost no one pays the cost to exercise is not the same as decentralized control over what merges.**
 
-Bitcoin has never had a formal mathematical specification of its consensus rules. Producing one inside Core's process has been attempted for years without meaningful progress toward an adopted specification. Without a specification, every alternative implementation must reverse-engineer undocumented behavior from Core itself, which means staying architecturally dependent on Core by definition. That is not an accident. Unspecified behavior creates a structural barrier to competition that cannot be resolved without an independent mathematical specification. The absence of a spec is the mechanism that makes the implementation monopoly self-perpetuating.
+Bitcoin has never had a formal mathematical specification of its consensus rules. Producing one inside Core's process has been attempted for years without meaningful progress toward an adopted specification. Without a specification, every alternative implementation must reverse-engineer undocumented behavior from Core itself, which means staying architecturally dependent on Core by definition. That is not an accident. **Unspecified behavior creates a structural barrier to competition** that cannot be resolved without an independent mathematical specification. The absence of a spec is the mechanism that makes the implementation monopoly self-perpetuating.
 
 ### The Merge Authority Structure
 
 Sixteen years of Bitcoin Core governance data in [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) document a **PR-weighted contribution Gini coefficient of ~0.851** (and similarly extreme concentration in reviews), with the **top three merger roles accounting for roughly 80%+ of historical merges** in the full-history rollup ([`findings/EXECUTIVE_SUMMARY.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/EXECUTIVE_SUMMARY.md), [`findings/GINI_COEFFICIENT_EXPLANATION.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GINI_COEFFICIENT_EXPLANATION.md)). **Merge and commit permissions on [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin) are authoritative;** the live roster is currently **five** merge holders. The structural point is unchanged: **a small, fixed-capacity set** of people can land code in the reference implementation, and **their institutional ties overlap the funding map**, including Chaincode employment, Brink grants, Spiral (Block’s Bitcoin arm), Localhost-style hosts, and similar channels. These are not anonymous volunteers in the aggregate; they are employees and grantees of a **small, identifiable** set of institutions, and those institutions have financial entanglements with commercial operations that benefit from specific protocol directions.
 
-The informal merge authority structure means there is no formal process, no published criteria, and no accountability mechanism for what gets merged and what does not. Core developers disclaim ownership and authority over Bitcoin while exercising exactly that authority through PR closure and moderation. When critics name conflicts of interest on GitHub, they get moderated off. That is not the behavior of a commons with no governance. That is governance defending itself. Section V traces one contested change end to end.
+The informal merge authority structure means there is no formal process, no published criteria, and no accountability mechanism for what gets merged and what does not. Core developers disclaim ownership and authority over Bitcoin while exercising exactly that authority through PR closure and moderation. When critics name conflicts of interest on GitHub, they get moderated off. **That is not the behavior of a commons with no governance. That is governance defending itself.** Section V traces one contested change end to end.
 
 Brink's own [Engineering Impact Report 2025](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/) documents that Michael Ford ("fanquake") merged 56% of all changes to Bitcoin Core in 2025 and led every major release from v28.1 through v30.0 — published by the institution paying his salary as a funding success. The 2022+ merge window in [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) shows the same shape (~50% top-1, ~83% top-3; [`findings/MERGE_CONCENTRATION_DEPUTIES_REPORT.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/MERGE_CONCENTRATION_DEPUTIES_REPORT.md)). Fanquake also nominated Gloria Zhao for maintainership in June 2022, six months after Zhao had publicly endorsed expanding his GitHub owner permissions, including the ability to block accounts.
 
@@ -924,7 +924,7 @@ The "you can just fork it" response to governance critique is a non-answer in th
 
 ## VII. The Structural Argument in Summary
 
-Bitcoin's governance problem is not that bad people made bad decisions. It is that the structure produces captured outcomes regardless of individual intent. The mechanism operates through four interlocking components.
+Bitcoin's governance problem is not that bad people made bad decisions. **It is that the structure produces captured outcomes regardless of individual intent.** The mechanism operates through four interlocking components.
 
 The no-spec moat makes implementation monopoly permanent by design. Without a formal specification, alternatives cannot prove consensus compatibility without depending on Core itself, which means the monopoly is structurally self-perpetuating.
 
@@ -932,9 +932,9 @@ Concentrated merge authority creates a small, identifiable group whose judgments
 
 The funding map creates layered conflicts of interest that are rarely disclosed and never institutionally managed. The same small group of funders appears on both sides of the governance relationship simultaneously, funding the developers who govern the base layer and investing in commercial operations whose success depends on how those developers govern it.
 
-When these conflicts are named in public forums, critics are moderated off. This is not incidental. It is the behavior of a power structure defending itself. The combination of undisclosed conflicts, concentrated authority, and active suppression of critics is the operational signature of structural capture.
+When these conflicts are named in public forums, critics are moderated off. This is not incidental. **It is the behavior of a power structure defending itself.** The combination of undisclosed conflicts, concentrated authority, and active suppression of critics is the operational signature of structural capture.
 
-The consequence is paralysis and, when paralysis fails to protect institutional interests, directed action. When the governance structure cannot process improvements that threaten the interests of the institutions funding it, those improvements die in review. [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) documents the pattern in named dossiers: Erlay's full-protocol implementation set shows **0/7** matched PRs merged; Dandelion's Core implementation PR closed unmerged after roughly eleven months ([`findings/STALLED_PROPOSALS_REPORT.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/STALLED_PROPOSALS_REPORT.md)). When the governance structure can be moved to serve those interests — as in the OP_RETURN uncap, commissioned without disclosure by a Chaincode engineer and merged by a Chaincode employee over 21 Concept NACKs — it moves in weeks. The same structure that stalled a qualified contributor's maintainer nomination for five months through undisclosed private consultations merged the OP_RETURN uncap in 38 days from mailing list post to merge. The 56% merge concentration is no longer an estimate. It is published by Brink in its own Engineering Impact Report. Stagnation on throughput, node cost, and payment-layer competitiveness created space centralized alternatives were happy to fill. Stablecoin transaction volume now exceeds Visa annually. Those are use cases Bitcoin should own. The governance structure left Bitcoin effectively unable to compete for them.
+The consequence is paralysis and, when paralysis fails to protect institutional interests, directed action. When the governance structure cannot process improvements that threaten the interests of the institutions funding it, those improvements die in review. [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) documents the pattern in named dossiers: Erlay's full-protocol implementation set shows **0/7** matched PRs merged; Dandelion's Core implementation PR closed unmerged after roughly eleven months ([`findings/STALLED_PROPOSALS_REPORT.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/STALLED_PROPOSALS_REPORT.md)). When the governance structure can be moved to serve those interests — as in the OP_RETURN uncap, commissioned without disclosure by a Chaincode engineer and merged by a Chaincode employee over 21 Concept NACKs — it moves in weeks. **The same structure that stalled a qualified contributor's maintainer nomination for five months through undisclosed private consultations merged the OP_RETURN uncap in 38 days from mailing list post to merge.** The 56% merge concentration is no longer an estimate. It is published by Brink in its own Engineering Impact Report. Stagnation on throughput, node cost, and payment-layer competitiveness created space centralized alternatives were happy to fill. Stablecoin transaction volume now exceeds Visa annually. Those are use cases Bitcoin should own. The governance structure left Bitcoin effectively unable to compete for them.
 
 Implementation diversity is the structural fix, not a personnel change at Core. **Swapping one small maintainer cohort for another** without changing the monopoly implementation reproduces the same capture vector. The fix requires multiple independent implementations with proven consensus compatibility and different governance models, built from formal specifications that make the no-spec moat obsolete. That is not a small ask. It is exactly as hard as the governance problem predicts it would be.
 
@@ -961,6 +961,8 @@ Implementation diversity is the structural fix, not a personnel change at Core. 
 # Bitcoin Governance: Argument Map
 
 Numbered arguments for debate and analysis. Narrative evidence, funding maps, and primary sources are in *[Who Controls Bitcoin](/articles/bitcoin-governance)*; structural logic in *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture)*.
+
+**Each numbered point is a standalone claim.** Use the cross-links for evidence; use this document for the argument structure.
 
 ---
 
@@ -1481,11 +1483,11 @@ For the fiscal and access-layer frame (why states capture assets through ownersh
 
 ## I. The Paradox
 
-Bitcoin is described as trustless. That description is both the most important thing about it and, taken too literally, the source of a dangerous confusion.
+Bitcoin is described as trustless. That description is both the most important thing about it and, taken too literally, **the source of a dangerous confusion.**
 
-Bitcoin did not eliminate trust. It redistributed it. The protocol replaced trust in banks, governments, and payment processors with trust in mathematics, distributed computation, and the collective agreement of network participants to enforce a common set of rules. That is a genuine achievement and it is the foundation of Bitcoin's value as sound money. But redistribution is not elimination. The trust went somewhere, and where it went has a surface that can be manipulated.
+Bitcoin did not eliminate trust. **It redistributed it.** The protocol replaced trust in banks, governments, and payment processors with trust in mathematics, distributed computation, and the collective agreement of network participants to enforce a common set of rules. That is a genuine achievement and it is the foundation of Bitcoin's value as sound money. But redistribution is not elimination. The trust went somewhere, and where it went has a surface that can be manipulated.
 
-This is the paradox at the center of Bitcoin's governance problem. The same social layer that makes Bitcoin's rules enforceable also makes those rules vulnerable to the forces that shape every other social layer: funding, credentialing, platform control, and the accumulated weight of institutional interest.
+This is the paradox at the center of Bitcoin's governance problem. **The same social layer that makes Bitcoin's rules enforceable also makes those rules vulnerable** to the forces that shape every other social layer: funding, credentialing, platform control, and the accumulated weight of institutional interest.
 
 ---
 
@@ -1495,11 +1497,11 @@ Start at the bottom of the stack.
 
 The 21 million cap is not a law of nature. It is a rule that every participant in the network agrees to enforce by running software that rejects blocks violating it. The proof-of-work difficulty adjustment, the block reward schedule, the UTXO model: none of these are written into the structure of the universe. They exist because people keep running software that enforces them, and because other people keep accepting outputs from that network as valuable on the basis that the enforcement is real.
 
-The cryptography enforces the math. The social layer enforces the cryptography's relevance. Strip the social agreement away and the cryptography becomes an elaborate puzzle with no monetary significance. Bitcoin is worth what it is worth because enough people agree that the rules are real, that they will continue to be enforced, and that no one can unilaterally change them. That agreement is social. It happens to be expressed through cryptographic coordination, but the coordination serves the agreement rather than replacing it.
+**The cryptography enforces the math. The social layer enforces the cryptography's relevance.** Strip the social agreement away and the cryptography becomes an elaborate puzzle with no monetary significance. Bitcoin is worth what it is worth because enough people agree that the rules are real, that they will continue to be enforced, and that no one can unilaterally change them. That agreement is social. It happens to be expressed through cryptographic coordination, but the coordination serves the agreement rather than replacing it.
 
 Satoshi understood this. The design is not an attempt to escape the social substrate but to restructure it so that the incentives for maintaining the rules are distributed broadly enough that no single actor can corrupt them. The genius is in how those incentives are aligned, not in somehow making Bitcoin independent of human agreement. Satoshi built a social institution with unusually robust properties, which is a different and more interesting thing than building something that transcends social reality entirely.
 
-The distinction matters because it locates the attack surface accurately. Bitcoin's cryptography has not been broken and is unlikely to be. The attack surface was never there. It is in the social layer, specifically in the mechanisms that determine what software gets written, what changes get made, who gets funded to do the work, and whose voices shape what counts as legitimate participation in the network's development.
+The distinction matters because it locates the attack surface accurately. Bitcoin's cryptography has not been broken and is unlikely to be. **The attack surface was never there.** It is in the social layer, specifically in the mechanisms that determine what software gets written, what changes get made, who gets funded to do the work, and whose voices shape what counts as legitimate participation in the network's development.
 
 ---
 
@@ -1509,9 +1511,9 @@ The most effective ideological defense Bitcoin has is the conflation of two thin
 
 The Bitcoin network is permissionless. Anyone can transact. Anyone can run a node. Anyone can mine. The base layer enforces no identity requirements, no institutional approval, no permission from any authority. This is true and it is important.
 
-The Bitcoin development process is not permissionless in any meaningful sense. Getting a proposal taken seriously requires social legitimacy among the people who control the channels through which proposals move. Getting funded to build alternative implementations requires social legitimacy with funders who have decided, by and large, that Core's existing structure is not a problem worth solving. Getting criticism heard requires not being removed from the platforms where the criticism would matter. Getting code merged requires the approval of a small number of people whose judgments are shaped by the same funding relationships and social networks that shape everything else.
+**The Bitcoin development process is not permissionless in any meaningful sense.** Getting a proposal taken seriously requires social legitimacy among the people who control the channels through which proposals move. Getting funded to build alternative implementations requires social legitimacy with funders who have decided, by and large, that Core's existing structure is not a problem worth solving. Getting criticism heard requires not being removed from the platforms where the criticism would matter. Getting code merged requires the approval of a small number of people whose judgments are shaped by the same funding relationships and social networks that shape everything else.
 
-Permission in this context is not called permission. It is called legitimacy, or rough consensus, or community acceptance. The word changes but the function is identical. A social layer that determines whose contributions count, whose criticisms are heard, and whose proposals advance is a permissioned layer regardless of what it calls itself.
+Permission in this context is not called permission. It is called legitimacy, or rough consensus, or community acceptance. The word changes but the function is identical. **A social layer that determines whose contributions count, whose criticisms are heard, and whose proposals advance is a permissioned layer** regardless of what it calls itself.
 
 <figure class="article-chart chart-compare">
 <div class="chart-heading">Two layers, two permission models</div>
@@ -1560,7 +1562,7 @@ The surface dispute was about block size. The structural outcome was the permane
 
 Primary source documentation exists for the coordinated institutional interest in shaping that outcome: emails placing legacy financial institutions in direct contact with the developers and institutions involved in the debate; funding relationships between the organizations arguing for specific technical outcomes and the commercial operations whose revenues depended on those outcomes; academic institutions whose rescue of Core's development infrastructure after the Bitcoin Foundation's collapse was financed through channels with documented conflicts of interest.
 
-The point is not that the small block position was wrong. Preserving decentralization is genuinely important and the arguments for it are technically sound. The point is that the war itself, regardless of which side was correct on the technical merits, consumed the governance bandwidth that implementation diversity required and produced governance paralysis as its durable output. You do not need Bitcoin to make wrong decisions. You only need it to make no decisions. Paralysis was a victory condition for every institutional interest threatened by functional peer-to-peer money, and the blocksize war delivered it.
+The point is not that the small block position was wrong. Preserving decentralization is genuinely important and the arguments for it are technically sound. **The point is that the war itself, regardless of which side was correct on the technical merits, consumed the governance bandwidth that implementation diversity required and produced governance paralysis as its durable output.** You do not need Bitcoin to make wrong decisions. **You only need it to make no decisions.** Paralysis was a victory condition for every institutional interest threatened by functional peer-to-peer money, and the blocksize war delivered it.
 
 Whether that outcome was coordinated or emergent from the collision of financial interests that happened to align is ultimately less important than the structural reality it produced. The outcome is identical in both cases and it is documented.
 
@@ -1574,7 +1576,7 @@ The usual explanation is that a specification would ossify the protocol, or that
 
 A formal specification would make it possible for alternative implementations to prove consensus compatibility without inheriting Core's codebase. It would break the architectural dependency that keeps every alternative tethered to Core by definition. It would transform the "just build an alternative" dismissal from a theoretical option into a practical one. Every one of those consequences threatens the social conditions that make the current governance structure stable.
 
-The absence of a spec is not an oversight. It is the most important structural element of the implementation monopoly, and it is self-perpetuating. Any alternative serious enough to run on mainnet stays close to Core's codebase and inherits Core's governance vulnerabilities. The monopoly reproduces itself through the same mechanism that makes breaking it appear to require the monopoly's cooperation.
+The absence of a spec is not an oversight. **It is the most important structural element of the implementation monopoly**, and it is self-perpetuating. Any alternative serious enough to run on mainnet stays close to Core's codebase and inherits Core's governance vulnerabilities. The monopoly reproduces itself through the same mechanism that makes breaking it appear to require the monopoly's cooperation.
 
 A social environment shaped to treat the spec as perpetually not-quite-the-right-time does not need to issue that judgment explicitly. It just needs to make other work feel more urgent, more legitimate, more fundable. Over fifteen years, that is exactly what happened. The absence has a beneficiary, and the beneficiary is the existing structure.
 
@@ -1584,7 +1586,7 @@ A social environment shaped to treat the spec as perpetually not-quite-the-right
 
 The blocksize war showed how this routing works in practice. The critics who came closest to identifying Bitcoin's actual governance problem were channeled toward a solution that left the underlying structure intact.
 
-Bitcoin Cash is the clearest example. The critique of Core's implementation monopoly was real. The solution, forking the chain, moved the same governance vulnerabilities to different maintainers operating the same monolithic architecture with the same informal merge authority and the same capture vectors. The problem was never which people held the throne. The problem was the existence of a single throne. Forking the chain built a second throne and called it revolution.
+Bitcoin Cash is the clearest example. The critique of Core's implementation monopoly was real. The solution, forking the chain, moved the same governance vulnerabilities to different maintainers operating the same monolithic architecture with the same informal merge authority and the same capture vectors. **The problem was never which people held the throne. The problem was the existence of a single throne.** Forking the chain built a second throne and called it revolution.
 
 The structural consequence was that the critique became about block size rather than the governance layer that made block size a battleground in the first place. Bitcoin's capture vector survived intact because the most energetic opposition directed its energy at the consensus rules rather than the development infrastructure.
 
@@ -1612,7 +1614,7 @@ The argument in this document does not depend on the existence of bad actors and
 
 Acculturated judgment, funding dependency, and shaped incentive environments produce the same outputs as deliberate coordination. A developer who has spent years inside a funding and social structure that treats implementation diversity as dangerous does not need to be consciously protecting that structure to reliably produce arguments that protect it. The acculturation did the work. The judgment is genuine. The output serves the same function as if the judgment had been purchased.
 
-This is the serious version of the governance critique and it is more serious than the conspiracy version for a specific reason. Conspiracies can be disrupted by exposing the coordination. Structural capture cannot be disrupted by exposing anything, because there is no coordination to expose. The people involved are largely acting in good faith according to values they genuinely hold. Replacing them with different people who enter the same structural environment will produce the same outputs through the same mechanisms. The capture is in the structure, not the personnel. The fix has to be structural.
+This is the serious version of the governance critique and it is more serious than the conspiracy version for a specific reason. **Conspiracies can be disrupted by exposing the coordination. Structural capture cannot be disrupted by exposing anything**, because there is no coordination to expose. The people involved are largely acting in good faith according to values they genuinely hold. Replacing them with different people who enter the same structural environment will produce the same outputs through the same mechanisms. **The capture is in the structure, not the personnel.** The fix has to be structural.
 
 This is also why the "show me the smoking gun" dismissal fails as a counter-argument. The absence of documented coordination is not evidence that the structure is healthy. It is evidence that the structure is working as designed, because structures that produce capture through incentives rather than instructions do not leave smoking guns. They leave funding maps, personnel histories, and fifteen years of a formal specification that never got written.
 
@@ -1626,11 +1628,11 @@ The Bitcoin Commons project is a ground-up Rust implementation built from the Or
 
 The argument and the proof are the same artifact. If the permissionless mythology were correct, this work would have been unnecessary because alternatives would have been easy to build and numerous. If the no-spec moat were an oversight rather than a structural feature, the response to this work would be welcome rather than hostile. The structural predictions the governance critique makes are testable, and the test is underway.
 
-Implementation diversity with formal specification is not an attack on Bitcoin. It is the completion of what Bitcoin's design actually requires. A network that runs one implementation governed by a captured social layer is not decentralized where decentralization matters.
+Implementation diversity with formal specification is not an attack on Bitcoin. **It is the completion of what Bitcoin's design actually requires.** A network that runs one implementation governed by a captured social layer is not decentralized where decentralization matters.
 
-The consensus rules are sound. The development infrastructure built around them is fragile in ways that the cryptography cannot fix, because the fragility is social rather than mathematical. Visible rules, accountable decision-making, and genuine alternatives that can be built and proven without the incumbent's cooperation are what make the social enforcement of Bitcoin's properties durable, rather than dependent on the continued good behavior of a small number of institutions whose interests do not always align with the network's.
+The consensus rules are sound. The development infrastructure built around them is fragile in ways that the cryptography cannot fix, because **the fragility is social rather than mathematical.** Visible rules, accountable decision-making, and genuine alternatives that can be built and proven without the incumbent's cooperation are what make the social enforcement of Bitcoin's properties durable, rather than dependent on the continued good behavior of a small number of institutions whose interests do not always align with the network's.
 
-Bitcoin survived because it redistributed trust more robustly than anything that came before it. The next step is applying the same logic to the layer that maintains it.
+**Bitcoin survived because it redistributed trust more robustly than anything that came before it.** The next step is applying the same logic to the layer that maintains it.
 
 ---
 
@@ -1669,7 +1671,7 @@ The pattern is not coincidental. It is structural. Governments that can borrow w
 
 ## II. The Three Exits That Were Never Real
 
-When a government's debt becomes visibly unsustainable, it offers its citizens three exits: grow the economy out of the problem, cut spending until the books balance, or tax the wealthy until the gap closes. These are not failed solutions. They are political theater, and the distinction matters.
+When a government's debt becomes visibly unsustainable, it offers its citizens three exits: grow the economy out of the problem, cut spending until the books balance, or tax the wealthy until the gap closes. **These are not failed solutions. They are political theater**, and the distinction matters.
 
 Growth does not resolve a compounding debt problem. It delays the reckoning while the underlying dynamic continues. A government that borrows faster than its economy grows is not on a path that growth can fix, because the borrowing accelerates alongside the growth, and the interest compounds regardless. Growth is offered as an exit because it asks nothing of anyone in the present. It is a promise about the future made by people who will not be in office when the future arrives.
 
@@ -1677,7 +1679,7 @@ Austerity asks something of the present, which is why it never survives contact 
 
 Taxation runs into the one thing that capital does better than almost anything else: move. Raise rates to the level required to close a gap of the magnitude we are discussing, and the assets being taxed restructure, relocate, or disappear into complexity before the revenue arrives. This is not tax evasion as an aberration. It is capital behaving exactly as capital behaves. Tax revenue does not rise linearly with tax rates; at some point, further increases change the behavior being taxed rather than capturing it. The observation is mechanical, not ideological.
 
-These three exits are not offered in good faith. They are offered because a government that acknowledges no exit exists cannot sustain the legitimacy it needs to continue operating. The performance of trying the conventional options buys time and political cover while the actual resolution proceeds through other mechanisms entirely.
+These three exits are not offered in good faith. They are offered because **a government that acknowledges no exit exists cannot sustain the legitimacy it needs to continue operating.** The performance of trying the conventional options buys time and political cover while the actual resolution proceeds through other mechanisms entirely.
 
 <figure class="article-chart chart-flowchart chart-exits">
 <div class="chart-heading">Public exits vs actual resolution</div>
@@ -1709,7 +1711,7 @@ These three exits are not offered in good faith. They are offered because a gove
 
 ## III. The Historical Playbook
 
-The actual resolution of sovereign debt crises is not growth, austerity, or taxation. It is inflation, financial repression, and seizure, deployed in combination, usually while the government is publicly committed to one of the three exits above.
+The actual resolution of sovereign debt crises is not growth, austerity, or taxation. **It is inflation, financial repression, and seizure**, deployed in combination, usually while the government is publicly committed to one of the three exits above.
 
 Inflation is the oldest and most reliable mechanism. If the debt is denominated in a currency the government controls, printing enough money to repay it in nominal terms is always technically available, regardless of what it does to the real value of those repayments. Creditors are repaid in full in a currency that buys half of what it did when they lent it. The debt vanishes without a formal default. Germany inflated its World War I debt into oblivion between 1921 and 1923. The United States inflated away a substantial portion of its World War II burden through the sustained moderate inflation of the 1940s and 1950s. Every major fiat currency has lost the vast majority of its purchasing power over the past century, and most of that loss was a policy outcome, not an accident.
 
@@ -1749,7 +1751,7 @@ Real estate is the other traditional hard asset. Land doesn't disappear. Product
 
 Foreign accounts and foreign currency offered partial escape. Move assets into a jurisdiction with stronger rule of law, a harder currency, or less political instability. This works until the home government decides it doesn't. Capital controls have been imposed by dozens of governments in crisis, from Argentina's corralito in 2001 to Cyprus's bank deposit haircut in 2013 to Greece's ATM withdrawal limits in 2015. The SWIFT messaging system and correspondent banking relationships give the United States extraordinary leverage over cross-border asset movement, leverage used explicitly as a foreign policy tool and available for domestic use in a sufficiently severe fiscal crisis.
 
-Every hard asset, without exception, has a physical location or a jurisdictional address. That location or address is the attack surface. A sufficiently motivated government with adequate enforcement capacity can reach it.
+Every hard asset, without exception, has a physical location or a jurisdictional address. **That location or address is the attack surface.** A sufficiently motivated government with adequate enforcement capacity can reach it.
 
 <figure class="article-chart">
 <table class="chart-matrix">
@@ -1774,27 +1776,27 @@ Every generation that encountered a new hard asset made the same argument: this 
 
 The theoretical case for Bitcoin as a genuinely seizure-resistant asset rests on a specific set of properties that no prior asset class has combined.
 
-It is mathematically scarce. The supply schedule is encoded in the protocol and enforced by every node on the network. No government, no corporation, and no developer can create more Bitcoin than the protocol allows. This is a different kind of scarcity than gold's. Gold's scarcity is geological and economic: higher prices eventually bring more supply to market. Bitcoin's scarcity is definitional. The twenty-one million coin limit is not a convention that can be revised by a regulatory body or a corporate board.
+It is mathematically scarce. The supply schedule is encoded in the protocol and enforced by every node on the network. No government, no corporation, and no developer can create more Bitcoin than the protocol allows. This is a different kind of scarcity than gold's. Gold's scarcity is geological and economic: higher prices eventually bring more supply to market. **Bitcoin's scarcity is definitional.** The twenty-one million coin limit is not a convention that can be revised by a regulatory body or a corporate board.
 
-It is jurisdictionless. Bitcoin transactions propagate across a global peer-to-peer network without passing through any single country's infrastructure. There is no Bitcoin headquarters, no Bitcoin CEO, no Bitcoin regulatory address. A transaction broadcast in one country can be confirmed by miners in another and received by a node in a third. The asset itself has no nationality.
+It is jurisdictionless. Bitcoin transactions propagate across a global peer-to-peer network without passing through any single country's infrastructure. There is no Bitcoin headquarters, no Bitcoin CEO, no Bitcoin regulatory address. A transaction broadcast in one country can be confirmed by miners in another and received by a node in a third. **The asset itself has no nationality.**
 
-Most importantly, it is potentially self-custodied. A private key is a number. A number can be memorized. A memorized key controls Bitcoin that exists as entries in a distributed ledger maintained by thousands of computers globally. There is no physical object to confiscate, no vault to open, no safe deposit box to inventory. If the key exists only in a person's memory and the coins have never touched a system that knows the owner's identity, the government's normal seizure toolkit does not engage.
+Most importantly, it is potentially self-custodied. A private key is a number. A number can be memorized. A memorized key controls Bitcoin that exists as entries in a distributed ledger maintained by thousands of computers globally. There is no physical object to confiscate, no vault to open, no safe deposit box to inventory. **If the key exists only in a person's memory and the coins have never touched a system that knows the owner's identity, the government's normal seizure toolkit does not engage.**
 
-These three properties together describe something that has never existed before in monetary history: a scarce asset that can be held without a physical location, transferred without a financial intermediary, and potentially kept beyond the reach of any state actor. Whether that theoretical potential survives contact with the actual systems humans have built around Bitcoin is a different question.
+These three properties together describe something that has never existed before in monetary history: **a scarce asset that can be held without a physical location, transferred without a financial intermediary, and potentially kept beyond the reach of any state actor.** Whether that theoretical potential survives contact with the actual systems humans have built around Bitcoin is a different question.
 
 ---
 
 ## VI. The Human Layer Is the Attack Surface
 
-The rules that define Bitcoin are not the same thing as the system that implements them. Those rules run as software written by specific people, mined by hardware operators in specific jurisdictions, and accessed through interfaces built by companies subject to specific laws. The gap between the rules and the system is where every serious attack vector lives.
+The rules that define Bitcoin are not the same thing as the system that implements them. Those rules run as software written by specific people, mined by hardware operators in specific jurisdictions, and accessed through interfaces built by companies subject to specific laws. **The gap between the rules and the system is where every serious attack vector lives.**
 
-Mining is the process by which transactions are confirmed and new blocks are added to the chain. Miners are not abstract participants. They are companies running data centers, consuming electricity purchased from utilities in specific jurisdictions, operating hardware manufactured in a handful of facilities globally. The geographic distribution of mining hashrate has shifted over time, but significant concentrations exist in western jurisdictions including the United States. A dominant mining pool within reach of a sufficiently determined government is not a theoretical vulnerability. It is an operational one.
+Mining is the process by which transactions are confirmed and new blocks are added to the chain. Miners are not abstract participants. They are companies running data centers, consuming electricity purchased from utilities in specific jurisdictions, operating hardware manufactured in a handful of facilities globally. The geographic distribution of mining hashrate has shifted over time, but significant concentrations exist in western jurisdictions including the United States. **A dominant mining pool within reach of a sufficiently determined government is not a theoretical vulnerability. It is an operational one.**
 
-Software development is more concentrated still. Bitcoin Core, the dominant implementation of the Bitcoin protocol, is maintained by a small number of developers who are identifiable, located primarily in western jurisdictions, and reachable through ordinary legal process. The repository lives on GitHub, an American company subject to American law. The communication channels where development decisions are made are monitored and archived. There is no anonymity in the Bitcoin Core developer community worth speaking of.
+Software development is more concentrated still. Bitcoin Core, the dominant implementation of the Bitcoin protocol, is maintained by a small number of developers who are identifiable, located primarily in western jurisdictions, and reachable through ordinary legal process. The repository lives on GitHub, an American company subject to American law. The communication channels where development decisions are made are monitored and archived. **There is no anonymity in the Bitcoin Core developer community worth speaking of.**
 
 Node operators are the network's validators, the participants who enforce the rules and reject blocks that violate them. Running a node is the deepest form of participation in the network's consensus. But node operators are also individuals running software on hardware connected to the internet in physical locations. The jurisdictional reach problem applies to them as directly as it applies to miners.
 
-What this means is that Bitcoin's human layer has the properties of any other human institution: identifiable people in specific locations, with social relationships, financial dependencies, and legal exposure. The protocol's properties do not transfer automatically to the people who implement and maintain it.
+What this means is that **Bitcoin's human layer has the properties of any other human institution:** identifiable people in specific locations, with social relationships, financial dependencies, and legal exposure. The protocol's properties do not transfer automatically to the people who implement and maintain it.
 
 ---
 
@@ -1802,59 +1804,59 @@ What this means is that Bitcoin's human layer has the properties of any other hu
 
 Bitcoin Core's governance, by design and by philosophy, is informal. There is no formal specification that defines what Bitcoin is. There is no governance structure with defined roles, decision rights, or accountability mechanisms. The authority to merge code into the dominant implementation rests with a small number of maintainers whose legitimacy derives from social consensus within a community whose membership and norms are themselves informally defined. For the funding map, merge concentration, and documented adversarial cases, see *[Who Controls Bitcoin](/articles/bitcoin-governance)*.
 
-This was intended to make the system resistant to capture by any single actor. Instead it created what might be called an undefended social graph: a network of trust relationships between identifiable people, with no threat modeling applied to those relationships, no awareness that the relationships themselves are an attack surface, no documentation trail that would make influence visible, and no protocols for detecting when someone in the network has been compromised or turned. The structural logic of why that graph is so easy to influence (and why cryptography was never the relevant battleground) is developed at length in *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture)*.
+This was intended to make the system resistant to capture by any single actor. Instead it created what might be called **an undefended social graph:** a network of trust relationships between identifiable people, with no threat modeling applied to those relationships, no awareness that the relationships themselves are an attack surface, no documentation trail that would make influence visible, and no protocols for detecting when someone in the network has been compromised or turned. The structural logic of why that graph is so easy to influence (and why cryptography was never the relevant battleground) is developed at length in *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture)*.
 
-Intelligence agencies and influence operations have been working social graphs for as long as intelligence agencies have existed. The Bitcoin developer community is an unusually legible, concentrated, and high-value target. The absence of formal governance doesn't make it harder to influence. It makes it easier, because there are no formal accountability structures to work around.
+Intelligence agencies and influence operations have been working social graphs for as long as intelligence agencies have existed. The Bitcoin developer community is an unusually legible, concentrated, and high-value target. **The absence of formal governance doesn't make it harder to influence. It makes it easier**, because there are no formal accountability structures to work around.
 
-The informality that Bitcoin Core describes as organic and decentralized is actually the highest-value attack surface in the entire system. You don't need to compromise the code. You just need to compromise the relationships, or threaten the people, or write a regulation that requires disclosure to a designated authority. Each of those is well within the operational capacity of any serious state actor, and none of them requires touching a single line of cryptography.
+The informality that Bitcoin Core describes as organic and decentralized is actually the highest-value attack surface in the entire system. **You don't need to compromise the code. You just need to compromise the relationships**, or threaten the people, or write a regulation that requires disclosure to a designated authority. Each of those is well within the operational capacity of any serious state actor, and none of them requires touching a single line of cryptography.
 
 ---
 
 ## VIII. They Don't Need to Break It. They Need to Own It.
 
-State capture of Bitcoin follows the same logic as historical asset seizure: not destruction of the asset, but transfer of control over who holds it and on what terms.
+State capture of Bitcoin follows the same logic as historical asset seizure: **not destruction of the asset, but transfer of control over who holds it and on what terms.**
 
-The naive model of government Bitcoin suppression involves banning it, attacking the network, or somehow breaking the cryptography. None of these is the actual threat model for a government sophisticated enough to understand what it's dealing with.
+The naive model of government Bitcoin suppression involves banning it, attacking the network, or somehow breaking the cryptography. **None of these is the actual threat model** for a government sophisticated enough to understand what it's dealing with.
 
 A government facing a fiscal crisis doesn't want to destroy a scarce asset whose value it needs. It wants to control that asset, capture its appreciation for the state's balance sheet, and prevent private holders from using it as an escape hatch from the monetary system the government is debasing. This is a very different objective, and it calls for a very different set of tools.
 
-Roosevelt didn't melt the gold. He transferred it. The confiscation order of 1933 moved gold from private vaults to government vaults, preserved its value, and then revalued it upward once the transfer was complete. The private holders who complied were paid the pre-revaluation price. The government captured the appreciation. The mechanism was not destruction but transfer of title.
+Roosevelt didn't melt the gold. **He transferred it.** The confiscation order of 1933 moved gold from private vaults to government vaults, preserved its value, and then revalued it upward once the transfer was complete. The private holders who complied were paid the pre-revaluation price. The government captured the appreciation. **The mechanism was not destruction but transfer of title.**
 
 Applied to Bitcoin, the equivalent operation looks less like a cyberattack and more like a regulatory framework. Declare Bitcoin a strategic financial asset requiring registration. Mandate disclosure of all holdings above a threshold. Make unregistered holdings a criminal offense rather than merely an unregulated one. Use the existing surveillance apparatus to identify and prosecute high-profile non-compliant holders as examples. Offer a compliance window with favorable terms to encourage voluntary registration before enforcement begins.
 
-The Bitcoin industry has been building the infrastructure for this operation voluntarily, in exchange for legitimacy and growth. The mechanism is not a cyberattack. It is the access layer, detailed in the next section. These decisions were rational for the companies that made them. They are catastrophic for the system's seizure resistance properties in aggregate.
+**The Bitcoin industry has been building the infrastructure for this operation voluntarily**, in exchange for legitimacy and growth. The mechanism is not a cyberattack. It is the access layer, detailed in the next section. These decisions were rational for the companies that made them. **They are catastrophic for the system's seizure resistance properties in aggregate.**
 
 ---
 
 ## IX. The Access Layer Is the Asset
 
-There is a distinction that most Bitcoin holders don't fully reckon with: the difference between holding Bitcoin and holding access to Bitcoin's economic utility.
+There is a distinction that most Bitcoin holders don't fully reckon with: **the difference between holding Bitcoin and holding access to Bitcoin's economic utility.**
 
-A private key controls Bitcoin. But a private key is economically inert unless it can be connected to a system where Bitcoin can be exchanged for goods, services, or other currencies. That connection runs through the access layer, and the access layer is fully mapped, regulated, and in most jurisdictions already operating under government oversight.
+A private key controls Bitcoin. But a private key is economically inert unless it can be connected to a system where Bitcoin can be exchanged for goods, services, or other currencies. That connection runs through the access layer, and **the access layer is fully mapped, regulated, and in most jurisdictions already operating under government oversight.**
 
 ETF providers have accumulated a meaningful and growing share of the total Bitcoin supply in regulated custodial vehicles. They recreate the exact counterparty and confiscation surface that self-custody eliminates, at a scale that shifts the center of gravity of the asset toward the captured layer.
 
 Every exchange with Know Your Customer verification is a registry of Bitcoin holders, their holdings, and their transaction histories. Every regulated on-ramp that has processed a deposit links a government identity to a Bitcoin address. The Travel Rule, which requires financial institutions to share sender and receiver information for transactions above threshold amounts, is being extended in most major jurisdictions to cover transfers to and from unhosted wallets.
 
-The infrastructure for a comprehensive registry of Bitcoin ownership is not being built. It has been built. It went live gradually over the past decade, each step framed as compliance with anti-money laundering regulations, each step adding another layer to a surveillance apparatus that now covers the majority of economically significant Bitcoin activity.
+The infrastructure for a comprehensive registry of Bitcoin ownership is not being built. **It has been built.** It went live gradually over the past decade, each step framed as compliance with anti-money laundering regulations, each step adding another layer to a surveillance apparatus that now covers the majority of economically significant Bitcoin activity.
 
 Self-custody of coins that have never touched a Know Your Customer system is genuine escape from this registry. But it is a vanishingly small fraction of the total Bitcoin by value, concentrated among early holders and technically sophisticated users who understood the access layer problem before most of the industry was built to obscure it.
 
-The coins exist on the ledger. The private keys are real. And yet for the majority of holders, those coins are accessible only through systems already subject to the same government whose monetary policy they were supposed to escape. The theoretical properties of the protocol do not change this. The access layer is the asset for most people, and the access layer is already captured.
+The coins exist on the ledger. The private keys are real. And yet for the majority of holders, those coins are accessible only through systems already subject to the same government whose monetary policy they were supposed to escape. The theoretical properties of the protocol do not change this. **The access layer is the asset for most people, and the access layer is already captured.**
 
 ---
 
 ## X. The Window
 
-Every asset that governments have eventually captured went through the same phase: a period when the asset was valuable enough to matter, the capture mechanisms were not yet in place, and the people who understood what was happening had time to act. That window is always shorter than it looks from inside it.
+Every asset that governments have eventually captured went through the same phase: a period when the asset was valuable enough to matter, the capture mechanisms were not yet in place, and the people who understood what was happening had time to act. **That window is always shorter than it looks from inside it.**
 
 For gold, the window between the Federal Reserve Act of 1913 and Roosevelt's confiscation order of 1933 was twenty years. People who understood monetary history used those years to accumulate gold and move it beyond government reach. Most people didn't, because the scenario seemed extreme until the morning it happened.
 
-Bitcoin's window opened when its value registered as a fiscal resource worth capturing. It has been closing ever since, from the first regulated on-ramps and custodial products through the access-layer capture described above. The window is not yet closed. Self-custody works. Peer-to-peer transactions work. The parts of the protocol that matter are still intact.
+Bitcoin's window opened when its value registered as a fiscal resource worth capturing. It has been closing ever since, from the first regulated on-ramps and custodial products through the access-layer capture described above. **The window is not yet closed.** Self-custody works. Peer-to-peer transactions work. The parts of the protocol that matter are still intact.
 
-What would keep the window open is not primarily a technical question. The cryptography is not the vulnerability. What would keep it open is implementation diversity across jurisdictions, so that no single government can reach the entire developer community through ordinary legal process. It is formal specification of the consensus rules, so that the protocol's definition exists in mathematics rather than in the social consensus of a small group of identifiable people. It is node operation distributed widely enough that the enforcement cost of shutting down participation exceeds the political benefit of attempting it.
+What would keep the window open is not primarily a technical question. **The cryptography is not the vulnerability.** What would keep it open is implementation diversity across jurisdictions, so that no single government can reach the entire developer community through ordinary legal process. It is formal specification of the consensus rules, so that the protocol's definition exists in mathematics rather than in the social consensus of a small group of identifiable people. It is node operation distributed widely enough that the enforcement cost of shutting down participation exceeds the political benefit of attempting it.
 
-These are not wishful abstractions. They are engineering problems, and engineering problems can be solved. The question is whether they get solved before the window closes, or after, when solving them becomes an act of resistance rather than an act of construction.
+These are not wishful abstractions. They are engineering problems, and engineering problems can be solved. **The question is whether they get solved before the window closes**, or after, when solving them becomes an act of resistance rather than an act of construction.
 
 The window is still open. What anyone does with that fact is up to them.
 
@@ -1879,17 +1881,17 @@ The window is still open. What anyone does with that fact is up to them.
 
 ## I. Framing the Problem
 
-Bitcoin spam debate blurs two layers. Consensus forces every validating node to accept whatever is in a valid block, monkey jpegs included. Relay and storage are policy. No node must relay a transaction before confirmation, and no node must keep storing everything after validation. Pruning exists because storage is optional.
+Bitcoin spam debate blurs **two layers.** Consensus forces every validating node to accept whatever is in a valid block, monkey jpegs included. **Relay and storage are policy.** No node must relay a transaction before confirmation, and no node must keep storing everything after validation. Pruning exists because storage is optional.
 
-Pruning costs self-sovereignty. A pruned node cannot re-verify the full chain from its own copy without asking another node. Pruning also does not remove initial sync cost. Every pruned node still downloads and validates the full chain history, including non-monetary data, during initial block download. The spam passes through every new node at first sync whether that node keeps the data afterward. Bandwidth and validation time at sync are permanent costs on every participant who joins. Pruning shifts when storage is paid. It does not eliminate the download.
+Pruning costs self-sovereignty. A pruned node cannot re-verify the full chain from its own copy without asking another node. Pruning also does not remove initial sync cost. Every pruned node still downloads and validates the full chain history, including non-monetary data, during initial block download. The spam passes through every new node at first sync whether that node keeps the data afterward. Bandwidth and validation time at sync are permanent costs on every participant who joins. **Pruning shifts when storage is paid. It does not eliminate the download.**
 
-Refusing to relay is not banning. A transaction that pays enough fee reaches the chain through some miner or permissive node, whatever one operator's mempool policy says. Policy limits on OP_RETURN and similar fields can be raised, lowered, or dropped by whoever runs the defaults. Consensus caps bind every participant or fail to activate.
+**Refusing to relay is not banning.** A transaction that pays enough fee reaches the chain through some miner or permissive node, whatever one operator's mempool policy says. Policy limits on `OP_RETURN` and similar fields can be raised, lowered, or dropped by whoever runs the defaults. **Consensus caps bind every participant or fail to activate.**
 
 The fight is usually about consensus capture, forking risk, and who decides which use cases are legitimate. For OP_RETURN and data-embedding politics, see *[Who Controls Bitcoin, §V](/articles/bitcoin-governance#v-the-adversarial-layer-when-conflicts-become-visible)* and *[Argument Map, Parts VI–VII and XXII](/articles/bitcoin-governance-argument-map#part-vi-forced-participation)*.
 
 Set politics aside. If consensus could change freely, how low can arbitrary data be pushed, and where is the hard limit?
 
-Spam has a workable definition. A spam transaction has no monetary settlement function and pushes costs permanently onto every validating node with no recovery path. Lightning channel opens and closes have settlement functions. Timelocked outputs and multisig setups have settlement functions. A JPEG in a Taproot envelope does not. That follows from Bitcoin's design as a distributed consensus state machine whose validity depends on the complete chain of prior state transitions. Using the settlement layer as a subsidized data bus imposes externalities on a system not built to carry them. For the full case against non-monetary embedding — type confusion, externality structure, and the justification failures — see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*. Demands for an impossible alternative definition are rhetorical, not technical. The definition was always available.
+Spam has a workable definition. A spam transaction has no monetary settlement function and pushes costs permanently onto every validating node with no recovery path. Lightning channel opens and closes have settlement functions. Timelocked outputs and multisig setups have settlement functions. A JPEG in a Taproot envelope does not. That follows from Bitcoin's design as a distributed consensus state machine whose validity depends on the complete chain of prior state transitions. Using the settlement layer as a subsidized data bus imposes externalities on a system not built to carry them. For the full case against non-monetary embedding — type confusion, externality structure, and the justification failures — see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*. Demands for an impossible alternative definition are rhetorical, not technical. **The definition was always available.**
 
 ## II. Taxonomy of Channels by Cost
 
@@ -1915,7 +1917,7 @@ The ladder below is technical cost only.
 
 **Free channels** cost nothing beyond the transaction fee.
 
-The main one is any field that holds a hash rather than the preimage, such as P2PKH or P2WPKH destinations, HTLC preimage commitments, and P2SH or P2WSH script hashes. A fake 20 or 32 byte string looks the same as a real hash. Pay-to-Fake-Key and Pay-to-Fake-Multisig predate OP_RETURN. The 2010 WikiLeaks Cablegate dump used this method.
+The main one is any field that holds a hash rather than the preimage, such as P2PKH or P2WPKH destinations, HTLC preimage commitments, and P2SH or P2WSH script hashes. A fake 20 or 32 byte string looks the same as a real hash. Pay-to-Fake-Key and Pay-to-Fake-Multisig predate `OP_RETURN`. The 2010 WikiLeaks Cablegate dump used this method.
 
 Inviscription chunks ciphertext into hash locks, multisig pubkey slots, or CLTV values. The key may appear in a later transaction or never on-chain.
 
@@ -1957,7 +1959,7 @@ OP_RETURN is an output with no spending condition. Core v30 relay policy allows 
 
 ## III. What Consensus Can Actually Close
 
-Closable and unclosable channels are not the same problem. OP_RETURN embedding and Taproot envelope embedding are closable at consensus. Out-of-band submission to mining pools, private peering between miners, and direct transaction injection are not closable at consensus without redesigning mining architecture. The honest claim after closing closable channels is that some spam may still reach blocks through paths consensus cannot shut. That is not an argument against closing the channels consensus can shut. It is a category error to treat them as one objection.
+Closable and unclosable channels are not the same problem. `OP_RETURN` embedding and Taproot envelope embedding are closable at consensus. Out-of-band submission to mining pools, private peering between miners, and direct transaction injection are not closable at consensus without redesigning mining architecture. The honest claim after closing closable channels is that some spam may still reach blocks through paths consensus cannot shut. **That is not an argument against closing the channels consensus can shut.** It is a category error to treat them as one objection.
 
 Dedicated and unenforced channels can close at consensus. Neither carries monetary function Bitcoin needs.
 
@@ -2048,7 +2050,7 @@ OP_RETURN, the Taproot envelope, undefined witness versions, and the annex can c
 
 Dedicated and witness-discounted channels drove bandwidth. What remains is built into payment design. That is hash fields, amounts, sequence, locktime, and ordering. Close those and you lose hash-then-reveal privacy, satoshi precision, or supply auditability. UTXO commitments fix storage for old data; they do not stop new embedding.
 
-Hidden data capacity is structural. In Bitcoin the carrying fields are security requirements.
+Hidden data capacity is structural. **In Bitcoin the carrying fields are security requirements.**
 
 The blockspace impact is measured, not guessed. A full chain scan across 912,723 blocks and roughly 1.235 billion transactions finds spam's share of blockspace intensified about 17-fold relative to its pre-inscription baseline. Non-monetary data accounts for an estimated 12 to 19% of total chain storage; 29.6% of all UTXOs are inscription-related, holding about 415 BTC in total value per Mempool Research. Blocks ran between 91 and 97% full across multiple weeks in 2026. Post-merge, [Renaud Cuny's December 2025 analysis](https://blockspaceweekly.substack.com/p/issue-3-three-years-of-spam) found large OP_RETURN activity activating immediately after Core v30's uncap while inscription witness data continued at scale — roughly 36% of blockspace non-financial as of December 2025. The merge opened a new channel without closing the old one. The negligible-impact claim requires ignoring documented methodology and published measurements. For the governance timeline behind the uncap, see *[Who Controls Bitcoin, §V](/articles/bitcoin-governance#v-the-adversarial-layer-when-conflicts-become-visible)*.
 
@@ -2091,11 +2093,11 @@ UTXO commitments and selective sync are more involved, mainly on trust model tig
 
 Each §III measure can soft-fork independently or together. Selective sync waits on commitments. Grandfather outputs that would fail a new rule.
 
-Policy tools (mempool heuristics, envelope detection, pool multipliers) stay useful and non-binding. Enough fee still reaches a miner that does not enforce them. Only consensus binds everyone.
+Policy tools (mempool heuristics, envelope detection, pool multipliers) stay useful and non-binding. Enough fee still reaches a miner that does not enforce them. **Only consensus binds everyone.**
 
 ## VIII. Conclusion
 
-Even if consensus could change without a political fight, arbitrary data cannot reach zero. Payments still need hash addresses, flexible amounts, and auditable supply.
+Even if consensus could change without a political fight, **arbitrary data cannot reach zero.** Payments still need hash addresses, flexible amounts, and auditable supply.
 
 Off-chain data and unrevealed Taproot leaves are out of scope.
 

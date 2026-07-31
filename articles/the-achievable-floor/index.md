@@ -15,17 +15,17 @@
 
 ## I. Framing the Problem
 
-Bitcoin spam debate blurs two layers. Consensus forces every validating node to accept whatever is in a valid block, monkey jpegs included. Relay and storage are policy. No node must relay a transaction before confirmation, and no node must keep storing everything after validation. Pruning exists because storage is optional.
+Bitcoin spam debate blurs **two layers.** Consensus forces every validating node to accept whatever is in a valid block, monkey jpegs included. **Relay and storage are policy.** No node must relay a transaction before confirmation, and no node must keep storing everything after validation. Pruning exists because storage is optional.
 
-Pruning costs self-sovereignty. A pruned node cannot re-verify the full chain from its own copy without asking another node. Pruning also does not remove initial sync cost. Every pruned node still downloads and validates the full chain history, including non-monetary data, during initial block download. The spam passes through every new node at first sync whether that node keeps the data afterward. Bandwidth and validation time at sync are permanent costs on every participant who joins. Pruning shifts when storage is paid. It does not eliminate the download.
+Pruning costs self-sovereignty. A pruned node cannot re-verify the full chain from its own copy without asking another node. Pruning also does not remove initial sync cost. Every pruned node still downloads and validates the full chain history, including non-monetary data, during initial block download. The spam passes through every new node at first sync whether that node keeps the data afterward. Bandwidth and validation time at sync are permanent costs on every participant who joins. **Pruning shifts when storage is paid. It does not eliminate the download.**
 
-Refusing to relay is not banning. A transaction that pays enough fee reaches the chain through some miner or permissive node, whatever one operator's mempool policy says. Policy limits on OP_RETURN and similar fields can be raised, lowered, or dropped by whoever runs the defaults. Consensus caps bind every participant or fail to activate.
+**Refusing to relay is not banning.** A transaction that pays enough fee reaches the chain through some miner or permissive node, whatever one operator's mempool policy says. Policy limits on `OP_RETURN` and similar fields can be raised, lowered, or dropped by whoever runs the defaults. **Consensus caps bind every participant or fail to activate.**
 
 The fight is usually about consensus capture, forking risk, and who decides which use cases are legitimate. For OP_RETURN and data-embedding politics, see *[Who Controls Bitcoin, §V](/articles/bitcoin-governance#v-the-adversarial-layer-when-conflicts-become-visible)* and *[Argument Map, Parts VI–VII and XXII](/articles/bitcoin-governance-argument-map#part-vi-forced-participation)*.
 
 Set politics aside. If consensus could change freely, how low can arbitrary data be pushed, and where is the hard limit?
 
-Spam has a workable definition. A spam transaction has no monetary settlement function and pushes costs permanently onto every validating node with no recovery path. Lightning channel opens and closes have settlement functions. Timelocked outputs and multisig setups have settlement functions. A JPEG in a Taproot envelope does not. That follows from Bitcoin's design as a distributed consensus state machine whose validity depends on the complete chain of prior state transitions. Using the settlement layer as a subsidized data bus imposes externalities on a system not built to carry them. For the full case against non-monetary embedding — type confusion, externality structure, and the justification failures — see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*. Demands for an impossible alternative definition are rhetorical, not technical. The definition was always available.
+Spam has a workable definition. A spam transaction has no monetary settlement function and pushes costs permanently onto every validating node with no recovery path. Lightning channel opens and closes have settlement functions. Timelocked outputs and multisig setups have settlement functions. A JPEG in a Taproot envelope does not. That follows from Bitcoin's design as a distributed consensus state machine whose validity depends on the complete chain of prior state transitions. Using the settlement layer as a subsidized data bus imposes externalities on a system not built to carry them. For the full case against non-monetary embedding — type confusion, externality structure, and the justification failures — see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*. Demands for an impossible alternative definition are rhetorical, not technical. **The definition was always available.**
 
 ## II. Taxonomy of Channels by Cost
 
@@ -51,7 +51,7 @@ The ladder below is technical cost only.
 
 **Free channels** cost nothing beyond the transaction fee.
 
-The main one is any field that holds a hash rather than the preimage, such as P2PKH or P2WPKH destinations, HTLC preimage commitments, and P2SH or P2WSH script hashes. A fake 20 or 32 byte string looks the same as a real hash. Pay-to-Fake-Key and Pay-to-Fake-Multisig predate OP_RETURN. The 2010 WikiLeaks Cablegate dump used this method.
+The main one is any field that holds a hash rather than the preimage, such as P2PKH or P2WPKH destinations, HTLC preimage commitments, and P2SH or P2WSH script hashes. A fake 20 or 32 byte string looks the same as a real hash. Pay-to-Fake-Key and Pay-to-Fake-Multisig predate `OP_RETURN`. The 2010 WikiLeaks Cablegate dump used this method.
 
 Inviscription chunks ciphertext into hash locks, multisig pubkey slots, or CLTV values. The key may appear in a later transaction or never on-chain.
 
@@ -93,7 +93,7 @@ OP_RETURN is an output with no spending condition. Core v30 relay policy allows 
 
 ## III. What Consensus Can Actually Close
 
-Closable and unclosable channels are not the same problem. OP_RETURN embedding and Taproot envelope embedding are closable at consensus. Out-of-band submission to mining pools, private peering between miners, and direct transaction injection are not closable at consensus without redesigning mining architecture. The honest claim after closing closable channels is that some spam may still reach blocks through paths consensus cannot shut. That is not an argument against closing the channels consensus can shut. It is a category error to treat them as one objection.
+Closable and unclosable channels are not the same problem. `OP_RETURN` embedding and Taproot envelope embedding are closable at consensus. Out-of-band submission to mining pools, private peering between miners, and direct transaction injection are not closable at consensus without redesigning mining architecture. The honest claim after closing closable channels is that some spam may still reach blocks through paths consensus cannot shut. **That is not an argument against closing the channels consensus can shut.** It is a category error to treat them as one objection.
 
 Dedicated and unenforced channels can close at consensus. Neither carries monetary function Bitcoin needs.
 
@@ -184,7 +184,7 @@ OP_RETURN, the Taproot envelope, undefined witness versions, and the annex can c
 
 Dedicated and witness-discounted channels drove bandwidth. What remains is built into payment design. That is hash fields, amounts, sequence, locktime, and ordering. Close those and you lose hash-then-reveal privacy, satoshi precision, or supply auditability. UTXO commitments fix storage for old data; they do not stop new embedding.
 
-Hidden data capacity is structural. In Bitcoin the carrying fields are security requirements.
+Hidden data capacity is structural. **In Bitcoin the carrying fields are security requirements.**
 
 The blockspace impact is measured, not guessed. A full chain scan across 912,723 blocks and roughly 1.235 billion transactions finds spam's share of blockspace intensified about 17-fold relative to its pre-inscription baseline. Non-monetary data accounts for an estimated 12 to 19% of total chain storage; 29.6% of all UTXOs are inscription-related, holding about 415 BTC in total value per Mempool Research. Blocks ran between 91 and 97% full across multiple weeks in 2026. Post-merge, [Renaud Cuny's December 2025 analysis](https://blockspaceweekly.substack.com/p/issue-3-three-years-of-spam) found large OP_RETURN activity activating immediately after Core v30's uncap while inscription witness data continued at scale — roughly 36% of blockspace non-financial as of December 2025. The merge opened a new channel without closing the old one. The negligible-impact claim requires ignoring documented methodology and published measurements. For the governance timeline behind the uncap, see *[Who Controls Bitcoin, §V](/articles/bitcoin-governance#v-the-adversarial-layer-when-conflicts-become-visible)*.
 
@@ -227,11 +227,11 @@ UTXO commitments and selective sync are more involved, mainly on trust model tig
 
 Each §III measure can soft-fork independently or together. Selective sync waits on commitments. Grandfather outputs that would fail a new rule.
 
-Policy tools (mempool heuristics, envelope detection, pool multipliers) stay useful and non-binding. Enough fee still reaches a miner that does not enforce them. Only consensus binds everyone.
+Policy tools (mempool heuristics, envelope detection, pool multipliers) stay useful and non-binding. Enough fee still reaches a miner that does not enforce them. **Only consensus binds everyone.**
 
 ## VIII. Conclusion
 
-Even if consensus could change without a political fight, arbitrary data cannot reach zero. Payments still need hash addresses, flexible amounts, and auditable supply.
+Even if consensus could change without a political fight, **arbitrary data cannot reach zero.** Payments still need hash addresses, flexible amounts, and auditable supply.
 
 Off-chain data and unrevealed Taproot leaves are out of scope.
 

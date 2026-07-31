@@ -18,7 +18,7 @@
 
 This is a **structured taxonomy**: for many demographic slices, it lists **plausible reasons** Bitcoin might resonate. It is **not** a weighted statistical study. There is no claim here that each bullet is true for a majority of that group, or that the sections are equally important in the real economy.
 
-**Why that matters.** Real adoption is skewed by access, regulation, culture, wealth, and self-selection. Surveys that ask about “cryptocurrency” often **mix Bitcoin with altcoins**; on-the-ground usage (P2P, remittance, savings) may not show up cleanly in household surveys. Treat the lists below as **hypotheses and narratives** worth testing against data, not as established facts per segment.
+**Why that matters.** Real adoption is skewed by access, regulation, culture, wealth, and self-selection. Surveys that ask about “cryptocurrency” often **mix Bitcoin with altcoins**; on-the-ground usage (P2P, remittance, savings) may not show up cleanly in household surveys. Treat the lists below as **hypotheses and narratives** worth testing against data, not as established facts per segment. This document maps plausible appeal vectors — it does not measure them.
 
 ## Introduction
 

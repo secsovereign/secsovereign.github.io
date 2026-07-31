@@ -2,6 +2,8 @@
 
 Numbered arguments for debate and analysis. Narrative evidence, funding maps, and primary sources are in *[Who Controls Bitcoin](/articles/bitcoin-governance)*; structural logic in *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture)*.
 
+**Each numbered point is a standalone claim.** Use the cross-links for evidence; use this document for the argument structure.
+
 ---
 
 ## Contents
