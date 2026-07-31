@@ -93,22 +93,6 @@ body {
     line-height: 1.5;
 }
 
-.article-index-footer {
-    margin-top: 2rem;
-    font-family: 'Courier New', monospace;
-    font-size: 0.78rem;
-    color: var(--text-muted);
-}
-
-.article-index-footer a {
-    color: var(--primary);
-    text-decoration: none;
-}
-
-.article-index-footer a:hover {
-    text-decoration: underline;
-}
-
 .article-wrap {
     max-width: 880px;
     margin: 0 auto;

@@ -284,7 +284,6 @@ function renderArticlesIndex(articles) {
             <p class="article-index-intro">Bitcoin governance research, consensus engineering, and blockspace policy.</p>
         </header>
         <ul class="article-index-list">${items}</ul>
-        <p class="article-index-footer"><a href="/llms.txt">llms.txt</a> · <a href="/llms-full.txt">llms-full.txt</a></p>
     </div>
 </body>
 </html>
