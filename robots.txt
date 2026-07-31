@@ -2,3 +2,5 @@ User-agent: *
 Disallow: /articles/*/index.md
 
 Sitemap: https://secsov.com/sitemap.xml
+# LLM index: https://secsov.com/llms.txt
+# Full corpus: https://secsov.com/llms-full.txt

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not Found | SecureSovereign</title>
+    <link href="/article.css" rel="stylesheet">
+    <script>
+    (function () {
+        var slugs = ["bitcoin-demographics-breakdown","bitcoin-governance","bitcoin-governance-argument-map","bitcoin-social-capture","the-last-uncaptured-asset","the-achievable-floor","bitcoin-not-a-hard-drive"];
+        var path = location.pathname.replace(/\/$/, '');
+        if (path.charAt(0) === '/' && path.indexOf('/', 1) === -1 && path.length > 1) {
+            var slug = path.slice(1);
+            if (slugs.indexOf(slug) !== -1) {
+                location.replace('/articles/' + slug + location.search + location.hash);
+                return;
+            }
+        }
+    })();
+    </script>
+</head>
+<body>
+    <nav class="site-nav">
+        <a href="/">← Home</a>
+        <span class="sep">/</span>
+        <a href="/articles">Writing</a>
+    </nav>
+    <div class="article-wrap">
+        <h1>Page not found</h1>
+        <p><a href="/">Home</a> · <a href="/articles">All articles</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+# SecureSovereign (secsov.com)
+
+> Josh "Secure Sovereign" — Bitcoin builder, governance researcher, and Certified Bitcoin Professional (CBP). Long-form writing on Bitcoin Core governance capture, blockspace policy, consensus engineering, and monetary sovereignty. Bitcoin holder since 2010.
+
+This site publishes **long-form reference articles**, not a blog feed. The homepage (`https://secsov.com/`) contains author bio and disclosures only — **article text lives at `/articles/{slug}`**. Fetch each article URL below, or use `https://secsov.com/llms-full.txt` for all content in one file.
+
+**URL patterns** (no trailing slash required; GitHub Pages may redirect):
+
+- HTML article: `https://secsov.com/articles/{slug}`
+- Markdown source: `https://secsov.com/articles/{slug}/index.md`
+- Bare slug redirect: `https://secsov.com/{slug}` → `/articles/{slug}` (via 404 handler)
+
+**Recommended reading order — blockspace cluster:**
+
+1. [Bitcoin Is Not a Hard Drive](https://secsov.com/articles/bitcoin-not-a-hard-drive) — why embedding is a category error
+2. [The Achievable Floor](https://secsov.com/articles/the-achievable-floor) — what consensus can technically close
+3. [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance) — governance evidence (OP_RETURN arc, §V)
+4. [Argument Map Part XXII](https://secsov.com/articles/bitcoin-governance-argument-map#part-xxii-blockspace-governance-and-relay-policy-failure) — numbered blockspace arguments
+
+**Recommended reading order — governance cluster:**
+
+1. [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance)
+2. [The Social Layer Is the Attack Surface](https://secsov.com/articles/bitcoin-social-capture)
+3. [Bitcoin Governance: Argument Map](https://secsov.com/articles/bitcoin-governance-argument-map)
+
+## Start here
+
+- [Homepage](https://secsov.com/): Author bio, expertise, project disclosures, links to all writing.
+- [Article index](https://secsov.com/articles): Curated list of all long-form articles with one-line summaries.
+- [Full text (all articles)](https://secsov.com/llms-full.txt): Concatenated Markdown of every article for single-fetch ingestion.
+
+## Bitcoin governance
+
+- [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance): Primary governance reference: funding map, maintainer merge authority, personnel revolving door, OP_RETURN arc (2023–2025), Brink/OpenSats/Chaincode ties, suppression patterns. Start here for evidence.
+- [Bitcoin Governance: Argument Map](https://secsov.com/articles/bitcoin-governance-argument-map): 105 numbered arguments across 22 sections for debate; points to Who Controls Bitcoin for narrative and Social Layer for structure. Includes blockspace/relay-policy failure (Part XXII).
+- [The Social Layer Is the Attack Surface](https://secsov.com/articles/bitcoin-social-capture): Structural logic of why Bitcoin governance produces capture outcomes without requiring conspiracy; permissionless protocol vs permissioned development; blocksize war and fork trap.
+
+## Blockspace and consensus policy
+
+- [Bitcoin Is Not a Hard Drive](https://secsov.com/articles/bitcoin-not-a-hard-drive): Design-purpose case against non-monetary embedding: type confusion, IBD/storage/UTXO costs, externality structure, rebuttals to inscription justifications, permissionless counter-argument.
+- [The Achievable Floor](https://secsov.com/articles/the-achievable-floor): Technical taxonomy of embedding channels (free → dedicated), what consensus can close (OP_RETURN cap, Taproot envelope, annex), cost-per-byte tables, UTXO commitments, implementation path.
+
+## Monetary sovereignty
+
+- [The Last Uncaptured Asset](https://secsov.com/articles/the-last-uncaptured-asset): Monetary sovereignty frame: state capture through ownership not destruction, access layer as asset, voluntary surveillance infrastructure, Bitcoin as last uncaptured asset.
+
+## Demographics and adoption
+
+- [Bitcoin Appeal By Demographics](https://secsov.com/articles/bitcoin-demographics-breakdown): Structured taxonomy of plausible Bitcoin appeal vectors by demographic slice; hypotheses for testing, not weighted statistics.
+
+## External research and projects
+
+- [Bitcoin Governance Research (GitHub)](https://github.com/secsovereign/bitcoin-governance-research): Quantitative PR-level analysis: merge concentration, bloc cohesion, stalled proposals (Erlay, Dandelion), conflict resolution, review access outcomes.
+- [The Bitcoin Commons](https://thebitcoincommons.org): Alternative Bitcoin node in Rust from formal mathematical specification (BLVM).
+- [Bitcoin Commons consensus spec](https://thebitcoincommons.org/spec.html): Formal consensus specification referenced in The Achievable Floor.
+- [BitVault](https://bitvault.sv): Bitcoin custody project (disclosed affiliation).
+- [NovaSapien](https://novasapien.com): Bitcoin services (disclosed affiliation).
+- [Plebly](https://plebly.fund): Open Bitcoin work funding platform (disclosed affiliation).
+
+## Optional
+
+- [Sitemap](https://secsov.com/sitemap.xml): Machine-readable URL list for all pages.
+- [robots.txt](https://secsov.com/robots.txt): Disallows /articles/*/index.md from crawlers; sitemap reference.
+- [GitHub (author)](https://github.com/secsovereign): Source repos and governance research.
+- [X / Twitter](https://x.com/secsovereign): Author social.
+- [Telegram](https://t.me/secsovereign): Author social.
+- [Strategy₿ Hub](https://strategy.com/hub): Author location affiliation (Tysons Corner, VA).
+
+- [Bitcoin Appeal By Demographics (Markdown source)](https://secsov.com/articles/bitcoin-demographics-breakdown/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [Who Controls Bitcoin (Markdown source)](https://secsov.com/articles/bitcoin-governance/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [Bitcoin Governance: Argument Map (Markdown source)](https://secsov.com/articles/bitcoin-governance-argument-map/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [The Social Layer Is the Attack Surface (Markdown source)](https://secsov.com/articles/bitcoin-social-capture/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [The Last Uncaptured Asset (Markdown source)](https://secsov.com/articles/the-last-uncaptured-asset/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [The Achievable Floor (Markdown source)](https://secsov.com/articles/the-achievable-floor/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [Bitcoin Is Not a Hard Drive (Markdown source)](https://secsov.com/articles/bitcoin-not-a-hard-drive/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.

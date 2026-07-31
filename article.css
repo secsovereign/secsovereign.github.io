@@ -43,6 +43,72 @@ body {
     user-select: none;
 }
 
+.article-index-header h1 {
+    font-family: 'Courier New', monospace;
+    font-size: 1.85rem;
+    color: var(--primary);
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+}
+
+.article-index-intro {
+    font-family: 'Courier New', monospace;
+    color: var(--text-muted);
+    margin: 0 0 1.5rem;
+    font-size: 0.95rem;
+}
+
+.article-index-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.article-index-item {
+    margin: 0 0 1rem;
+    padding: 0.85rem 1rem;
+    background: var(--light-gray);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.article-index-item a {
+    color: var(--accent);
+    text-decoration: none;
+    font-family: 'Courier New', monospace;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.article-index-item a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.article-index-desc {
+    margin: 0.35rem 0 0;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.article-index-footer {
+    margin-top: 2rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.article-index-footer a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.article-index-footer a:hover {
+    text-decoration: underline;
+}
+
 .article-wrap {
     max-width: 880px;
     margin: 0 auto;

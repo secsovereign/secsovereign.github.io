@@ -68,7 +68,7 @@ Payment UTXOs have economic agents who have reasons to spend them. When a paymen
 
 Inscription-related outputs represent approximately **29.6 percent** of all UTXOs while holding around **415 bitcoin** in total value. The ratio of monetary weight to chain footprint inverts completely compared to payment outputs. Almost no one has economic reason to spend them, so they accumulate in the UTXO set without cycling out, permanently occupying fast storage on every validating node on the network.
 
-For measured blockspace impact and channel-by-channel cost tables, see *[The Achievable Floor, §VI](/articles/the-achievable-floor/#vi-the-actual-floor)*.
+For measured blockspace impact and channel-by-channel cost tables, see *[The Achievable Floor, §VI](/articles/the-achievable-floor#vi-the-actual-floor)*.
 
 ---
 
@@ -90,7 +90,7 @@ Bitcoin's security model depends on broad node participation. The properties tha
 
 Policy filters and mempool settings do not resolve this. A transaction with sufficient fee reaches a miner regardless of whether other nodes will relay it. Direct submission APIs, alternative relay networks, and private pool peering all exist and are actively used. Once a transaction is in a valid block, every node must accept it. **Consensus validity is what binds.** A node operator's mempool policy is not a vote on what enters the chain. Participating in Bitcoin's security model means paying all the costs that consensus validity imposes, including those from arbitrary data embedding.
 
-For the structural logic of why social enforcement cannot substitute for consensus closure here, see *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture/)* and *[Argument Map, Part VI](/articles/bitcoin-governance-argument-map/#part-vi-forced-participation)*.
+For the structural logic of why social enforcement cannot substitute for consensus closure here, see *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture)* and *[Argument Map, Part VI](/articles/bitcoin-governance-argument-map#part-vi-forced-participation)*.
 
 ---
 
@@ -116,7 +116,7 @@ The strongest objection is that Bitcoin is permissionless, and any mechanism tha
 
 But the objection collapses a distinction that matters. **Bitcoin's permissionless property applies to monetary transactions.** It means no authority can prevent you from sending value to another party. It does **not** mean Bitcoin is a neutral substrate for any purpose that can be technically encoded. These are different claims.
 
-The original `OP_RETURN` limit was not censorship of monetary transactions. It was friction that kept a non-payment channel from becoming a subsidized data bus at the expense of node operators who chose to validate monetary settlement. It was removed under documented pressure from actors with direct financial interest in using Bitcoin's infrastructure as cheap data storage. The governance outcome and the financial interests behind it are both matters of public record. For the full documented account, see *[Who Controls Bitcoin, §V](/articles/bitcoin-governance/#v-the-adversarial-layer-when-conflicts-become-visible)* and the *[Argument Map, Parts VI–VII and XXII](/articles/bitcoin-governance-argument-map/#part-vi-forced-participation)*.
+The original `OP_RETURN` limit was not censorship of monetary transactions. It was friction that kept a non-payment channel from becoming a subsidized data bus at the expense of node operators who chose to validate monetary settlement. It was removed under documented pressure from actors with direct financial interest in using Bitcoin's infrastructure as cheap data storage. The governance outcome and the financial interests behind it are both matters of public record. For the full documented account, see *[Who Controls Bitcoin, §V](/articles/bitcoin-governance#v-the-adversarial-layer-when-conflicts-become-visible)* and the *[Argument Map, Parts VI–VII and XXII](/articles/bitcoin-governance-argument-map#part-vi-forced-participation)*.
 
 Treating every technical constraint as equivalent to political censorship makes it impossible to distinguish between a limit on arbitrary data embedding and a limit on sending bitcoin to a dissident. The permissionless property is meaningful precisely because it applies to something specific, and extending it to cover every possible use of every transaction field — compounding costs on every node that validates the network — degrades the very thing it claims to defend.
 
@@ -130,7 +130,7 @@ Hash fields carrying fake pubkeys or script hashes, amount fields encoding data 
 
 What consensus **can** close are the **dedicated high-bandwidth channels:** `OP_RETURN` outputs with large payloads, and the Taproot envelope used as a bulk data container. These channels serve no monetary function, and closing them removes nothing that payments require.
 
-Closing dedicated channels does not eliminate arbitrary data embedding. It forces embedders into hash and pubkey output fields that carry a dust floor on each output and cost more per embedded byte at every fee rate. The goal is making non-monetary use costly and unwelcome rather than subsidized by infrastructure built for something else. For the full technical breakdown of which channels consensus can close and where the floor actually sits, see *[The Achievable Floor](/articles/the-achievable-floor/)*.
+Closing dedicated channels does not eliminate arbitrary data embedding. It forces embedders into hash and pubkey output fields that carry a dust floor on each output and cost more per embedded byte at every fee rate. The goal is making non-monetary use costly and unwelcome rather than subsidized by infrastructure built for something else. For the full technical breakdown of which channels consensus can close and where the floor actually sits, see *[The Achievable Floor](/articles/the-achievable-floor)*.
 
 **UTXO commitments** address the historical storage burden. A node holding a root hash and verifying spends through inclusion proofs supplied by spenders does not need to carry the full UTXO set locally. This is not a new idea. The research has been complete since 2014, and every node that syncs today pays the full cost of chain history that UTXO commitments would have capped a decade ago — a cost that grows with every new participant.
 
@@ -152,4 +152,4 @@ The question is not whether monkey JPEGs are aesthetically objectionable. The qu
 
 ---
 
-*Companion to [The Achievable Floor](/articles/the-achievable-floor/) (technical floor and channel taxonomy), [Who Controls Bitcoin](/articles/bitcoin-governance/) (governance evidence), and [Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map/) (numbered arguments).*
+*Companion to [The Achievable Floor](/articles/the-achievable-floor) (technical floor and channel taxonomy), [Who Controls Bitcoin](/articles/bitcoin-governance) (governance evidence), and [Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map) (numbered arguments).*

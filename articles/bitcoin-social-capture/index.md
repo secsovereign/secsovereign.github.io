@@ -18,9 +18,9 @@
 
 ## Preface
 
-This document addresses the structural logic underneath Bitcoin's governance problem. The evidentiary case, the funding maps, the personnel history, and the primary source documentation live in **[Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research)** and in the on-site articles *[Who Controls Bitcoin](/articles/bitcoin-governance/)* and *[Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map/)*. This document is concerned with why the structure produces the outcomes it produces, regardless of individual intent.
+This document addresses the structural logic underneath Bitcoin's governance problem. The evidentiary case, the funding maps, the personnel history, and the primary source documentation live in **[Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research)** and in the on-site articles *[Who Controls Bitcoin](/articles/bitcoin-governance)* and *[Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map)*. This document is concerned with why the structure produces the outcomes it produces, regardless of individual intent.
 
-For the fiscal and access-layer frame (why states capture assets through ownership rather than destruction, and how the industry built the surveillance infrastructure voluntarily), see the companion piece *[The Last Uncaptured Asset](/articles/the-last-uncaptured-asset/)*.
+For the fiscal and access-layer frame (why states capture assets through ownership rather than destruction, and how the industry built the surveillance infrastructure voluntarily), see the companion piece *[The Last Uncaptured Asset](/articles/the-last-uncaptured-asset)*.
 
 ---
 
@@ -179,4 +179,4 @@ Bitcoin survived because it redistributed trust more robustly than anything that
 
 ---
 
-*Evidentiary basis: [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research); companion articles [Who Controls Bitcoin](/articles/bitcoin-governance/), [Argument Map](/articles/bitcoin-governance-argument-map/), and [The Last Uncaptured Asset](/articles/the-last-uncaptured-asset/).*
+*Evidentiary basis: [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research); companion articles [Who Controls Bitcoin](/articles/bitcoin-governance), [Argument Map](/articles/bitcoin-governance-argument-map), and [The Last Uncaptured Asset](/articles/the-last-uncaptured-asset).*
