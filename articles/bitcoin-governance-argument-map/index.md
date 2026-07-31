@@ -477,13 +477,13 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 ## Part XXII. Blockspace Governance and Relay-Policy Failure
 
-*These arguments address the blockspace governance crisis of 2025 to 2026: relay-policy collapse, consensus paralysis, and design-purpose drift. For the documented OP_RETURN timeline, see [Who Controls Bitcoin, §V](/articles/bitcoin-governance/#v-the-adversarial-layer-when-conflicts-become-visible). For measured impact, see [The Achievable Floor, §VI](/articles/the-achievable-floor/#vi-the-actual-floor).*
+*These arguments address the blockspace governance crisis of 2025 to 2026: relay-policy collapse, consensus paralysis, and design-purpose drift. For the documented OP_RETURN timeline, see [Who Controls Bitcoin, §V](/articles/bitcoin-governance/#v-the-adversarial-layer-when-conflicts-become-visible). For measured impact, see [The Achievable Floor, §VI](/articles/the-achievable-floor/#vi-the-actual-floor). For the design-purpose and impedance-mismatch argument, see [Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive/).*
 
 103. **The policy enforcement collapse.** For approximately 14 years, the blockspace policy against non-monetary data held because Bitcoin Core's single dominant implementation enforced it. Relay bypass infrastructure — direct submission APIs, alternative relay networks, private pool peering — hollowed enforcement before inscriptions arrived. Core v30's OP_RETURN uncap ratified a surrender the infrastructure had already produced; it did not cause the failure. The correct engineering response was to move protections to consensus. The actual response was to remove the policy and call it pragmatism.
 
 104. **When documented consensus proposals stall.** Full-chain analysis now exists at scale. Proposals to cap dedicated embedding channels at consensus can cite that record and face no credible technical refutation. Activation support nonetheless stays negligible. When empirical support cannot convert into forward movement against coordinated social pressure and incumbent inertia, the bottleneck is governance structure, not technical merit.
 
-105. **The impedance mismatch.** Bitcoin's original OP_RETURN limit was intentional friction between Bitcoin's design as a settlement layer and demand to use it as a subsidized data bus. Removing the limit accommodates a governance capture outcome, not revealed legitimate demand. That premise was never established.
+105. **The impedance mismatch.** Bitcoin's original OP_RETURN limit was intentional friction between Bitcoin's design as a settlement layer and demand to use it as a subsidized data bus. Removing the limit accommodates a governance capture outcome, not revealed legitimate demand. That premise was never established. See *[Bitcoin Is Not a Hard Drive, §II and §VII](/articles/bitcoin-not-a-hard-drive/#ii-the-type-confusion)*.
 
 ---
 
