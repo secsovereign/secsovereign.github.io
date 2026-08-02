@@ -298,6 +298,7 @@ const LLMS_ARTICLE_NOTES = {
   'the-achievable-floor': 'Technical taxonomy of embedding channels (free → dedicated), what consensus can close (OP_RETURN cap, Taproot envelope, annex), cost-per-byte tables, UTXO commitments, implementation path.',
   'the-last-uncaptured-asset': 'Monetary sovereignty frame: state capture through ownership not destruction, access layer as asset, voluntary surveillance infrastructure, Bitcoin as last uncaptured asset.',
   'bitcoin-demographics-breakdown': 'Structured taxonomy of plausible Bitcoin appeal vectors by demographic slice; hypotheses for testing, not weighted statistics.',
+  'dont-trust-verify': 'Coldcard RNG defect ($88M+ on-chain), credentialed endorsement without seed-path audit, HWI/tooling defaults, Ten31/Coinkite ties, parallel failures in Bitcoin Core review.',
 };
 
 const LLMS_SECTIONS = [
@@ -324,6 +325,10 @@ const LLMS_SECTIONS = [
   {
     title: 'Demographics and adoption',
     slugs: ['bitcoin-demographics-breakdown'],
+  },
+  {
+    title: 'Security and verification',
+    slugs: ['dont-trust-verify'],
   },
   {
     title: 'External research and projects',

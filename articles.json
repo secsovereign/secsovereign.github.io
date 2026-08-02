@@ -27,6 +27,11 @@
     {
       "slug": "bitcoin-not-a-hard-drive",
       "title": "Bitcoin Is Not a Hard Drive"
+    },
+    {
+      "slug": "dont-trust-verify",
+      "title": "Don't Trust, Verify",
+      "description": "Coldcard's RNG defect, credentialed endorsement without seed-path audit, and the same verification gap in Bitcoin Core."
     }
   ]
 }

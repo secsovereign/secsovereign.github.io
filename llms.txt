@@ -48,6 +48,10 @@ This site publishes **long-form reference articles**, not a blog feed. The homep
 
 - [Bitcoin Appeal By Demographics](https://secsov.com/articles/bitcoin-demographics-breakdown): Structured taxonomy of plausible Bitcoin appeal vectors by demographic slice; hypotheses for testing, not weighted statistics.
 
+## Security and verification
+
+- [Don't Trust, Verify](https://secsov.com/articles/dont-trust-verify): Coldcard RNG defect ($88M+ on-chain), credentialed endorsement without seed-path audit, HWI/tooling defaults, Ten31/Coinkite ties, parallel failures in Bitcoin Core review.
+
 ## External research and projects
 
 - [Bitcoin Governance Research (GitHub)](https://github.com/secsovereign/bitcoin-governance-research): Quantitative PR-level analysis: merge concentration, bloc cohesion, stalled proposals (Erlay, Dandelion), conflict resolution, review access outcomes.
@@ -73,3 +77,4 @@ This site publishes **long-form reference articles**, not a blog feed. The homep
 - [The Last Uncaptured Asset (Markdown source)](https://secsov.com/articles/the-last-uncaptured-asset/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [The Achievable Floor (Markdown source)](https://secsov.com/articles/the-achievable-floor/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Bitcoin Is Not a Hard Drive (Markdown source)](https://secsov.com/articles/bitcoin-not-a-hard-drive/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [Don't Trust, Verify (Markdown source)](https://secsov.com/articles/dont-trust-verify/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.

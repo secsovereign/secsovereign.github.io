@@ -44,7 +44,7 @@ The 21 million cap is not a law of nature. It is a rule that every participant i
 
 Satoshi understood this. The design is not an attempt to escape the social substrate but to restructure it so that the incentives for maintaining the rules are distributed broadly enough that no single actor can corrupt them. The genius is in how those incentives are aligned, not in somehow making Bitcoin independent of human agreement. Satoshi built a social institution with unusually robust properties, which is a different and more interesting thing than building something that transcends social reality entirely.
 
-The distinction matters because it locates the attack surface accurately. Bitcoin's cryptography has not been broken and is unlikely to be. **The attack surface was never there.** It is in the social layer, specifically in the mechanisms that determine what software gets written, what changes get made, who gets funded to do the work, and whose voices shape what counts as legitimate participation in the network's development.
+The distinction matters because it locates the attack surface accurately. Bitcoin's cryptography has not been broken and is unlikely to be. **The attack surface was never there.** It is in the social layer, specifically in the mechanisms that determine what software gets written, what changes get made, who gets funded to do the work, and whose voices shape what counts as legitimate participation in the network's development. For a concrete case where credentialed endorsement substituted for verification on the seed generation path, see *[Don't Trust, Verify](/articles/dont-trust-verify)*.
 
 ---
 

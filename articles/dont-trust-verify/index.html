@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don't Trust, Verify | SecureSovereign</title>
+    <meta name="description" content="Coldcard's RNG defect, credentialed endorsement without seed-path audit, and the same verification gap in Bitcoin Core.">
+    <link rel="canonical" href="https://secsov.com/articles/dont-trust-verify">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Don't Trust, Verify">
+    <meta property="og:description" content="Coldcard's RNG defect, credentialed endorsement without seed-path audit, and the same verification gap in Bitcoin Core.">
+    <meta property="og:url" content="https://secsov.com/articles/dont-trust-verify">
+    <meta property="og:site_name" content="SecureSovereign">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/article.css" rel="stylesheet">
+    <link href="/share.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="site-nav">
+        <a href="/">← Home</a>
+        <span class="sep">/</span>
+        <span style="color: var(--text-muted); font-family: 'Courier New', monospace; font-size: 0.9rem;">Don't Trust, Verify</span>
+        <div class="share-widget nav-share" data-share-url="https://secsov.com/articles/dont-trust-verify" data-share-title="Don't Trust, Verify" data-share-text="Don't Trust, Verify: Coldcard's RNG defect, credentialed endorsement without seed-path audit, and the same verification gap in Bitcoin Core.">
+        <button type="button" class="share-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Share">
+            <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Share
+        </button>
+        <div class="share-menu" role="menu"></div>
+    </div>
+    </nav>
+    <div class="article-wrap">
+        <article class="article-body"><h1>Don't Trust, Verify</h1>
+<h2 id="coldcard-credentialed-endorsement-and-the-gap-between-source-and-audit">Coldcard, Credentialed Endorsement, and the Gap Between Source and Audit</h2>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="#i-three-errors-that-compounded">I. Three Errors That Compounded</a></li>
+<li><a href="#ii-how-the-stack-built">II. How the Stack Built</a></li>
+<li><a href="#iii-the-review-that-missed">III. The Review That Missed</a></li>
+<li><a href="#iv-the-capital-layer">IV. The Capital Layer</a></li>
+<li><a href="#v-what-verification-would-have-required">V. What Verification Would Have Required</a></li>
+<li><a href="#vi-the-same-system-applied-to-bitcoin-core">VI. The Same System, Applied to Bitcoin Core</a></li>
+<li><a href="#vii-what-changes">VII. What Changes</a></li>
+</ul>
+<hr>
+<p>The Bitcoin community has a handful of commandments. "Not your keys, not your coins." "Run your own node." "Don't trust, verify." Of these, <strong>"don't trust, verify" is the one most directly about process.</strong> It is repeated so often it has become the phrase that signals you are serious about Bitcoin, not just holding it.</p>
+<p>Coldcard appropriated that commandment as a brand identity. "Don't Trust. Verify." was printed on the tamper-evident bag the device ships in. It was displayed on the device screen in Coinkite marketing copy. The four pillars on the Coinkite storefront: Bitcoin Only, Verifiable Source Code, Easy-to-use, Ultra-Secure. The tagline beneath the product: "Air-gapped signing options. Verifiable firmware." Reproducible builds. WalletScrutiny badge. <strong>The entire commercial presentation was built around the idea that you don't have to trust Coinkite because you can verify everything yourself.</strong> Verifiability was presented as the product.</p>
+<p>Coldcard never commissioned an independent third-party security audit of its seed generation path. Not once across its entire commercial life. From March 2021 onward, Coldcard firmware was silently routing seed generation through a weak software PRNG instead of the hardware TRNG. The code was available. <strong>The verification that Coinkite was marketing as its core proposition was absent from the most important property the device had.</strong></p>
+<p>It has cost their audiences <strong>$88 million</strong> so far, and that number is still growing.</p>
+<hr>
+<h2 id="i-three-errors-that-compounded">I. Three Errors That Compounded</h2>
+<p>The first error was <strong>treating source-available as audited.</strong> Coldcard's firmware was publicly readable under a restrictive license, not open source in any meaningful sense. The code could be read but not freely forked, redistributed, or built on commercially. Those are the conditions that generate active external scrutiny. <strong>Source availability without that culture is not a security property.</strong></p>
+<p>The second error was <strong>treating workflow security as seed security.</strong> Coldcard's post-seed security model is genuinely strong: dual secure elements, air-gapped PSBT signing, duress PINs, BIP-85. The promoters who evaluated these things evaluated them accurately. What nobody traced was the path from "user taps generate seed" to <strong>which entropy source actually runs.</strong> In retrospect this seems like the most elementary question you could ask about a device whose only job is to generate a secret. A seed that looks correct but was generated from insufficient entropy is not a secure seed. <strong>Evaluating everything except whether the entropy was sound is like testing a safe by checking the paint.</strong></p>
+<p>The third error was <strong>treating social capital as technical verification.</strong> When Adam Back calls something "super high assurance," the implied claim is that someone with standing to evaluate hardware security has evaluated it. When a Bitcoin Core contributor builds tooling that treats Coldcard as the only supported device, the implied claim is that the device passed whatever scrutiny a Core contributor would apply. When Unchained Capital integrates it and calls Coinkite "big fans," the implied claim is that institutional due diligence was performed. <strong>None of those implied claims were verified about the seed generation path.</strong></p>
+<p>For why reputation and credentialing substitute for verification in Bitcoin's development layer, see <em><a href="/articles/bitcoin-social-capture">The Social Layer Is the Attack Surface</a></em>.</p>
+<hr>
+<h2 id="ii-how-the-stack-built">II. How the Stack Built</h2>
+<p>The promotion didn't start with podcasters. <strong>It started with tooling.</strong></p>
+<p>HWI, the official Bitcoin Core-adjacent hardware wallet interface project, provides first-class Coldcard support via a dedicated module maintained by Ava Chow, a Bitcoin Core maintainer. Her own demo at London Bitcoin Devs in 2020: "I am going to be using a Coldcard because that is the easiest thing to do." James O'Beirne, Bitcoin Core contributor and author of OP_VAULT, built coldcore, a wallet tool whose README states Coldcard is "the only wallet supported at the moment because it is opensource, and supports air-gapped use via PSBT." O'Beirne's own framing reflects the community's conflation of source-available with open source. Craig Raw's Sparrow Wallet documentation includes a dedicated "Why Coldcard?" section recommending Coldcard directly.</p>
+<p>A user following the most technically serious Bitcoin self-custody path, running their own node, using Bitcoin Core, following the tooling documentation, <strong>arrived at Coldcard without encountering a single advertisement.</strong> The default was structural, not simply marketing.</p>
+<p>Then the educators confirmed what the tooling assumed. Then the institutions integrated what the educators confirmed. Then the vendor cited the institutions on the homepage. Coinkite's website stacked WalletScrutiny's "passed all 10 tests" badge next to BTC Sessions calling it "one of the most secure Bitcoin hardware wallets ever built" next to Bitcoin Verdict calling it "the most secure you can buy." <strong>Each layer appears to have treated the layer below as diligence.</strong> None of the layers included a seed-path audit.</p>
+<p>From March 2021 onward, Coldcard was generating seeds from a far smaller entropy pool than anyone knew. Every influencer recommendation, every tutorial, every podcast episode, every institutional integration produced after that date was built on top of a device that had already failed the most fundamental test.</p>
+<p>By July 2026, "Coldcard" and "most secure Bitcoin hardware wallet" were near-synonymous in serious self-custody discourse. <strong>"Don't trust, verify" had become trust the people who say "don't trust, verify."</strong></p>
+<hr>
+<h2 id="iii-the-review-that-missed">III. The Review That Missed</h2>
+<p>The sharpest illustration is PortlandHODL's June 2022 public review.</p>
+<p>Bitcoin Core contributor, AnchorWatch engineer. He publicly examined the Mk4's STM32 RNG driver and published his conclusion: "Looking through the source of the COLDCARD MK4 their driver implementation for the STM32 rng is correct."</p>
+<p>He was right. The driver was correct. <strong>The bug wasn't in the driver.</strong></p>
+<p>The defect was in the build-time preprocessor guard in a different file, the guard that determined whether the driver was called at all. When <code>MICROPY_HW_ENABLE_RNG</code> is defined as zero (which it always was), the <code>#ifndef</code> check passes, the error never triggers, and seed generation falls through to MicroPython's Yasmarang software PRNG seeded from the chip's serial number and clock registers. The driver PortlandHODL reviewed was fine. <strong>It just wasn't running.</strong></p>
+<p>A credentialed Bitcoin Core contributor performed visible technical work. The community had reason to trust that work. The work stopped at the wrong file. The community's trust remained, and so did the vulnerability, for four more years.</p>
+<p><strong>This is the third error in practice.</strong> "Don't trust, verify" requires verifying the right thing. It is not satisfied by verifying something adjacent to the right thing and then extending trust to cover the gap.</p>
+<hr>
+<h2 id="iv-the-capital-layer">IV. The Capital Layer</h2>
+<p>Ten31 led Coinkite's Series A in December 2024. Its managing partners, Matt Odell and Marty Bent, were already two of the most prominent Coldcard promoters in Bitcoin. <strong>By the time they held equity, they had spent years recommending a wallet whose firmware was vulnerable.</strong> The investment formalized a relationship the audience had long been treating as independent advice.</p>
+<p>Rabbit Hole Recap, the weekly podcast co-hosted by Odell and Bent, lists Coinkite in its standard sponsor block ("Shoutout to our sponsors: Coinkite") in published show notes, documented from at least July 2023 through July 2026. Odell's setup guide was listed directly on Coldcard's official documentation page, one of three educators whose guides Coinkite itself endorsed. Citadel Dispatch, Odell's separate audience-funded podcast, carried the Ten31 investment disclosure in the show notes of one episode featuring NVK. That disclosure did not necessarily travel with every Coldcard recommendation, whether in setup guides linked from Coldcard's website or in years of stack advice before the Series A closed.</p>
+<p><strong>The "don't trust, verify" standard applies to incentives as much as it applies to code.</strong> An audience that was told to verify everything was likely not consistently told that the people telling them to buy this specific product had financial ties to Coinkite and, after 2024, equity in the company.</p>
+<p>One more data point on how thoroughly Coldcard's reputation was constructed: Zach Herbert, CEO of Foundation Devices and maker of Coldcard's closest competitor, published an open letter to NVK calling Coldcard "the most secure Bitcoin hardware wallet with the best security architecture..." A hardware wallet company CEO endorsing a competitor as the best in the market is about as strong a third-party validation as exists.</p>
+<p>The irony runs deeper than that. Herbert built Foundation Devices' Passport on a fork of Coldcard's then-GPLv3 firmware, which was legally permitted under that license. GPL requires that anyone who forks and distributes must release their modifications under the same terms. NVK saw a competitor using his code exactly as the license allowed, publicly said he regretted releasing under GPL, and then Coinkite migrated to MIT plus Commons Clause. The Commons Clause addition is specifically designed to prevent commercial use, which is what Foundation Devices had done legally. The new license left the code source-visible but no longer open source by any standard definition. Coinkite began calling it "verifiable" rather than open source. Herbert and others publicly criticized the change.</p>
+<p>The large 120-file commit that executed the license migration also rewrote the seed generation path. That rewrite is where the defective preprocessor guard was introduced. <strong>The same period that produced the most credentialed endorsement Coldcard ever received also produced the code change that, five years later, allowed attackers to drain over $88 million from addresses likely tied to innocent Coldcard customers.</strong></p>
+<hr>
+<h2 id="v-what-verification-would-have-required">V. What Verification Would Have Required</h2>
+<p>This is not a story about a sophisticated cryptographic attack or an exotic vulnerability class. <strong>The defect was a configuration error.</strong> Three files, one call chain.</p>
+<p>An auditor asking "which entropy source actually runs when a user generates a seed?" would have read <code>shared/seed.py</code> to find the <code>generate_seed()</code> call, traced <code>ngu.random.bytes()</code> to the libngu guard in <code>external/libngu/ngu/random.c</code>, and checked the board configuration in <code>stm32/COLDCARD/mpconfigboard.h</code> where <code>MICROPY_HW_ENABLE_RNG</code> is set to zero. The guard uses <code>#ifndef</code>, which passes when the macro is defined to any value including zero. The hardware TRNG path is silently disabled. The fallback runs.</p>
+<p>Findable. Not found by anyone in five years. <strong>Found by an attacker, in the same public repository that the community had been citing as a reason to trust the device.</strong></p>
+<hr>
+<h2 id="vi-the-same-system-applied-to-bitcoin-core">VI. The Same System, Applied to Bitcoin Core</h2>
+<p>Here is the uncomfortable part.</p>
+<p>Bitcoin Core was first released in January 2009. Its first independent third-party security audit was completed in September 2025, <strong>sixteen years later</strong>, and it was partial. In those sixteen years, the review process that was supposed to substitute for independent audit produced three notable visible failures.</p>
+<p>An inflation bug was introduced in Bitcoin Core 0.14.0 in March 2017 as a performance optimization that skipped a block validation check considered redundant. The skipped check was not redundant. The bug allowed a miner to inflate Bitcoin's supply by spending the same inputs twice. It sat in production through multiple reviewed releases for roughly eighteen months before a developer outside Bitcoin Core discovered and disclosed it. It was never exploited on mainnet, but <strong>the inflation bug in the software designed to enforce Bitcoin's 21 million cap passed review repeatedly before anyone found it.</strong></p>
+<p>Bitcoin Core 30.0, shipped in late 2025, contained a wallet migration bug that under specific conditions deleted all wallet files in the user's wallet directory, with no recovery path if backups didn't exist. The dangerous code pattern, using <code>fs::remove_all()</code> on user wallet directories, was introduced in 2022 and self-merged by Ava Chow. The PR itself received substantial review, but the specific lines containing the dangerous pattern received essentially none. In 2024, maintainer ryanofsky explicitly identified the exact risk in a code review, writing that the pattern "could wipe out a lot of other data," and recommended a followup PR to fix it. No followup was created. In 2025, an unrelated PR changed backup locations in a way that removed an earlier failure point that had been accidentally preventing the dangerous code from executing. The bug could now run. Users lost wallets. The fix arrived 18 days after the bug report. <strong>A maintainer had named the precise failure mode a year earlier, recommended fixing it, and the warning was not acted on.</strong></p>
+<p>Bitcoin Core 31.0, released April 2026, introduced a <code>-privatebroadcast</code> feature whose release notes stated explicitly: "Their IP address (and thus geolocation) is never known to the recipients." When the BIP324 v2 encrypted handshake failed, the software silently fell back to an unencrypted v1 retry that bypassed the Tor proxy entirely, exposing the sender's real IP address to the receiving peer. A malicious peer could deliberately trigger the handshake failure to force the exposure. The bug was disclosed June 6, 2026, six weeks after the feature shipped. It was fixed in 31.1.</p>
+<p>Three failures, each defined by the gap between what the feature was supposed to do and what it actually did. A 21 million cap that could be increased. Wallets that got deleted. A private broadcast feature that wasn't private. <strong>All three are the same class of failure as the Coldcard RNG defect:</strong> a code path that ran when it shouldn't have, or didn't run when it should have, visible in the source, not caught by review.</p>
+<p>When the first independent audit finally arrived in September 2025, Quarkslab spent 100 man-days across three engineers over four months. The scope was limited to the P2P layer, mempool, block validation, and chain state. The published scope covered a minority of consensus-critical code paths, and libbitcoinkernel was explicitly excluded.</p>
+<p>Many of the people who built Coldcard's reputation are the same people whose judgment you are supposed to trust on Bitcoin Core: <strong>source availability treated as audit, contributor reputation treated as verification, institutional consensus treated as correctness.</strong> Whether that mechanism has failed elsewhere is precisely the question that the "don't trust, verify" standard requires you to ask, and that social capital alone cannot answer. For the funding map, merge concentration, and documented adversarial cases in Core governance, see <em><a href="/articles/bitcoin-governance">Who Controls Bitcoin</a></em>.</p>
+<hr>
+<h2 id="vii-what-changes">VII. What Changes</h2>
+<p>The failures documented here are structural. <strong>They will happen again anywhere reputation replaces verification.</strong> The community preached a standard and didn't apply it to the things it trusted most.</p>
+<p>The commandment is real. <strong>The question is whether the community actually lives by it or just says it.</strong></p>
+<hr>
+<p><em>This article is analytical commentary based on publicly available information. All factual claims are sourced from public records, public statements, and documented on-chain data. No malice or prior knowledge of the defect is attributed to any individual named. Dollar figures and victim counts reflect published on-chain estimates (e.g. Galaxy Research), not confirmed victim reports.</em></p>
+</article>
+        <div class="article-share-bar" data-share-url="https://secsov.com/articles/dont-trust-verify" data-share-title="Don't Trust, Verify" data-share-text="Don't Trust, Verify: Coldcard's RNG defect, credentialed endorsement without seed-path audit, and the same verification gap in Bitcoin Core.">
+        <span class="share-label">Share</span>
+        <div class="article-share-icons"></div>
+    </div>
+    </div>
+    <script src="/share.js"></script>
+</body>
+</html>
