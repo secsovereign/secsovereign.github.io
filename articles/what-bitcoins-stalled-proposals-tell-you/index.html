@@ -57,7 +57,7 @@
 <hr>
 <h2 id="stalled-proposals">Stalled Proposals</h2>
 <p>Dandelion (2017): research-complete, never merged</p>
-<p>UTXO Commitments (~2014): replaced with AssumeUTXO, a weaker hardcoded hash solution</p>
+<p>UTXO Commitments (~2014): research-complete, never merged</p>
 <p>Erlay (~2019): years of research, still in the queue</p>
 <p>Formal Specification: never written down; Core’s behavior is the de facto spec</p>
 <p>Wallet/Node Separation (2016): still bundled after a decade of universal agreement</p>
@@ -69,8 +69,7 @@
 <p>What eventually landed in Core was private broadcast, merged years after Dandelion was first proposed. Private broadcast protects your IP from the specific peer you connect to. That is a narrower threat model. Both are useful. They are not substitutes, and private broadcast landing does not close the Dandelion argument.</p>
 <p>Erlay would cut node bandwidth by 40 to 80% on transaction relay using set reconciliation rather than flooding. It has years of research behind it, no serious technical objection on record, and it still sits in the queue.</p>
 <h2 id="sync-and-verification">Sync and Verification</h2>
-<p>UTXO Commitments date to at least 2014. If the current state of all unspent outputs is committed in a verifiable way, a new node can sync to that commitment and verify it against the existing proof-of-work chain rather than replaying over a decade of transaction history. Initial block download currently takes days to weeks. A working UTXO commitment scheme gets that to hours or less, with the same security assumptions you already rely on.</p>
-<p>What shipped instead is AssumeUTXO, a hardcoded hash of the UTXO set baked directly into the Core source code. A node using AssumeUTXO trusts that hash during the most security-sensitive period of its existence, then validates the full history in the background. The trust assumption is not in the proof-of-work chain. It is in the Core release process and the developers who decide what hash gets hardcoded. That is a weaker security model than a cryptographic commitment scheme, and it still took a decade to arrive.</p>
+<p>UTXO commitments date to at least 2014. The idea is to commit the current state of all unspent outputs in a form a new node can verify against the proof-of-work chain, rather than replaying over a decade of transaction history from genesis. Initial block download currently takes days to weeks. A working commitment scheme could cut that to hours or less while keeping the trust anchor in the chain itself. The research has been complete for over a decade. <strong>Core has not shipped it.</strong></p>
 <p>Formal Verification. The Quarkslab audit, the first external professional security audit in Core’s history, was scoped primarily to the P2P networking layer over 100 man-days. Quarkslab states directly that existing harnesses “do not fully exercise the complete range of consensus checks” and that “most existing harnesses target narrow, well-scoped portions of the code in isolation.” Based on their documented scope and the gaps they identify, the audit covered an estimated 20 to 30% of consensus-critical code paths. Finding no critical issues against that baseline is a different claim from confirming the consensus code is secure.</p>
 <p>Quarkslab explicitly recommended formal verification as the path forward. Not an external critic making that call, but the auditors who spent 100 man-days inside the codebase, commissioned by Brink, telling the Core development community what the next step should be. It has not happened.</p>
 <h2 id="structural-issues">Structural Issues</h2>

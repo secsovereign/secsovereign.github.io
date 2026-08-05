@@ -1975,7 +1975,7 @@ Across 16 years of Core commit history, the Gini coefficient for merge activity 
 
 Dandelion (2017): research-complete, never merged
 
-UTXO Commitments (~2014): replaced with AssumeUTXO, a weaker hardcoded hash solution
+UTXO Commitments (~2014): research-complete, never merged
 
 Erlay (~2019): years of research, still in the queue
 
@@ -1999,9 +1999,7 @@ Erlay would cut node bandwidth by 40 to 80% on transaction relay using set recon
 
 ## Sync and Verification
 
-UTXO Commitments date to at least 2014. If the current state of all unspent outputs is committed in a verifiable way, a new node can sync to that commitment and verify it against the existing proof-of-work chain rather than replaying over a decade of transaction history. Initial block download currently takes days to weeks. A working UTXO commitment scheme gets that to hours or less, with the same security assumptions you already rely on.
-
-What shipped instead is AssumeUTXO, a hardcoded hash of the UTXO set baked directly into the Core source code. A node using AssumeUTXO trusts that hash during the most security-sensitive period of its existence, then validates the full history in the background. The trust assumption is not in the proof-of-work chain. It is in the Core release process and the developers who decide what hash gets hardcoded. That is a weaker security model than a cryptographic commitment scheme, and it still took a decade to arrive.
+UTXO commitments date to at least 2014. The idea is to commit the current state of all unspent outputs in a form a new node can verify against the proof-of-work chain, rather than replaying over a decade of transaction history from genesis. Initial block download currently takes days to weeks. A working commitment scheme could cut that to hours or less while keeping the trust anchor in the chain itself. The research has been complete for over a decade. **Core has not shipped it.**
 
 Formal Verification. The Quarkslab audit, the first external professional security audit in Core’s history, was scoped primarily to the P2P networking layer over 100 man-days. Quarkslab states directly that existing harnesses “do not fully exercise the complete range of consensus checks” and that “most existing harnesses target narrow, well-scoped portions of the code in isolation.” Based on their documented scope and the gaps they identify, the audit covered an estimated 20 to 30% of consensus-critical code paths. Finding no critical issues against that baseline is a different claim from confirming the consensus code is secure.
 
