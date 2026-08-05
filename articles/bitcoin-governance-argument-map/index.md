@@ -1,6 +1,6 @@
 # Bitcoin Governance: Argument Map
 
-Numbered arguments for debate and analysis. Narrative evidence, funding maps, and primary sources are in *[Who Controls Bitcoin](/articles/bitcoin-governance)*; structural logic in *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture)*.
+Numbered arguments for debate and analysis. Narrative evidence, funding maps, and primary sources are in *[Who Controls Bitcoin](/articles/bitcoin-governance)*; structural logic in *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture)*. For refutations of the most common monopoly defenses in debate, see *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)*.
 
 **Each numbered point is a standalone claim.** Use the cross-links for evidence; use this document for the argument structure.
 
@@ -72,7 +72,7 @@ Numbered arguments for debate and analysis. Narrative evidence, funding maps, an
 
 10. **The no-spec moat protects the incumbent structurally.** Without a formal specification, any alternative implementation must reverse-engineer undocumented behavior. This is not an accident. Unspecified behavior creates a structural barrier to competition that cannot be resolved without an independent mathematical specification.
 
-11. **Code as specification means no independent verification.** When the code is the specification, there is no independent standard against which to verify correctness or detect consensus bugs before they ship. CVE-2018-17144 sat in production for 18 months. That is the consequence.
+11. **Code as specification means no independent verification.** When the code is the specification, there is no independent standard against which to verify correctness or detect consensus bugs before they ship. CVE-2018-17144 sat in production for 18 months. That is the consequence. For why a human-readable formal specification matters for governance, see *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)*.
 
 ---
 
@@ -190,6 +190,8 @@ Numbered arguments for debate and analysis. Narrative evidence, funding maps, an
 </table>
 <figcaption>Stalled or deferred items with broad agreement (§25–31). Bottleneck is structural, not technical.</figcaption>
 </figure>
+
+For the full stalled-proposals dossier and what shipping looks like from a formal spec, see *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)* and *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory)*.
 
 25. **Wallet and node separation: 12 years, universal agreement, not done.** No opposition exists. The feature has broad consensus. It has not shipped. The bottleneck is structural, not technical.
 
@@ -331,7 +333,7 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 72. **Existing alternatives each fail for documented reasons.** Knots is a Core fork with the same structural problems and more concentrated maintainer control. Btcd abandoned active development. Libbitcoin abandoned the UTXO set and mempool, requiring ecosystem retooling and accepting isolation. None of these are genuine alternatives.
 
-73. **Mathematical specification is necessary, not optional.** The only way to prove consensus compatibility without inheriting Core's governance is to specify the consensus rules independently in mathematics and prove correctness against that specification. Differential testing against Core's historical behavior is the validation methodology that bridges the gap.
+73. **Mathematical specification is necessary, not optional.** The only way to prove consensus compatibility without inheriting Core's governance is to specify the consensus rules independently in mathematics and prove correctness against that specification. Differential testing against Core's historical behavior is the validation methodology that bridges the gap. See *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)* for the verification-methodology argument.
 
 74. **Differential testing proves what IBD cannot.** An Initial Block Download proves a node can sync. It does not prove the node matches the network's consensus rules, because IBD has no reference to compare against. Differential testing runs both implementations against the same blocks and treats any mismatch as a bug in the alternative. That is the proof of consensus compatibility. It is not optional. It is the only honest claim to consensus validity.
 

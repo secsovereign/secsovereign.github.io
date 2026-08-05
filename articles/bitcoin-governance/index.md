@@ -31,11 +31,11 @@ This document presents the structural argument in full, supported by the adversa
 
 ### The Implementation Monopoly
 
-When the same upstream lineage supplies almost all economically relevant consensus nodes, **the distinction between Bitcoin the network and “whatever Bitcoin Core’s maintainers ship” becomes practically meaningless.** The network enforces what that lineage releases. The consensus rules are what that software encodes. This is not a theoretical concern. CVE-2018-17144, an inflation bug that could have allowed Bitcoin to be created out of thin air, sat in production in Bitcoin Core for eighteen months. A second independent implementation running differential tests against the same blocks would have caught it immediately. The bug was in Core. **Core's monopoly is what made it dangerous.**
+When the same upstream lineage supplies almost all economically relevant consensus nodes, **the distinction between Bitcoin the network and “whatever Bitcoin Core’s maintainers ship” becomes practically meaningless.** The network enforces what that lineage releases. The consensus rules are what that software encodes. This is not a theoretical concern. CVE-2018-17144, an inflation bug that could have allowed Bitcoin to be created out of thin air, sat in production in Bitcoin Core for eighteen months. A second independent implementation running differential tests against the same blocks would have caught it immediately. The bug was in Core. **Core's monopoly is what made it dangerous.** Common defenses of that monopoly are addressed in *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)*.
 
 A common objection points to miners: they may run any consensus-compatible software and need not adopt every release. That permission is real; the practiced behavior is not a distributed audit. Industrial mining largely follows operational defaults: pool infrastructure, hosting providers, and routine upgrades to stay compatible with peers and with the dominant client, rather than a deliberate, release-by-release review of consensus changes by the majority of hash rate. **A veto almost no one pays the cost to exercise is not the same as decentralized control over what merges.**
 
-Bitcoin has never had a formal mathematical specification of its consensus rules. Producing one inside Core's process has been attempted for years without meaningful progress toward an adopted specification. Without a specification, every alternative implementation must reverse-engineer undocumented behavior from Core itself, which means staying architecturally dependent on Core by definition. That is not an accident. **Unspecified behavior creates a structural barrier to competition** that cannot be resolved without an independent mathematical specification. The absence of a spec is the mechanism that makes the implementation monopoly self-perpetuating.
+Bitcoin has never had a formal mathematical specification of its consensus rules. Producing one inside Core's process has been attempted for years without meaningful progress toward an adopted specification. Without a specification, every alternative implementation must reverse-engineer undocumented behavior from Core itself, which means staying architecturally dependent on Core by definition. That is not an accident. **Unspecified behavior creates a structural barrier to competition** that cannot be resolved without an independent mathematical specification. The absence of a spec is the mechanism that makes the implementation monopoly self-perpetuating. For the case for a human-readable formal specification, see *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)*.
 
 ### The Merge Authority Structure
 
@@ -47,7 +47,7 @@ Brink's own [Engineering Impact Report 2025](https://brink.dev/blog/2026/03/26/e
 
 ### What the Quantitative Record Shows
 
-The same research finds extreme merge concentration (Gini on PR-weighted activity ~0.851), high contributor churn (many participants with minimal sustained engagement), **89.3% voting-bloc cohesion** among top reviewers ([`findings/EXECUTIVE_SUMMARY.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/EXECUTIVE_SUMMARY.md)), and a pattern of governance paralysis on major protocol improvements that would have reduced dependence on the current institutional infrastructure. Review labor is far less concentrated than merge authority: since 2017, the top three reviewers account for roughly **19%** of review volume while the top three mergers account for roughly **90%** ([`findings/REVIEW_ACCESS_OUTCOMES.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/REVIEW_ACCESS_OUTCOMES.md)). Many people review; almost nobody merges. Contributor accounts in Section III describe how funding dependency and institutional geography further narrow who sustains engagement in that dataset.
+The same research finds extreme merge concentration (Gini on PR-weighted activity ~0.851), high contributor churn (many participants with minimal sustained engagement), **89.3% voting-bloc cohesion** among top reviewers ([`findings/EXECUTIVE_SUMMARY.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/EXECUTIVE_SUMMARY.md)), and a pattern of governance paralysis on major protocol improvements that would have reduced dependence on the current institutional infrastructure. For how that paralysis became the durable outcome of the blocksize war, see *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory)*; for the stalled-proposals evidence list, see *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)*. Review labor is far less concentrated than merge authority: since 2017, the top three reviewers account for roughly **19%** of review volume while the top three mergers account for roughly **90%** ([`findings/REVIEW_ACCESS_OUTCOMES.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/REVIEW_ACCESS_OUTCOMES.md)). Many people review; almost nobody merges. Contributor accounts in Section III describe how funding dependency and institutional geography further narrow who sustains engagement in that dataset.
 
 <figure class="article-chart chart-stackbar">
 <div class="chart-heading">Historical merge share (Bitcoin Core, full-history rollup)</div>
@@ -331,14 +331,24 @@ Implementation diversity is the structural fix, not a personnel change at Core. 
 
 ## Further Reading
 
-- hodlonaut, "CAPTURE Article 1: The Network," Citadel21, March 27, 2026. https://www.citadel21.com/the-network
-- hodlonaut, "CAPTURE Article 2: The Lever," Citadel21, April 29, 2026. https://www.citadel21.com/the-lever
-- hodlonaut, "CAPTURE Article 3: The Merge," Citadel21, June 15, 2026. https://www.citadel21.com/the-merge
-- hodlonaut, X thread on Mike Schmidt's decentralization slide, July 21, 2026. https://x.com/hodlonaut/status/2079539699106943365
-- Brink Engineering Impact Report 2025, March 26, 2026. https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/
-- Adam Jonas, "Evolution of Bitcoin Core Priority Projects," October 31, 2024. https://adamjonas.com/bitcoin-core-priority-projects
-- Antoine Poinsot, "Relay policy drama," antoinep.com. https://antoinep.com/posts/relay_policy_drama/
-- Renaud Cuny, "Three Years of Spam," Blockspace Weekly, December 2025. https://blockspaceweekly.substack.com/p/issue-3-three-years-of-spam
-- CVE-2023-50428, National Vulnerability Database. https://nvd.nist.gov/vuln/detail/CVE-2023-50428
+### On secsov.com
+
+- *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)* — refutations of common monopoly defenses
+- *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory)* — blocksize war outcome and implementation diversity path
+- *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)* — research-complete improvements that never shipped
+- *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)* — human-readable spec as governance infrastructure
+- *[Bitcoin's Hidden Crisis](/articles/bitcoins-hidden-crisis)* — social coordination vs technical consensus
+
+### External
+
+- [hodlonaut, "CAPTURE Article 1: The Network," Citadel21](https://www.citadel21.com/the-network), March 27, 2026
+- [hodlonaut, "CAPTURE Article 2: The Lever," Citadel21](https://www.citadel21.com/the-lever), April 29, 2026
+- [hodlonaut, "CAPTURE Article 3: The Merge," Citadel21](https://www.citadel21.com/the-merge), June 15, 2026
+- [hodlonaut, X thread on Mike Schmidt's decentralization slide](https://x.com/hodlonaut/status/2079539699106943365), July 21, 2026
+- [Brink Engineering Impact Report 2025](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/), March 26, 2026
+- [Adam Jonas, "Evolution of Bitcoin Core Priority Projects"](https://adamjonas.com/bitcoin-core-priority-projects), October 31, 2024
+- [Antoine Poinsot, "Relay policy drama"](https://antoinep.com/posts/relay_policy_drama/)
+- [Renaud Cuny, "Three Years of Spam," Blockspace Weekly](https://blockspaceweekly.substack.com/p/issue-3-three-years-of-spam), December 2025
+- [CVE-2023-50428, National Vulnerability Database](https://nvd.nist.gov/vuln/detail/CVE-2023-50428)
 
 *This document reflects analysis grounded in 16 years of Bitcoin Core governance data, public funding disclosures, documented personnel history, and primary source materials including GitHub records, funding announcements, and the 2026 Epstein document release. Claims about specific individuals reflect documented institutional affiliations, not allegations of individual misconduct. For parallel failures where contributor reputation substituted for independent audit (hardware wallets and Core itself), see [Don't Trust, Verify](/articles/dont-trust-verify).*

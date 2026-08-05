@@ -34,6 +34,14 @@ This site publishes **long-form reference articles**, not a blog feed. The homep
 - [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance): Primary governance reference: funding map, maintainer merge authority, personnel revolving door, OP_RETURN arc (2023–2025), Brink/OpenSats/Chaincode ties, suppression patterns. Start here for evidence.
 - [Bitcoin Governance: Argument Map](https://secsov.com/articles/bitcoin-governance-argument-map): 105 numbered arguments across 22 sections for debate; points to Who Controls Bitcoin for narrative and Social Layer for structure. Includes blockspace/relay-policy failure (Part XXII).
 - [The Social Layer Is the Attack Surface](https://secsov.com/articles/bitcoin-social-capture): Structural logic of why Bitcoin governance produces capture outcomes without requiring conspiracy; permissionless protocol vs permissioned development; blocksize war and fork trap.
+- [Governance Paralysis Was The Victory](https://secsov.com/articles/governance-paralysis-was-the-victory): Block size war as resource capture, MIT/DCI/Epstein funding context, CVE-2018-17144, good vs bad ossification, alternative implementations survey, Bitcoin Commons.
+- [Bitcoin Core: The Biggest Fallacies](https://secsov.com/articles/bitcoin-core-the-biggest-fallacies): Eight rebuttals to Core monopoly defenses: contributor count, adoption, rough consensus, conservatism, reviewer pool. Companion to Argument Map.
+- [What Bitcoin's Stalled Proposals Tell You](https://secsov.com/articles/what-bitcoins-stalled-proposals-tell-you): Dandelion, UTXO commitments, Erlay, wallet/node split, formal verification: stalled in Core vs shipped in Commons; OP_RETURN/Knots policy monoculture.
+
+## Implementation diversity and specification
+
+- [Why Bitcoin Needs a Specification That Humans Can Read](https://secsov.com/articles/why-bitcoin-needs-a-specification): Human-readable spec (Orange Paper) vs Lean/DSL; verification as governance; spec-lock with Z3; defense-in-depth stack.
+- [Bitcoin's Hidden Crisis: When Technical Consensus Isn't Enough](https://secsov.com/articles/bitcoins-hidden-crisis): Social vs protocol consensus; coordination crises (blocksize, Taproot); Bitcoin Commons cryptographic coordination model.
 
 ## Blockspace and consensus policy
 
@@ -74,7 +82,12 @@ This site publishes **long-form reference articles**, not a blog feed. The homep
 - [Who Controls Bitcoin (Markdown source)](https://secsov.com/articles/bitcoin-governance/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Bitcoin Governance: Argument Map (Markdown source)](https://secsov.com/articles/bitcoin-governance-argument-map/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [The Social Layer Is the Attack Surface (Markdown source)](https://secsov.com/articles/bitcoin-social-capture/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [Governance Paralysis Was The Victory (Markdown source)](https://secsov.com/articles/governance-paralysis-was-the-victory/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [Bitcoin Core: The Biggest Fallacies (Markdown source)](https://secsov.com/articles/bitcoin-core-the-biggest-fallacies/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [What Bitcoin's Stalled Proposals Tell You (Markdown source)](https://secsov.com/articles/what-bitcoins-stalled-proposals-tell-you/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [The Last Uncaptured Asset (Markdown source)](https://secsov.com/articles/the-last-uncaptured-asset/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [The Achievable Floor (Markdown source)](https://secsov.com/articles/the-achievable-floor/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Bitcoin Is Not a Hard Drive (Markdown source)](https://secsov.com/articles/bitcoin-not-a-hard-drive/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [Why Bitcoin Needs a Specification That Humans Can Read (Markdown source)](https://secsov.com/articles/why-bitcoin-needs-a-specification/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [Bitcoin's Hidden Crisis: When Technical Consensus Isn't Enough (Markdown source)](https://secsov.com/articles/bitcoins-hidden-crisis/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Don't Trust, Verify (Markdown source)](https://secsov.com/articles/dont-trust-verify/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.

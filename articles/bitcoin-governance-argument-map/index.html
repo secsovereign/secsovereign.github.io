@@ -11,6 +11,8 @@
     <meta property="og:description" content="Numbered arguments for debate and analysis. Narrative evidence, funding maps, and primary sources are in Who Controls Bitcoin; structural logic in The Social...">
     <meta property="og:url" content="https://secsov.com/articles/bitcoin-governance-argument-map">
     <meta property="og:site_name" content="SecureSovereign">
+    <meta property="article:published_time" content="2026-04-03">
+    <meta property="article:modified_time" content="2026-08-05">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/article.css" rel="stylesheet">
@@ -29,8 +31,12 @@
     </div>
     </nav>
     <div class="article-wrap">
+        <header class="article-meta">
+        <p class="article-dates"><time datetime="2026-04-03">Published April 3, 2026</time><span class="article-meta-sep" aria-hidden="true">·</span><time datetime="2026-08-05">Updated August 5, 2026</time></p>
+        
+    </header>
         <article class="article-body"><h1>Bitcoin Governance: Argument Map</h1>
-<p>Numbered arguments for debate and analysis. Narrative evidence, funding maps, and primary sources are in <em><a href="/articles/bitcoin-governance">Who Controls Bitcoin</a></em>; structural logic in <em><a href="/articles/bitcoin-social-capture">The Social Layer Is the Attack Surface</a></em>.</p>
+<p>Numbered arguments for debate and analysis. Narrative evidence, funding maps, and primary sources are in <em><a href="/articles/bitcoin-governance">Who Controls Bitcoin</a></em>; structural logic in <em><a href="/articles/bitcoin-social-capture">The Social Layer Is the Attack Surface</a></em>. For refutations of the most common monopoly defenses in debate, see <em><a href="/articles/bitcoin-core-the-biggest-fallacies">Bitcoin Core: The Biggest Fallacies</a></em>.</p>
 <p><strong>Each numbered point is a standalone claim.</strong> Use the cross-links for evidence; use this document for the argument structure.</p>
 <hr>
 <h2 id="contents">Contents</h2>
@@ -99,7 +105,7 @@
 </li>
 <li><p><strong>The no-spec moat protects the incumbent structurally.</strong> Without a formal specification, any alternative implementation must reverse-engineer undocumented behavior. This is not an accident. Unspecified behavior creates a structural barrier to competition that cannot be resolved without an independent mathematical specification.</p>
 </li>
-<li><p><strong>Code as specification means no independent verification.</strong> When the code is the specification, there is no independent standard against which to verify correctness or detect consensus bugs before they ship. CVE-2018-17144 sat in production for 18 months. That is the consequence.</p>
+<li><p><strong>Code as specification means no independent verification.</strong> When the code is the specification, there is no independent standard against which to verify correctness or detect consensus bugs before they ship. CVE-2018-17144 sat in production for 18 months. That is the consequence. For why a human-readable formal specification matters for governance, see <em><a href="/articles/why-bitcoin-needs-a-specification">Why Bitcoin Needs a Specification</a></em>.</p>
 </li>
 </ol>
 <hr>
@@ -219,6 +225,7 @@
 <figcaption>Stalled or deferred items with broad agreement (§25–31). Bottleneck is structural, not technical.</figcaption>
 </figure>
 
+<p>For the full stalled-proposals dossier and what shipping looks like from a formal spec, see <em><a href="/articles/what-bitcoins-stalled-proposals-tell-you">What Bitcoin's Stalled Proposals Tell You</a></em> and <em><a href="/articles/governance-paralysis-was-the-victory">Governance Paralysis Was The Victory</a></em>.</p>
 <ol start="25">
 <li><p><strong>Wallet and node separation: 12 years, universal agreement, not done.</strong> No opposition exists. The feature has broad consensus. It has not shipped. The bottleneck is structural, not technical.</p>
 </li>
@@ -359,7 +366,7 @@
 </li>
 <li><p><strong>Existing alternatives each fail for documented reasons.</strong> Knots is a Core fork with the same structural problems and more concentrated maintainer control. Btcd abandoned active development. Libbitcoin abandoned the UTXO set and mempool, requiring ecosystem retooling and accepting isolation. None of these are genuine alternatives.</p>
 </li>
-<li><p><strong>Mathematical specification is necessary, not optional.</strong> The only way to prove consensus compatibility without inheriting Core's governance is to specify the consensus rules independently in mathematics and prove correctness against that specification. Differential testing against Core's historical behavior is the validation methodology that bridges the gap.</p>
+<li><p><strong>Mathematical specification is necessary, not optional.</strong> The only way to prove consensus compatibility without inheriting Core's governance is to specify the consensus rules independently in mathematics and prove correctness against that specification. Differential testing against Core's historical behavior is the validation methodology that bridges the gap. See <em><a href="/articles/why-bitcoin-needs-a-specification">Why Bitcoin Needs a Specification</a></em> for the verification-methodology argument.</p>
 </li>
 <li><p><strong>Differential testing proves what IBD cannot.</strong> An Initial Block Download proves a node can sync. It does not prove the node matches the network's consensus rules, because IBD has no reference to compare against. Differential testing runs both implementations against the same blocks and treats any mismatch as a bug in the alternative. That is the proof of consensus compatibility. It is not optional. It is the only honest claim to consensus validity.</p>
 </li>

@@ -11,6 +11,8 @@
     <meta property="og:description" content="Bitcoin is a distributed consensus state transition ledger. Every node maintains an identical copy not because storing data is valuable, but because reaching...">
     <meta property="og:url" content="https://secsov.com/articles/bitcoin-not-a-hard-drive">
     <meta property="og:site_name" content="SecureSovereign">
+    <meta property="article:published_time" content="2026-07-31">
+    <meta property="article:modified_time" content="2026-08-05">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/article.css" rel="stylesheet">
@@ -29,6 +31,10 @@
     </div>
     </nav>
     <div class="article-wrap">
+        <header class="article-meta">
+        <p class="article-dates"><time datetime="2026-07-31">Published July 31, 2026</time><span class="article-meta-sep" aria-hidden="true">·</span><time datetime="2026-08-05">Updated August 5, 2026</time></p>
+        
+    </header>
         <article class="article-body"><h1>Bitcoin Is Not a Hard Drive</h1>
 <h2 id="the-technical-and-philosophical-case-against-non-monetary-data-embedding">The Technical and Philosophical Case Against Non-Monetary Data Embedding</h2>
 <h2 id="contents">Contents</h2>
@@ -94,7 +100,7 @@
 <h2 id="vii-the-permissionless-counter-argument">VII. The Permissionless Counter-Argument</h2>
 <p>The strongest objection is that Bitcoin is permissionless, and any mechanism that excludes a class of transactions is a step toward excluding any transaction. If the network can decide that JPEGs do not belong, it can decide that dissidents do not belong. The slope is real and the concern is not trivial.</p>
 <p>But the objection collapses a distinction that matters. <strong>Bitcoin's permissionless property applies to monetary transactions.</strong> It means no authority can prevent you from sending value to another party. It does <strong>not</strong> mean Bitcoin is a neutral substrate for any purpose that can be technically encoded. These are different claims.</p>
-<p>The original <code>OP_RETURN</code> limit was not censorship of monetary transactions. It was friction that kept a non-payment channel from becoming a subsidized data bus at the expense of node operators who chose to validate monetary settlement. It was removed under documented pressure from actors with direct financial interest in using Bitcoin's infrastructure as cheap data storage. The governance outcome and the financial interests behind it are both matters of public record. For the full documented account, see <em><a href="/articles/bitcoin-governance#v-the-adversarial-layer-when-conflicts-become-visible">Who Controls Bitcoin, §V</a></em> and the <em><a href="/articles/bitcoin-governance-argument-map#part-vi-forced-participation">Argument Map, Parts VI–VII and XXII</a></em>.</p>
+<p>The original <code>OP_RETURN</code> limit was not censorship of monetary transactions. It was friction that kept a non-payment channel from becoming a subsidized data bus at the expense of node operators who chose to validate monetary settlement. It was removed under documented pressure from actors with direct financial interest in using Bitcoin's infrastructure as cheap data storage. The governance outcome and the financial interests behind it are both matters of public record. For the full documented account, see <em><a href="/articles/bitcoin-governance#v-the-adversarial-layer-when-conflicts-become-visible">Who Controls Bitcoin, §V</a></em>, the <em><a href="/articles/bitcoin-governance-argument-map#part-vi-forced-participation">Argument Map, Parts VI–VII and XXII</a></em>, and <em><a href="/articles/what-bitcoins-stalled-proposals-tell-you">What Bitcoin's Stalled Proposals Tell You</a></em> (policy monoculture section).</p>
 <p>Treating every technical constraint as equivalent to political censorship makes it impossible to distinguish between a limit on arbitrary data embedding and a limit on sending bitcoin to a dissident. The permissionless property is meaningful precisely because it applies to something specific, and extending it to cover every possible use of every transaction field (compounding costs on every node that validates the network) degrades the very thing it claims to defend.</p>
 <hr>
 <h2 id="viii-what-can-actually-be-done">VIII. What Can Actually Be Done</h2>

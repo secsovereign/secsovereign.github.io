@@ -93,7 +93,7 @@ A developer community has identifiable nodes of disproportionate influence. It h
 
 The methodology is not novel. Academic institutions provide both credentialing authority and a plausible non-intelligence funding mechanism. When the right institution funds the right research program at the right moment, the effects propagate through the community through entirely ordinary social mechanisms. Researchers learn what gets funded. Developers learn what gets merged. Critics learn what gets them removed from venues where their criticism would matter. No handler required.
 
-The concentration that makes Bitcoin's governance structurally fragile also makes its social graph unusually easy to map and influence. Concentrated social graphs require fewer interventions to shift than distributed ones. That is not a coincidence that should be dismissed. The outputs look coordinated whether or not anyone coordinated them.
+The concentration that makes Bitcoin's governance structurally fragile also makes its social graph unusually easy to map and influence. Concentrated social graphs require fewer interventions to shift than distributed ones. That is not a coincidence that should be dismissed. The outputs look coordinated whether or not anyone coordinated them. For how developer coordination failure becomes an existential vulnerability at Bitcoin's current scale, see *[Bitcoin's Hidden Crisis](/articles/bitcoins-hidden-crisis)*.
 
 ---
 
@@ -105,7 +105,7 @@ The surface dispute was about block size. The structural outcome was the permane
 
 Primary source documentation exists for the coordinated institutional interest in shaping that outcome: emails placing legacy financial institutions in direct contact with the developers and institutions involved in the debate; funding relationships between the organizations arguing for specific technical outcomes and the commercial operations whose revenues depended on those outcomes; academic institutions whose rescue of Core's development infrastructure after the Bitcoin Foundation's collapse was financed through channels with documented conflicts of interest.
 
-The point is not that the small block position was wrong. Preserving decentralization is genuinely important and the arguments for it are technically sound. **The point is that the war itself, regardless of which side was correct on the technical merits, consumed the governance bandwidth that implementation diversity required and produced governance paralysis as its durable output.** You do not need Bitcoin to make wrong decisions. **You only need it to make no decisions.** Paralysis was a victory condition for every institutional interest threatened by functional peer-to-peer money, and the blocksize war delivered it.
+The point is not that the small block position was wrong. Preserving decentralization is genuinely important and the arguments for it are technically sound. **The point is that the war itself, regardless of which side was correct on the technical merits, consumed the governance bandwidth that implementation diversity required and produced governance paralysis as its durable output.** You do not need Bitcoin to make wrong decisions. **You only need it to make no decisions.** Paralysis was a victory condition for every institutional interest threatened by functional peer-to-peer money, and the blocksize war delivered it. For the full narrative on that outcome and the path to implementation diversity, see *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory)*.
 
 Whether that outcome was coordinated or emergent from the collision of financial interests that happened to align is ultimately less important than the structural reality it produced. The outcome is identical in both cases and it is documented.
 
@@ -179,4 +179,4 @@ The consensus rules are sound. The development infrastructure built around them 
 
 ---
 
-*Evidentiary basis: [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research); companion articles [Who Controls Bitcoin](/articles/bitcoin-governance), [Argument Map](/articles/bitcoin-governance-argument-map), and [The Last Uncaptured Asset](/articles/the-last-uncaptured-asset).*
+*Evidentiary basis: [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research); companion articles [Who Controls Bitcoin](/articles/bitcoin-governance), [Argument Map](/articles/bitcoin-governance-argument-map), [Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory), [Bitcoin's Hidden Crisis](/articles/bitcoins-hidden-crisis), and [The Last Uncaptured Asset](/articles/the-last-uncaptured-asset).*

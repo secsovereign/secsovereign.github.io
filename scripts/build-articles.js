@@ -187,6 +187,51 @@ function articleUrl(slug) {
   return `${SITE}${articlePath(slug)}`;
 }
 
+function formatArticleDate(isoDate) {
+  if (!isoDate) return '';
+  const [y, m, d] = isoDate.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  return dt.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
+function articleDatesLabel(article) {
+  if (!article.published) return '';
+  const pub = formatArticleDate(article.published);
+  const upd = article.updated && article.updated !== article.published
+    ? formatArticleDate(article.updated)
+    : '';
+  if (upd) return `Published ${pub} · Updated ${upd}`;
+  return `Published ${pub}`;
+}
+
+function articleMetaHtml(article) {
+  if (!article.published) return '';
+  const esc = escapeHtml;
+  const pubLabel = formatArticleDate(article.published);
+  const showUpdated = article.updated && article.updated !== article.published;
+  const updLabel = showUpdated ? formatArticleDate(article.updated) : '';
+
+  let datesHtml = `<time datetime="${esc(article.published)}">Published ${esc(pubLabel)}</time>`;
+  if (showUpdated) {
+    datesHtml += `<span class="article-meta-sep" aria-hidden="true">·</span><time datetime="${esc(article.updated)}">Updated ${esc(updLabel)}</time>`;
+  }
+
+  let originHtml = '';
+  if (article.originalUrl) {
+    originHtml = `<p class="article-origin"><a href="${esc(article.originalUrl)}" rel="noopener noreferrer">Originally on Bitcoin Commons Substack</a></p>`;
+  }
+
+  return `<header class="article-meta">
+        <p class="article-dates">${datesHtml}</p>
+        ${originHtml}
+    </header>`;
+}
+
 function shareWidgetHtml({ url, title, text, extraClass = '' }) {
   const esc = escapeHtml;
   return `<div class="share-widget ${extraClass}" data-share-url="${esc(url)}" data-share-title="${esc(title)}" data-share-text="${esc(text)}">
@@ -205,13 +250,20 @@ function articleShareBarHtml({ url, title, text }) {
     </div>`;
 }
 
-function renderPage({ title, description, slug, bodyHtml }) {
+function renderPage({ title, description, slug, bodyHtml, article }) {
   const url = articleUrl(slug);
   const desc = escapeHtml(description);
   const pageTitle = escapeHtml(title + ' | SecureSovereign');
   const navTitle = escapeHtml(title);
   const shareText = description ? `${title}: ${description}` : title;
   const shareCtx = { url, title, text: shareText };
+  const metaBlock = article ? articleMetaHtml(article) : '';
+  const publishedMeta = article && article.published
+    ? `\n    <meta property="article:published_time" content="${escapeHtml(article.published)}">`
+    : '';
+  const modifiedMeta = article && article.updated
+    ? `\n    <meta property="article:modified_time" content="${escapeHtml(article.updated)}">`
+    : '';
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -224,7 +276,7 @@ function renderPage({ title, description, slug, bodyHtml }) {
     <meta property="og:title" content="${escapeHtml(title)}">
     <meta property="og:description" content="${desc}">
     <meta property="og:url" content="${url}">
-    <meta property="og:site_name" content="SecureSovereign">
+    <meta property="og:site_name" content="SecureSovereign">${publishedMeta}${modifiedMeta}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/article.css" rel="stylesheet">
@@ -238,6 +290,7 @@ function renderPage({ title, description, slug, bodyHtml }) {
         ${shareWidgetHtml({ ...shareCtx, extraClass: 'nav-share' })}
     </nav>
     <div class="article-wrap">
+        ${metaBlock}
         <article class="article-body">${bodyHtml}</article>
         ${articleShareBarHtml(shareCtx)}
     </div>
@@ -253,7 +306,9 @@ function renderArticlesIndex(articles) {
     const title = escapeHtml(a.title);
     const desc = escapeHtml(a.description || '');
     const descHtml = desc ? `<p class="article-index-desc">${desc}</p>` : '';
-    return `<li class="article-index-item"><a href="${href}">${title}</a>${descHtml}</li>`;
+    const dates = articleDatesLabel(a);
+    const datesHtml = dates ? `<p class="article-index-dates">${escapeHtml(dates)}</p>` : '';
+    return `<li class="article-index-item"><a href="${href}">${title}</a>${datesHtml}${descHtml}</li>`;
   }).join('\n');
 
   return `<!DOCTYPE html>
@@ -299,6 +354,11 @@ const LLMS_ARTICLE_NOTES = {
   'the-last-uncaptured-asset': 'Monetary sovereignty frame: state capture through ownership not destruction, access layer as asset, voluntary surveillance infrastructure, Bitcoin as last uncaptured asset.',
   'bitcoin-demographics-breakdown': 'Structured taxonomy of plausible Bitcoin appeal vectors by demographic slice; hypotheses for testing, not weighted statistics.',
   'dont-trust-verify': 'Coldcard RNG defect ($88M+ on-chain), credentialed endorsement without seed-path audit, HWI/tooling defaults, Ten31/Coinkite ties, parallel failures in Bitcoin Core review.',
+  'governance-paralysis-was-the-victory': 'Block size war as resource capture, MIT/DCI/Epstein funding context, CVE-2018-17144, good vs bad ossification, alternative implementations survey, Bitcoin Commons.',
+  'bitcoin-core-the-biggest-fallacies': 'Eight rebuttals to Core monopoly defenses: contributor count, adoption, rough consensus, conservatism, reviewer pool. Companion to Argument Map.',
+  'what-bitcoins-stalled-proposals-tell-you': 'Dandelion, UTXO commitments, Erlay, wallet/node split, formal verification: stalled in Core vs shipped in Commons; OP_RETURN/Knots policy monoculture.',
+  'why-bitcoin-needs-a-specification': 'Human-readable spec (Orange Paper) vs Lean/DSL; verification as governance; spec-lock with Z3; defense-in-depth stack.',
+  'bitcoins-hidden-crisis': 'Social vs protocol consensus; coordination crises (blocksize, Taproot); Bitcoin Commons cryptographic coordination model.',
 };
 
 const LLMS_SECTIONS = [
@@ -312,7 +372,18 @@ const LLMS_SECTIONS = [
   },
   {
     title: 'Bitcoin governance',
-    slugs: ['bitcoin-governance', 'bitcoin-governance-argument-map', 'bitcoin-social-capture'],
+    slugs: [
+      'bitcoin-governance',
+      'bitcoin-governance-argument-map',
+      'bitcoin-social-capture',
+      'governance-paralysis-was-the-victory',
+      'bitcoin-core-the-biggest-fallacies',
+      'what-bitcoins-stalled-proposals-tell-you',
+    ],
+  },
+  {
+    title: 'Implementation diversity and specification',
+    slugs: ['why-bitcoin-needs-a-specification', 'bitcoins-hidden-crisis'],
   },
   {
     title: 'Blockspace and consensus policy',
@@ -489,11 +560,20 @@ function build404(articles) {
 }
 
 function buildSitemap(articles) {
-  const urls = [`${SITE}/`, `${SITE}/articles`, `${SITE}/llms.txt`, `${SITE}/llms-full.txt`];
+  const entries = [
+    { loc: `${SITE}/` },
+    { loc: `${SITE}/articles` },
+    { loc: `${SITE}/llms.txt` },
+    { loc: `${SITE}/llms-full.txt` },
+  ];
   for (const a of articles) {
-    urls.push(articleUrl(a.slug));
+    const lastmod = a.updated || a.published;
+    entries.push({ loc: articleUrl(a.slug), lastmod });
   }
-  const body = urls.map((loc) => `  <url>\n    <loc>${loc}</loc>\n  </url>`).join('\n');
+  const body = entries.map(({ loc, lastmod }) => {
+    const lastmodTag = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : '';
+    return `  <url>\n    <loc>${loc}</loc>${lastmodTag}\n  </url>`;
+  }).join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
 }
 
@@ -530,6 +610,7 @@ function main() {
       description,
       slug: article.slug,
       bodyHtml,
+      article,
     });
     const outDir = path.join(articlesRoot, article.slug);
     fs.mkdirSync(outDir, { recursive: true });

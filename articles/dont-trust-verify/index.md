@@ -48,7 +48,7 @@ Then the educators confirmed what the tooling assumed. Then the institutions int
 
 From March 2021 onward, Coldcard was generating seeds from a far smaller entropy pool than anyone knew. Every influencer recommendation, every tutorial, every podcast episode, every institutional integration produced after that date was built on top of a device that had already failed the most fundamental test.
 
-By July 2026, "Coldcard" and "most secure Bitcoin hardware wallet" were near-synonymous in serious self-custody discourse. **"Don't trust, verify" had become trust the people who say "don't trust, verify."**
+By July 2026, "Coldcard" and "most secure Bitcoin hardware wallet" were near-synonymous in serious self-custody discourse. **Disclosed sponsorship did not stop recommendations from functioning as trust signals.** "Don't trust, verify" had become trust the people who say "don't trust, verify."
 
 ---
 
@@ -70,11 +70,11 @@ A credentialed Bitcoin Core contributor performed visible technical work. The co
 
 ## IV. The Capital Layer
 
-Ten31 led Coinkite's Series A in December 2024. Its managing partners, Matt Odell and Marty Bent, were already two of the most prominent Coldcard promoters in Bitcoin. **By the time they held equity, they had spent years recommending a wallet whose firmware was vulnerable.** The investment formalized a relationship the audience had long been treating as independent advice.
+Ten31 led Coinkite's Series A in December 2024. Its managing partners, Matt Odell and Marty Bent, were already two of the most prominent Coldcard promoters in Bitcoin. **By the time they held equity, they had spent years recommending a wallet whose firmware was vulnerable.** The Series A added equity to a sponsorship relationship they had already been disclosing in public.
 
-Rabbit Hole Recap, the weekly podcast co-hosted by Odell and Bent, lists Coinkite in its standard sponsor block ("Shoutout to our sponsors: Coinkite") in published show notes, documented from at least July 2023 through July 2026. Odell's setup guide was listed directly on Coldcard's official documentation page, one of three educators whose guides Coinkite itself endorsed. Citadel Dispatch, Odell's separate audience-funded podcast, carried the Ten31 investment disclosure in the show notes of one episode featuring NVK. That disclosure did not necessarily travel with every Coldcard recommendation, whether in setup guides linked from Coldcard's website or in years of stack advice before the Series A closed.
+Rabbit Hole Recap, the weekly podcast co-hosted by Odell and Bent, routinely listed Coinkite in its standard sponsor block ("Shoutout to our sponsors: Coinkite") in published show notes, documented from at least July 2023 through July 2026. Odell's setup guide was listed directly on Coldcard's official documentation page, one of three educators whose guides Coinkite itself endorsed. Citadel Dispatch, Odell's separate audience-funded podcast, carried the Ten31 investment disclosure in the show notes of an episode featuring NVK. **The financial relationship was not hidden.** What was missing was not disclosure but verification: none of that sponsor or investment context included, or substituted for, an independent audit of the seed generation path.
 
-**The "don't trust, verify" standard applies to incentives as much as it applies to code.** An audience that was told to verify everything was likely not consistently told that the people telling them to buy this specific product had financial ties to Coinkite and, after 2024, equity in the company.
+**The "don't trust, verify" standard applies to incentives as much as it applies to code.** Disclosing a sponsorship or equity stake satisfies transparency about conflicts. It does not satisfy the verify step. An audience told to check the firmware could still treat a disclosed sponsor's recommendation as evidence the device had been scrutinized, when the scrutiny that mattered never happened.
 
 One more data point on how thoroughly Coldcard's reputation was constructed: Zach Herbert, CEO of Foundation Devices and maker of Coldcard's closest competitor, published an open letter to NVK calling Coldcard "the most secure Bitcoin hardware wallet with the best security architecture..." A hardware wallet company CEO endorsing a competitor as the best in the market is about as strong a third-party validation as exists.
 
@@ -110,7 +110,7 @@ Three failures, each defined by the gap between what the feature was supposed to
 
 When the first independent audit finally arrived in September 2025, Quarkslab spent 100 man-days across three engineers over four months. The scope was limited to the P2P layer, mempool, block validation, and chain state. The published scope covered a minority of consensus-critical code paths, and libbitcoinkernel was explicitly excluded.
 
-Many of the people who built Coldcard's reputation are the same people whose judgment you are supposed to trust on Bitcoin Core: **source availability treated as audit, contributor reputation treated as verification, institutional consensus treated as correctness.** Whether that mechanism has failed elsewhere is precisely the question that the "don't trust, verify" standard requires you to ask, and that social capital alone cannot answer. For the funding map, merge concentration, and documented adversarial cases in Core governance, see *[Who Controls Bitcoin](/articles/bitcoin-governance)*.
+Many of the people who built Coldcard's reputation are the same people whose judgment you are supposed to trust on Bitcoin Core: **source availability treated as audit, contributor reputation treated as verification, institutional consensus treated as correctness.** Whether that mechanism has failed elsewhere is precisely the question that the "don't trust, verify" standard requires you to ask, and that social capital alone cannot answer. For refutations of judging Core on "technical merits alone" without a formal spec, see *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)* (Fallacy 6). For the funding map, merge concentration, and documented adversarial cases in Core governance, see *[Who Controls Bitcoin](/articles/bitcoin-governance)*.
 
 ---
 
@@ -122,4 +122,12 @@ The commandment is real. **The question is whether the community actually lives 
 
 ---
 
-*This article is analytical commentary based on publicly available information. All factual claims are sourced from public records, public statements, and documented on-chain data. No malice or prior knowledge of the defect is attributed to any individual named. Dollar figures and victim counts reflect published on-chain estimates (e.g. Galaxy Research), not confirmed victim reports.*
+## Sources
+
+- [Galaxy Research on Coldcard losses (via The Block)](https://www.theblock.co/post/410533/coldcard-hack-130-million-galaxy-research) — on-chain loss estimates cited in this article
+- [Coinkite, "Technical Deep Dive into the Entropy Issue"](https://blog.coinkite.com/technical-deep-dive-into-the-entropy-issue/) — firmware root cause
+- [Quarkslab, "Bitcoin Core Security Audit"](https://blog.quarkslab.com/bitcoin-core-audit.html) — September 2025 P2P/mempool scope
+
+*Related: [The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture), [Who Controls Bitcoin](/articles/bitcoin-governance), [Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies).*
+
+*This article is analytical commentary based on publicly available information. All factual claims are sourced from public records, public statements, and documented on-chain data. No malice or prior knowledge of the defect is attributed to any individual named. Dollar figures and victim counts reflect published on-chain estimates (e.g. [Galaxy Research](https://www.theblock.co/post/410533/coldcard-hack-130-million-galaxy-research)), not confirmed victim reports.*

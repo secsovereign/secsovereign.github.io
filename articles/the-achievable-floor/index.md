@@ -235,4 +235,4 @@ Even if consensus could change without a political fight, **arbitrary data canno
 
 Off-chain data and unrevealed Taproot leaves are out of scope.
 
-The §III caps belong in a formal spec. The [Bitcoin Commons consensus spec](https://thebitcoincommons.org/spec.html) is the reference.
+The §III caps belong in a formal spec. The [Bitcoin Commons consensus spec](https://thebitcoincommons.org/spec.html) is the reference. For why a human-readable specification matters as governance infrastructure, see *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)*.

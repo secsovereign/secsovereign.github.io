@@ -93,6 +93,48 @@ body {
     line-height: 1.5;
 }
 
+.article-index-dates {
+    margin: 0.25rem 0 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+}
+
+.article-meta {
+    margin: 0 0 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.article-dates {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+}
+
+.article-meta-sep {
+    margin: 0 0.45rem;
+    color: var(--border);
+}
+
+.article-origin {
+    margin: 0.4rem 0 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+}
+
+.article-origin a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.article-origin a:hover {
+    text-decoration: underline;
+}
+
 .article-wrap {
     max-width: 880px;
     margin: 0 auto;
