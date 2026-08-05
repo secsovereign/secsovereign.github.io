@@ -199,6 +199,52 @@ function formatArticleDate(isoDate) {
   });
 }
 
+function formatArticleDateShort(isoDate) {
+  if (!isoDate) return '';
+  const [y, m, d] = isoDate.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  return dt.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
+function renderHomepageWritingList(articles) {
+  const items = articles.map((a) => {
+    const href = articlePath(a.slug);
+    const title = escapeHtml(a.title);
+    const dateIso = a.published || '';
+    const dateLabel = formatArticleDateShort(dateIso);
+    const dateHtml = dateIso
+      ? `<time class="writing-date" datetime="${escapeHtml(dateIso)}">${escapeHtml(dateLabel)}</time>`
+      : '';
+    return `<li class="writing-item"><a href="${href}" class="writing-link">${title}</a>${dateHtml}</li>`;
+  }).join('\n                ');
+  return `<ul class="writing-list">\n                ${items}\n            </ul>`;
+}
+
+function patchHomepageWriting(articles) {
+  const indexPath = path.join(ROOT, 'index.html');
+  const html = fs.readFileSync(indexPath, 'utf8');
+  const start = '<!-- writing-list:start -->';
+  const end = '<!-- writing-list:end -->';
+  const startIdx = html.indexOf(start);
+  const endIdx = html.indexOf(end);
+  if (startIdx === -1 || endIdx === -1 || endIdx <= startIdx) {
+    console.error('Missing writing-list markers in index.html');
+    process.exit(1);
+  }
+  const next = html.slice(0, startIdx + start.length)
+    + '\n            '
+    + renderHomepageWritingList(articles)
+    + '\n            '
+    + html.slice(endIdx);
+  fs.writeFileSync(indexPath, next);
+  console.log('Wrote index.html (Writing section)');
+}
+
 function articleDatesLabel(article) {
   if (!article.published) return '';
   const pub = formatArticleDate(article.published);
@@ -632,6 +678,8 @@ function main() {
 
   fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), buildSitemap(articles));
   console.log('Wrote sitemap.xml');
+
+  patchHomepageWriting(articles);
 
   const robots = `User-agent: *
 Disallow: /articles/*/index.md

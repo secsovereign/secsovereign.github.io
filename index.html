@@ -218,7 +218,51 @@
             font-size: 0.9rem;
         }
 
-        /* Project Cards */
+        /* Writing list */
+        .writing-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .writing-item {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1.25rem;
+            background-color: var(--light-gray);
+            padding: 0.85rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            margin-top: 12px;
+        }
+
+        .writing-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            line-height: 1.35;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .writing-link:hover,
+        .writing-link:focus-visible {
+            color: var(--secondary);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .writing-date {
+            flex-shrink: 0;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        /* Project Cards (legacy) */
         .project-card {
             background-color: var(--light-gray);
             padding: 15px;
@@ -240,6 +284,16 @@
             
             .card-half {
                 width: 100%;
+            }
+
+            .writing-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.35rem;
+            }
+
+            .writing-date {
+                text-align: left;
             }
         }
     </style>
@@ -338,45 +392,23 @@
 
         <section>
             <h2>// Writing</h2>
-            <div class="project-card">
-                <a href="/articles/bitcoin-demographics-breakdown">Bitcoin Appeal By Demographics</a>
-            </div>
-            <div class="project-card">
-                <a href="/articles/bitcoin-governance">Who Controls Bitcoin</a>
-            </div>
-            <div class="project-card">
-                <a href="/articles/bitcoin-governance-argument-map">Bitcoin Governance: Argument Map</a>
-            </div>
-            <div class="project-card">
-                <a href="/articles/bitcoin-social-capture">The Social Layer Is the Attack Surface</a>
-            </div>
-            <div class="project-card">
-                <a href="/articles/governance-paralysis-was-the-victory">Governance Paralysis Was The Victory</a>
-            </div>
-            <div class="project-card">
-                <a href="/articles/bitcoin-core-the-biggest-fallacies">Bitcoin Core: The Biggest Fallacies</a>
-            </div>
-            <div class="project-card">
-                <a href="/articles/what-bitcoins-stalled-proposals-tell-you">What Bitcoin's Stalled Proposals Tell You</a>
-            </div>
-            <div class="project-card">
-                <a href="/articles/the-last-uncaptured-asset">The Last Uncaptured Asset</a>
-            </div>
-            <div class="project-card">
-                <a href="/articles/the-achievable-floor">The Achievable Floor</a>
-            </div>
-            <div class="project-card">
-                <a href="/articles/bitcoin-not-a-hard-drive">Bitcoin Is Not a Hard Drive</a>
-            </div>
-            <div class="project-card">
-                <a href="/articles/why-bitcoin-needs-a-specification">Why Bitcoin Needs a Specification That Humans Can Read</a>
-            </div>
-            <div class="project-card">
-                <a href="/articles/bitcoins-hidden-crisis">Bitcoin's Hidden Crisis</a>
-            </div>
-            <div class="project-card">
-                <a href="/articles/dont-trust-verify">Don't Trust, Verify</a>
-            </div>
+            <!-- writing-list:start -->
+            <ul class="writing-list">
+                <li class="writing-item"><a href="/articles/bitcoin-demographics-breakdown" class="writing-link">Bitcoin Appeal By Demographics</a><time class="writing-date" datetime="2025-06-11">Jun 11, 2025</time></li>
+                <li class="writing-item"><a href="/articles/bitcoin-governance" class="writing-link">Who Controls Bitcoin</a><time class="writing-date" datetime="2026-04-03">Apr 3, 2026</time></li>
+                <li class="writing-item"><a href="/articles/bitcoin-governance-argument-map" class="writing-link">Bitcoin Governance: Argument Map</a><time class="writing-date" datetime="2026-04-03">Apr 3, 2026</time></li>
+                <li class="writing-item"><a href="/articles/bitcoin-social-capture" class="writing-link">The Social Layer Is the Attack Surface</a><time class="writing-date" datetime="2026-04-03">Apr 3, 2026</time></li>
+                <li class="writing-item"><a href="/articles/governance-paralysis-was-the-victory" class="writing-link">Governance Paralysis Was The Victory</a><time class="writing-date" datetime="2026-02-02">Feb 2, 2026</time></li>
+                <li class="writing-item"><a href="/articles/bitcoin-core-the-biggest-fallacies" class="writing-link">Bitcoin Core: The Biggest Fallacies</a><time class="writing-date" datetime="2026-03-21">Mar 21, 2026</time></li>
+                <li class="writing-item"><a href="/articles/what-bitcoins-stalled-proposals-tell-you" class="writing-link">What Bitcoin's Stalled Proposals Tell You</a><time class="writing-date" datetime="2026-06-04">Jun 4, 2026</time></li>
+                <li class="writing-item"><a href="/articles/the-last-uncaptured-asset" class="writing-link">The Last Uncaptured Asset</a><time class="writing-date" datetime="2026-04-03">Apr 3, 2026</time></li>
+                <li class="writing-item"><a href="/articles/the-achievable-floor" class="writing-link">The Achievable Floor</a><time class="writing-date" datetime="2026-07-05">Jul 5, 2026</time></li>
+                <li class="writing-item"><a href="/articles/bitcoin-not-a-hard-drive" class="writing-link">Bitcoin Is Not a Hard Drive</a><time class="writing-date" datetime="2026-07-31">Jul 31, 2026</time></li>
+                <li class="writing-item"><a href="/articles/why-bitcoin-needs-a-specification" class="writing-link">Why Bitcoin Needs a Specification That Humans Can Read</a><time class="writing-date" datetime="2026-07-07">Jul 7, 2026</time></li>
+                <li class="writing-item"><a href="/articles/bitcoins-hidden-crisis" class="writing-link">Bitcoin's Hidden Crisis: When Technical Consensus Isn't Enough</a><time class="writing-date" datetime="2025-11-21">Nov 21, 2025</time></li>
+                <li class="writing-item"><a href="/articles/dont-trust-verify" class="writing-link">Don't Trust, Verify</a><time class="writing-date" datetime="2026-08-02">Aug 2, 2026</time></li>
+            </ul>
+            <!-- writing-list:end -->
         </section>
     </div>
 
