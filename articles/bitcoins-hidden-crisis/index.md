@@ -13,7 +13,7 @@
 
 ---
 
-Imagine a critical Bitcoin vulnerability is discovered. The fix requires a consensus-adjacent change, but Bitcoin Core maintainers are split. Some want immediate action. Others demand extended review. Exchanges threaten to halt deposits. Miners signal different preferences. The community fragments into competing camps.
+Imagine a critical Bitcoin vulnerability is discovered. The fix is not a pure consensus-rule change, but it still needs coordinated developer action that the network must adopt together (a consensus-adjacent change). Bitcoin Core maintainers are split. Some want immediate action. Others demand extended review. Exchanges threaten to halt deposits. Miners signal different preferences. The community fragments into competing camps.
 
 This isn't hypothetical. It's the logical endpoint of Bitcoin's coordination challenge, a problem that's been building since 2014, when Gavin Andresen warned us about it and stepped down just twelve days later.
 
@@ -89,13 +89,11 @@ Orange Paper → bllvm-consensus → Kani proofs → Test coverage → Bitcoin n
 
 How does this compare to Bitcoin Core? Core uses a code-first approach with extensive testing and network validation. Commons uses a math-first approach with formal verification plus testing and network validation. Both are valid Bitcoin consensus implementations, but Commons adds mathematical rigor where Core relies on testing alone.
 
-Consensus coverage comparison: Bitcoin Core achieves coverage through testing alone. Bitcoin Commons achieves formal verification coverage (Kani proofs) plus comprehensive test coverage.
-
-Verification methods comparison: Detailed comparison of verification approaches showing Commons' comprehensive validation methods vs Core.
+Bitcoin Core reaches confidence mainly through testing and live-network validation. Bitcoin Commons adds formal verification (Kani proofs) on top of comprehensive tests, so more consensus-critical behavior is checked against mathematical contracts rather than tests alone.
 
 ### The Coordination vs Consensus Distinction
 
-Social coordination and protocol consensus are separate systems. Protocol consensus consists of mathematical rules enforced by the network that cannot be changed by developers alone. Social coordination covers how code changes are approved and who can merge pull requests.
+Social coordination and protocol consensus are separate systems. Protocol consensus consists of mathematical rules enforced by the network that cannot be changed by developers alone. Social coordination covers how code changes are approved and who can merge pull requests. **Consensus-adjacent** changes sit between those layers: they are not rewriting the consensus rules themselves, but they still require coordinated adoption across developers, miners, and economic nodes.
 
 Bitcoin Commons maintains Bitcoin consensus (same protocol rules) while using different coordination mechanisms (cryptographic enforcement). Changing how developers coordinate does NOT change consensus. These are orthogonal concerns.
 
@@ -127,7 +125,7 @@ What might the next crisis be? It could be a quantum computing threat requiring 
 
 Why will it be worse? Higher stakes, more stakeholders with conflicting interests, no coordination framework to respond, and each previous crisis has eroded trust. The pattern is predictable: each crisis erodes trust, making the next one harder to resolve. Bitcoin Core's coordination model is path-dependent. It can't be fixed without disrupting the stability it provides. The system is locked into escalating conflicts.
 
-Full history showing escalating crises from 2014 through blocksize wars and beyond. Each crisis worse than the last.
+From Gavin's 2014 warning through the blocksize wars, Taproot activation fights, and later maintainer disputes, each round raised the cost of failure while the coordination process stayed informal.
 
 ---
 
@@ -191,9 +189,9 @@ Bitcoin Commons prevents crises through five mechanisms:
 
 1. Cryptographic Enforcement (6x Harder to Capture)
 
-In Bitcoin Core, 1-of-5 maintainers can merge. That's any single person. In Bitcoin Commons, 6-of-7 maintainers are required for constitutional changes. To capture Commons, you'd need to compromise six people across multiple jurisdictions, with cryptographic proof required for every action. Capture becomes exponentially more expensive, not just harder, but mathematically provable.
+In Bitcoin Core, 1-of-5 maintainers can merge. That's any single person. In Bitcoin Commons, 6-of-7 maintainers are required for constitutional changes. To capture Commons, you'd need to compromise six people across multiple jurisdictions, with cryptographic proof required for every action. That is a much higher bar than capturing a single merge key, and every action leaves a cryptographic trail.
 
-Coordination signature thresholds: 2-of-3 for extensions, up to 6-of-7 for constitutional changes. Making capture 6x harder than Bitcoin Core.
+Coordination signature thresholds scale with risk: 2-of-3 for extensions, up to 6-of-7 for constitutional changes.
 
 2. Economic Node Veto (Alignment with Incentives)
 

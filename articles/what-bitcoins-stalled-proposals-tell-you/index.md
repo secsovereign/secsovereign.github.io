@@ -107,11 +107,11 @@ The spec lock also changes who can safely contribute. The primary risk with AI-g
 
 ## UTXO Commitments Without a Consensus Change
 
-The Commons UTXO commitments implementation achieves trustless fast sync without modifying block headers, without a soft fork, without any consensus change. It operates entirely at the P2P layer using a sparse Merkle tree commitment verified against the existing proof-of-work chain.
+The Commons UTXO commitments implementation achieves fast sync without modifying block headers, without a soft fork, without any consensus change. It operates entirely at the P2P layer using a sparse Merkle tree commitment verified against the existing proof-of-work chain.
 
-The mechanism requires 80% agreement across peers distributed by ASN, country, and subnet. No single peer can lie to you because the commitment is verified against independent peers with diverse network positions before any state is accepted. You download headers, select a checkpoint, query diverse peers for their UTXO commitment at that height, verify it against the header chain and accumulated proof of work, then sync forward with full incremental validation. A hybrid mode does this while simultaneously verifying the full chain from genesis in the background.
+The trust model is an honest majority of diverse peers, not a single snapshot publisher. The mechanism requires 80% agreement across peers spread by ASN, country, and subnet, so no one peer or one hosting region can feed you a fake set. You download headers, select a checkpoint, query those peers for their UTXO commitment at that height, check it against the header chain and accumulated proof of work, then sync forward with full incremental validation. A hybrid mode does this while verifying the full chain from genesis in the background.
 
-The result is trustless fast sync with no hardcoded hashes, no dependency on any release team, and no new consensus rules required.
+The result is fast sync with no hardcoded hashes, no dependency on any release team, and no new consensus rules required, under that peer-majority assumption rather than under a baked-in release hash.
 
 ## Networking and Protocol
 

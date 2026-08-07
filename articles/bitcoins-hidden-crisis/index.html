@@ -47,7 +47,7 @@
 <li><a href="#conclusion-the-fork-in-the-road">Conclusion</a></li>
 </ul>
 <hr>
-<p>Imagine a critical Bitcoin vulnerability is discovered. The fix requires a consensus-adjacent change, but Bitcoin Core maintainers are split. Some want immediate action. Others demand extended review. Exchanges threaten to halt deposits. Miners signal different preferences. The community fragments into competing camps.</p>
+<p>Imagine a critical Bitcoin vulnerability is discovered. The fix is not a pure consensus-rule change, but it still needs coordinated developer action that the network must adopt together (a consensus-adjacent change). Bitcoin Core maintainers are split. Some want immediate action. Others demand extended review. Exchanges threaten to halt deposits. Miners signal different preferences. The community fragments into competing camps.</p>
 <p>This isn't hypothetical. It's the logical endpoint of Bitcoin's coordination challenge, a problem that's been building since 2014, when Gavin Andresen warned us about it and stepped down just twelve days later.</p>
 <p><strong>Bitcoin solved Byzantine consensus between strangers, but ignored consensus between developers.</strong> The original cypherpunk developers focused on eliminating trusted third parties in transactions but inadvertently created trusted parties in development. Bitcoin's technical consensus is bulletproof, but <strong>its social consensus is broken.</strong> At Bitcoin's current scale, this represents an existential vulnerability. For the structural logic of why social coordination fails without formal accountability, see <em><a href="/articles/bitcoin-social-capture">The Social Layer Is the Attack Surface</a></em>. For the funding map and merge concentration evidence, see <em><a href="/articles/bitcoin-governance">Who Controls Bitcoin</a></em>. For how governance paralysis became the durable outcome of the blocksize war, see <em><a href="/articles/governance-paralysis-was-the-victory">Governance Paralysis Was The Victory</a></em>.</p>
 <p>But before we can understand the challenge, we need to answer three foundational questions:</p>
@@ -85,10 +85,9 @@
 <pre><code>Orange Paper → bllvm-consensus → Kani proofs → Test coverage → Bitcoin network
 </code></pre>
 <p>How does this compare to Bitcoin Core? Core uses a code-first approach with extensive testing and network validation. Commons uses a math-first approach with formal verification plus testing and network validation. Both are valid Bitcoin consensus implementations, but Commons adds mathematical rigor where Core relies on testing alone.</p>
-<p>Consensus coverage comparison: Bitcoin Core achieves coverage through testing alone. Bitcoin Commons achieves formal verification coverage (Kani proofs) plus comprehensive test coverage.</p>
-<p>Verification methods comparison: Detailed comparison of verification approaches showing Commons' comprehensive validation methods vs Core.</p>
+<p>Bitcoin Core reaches confidence mainly through testing and live-network validation. Bitcoin Commons adds formal verification (Kani proofs) on top of comprehensive tests, so more consensus-critical behavior is checked against mathematical contracts rather than tests alone.</p>
 <h3 id="the-coordination-vs-consensus-distinction">The Coordination vs Consensus Distinction</h3>
-<p>Social coordination and protocol consensus are separate systems. Protocol consensus consists of mathematical rules enforced by the network that cannot be changed by developers alone. Social coordination covers how code changes are approved and who can merge pull requests.</p>
+<p>Social coordination and protocol consensus are separate systems. Protocol consensus consists of mathematical rules enforced by the network that cannot be changed by developers alone. Social coordination covers how code changes are approved and who can merge pull requests. <strong>Consensus-adjacent</strong> changes sit between those layers: they are not rewriting the consensus rules themselves, but they still require coordinated adoption across developers, miners, and economic nodes.</p>
 <p>Bitcoin Commons maintains Bitcoin consensus (same protocol rules) while using different coordination mechanisms (cryptographic enforcement). Changing how developers coordinate does NOT change consensus. These are orthogonal concerns.</p>
 <p>Common objections: "But Core is the 'real' Bitcoin." Core is one implementation. Bitcoin is the protocol. Multiple implementations can coexist. "But Commons coordinates differently." Coordination does not equal consensus. Different coordination doesn't change consensus rules. "But Commons is new/experimental." Age doesn't affect protocol compatibility. Technical correctness determines what is Bitcoin.</p>
 <hr>
@@ -104,7 +103,7 @@
 <h3 id="crisis-3-the-next-crisis">Crisis 3: The Next Crisis</h3>
 <p>What might the next crisis be? It could be a quantum computing threat requiring a cryptographic upgrade. Or regulatory pressure requiring protocol changes. Or a maintainer dispute over a critical security fix. Or an exchange/miner coordination failure.</p>
 <p>Why will it be worse? Higher stakes, more stakeholders with conflicting interests, no coordination framework to respond, and each previous crisis has eroded trust. The pattern is predictable: each crisis erodes trust, making the next one harder to resolve. Bitcoin Core's coordination model is path-dependent. It can't be fixed without disrupting the stability it provides. The system is locked into escalating conflicts.</p>
-<p>Full history showing escalating crises from 2014 through blocksize wars and beyond. Each crisis worse than the last.</p>
+<p>From Gavin's 2014 warning through the blocksize wars, Taproot activation fights, and later maintainer disputes, each round raised the cost of failure while the coordination process stayed informal.</p>
 <hr>
 <h2 id="part-iii-why-bitcoin-core-can-t-fix-this">Part III: Why Bitcoin Core Can't Fix This</h2>
 <h3 id="the-coordination-lock-in-problem">The Coordination Lock-In Problem</h3>
@@ -138,8 +137,8 @@
 <ol>
 <li>Cryptographic Enforcement (6x Harder to Capture)</li>
 </ol>
-<p>In Bitcoin Core, 1-of-5 maintainers can merge. That's any single person. In Bitcoin Commons, 6-of-7 maintainers are required for constitutional changes. To capture Commons, you'd need to compromise six people across multiple jurisdictions, with cryptographic proof required for every action. Capture becomes exponentially more expensive, not just harder, but mathematically provable.</p>
-<p>Coordination signature thresholds: 2-of-3 for extensions, up to 6-of-7 for constitutional changes. Making capture 6x harder than Bitcoin Core.</p>
+<p>In Bitcoin Core, 1-of-5 maintainers can merge. That's any single person. In Bitcoin Commons, 6-of-7 maintainers are required for constitutional changes. To capture Commons, you'd need to compromise six people across multiple jurisdictions, with cryptographic proof required for every action. That is a much higher bar than capturing a single merge key, and every action leaves a cryptographic trail.</p>
+<p>Coordination signature thresholds scale with risk: 2-of-3 for extensions, up to 6-of-7 for constitutional changes.</p>
 <ol start="2">
 <li>Economic Node Veto (Alignment with Incentives)</li>
 </ol>
