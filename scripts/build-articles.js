@@ -623,6 +623,44 @@ function buildSitemap(articles) {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
 }
 
+function gitLastCommitDateIso(relativePath) {
+  try {
+    const out = execFileSync(
+      'git',
+      ['log', '-1', '--format=%cs', '--', relativePath],
+      { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] },
+    ).trim();
+    return out || null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function applyGitUpdatedDates(articles) {
+  let changed = false;
+  for (const article of articles) {
+    const mdPath = article.file
+      ? path.join(ROOT, article.file)
+      : mdPathForSlug(article.slug);
+    if (!fs.existsSync(mdPath)) continue;
+    const relPath = path.relative(ROOT, mdPath);
+    const gitUpdated = gitLastCommitDateIso(relPath);
+    if (!gitUpdated) continue;
+    if (article.published && gitUpdated <= article.published) {
+      if (article.updated) {
+        delete article.updated;
+        changed = true;
+      }
+      continue;
+    }
+    if (article.updated !== gitUpdated) {
+      article.updated = gitUpdated;
+      changed = true;
+    }
+  }
+  return changed;
+}
+
 function main() {
   const manifestPath = path.join(ROOT, 'articles.json');
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
@@ -630,6 +668,20 @@ function main() {
     ...entry,
     slug: entry.slug || (entry.file ? fileToSlug(entry.file) : null),
   }));
+
+  if (applyGitUpdatedDates(articles)) {
+    manifest.articles = articles.map(({ slug, title, description, published, updated, originalUrl, file }) => {
+      const entry = { slug, title };
+      if (description) entry.description = description;
+      if (published) entry.published = published;
+      if (updated) entry.updated = updated;
+      if (originalUrl) entry.originalUrl = originalUrl;
+      if (file) entry.file = file;
+      return entry;
+    });
+    fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+    console.log('Updated articles.json from git history');
+  }
 
   const articlesRoot = path.join(ROOT, 'articles');
   fs.mkdirSync(articlesRoot, { recursive: true });
