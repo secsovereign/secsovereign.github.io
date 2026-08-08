@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeedSigner: True Self-Custody</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .slideshow-container {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            text-align: center;
+            max-width: 900px;
+            padding: 40px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.8em;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h3 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #FF8C00;
+        }
+
+        p, li {
+            font-size: 1.4em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        ul {
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+
+        .highlight {
+            background: rgba(255, 140, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #FF8C00;
+            margin: 25px 0 80px 0;
+        }
+
+        .warning {
+            background: rgba(255, 69, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #FF4500;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 1.1em;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            text-align: left;
+            list-style: none;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 40px;
+            text-align: left;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #FF8C00;
+            color: #333;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            text-align: left;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin: 0 10px;
+        }
+
+        /* Table styling for comparison matrix */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: rgba(255, 140, 0, 0.3);
+            padding: 15px 12px;
+            border: 1px solid rgba(255,255,255,0.3);
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .comparison-table td {
+            padding: 12px 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            vertical-align: top;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(255, 140, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>🔐 SeedSigner</h1>
+            <h2>True Self-Custody Made Simple</h2>
+            <div class="highlight">
+                <p><strong>"Not your keys, not your coins"</strong></p>
+                <p>Learn how SeedSigner enables complete control over your Bitcoin private keys</p>
+            </div>
+            <p>Keep your private keys offline and under your exclusive control</p>
+        </div>
+
+        <!-- Slide 2: The Problem -->
+        <div class="slide">
+            <h2>🚨 The Problem with Exchanges</h2>
+            <ul>
+                <li><strong>Custodial Risk:</strong> Exchanges control your private keys</li>
+                <li><strong>Single Point of Failure:</strong> Exchange hacks affect millions</li>
+                <li><strong>Regulatory Risk:</strong> Governments can freeze exchange assets</li>
+                <li><strong>Counterparty Risk:</strong> Exchange bankruptcy = lost funds</li>
+            </ul>
+            <div class="warning">
+                <p><strong>Remember:</strong> FTX, Mt. Gox, and countless others have collapsed, taking user funds with them</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: What is SeedSigner -->
+        <div class="slide">
+            <h2>🛡️ What is SeedSigner?</h2>
+            <ul>
+                <li><strong>Air-Gapped Hardware:</strong> Never connects to the internet</li>
+                <li><strong>DIY Security Device:</strong> Built from common Raspberry Pi components</li>
+                <li><strong>Stateless Design:</strong> No permanent storage of private keys</li>
+                <li><strong>QR Code Communication:</strong> Secure, visual transaction signing</li>
+                <li><strong>Open Source:</strong> Fully auditable code and hardware</li>
+                <li><strong>Multi-Signature Support:</strong> Can participate in complex setups</li>
+            </ul>
+            <div class="highlight">
+                <p>A completely offline signing device that puts YOU in control</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Key Benefits -->
+        <div class="slide">
+            <h2>✨ Key Benefits</h2>
+            <ul>
+                <li><strong>True Self-Custody:</strong> Your keys never leave your control</li>
+                <li><strong>Maximum Security:</strong> Air-gapped from all networks</li>
+                <li><strong>Cost Effective:</strong> ~$50-125 vs $100-300+ commercial devices</li>
+                <li><strong>Transparency:</strong> Build it yourself, audit the code</li>
+                <li><strong>Privacy:</strong> No serial numbers or manufacturer tracking</li>
+                <li><strong>Durability:</strong> Simple, robust hardware design</li>
+            </ul>
+        </div>
+
+        <!-- Slide 5: How It Works -->
+        <div class="slide">
+            <h2>⚙️ How SeedSigner Works</h2>
+            <ol class="step-list">
+                <li><strong>Generate/Import Seed:</strong> Create or restore your seed phrase</li>
+                <li><strong>Air-Gapped Operation:</strong> Device never touches internet</li>
+                <li><strong>Transaction Creation:</strong> Use watch-only wallet on networked device</li>
+                <li><strong>QR Code Transfer:</strong> Scan unsigned transaction via camera</li>
+                <li><strong>Sign Offline:</strong> SeedSigner signs with your private key</li>
+                <li><strong>Broadcast Transaction:</strong> Scan signed QR back to networked wallet</li>
+            </ol>
+        </div>
+
+        <!-- Slide 6: Hardware Requirements -->
+        <div class="slide">
+            <h2>🔧 What You Need</h2>
+            <h3>Required Hardware:</h3>
+            <ul>
+                <li>Raspberry Pi Zero W (or Pi 4 for newer builds)</li>
+                <li>MicroSD Card (8GB+ Class 10)</li>
+                <li>Waveshare 1.3" LCD HAT (or 2.13" for newer versions)</li>
+                <li>Pi Camera Module v2 (or compatible)</li>
+                <li>Case (3D printed or purchased)</li>
+                <li>Power supply (USB-C for Pi 4, micro-USB for Zero)</li>
+            </ul>
+            <div style="margin: 20px 0;">
+                <img src="SeedSigner-DIY-Pieces.png" alt="DIY SeedSigner Kit Components" style="max-width: 80%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+                <p style="font-size: 1.1em; margin-top: 10px;"><em>All components needed for DIY assembly</em></p>
+            </div>
+            <div class="highlight">
+                <p><strong>Total Cost:</strong> Approximately $50-125</p>
+                <p>Available from electronics suppliers worldwide</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Setup Process -->
+        <div class="slide">
+            <h2>🚀 Setup Process</h2>
+            <ol class="step-list">
+                <li><strong>Download Image:</strong> Get official SeedSigner OS image</li>
+                <li><strong>Flash SD Card:</strong> Write image to microSD card</li>
+                <li><strong>Assemble Hardware:</strong> Connect screen, camera, and Pi</li>
+                <li><strong>Boot Device:</strong> Power on and verify functionality</li>
+                <li><strong>Generate/Load Seed:</strong> Create new or import existing seed</li>
+                <li><strong>Test Transaction:</strong> Practice with small amounts first</li>
+            </ol>
+            <div style="margin: 20px 0;">
+                <img src="black-diy-ss.webp" alt="Assembled DIY SeedSigner" style="max-width: 60%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+                <p style="font-size: 1.1em; margin-top: 10px;"><em>Completed DIY SeedSigner ready for use</em></p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Seed Management -->
+        <div class="slide">
+            <h2>🌱 Seed Management</h2>
+            <h3>SeedSigner Options:</h3>
+            <ul>
+                <li><strong>Generate New Seed:</strong> Create cryptographically secure seed phrase</li>
+                <li><strong>Import Existing:</strong> Load seed from hardware wallet or other source</li>
+                <li><strong>SeedQR Import:</strong> Scan QR code containing encrypted seed data</li>
+                <li><strong>Dice Roll Generation:</strong> True randomness using physical dice</li>
+                <li><strong>Multi-Signature:</strong> Support for 2-of-3 and other setups</li>
+            </ul>
+            <div class="warning">
+                <p><strong>Critical:</strong> Always backup your seed phrase on paper/metal. Device is stateless!</p>
+            </div>
+        </div>
+
+        <!-- Slide 8.5: SeedQR Feature -->
+        <div class="slide">
+            <h2>📱 SeedQR - Secure Seed Import</h2>
+            <h3>What is SeedQR?</h3>
+            <ul>
+                <li><strong>Encrypted QR Code:</strong> Contains your seed phrase in encrypted format</li>
+                <li><strong>Secure Transfer:</strong> Import seed without manual typing</li>
+                <li><strong>Backup Solution:</strong> Store encrypted seed as QR code</li>
+                <li><strong>Cross-Device:</strong> Works between different SeedSigner devices</li>
+                <li><strong>Password-Based:</strong> SeedQR itself serves as the password</li>
+            </ul>
+            <div class="highlight">
+                <p><strong>Advantage:</strong> Eliminates manual seed entry errors and speeds up setup process</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Transaction Flow -->
+        <div class="slide">
+            <h2>💰 Transaction Workflow</h2>
+            <ol class="step-list">
+                <li><strong>Watch-Only Wallet:</strong> Set up wallet with xpub (no private keys)</li>
+                <li><strong>Create Transaction:</strong> Build unsigned transaction on networked device</li>
+                <li><strong>Export PSBT:</strong> Export as Partially Signed Bitcoin Transaction</li>
+                <li><strong>Generate QR:</strong> Convert PSBT to QR code</li>
+                <li><strong>Scan with SeedSigner:</strong> Camera captures transaction details</li>
+                <li><strong>Review & Sign:</strong> Verify details and sign with private key</li>
+                <li><strong>Export Signed PSBT:</strong> Display signed transaction as QR</li>
+                <li><strong>Broadcast:</strong> Scan back to networked wallet and broadcast</li>
+            </ol>
+            <div class="highlight">
+                <p><strong>PSBT Standard:</strong> Enables compatibility with most Bitcoin wallets</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Security Best Practices -->
+        <div class="slide">
+            <h2>🔒 Security Best Practices</h2>
+            <ul>
+                <li><strong>Verify Software:</strong> Check signatures on downloaded images</li>
+                <li><strong>Dedicated Hardware:</strong> Use SeedSigner components only for this purpose</li>
+                <li><strong>Physical Security:</strong> Store device securely when not in use</li>
+                <li><strong>Backup Seed:</strong> Multiple physical backups in secure locations</li>
+                <li><strong>Test Small:</strong> Always test with small amounts first</li>
+                <li><strong>Stay Updated:</strong> Keep firmware updated for security patches</li>
+            </ul>
+        </div>
+
+        <!-- Slide 10.5: Limitations & Considerations -->
+        <div class="slide">
+            <h2>⚠️ Limitations & Considerations</h2>
+            <h3>SeedSigner Limitations:</h3>
+            <ul>
+                <li><strong>Technical Knowledge:</strong> Requires understanding of Bitcoin concepts</li>
+                <li><strong>No Backup Device:</strong> Need separate backup strategy</li>
+                <li><strong>Learning Curve:</strong> Takes time to master the workflow</li>
+                <li><strong>Physical Setup:</strong> Requires assembly and configuration</li>
+            </ul>
+            <div class="highlight">
+                <p><strong>Trade-off:</strong> Maximum security and privacy come with increased complexity</p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Comparison Matrix -->
+        <div class="slide">
+            <h2>⚖️ Comparison Matrix</h2>
+            <div style="text-align: left; max-width: 900px; margin: 0 auto; font-size: 1.1em;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Exchange Custody</th>
+                            <th>Bitkey</th>
+                            <th>Coldcard</th>
+                            <th>SeedSigner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: bold;">Custody Control</td>
+                            <td style="text-align: center;">❌ Third Party</td>
+                            <td style="text-align: center;">✅ Self-Custody</td>
+                            <td style="text-align: center;">✅ Self-Custody</td>
+                            <td style="text-align: center;">✅ Self-Custody</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Air-Gapped</td>
+                            <td style="text-align: center;">❌ Always Online</td>
+                            <td style="text-align: center;">❌ Bluetooth/USB</td>
+                            <td style="text-align: center;">✅ MicroSD Only</td>
+                            <td style="text-align: center;">✅ QR Only</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Cost</td>
+                            <td style="text-align: center;">$0 (fees)</td>
+                            <td style="text-align: center;">$150</td>
+                            <td style="text-align: center;">$150-200</td>
+                            <td style="text-align: center;">$50-125</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Ease of Use</td>
+                            <td style="text-align: center;">✅ Very Easy</td>
+                            <td style="text-align: center;">✅ Easy</td>
+                            <td style="text-align: center;">⚠️ Advanced</td>
+                            <td style="text-align: center;">⚠️ Technical</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Open Source</td>
+                            <td style="text-align: center;">❌ Closed</td>
+                            <td style="text-align: center;">✅ Software</td>
+                            <td style="text-align: center;">✅ Software</td>
+                            <td style="text-align: center;">✅ Hardware & Software</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Key Pain Points</td>
+                            <td>
+                                • Exchange hacks<br>
+                                • Regulatory risk<br>
+                                • Withdrawal limits<br>
+                                • KYC requirements
+                            </td>
+                            <td>
+                                • Bluetooth attack surface<br>
+                                • Company dependency<br>
+                                • Bitcoin-only (limited)<br>
+                                • New/untested
+                            </td>
+                            <td>
+                                • Complex UI<br>
+                                • Learning curve<br>
+                                • MicroSD dependency<br>
+                                • Advanced features
+                            </td>
+                            <td>
+                                • Technical knowledge<br>
+                                • Learning curve<br>
+                                • Setup required<br>
+                                • No backup device
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Best For</td>
+                            <td style="text-align: center;">Trading/Small amounts</td>
+                            <td style="text-align: center;">Beginner self-custody</td>
+                            <td style="text-align: center;">Advanced users</td>
+                            <td style="text-align: center;">Privacy-focused</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="highlight" style="margin-top: 20px;">
+                <p><strong>Key Insight:</strong> Each option represents different trade-offs between security, convenience, and control. Choose based on your technical comfort and security priorities.</p>
+            </div>
+        </div>
+
+        <!-- Slide 12: Getting Started -->
+        <div class="slide">
+            <h2>🎯 Getting Started</h2>
+            <ol class="step-list">
+                <li><strong>Education First:</strong> Understand Bitcoin self-custody principles</li>
+                <li><strong>Choose Your Path:</strong> DIY build or purchase pre-assembled kit</li>
+                <li><strong>Download & Verify:</strong> Get official SeedSigner image</li>
+                <li><strong>Build & Test:</strong> Assemble device and test functionality</li>
+                <li><strong>Start Small:</strong> Practice with small amounts</li>
+                <li><strong>Secure Storage:</strong> Plan physical security for device and seed</li>
+            </ol>
+            <div class="highlight">
+                <p><strong>Remember:</strong> Take time to learn and practice. Your financial sovereignty is worth the effort!</p>
+            </div>
+        </div>
+
+        <!-- Slide 13: Resources -->
+        <div class="slide">
+            <h2>📚 Resources & Community</h2>
+            <ul>
+                <li><strong>Official Documentation:</strong> seedsigner.com</li>
+                <li><strong>GitHub Repository:</strong> Complete source code and guides</li>
+                <li><strong>Video Tutorials:</strong> Step-by-step build and usage guides</li>
+                <li><strong>Community Forums:</strong> Bitcoin Talk, Nostr, Bitcoin Twitter</li>
+                <li><strong>Local Meetups:</strong> Connect with Bitcoin community</li>
+                <li><strong>Pre-built Kits:</strong> NovaSapien offers convenient DIY kits</li>
+                <li><strong>Premium Options:</strong> Vulcan21 offers aluminum pre-assembled units</li>
+            </ul>
+            <div style="margin: 20px 0;">
+                <img src="seedsigner_premium_.jpg" alt="Premium Aluminum SeedSigner" style="max-width: 50%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+                <p style="font-size: 1.1em; margin-top: 10px;"><em>Premium aluminum SeedSigner from Vulcan21</em></p>
+            </div>
+        </div>
+
+        <!-- Slide 14: About the Presenter -->
+        <div class="slide">
+            <h2>👨‍💼 About Josh</h2>
+            <div style="text-align: left; max-width: 700px; margin: 0 auto;">
+                <h3>Background & Experience:</h3>
+                <ul>
+                    <li><strong>NovaSapien Affiliate & Early Investor:</strong> Helped recover my Bitcoin through their services</li>
+                    <li><strong>BitVault Project Manager & Early Investor:</strong> Multi-signature only software wallet development</li>
+                    <li><strong>StrategyHub Founding Member:</strong> Bitcoin-only co-working space hosted by StrategyB (formerly MicroStrategy)</li>
+                    <li><strong>Bitcoin Advocate:</strong> Promoting self-custody and financial sovereignty</li>
+                </ul>
+                <div class="highlight">
+                    <p><strong>Connect:</strong> Follow me on 𝕏 @secsovereign for Bitcoin insights and updates</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Conclusion -->
+        <div class="slide">
+            <h2>🎉 Take Control of Your Bitcoin</h2>
+            <div class="highlight">
+                <h3>Key Takeaways:</h3>
+                <ul>
+                    <li>SeedSigner enables true self-custody</li>
+                    <li>Air-gapped security protects your keys</li>
+                    <li>Open source provides transparency</li>
+                    <li>Cost-effective alternative to commercial devices</li>
+                    <li>You control every aspect of your security</li>
+                </ul>
+            </div>
+            <p style="font-size: 1.8em; margin-top: 30px;">
+                <strong>"Not your keys, not your coins"</strong> 🔑
+            </p>
+            <p>Start your journey to true Bitcoin self-custody today!</p>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="slideNumber">1</span> / <span id="totalSlides">16</span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('slideNumber').textContent = currentSlide + 1;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
