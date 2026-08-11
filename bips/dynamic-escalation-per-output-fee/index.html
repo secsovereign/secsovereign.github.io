@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Escalation of the Per-Output Miner Fee (BIP Pre-Proposal) | SecureSovereign</title>
+    <meta name="description" content="Bitcoin Improvement Pre-Proposal: optional EMA and 25th-percentile fee escalation on top of the static per-output miner fee so the deterrent does not decay over decades.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://secsov.com/bips/dynamic-escalation-per-output-fee">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Dynamic Escalation of the Per-Output Miner Fee (BIP Pre-Proposal)">
+    <meta property="og:description" content="Bitcoin Improvement Pre-Proposal: optional EMA and 25th-percentile fee escalation on top of the static per-output miner fee so the deterrent does not decay over decades.">
+    <meta property="og:url" content="https://secsov.com/bips/dynamic-escalation-per-output-fee">
+    <meta property="og:site_name" content="SecureSovereign">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-07-23">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Dynamic Escalation of the Per-Output Miner Fee (BIP Pre-Proposal)">
+    <meta name="twitter:description" content="Bitcoin Improvement Pre-Proposal: optional EMA and 25th-percentile fee escalation on top of the static per-output miner fee so the deterrent does not decay over decades.">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Dynamic Escalation of the Per-Output Miner Fee (BIP Pre-Proposal)","description":"Bitcoin Improvement Pre-Proposal: optional EMA and 25th-percentile fee escalation on top of the static per-output miner fee so the deterrent does not decay over decades.","url":"https://secsov.com/bips/dynamic-escalation-per-output-fee","mainEntityOfPage":{"@type":"WebPage","@id":"https://secsov.com/bips/dynamic-escalation-per-output-fee"},"author":{"@type":"Person","name":"Josh","alternateName":"Secure Sovereign","url":"https://secsov.com/"},"publisher":{"@type":"Organization","name":"SecureSovereign","url":"https://secsov.com/"},"isPartOf":{"@type":"WebSite","name":"SecureSovereign","url":"https://secsov.com/"},"datePublished":"2026-07-23","dateModified":"2026-07-23","creativeWorkStatus":"Draft","about":{"@type":"Thing","name":"Bitcoin"}}</script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/article.css" rel="stylesheet">
+    <link href="/share.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="site-nav">
+        <a href="/">← Home</a>
+        <span class="sep">/</span>
+        <a href="/bips">BIPs</a>
+        <span class="sep">/</span>
+        <span style="color: var(--text-muted); font-family: 'Courier New', monospace; font-size: 0.9rem;">Dynamic Escalation of the Per-Output Miner Fee</span>
+        <div class="share-widget nav-share" data-share-url="https://secsov.com/bips/dynamic-escalation-per-output-fee" data-share-title="Dynamic Escalation of the Per-Output Miner Fee (BIP Pre-Proposal)" data-share-text="Dynamic Escalation of the Per-Output Miner Fee (BIP Pre-Proposal): Bitcoin Improvement Pre-Proposal: optional EMA and 25th-percentile fee escalation on top of the static per-output miner fee so the deterrent does not decay over decades.">
+        <button type="button" class="share-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Share">
+            <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Share
+        </button>
+        <div class="share-menu" role="menu"></div>
+    </div>
+    </nav>
+    <div class="article-wrap">
+        <header class="article-meta bip-meta">
+        <p class="article-dates"><span class="bip-status">Pre-Proposal</span><span class="article-meta-sep" aria-hidden="true">·</span><span>Standards Track</span><span class="article-meta-sep" aria-hidden="true">·</span><time datetime="2026-07-23">Created July 23, 2026</time><span class="article-meta-sep" aria-hidden="true">·</span><span>BSD-2-Clause</span></p>
+        <p class="article-origin">Bitcoin Improvement Pre-Proposal: not yet a numbered BIP.</p>
+    </header>
+        <article class="article-body"><h1>Dynamic Escalation of the Per-Output Miner Fee</h1>
+<nav class="bip-toc" aria-label="Contents"><h2 id="contents">Contents</h2><ul>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#motivation">Motivation</a></li>
+<li><a href="#specification">Specification</a></li>
+<li><a href="#rationale">Rationale</a></li>
+<li><a href="#backwards-compatibility">Backwards Compatibility</a></li>
+<li><a href="#reference-implementation">Reference Implementation</a></li>
+<li><a href="#calibration-checklist">Calibration Checklist</a></li>
+<li><a href="#security-considerations">Security Considerations</a></li>
+<li><a href="#references">References</a></li>
+<li><a href="#copyright">Copyright</a></li>
+</ul></nav>
+
+
+<h2 id="abstract">Abstract</h2>
+<p>This BIP adds a dynamic escalation layer on top of the static per-output miner fee from its predecessor. It has a hard consensus dependency on <em><a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a></em>: the dynamic rules are inert for any block at or below the static fee BIP's activation height, regardless of this BIP's own signaling or lock-in status. A block that applies dynamic escalation rules before that height is invalid.</p>
+<p>The problem is long-run decay. A static satoshi amount fixed under today's conditions becomes trivial as Bitcoin's price and fee levels rise over decades. Without automatic adjustment, the static fee stops working as a real disincentive, and the only fix is another soft fork to raise the constant. Repeated soft forks to update a fixed number create a permanent dependency on governance processes that can be captured, delayed, or blocked.</p>
+<p>This BIP specifies a dynamic fee component derived from the 25th percentile fee rate sampled over 288-block windows, smoothed by an exponential moving average, confirmed by multi-window persistence, and bounded by an upward-only rate-of-change cap. The active per-output fee is the maximum of the static fee and the dynamic fee. In normal and high fee conditions the dynamic fee sits above the static fee and tracks economic conditions. In prolonged low-fee regimes the static fee governs and the dynamic component contributes nothing.</p>
+<p>This BIP is an optional long-term upgrade. The static fee BIP works fully without it.</p>
+<hr>
+<h2 id="motivation">Motivation</h2>
+<h3 id="the-known-limitation-of-the-static-fee">The Known Limitation of the Static Fee</h3>
+<p>The static per-output miner fee closes both the value vector and the count vector of UTXO spam with a permanent, non-recoverable cost per output. It is the main piece of the two-BIP design. It has one known limit, already noted in its security considerations: a fixed satoshi amount decays in real terms as Bitcoin's price and fee levels rise.</p>
+<p>At 20 sats per output and current BTC prices, creating 100,000 outputs costs 2 million sats. That is a material cost today. At 10x BTC price it is one-tenth the real cost. At 100x BTC price it approaches noise:</p>
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>BTC price multiple</th><th>Cost of 100k outputs @ 20 sats</th><th>Real deterrent?</th></tr>
+</thead>
+<tbody>
+<tr class="close-yes"><td>1× (today)</td><td>2,000,000 sats</td><td>Material</td></tr>
+<tr class="close-partial"><td>10×</td><td>2,000,000 sats (1/10 real cost)</td><td>Weakening</td></tr>
+<tr class="close-no"><td>100×</td><td>2,000,000 sats (1/100 real cost)</td><td>Noise</td></tr>
+</tbody>
+</table>
+<figcaption>Nominal sats stay fixed; real economic cost decays as BTC appreciates. Without automatic adjustment, another soft fork is eventually required.</figcaption>
+</figure>
+
+<p>The static fee does not need a fix today, but without automatic adjustment it will eventually need a soft fork. That soft fork will face the same political and review surface as any other consensus change, with the extra difficulty of being an explicit fee increase rather than a new capability.</p>
+<p>The dynamic escalation layer removes that future dependency. It is calibrated to track multi-decade fee drift, not short-term fee spikes, so it adjusts slowly and predictably rather than reacting to noise.</p>
+<h3 id="why-this-is-a-separate-bip">Why This Is a Separate BIP</h3>
+<p>The static fee is simple, small, and high-leverage. Putting the dynamic machinery in the same proposal raises implementation complexity, expands review surface, and raises the chance that neither piece activates. Splitting the proposals means the most important property, a permanent per-output cost, can land in consensus first. This BIP is the optional upgrade that keeps that cost from decaying over time.</p>
+<p>Separation also lets the network gain operational experience with the static fee before adding the dynamic layer. If the static fee is enough in practice, the dynamic BIP may not need to activate on the same timeline. If the static fee decays faster than expected because of BTC price appreciation, the dynamic BIP has a clearer and more urgent case.</p>
+<h3 id="anti-decay-is-the-only-job-of-the-dynamic-layer">Anti-Decay Is the Only Job of the Dynamic Layer</h3>
+<p>The dynamic component has one job: keep the static fee from becoming economically trivial over decades. It is not meant to respond to short-term spam waves, react to individual fee spikes, or replace the static fee as the primary deterrent. During short-term fee anomalies the dynamic fee should stay stable. During genuine multi-year fee drift it should move up. The design choices below (slow EMA, multi-window persistence, upward-only rate cap) all follow from that single role.</p>
+<figure class="article-chart chart-compare">
+<div class="chart-heading">Division of labor in the two-BIP design</div>
+<div class="compare-cols" role="img" aria-label="Static fee is the permanent floor; dynamic fee prevents long-run decay">
+<div class="compare-col compare-open">
+<div class="compare-label">Static fee BIP</div>
+<ul class="compare-list">
+<li>Primary deterrent</li>
+<li>Fixed satoshi constant</li>
+<li>No sampling / no manipulation surface</li>
+<li>Fully functional alone</li>
+</ul>
+</div>
+<div class="compare-col compare-gated">
+<div class="compare-label">Dynamic escalation BIP</div>
+<ul class="compare-list">
+<li>Anti-decay only</li>
+<li>Tracks multi-decade fee drift</li>
+<li>Can raise above static, never below</li>
+<li>Optional long-term upgrade</li>
+</ul>
+</div>
+</div>
+<figcaption>Split so the permanent cost can activate first. Dynamic machinery is useful but not urgent.</figcaption>
+</figure>
+
+<hr>
+<h2 id="specification">Specification</h2>
+<h3 id="dependency">Dependency</h3>
+<p>This BIP is only valid when <em><a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a></em> is active. If the static fee BIP has not activated, this BIP has no effect. Implementations must check for static fee BIP activation before applying dynamic escalation logic.</p>
+<h3 id="active-fee">Active Fee</h3>
+<p>The active per-output fee for any given 288-block period is:</p>
+<pre><code class="language-text">active_fee = max(static_fee, dynamic_fee)
+</code></pre>
+<p>Where <code>static_fee</code> is the constant from the static fee BIP and <code>dynamic_fee</code> is computed as specified below. The coinbase accounting formula from the static fee BIP is unchanged except that <code>static_fee</code> in that formula is replaced by <code>active_fee</code>:</p>
+<pre><code class="language-text">coinbase_value = block_subsidy + sum(tx_fees)
+               + (active_fee × count(all non-coinbase outputs in block))
+</code></pre>
+<p>During any period in which the dynamic fee falls below or equals the static fee, the active fee equals the static fee and the coinbase accounting matches what the static fee BIP specifies.</p>
+<h3 id="dynamic-fee-computation">Dynamic Fee Computation</h3>
+<p>The dynamic fee is computed at each 288-block boundary and cached for the following period. Computation happens only at boundaries, never per block.</p>
+<figure class="article-chart chart-flowchart" role="img" aria-label="Dynamic fee pipeline from sample through floor">
+<div class="flowchart-ladder" aria-hidden="true">
+  <span class="flow-node">p25 sample</span>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <span class="flow-node">EMA</span>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <span class="flow-node">Persistence</span>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <span class="flow-node">Rate cap ↑</span>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <span class="flow-node">max(static, dyn)</span>
+</div>
+</figure>
+
+<p><em>Figure: Five-step pipeline. Each layer exists to track multi-decade drift without reacting to short-term fee noise or cheap manipulation.</em></p>
+<h4>Step 1: Sample the fee rate</h4>
+<p>This step is the sole definition of fee sampling in the two-BIP design. The static fee BIP needs no fee sampling; all fee rate computation starts here.</p>
+<p>Collect the fee rate for every fee-paying transaction in the previous 288 blocks. Fee rate is in sat/vB using consensus weight (not stripped size). Exclude coinbase transactions. Exclude transactions with zero fee. Fee rate is computed per transaction from that transaction's own fee and weight only, with no package or CPFP attribution: package fee rate is mempool policy and is not observable from block data alone. Per-transaction fee rate keeps the computation reproducible by any node from block data without mempool history.</p>
+<p>Compute the 25th percentile of the resulting set using the algorithm in the consensus edge cases checklist (sort order and even-N averaging must match across implementations). If the set has fewer than <code>min_tx_count</code> fee-paying transactions, the sample is insufficient and the dynamic fee for the next period is set to zero, so the static fee governs.</p>
+<h4>Step 2: Apply the exponential moving average</h4>
+<pre><code class="language-text">p25_ema = α × p25_current + (1 − α) × p25_ema_previous
+</code></pre>
+<p>Where <code>α</code> is the smoothing parameter. A slow <code>α</code> toward 0.1 tracks multi-year fee drift while ignoring short-term spikes. Because the dynamic layer's only job is anti-decay over decades rather than short-term spam response, <code>α</code> must be tuned slow. A faster <code>α</code> toward 0.3 is appropriate only if sensitivity analysis shows a real benefit from faster response without instability.</p>
+<h4>Step 3: Apply multi-window persistence</h4>
+<pre><code class="language-text">if p25_ema_current &gt; persistence_threshold
+   and p25_ema_previous &gt; persistence_threshold:
+    candidate_dynamic = k × p25_ema_current
+else:
+    candidate_dynamic = dynamic_fee_previous
+</code></pre>
+<p>Where <code>k</code> has units of vbytes and converts the p25 EMA (in sat/vB) into a per-output satoshi fee. Dimensionally: (sat/vB) × (vB) = sat. So <code>k</code> encodes an assumed typical output size in vbytes, set during calibration to match a representative output across common script types. A single <code>k</code> value, rather than per-script-type values, matches the static fee's uniform-per-output design. The resulting <code>candidate_dynamic</code> is a satoshi amount per output. A single elevated 288-block window (~2 days) does not move the dynamic fee. An attacker must sustain elevated fee conditions across at least two consecutive windows (~4 days) to produce any upward movement.</p>
+<h4>Step 4: Apply the rate-of-change cap</h4>
+<pre><code class="language-text">max_increase = dynamic_fee_previous × (1 + R)
+dynamic_fee_new = min(candidate_dynamic, max_increase)
+dynamic_fee_new = max(0, dynamic_fee_new)
+</code></pre>
+<p>The dynamic fee may not increase by more than <code>R</code> percent per 288-block period, no matter what the fee statistic produces. Decreases are uncapped: the dynamic fee falls freely back toward zero when fee conditions normalize, at which point the static fee governs.</p>
+<h4>Step 5: Apply the static fee floor</h4>
+<pre><code class="language-text">active_fee = max(static_fee, dynamic_fee_new)
+</code></pre>
+<h3 id="coinbase-accounting-during-the-grace-window">Coinbase Accounting During the Grace Window</h3>
+<p>The grace window from the static fee BIP does not apply here in the same form, because the dynamic fee changes every 288 blocks rather than once at activation. The coinbase accounting rule for period boundaries is:</p>
+<p>During the first <code>G</code> blocks of a new 288-block period, the coinbase must account for per-output fees at the previous period's active fee rate. After <code>G</code> blocks, the new period's active fee rate applies. That keeps transactions broadcast under the previous rate and confirmed during the boundary window from being invalidated by a mid-flight rate change, and keeps the coinbase calculation unambiguous for everyone.</p>
+<pre><code class="language-text">if block_height &lt; period_start + G:
+    fee_rate_for_coinbase = active_fee_previous_period
+else:
+    fee_rate_for_coinbase = active_fee_current_period
+</code></pre>
+<h3 id="consensus-state">Consensus State</h3>
+<p>Each node must carry the following state across 288-block period boundaries, in addition to the static fee BIP's activation state:</p>
+<ul>
+<li><code>dynamic_fee_previous</code> (the dynamic fee from the prior period)</li>
+<li><code>p25_ema_previous</code> (the EMA value from the prior period)</li>
+<li><code>active_fee_previous</code> (for grace window coinbase accounting)</li>
+<li><code>active_fee_current</code> (the active fee for the current period)</li>
+</ul>
+<p>All values are deterministic from block history and need no external input. Implementations must also retain EMA state snapshots at every period boundary for the most recent 2,016 blocks of boundaries to support reorg recovery, as specified in Security Considerations.</p>
+<h3 id="parameters">Parameters</h3>
+<p>All parameters are consensus parameters adjustable by a future soft fork. Initial values are provisional pending calibration.</p>
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Parameter</th><th>Description</th><th>Provisional value</th></tr>
+</thead>
+<tbody>
+<tr><td><code>k</code></td><td>Multiplier scaling p25 EMA to sat per output (units: vB)</td><td>2-4</td></tr>
+<tr><td><code>α</code></td><td>EMA smoothing factor</td><td>0.1-0.3 (tune slow)</td></tr>
+<tr><td><code>persistence_threshold</code></td><td>Minimum p25 EMA for a window to count toward persistence</td><td>TBD via calibration</td></tr>
+<tr><td><code>R</code></td><td>Maximum upward rate of change per period</td><td>0.25</td></tr>
+<tr><td><code>G</code></td><td>Grace window in blocks at period boundaries</td><td>6-12</td></tr>
+<tr><td><code>min_tx_count</code></td><td>Minimum fee-paying transactions for a valid sample</td><td>1,000</td></tr>
+</tbody>
+</table>
+<figcaption>Prefer slow <code>α</code> unless sensitivity tables show a real benefit from faster response without instability.</figcaption>
+</figure>
+
+<h3 id="activation">Activation</h3>
+<p>This BIP is meant to deploy via a soft fork using BIP-8 or BIP-9 style signaling, with a minimum activation window of one year and no mandatory lock-in fallback. Miners who do not signal are not penalized.</p>
+<p>This BIP has an explicit consensus dependency: the dynamic escalation rules are inert for any block whose height is less than or equal to the static fee BIP's <code>activation_height</code>, regardless of this BIP's own signaling or lock-in status. Even if this BIP's signaling reaches threshold before the static fee BIP activates, no block applies dynamic escalation rules until the static fee BIP is fully active. Implementations must enforce that ordering at the consensus layer, not merely as a deployment convention. A block that applies dynamic escalation rules before the static fee BIP's <code>activation_height</code> is invalid.</p>
+<hr>
+<h2 id="rationale">Rationale</h2>
+<h3 id="why-288-blocks-as-the-sample-window">Why 288 Blocks as the Sample Window</h3>
+<p>The dynamic fee's job is tracking multi-decade fee drift, not reacting to short-term spam waves. A 288-block (~2 day) window provides enough transactions for a statistically meaningful 25th percentile during active periods, while staying short enough to detect genuine sustained changes without unreasonable lag. Combined with the EMA, the effective response time to sustained fee changes is much longer than 288 blocks regardless of window size.</p>
+<h3 id="why-the-25th-percentile">Why the 25th Percentile</h3>
+<p>The 25th percentile represents cheaper legitimate transactions and is less sensitive to outliers than the median. A small number of high-fee transactions cannot push it far upward, which keeps the dynamic fee from pricing out legitimate use during fee spikes driven by monetary activity rather than spam.</p>
+<h3 id="why-ema-rather-than-hard-window-reset">Why EMA Rather Than Hard Window Reset</h3>
+<p>A hard window reset creates cliff-edge transitions and makes the fee reactive to single-window anomalies. The EMA smooths toward prevailing conditions over many periods, which is the right behavior for a mechanism tracking multi-decade drift rather than reacting to individual events.</p>
+<h3 id="why-multi-window-persistence">Why Multi-Window Persistence</h3>
+<p>A single elevated 288-block window is achievable by a moderately funded actor for whom fee spend is an acceptable operating cost. Requiring two consecutive windows doubles the sustained cost and duration of any manipulation attempt. The persistence check adds no per-block computation and is the main defense against short-term fee flooding aimed at ratcheting the dynamic fee upward.</p>
+<h3 id="why-an-upward-only-rate-of-change-cap">Why an Upward-Only Rate-of-Change Cap</h3>
+<p>Even with EMA smoothing and persistence, a sustained campaign could ratchet the dynamic fee upward over many periods. The rate cap bounds how fast that can happen regardless of fee pressure: even a perfectly sustained campaign can raise the dynamic fee by only <code>R</code> percent per period, so rapid ratcheting is slow, expensive, and publicly visible on chain. The cap is asymmetric on purpose: the dynamic fee falls freely when pressure stops, so a manipulation attempt does not leave a permanently elevated floor once the attacker withdraws.</p>
+<h3 id="why-k-has-units-of-vbytes">Why k Has Units of Vbytes</h3>
+<p>The p25 EMA is in sat/vB. To produce a satoshi amount per output, <code>k</code> must have units of vbytes. Dimensionally: (sat/vB) × (vB) = sat. So <code>k</code> encodes a representative output size assumption. Calibration sets <code>k</code> to match the vbyte cost of a typical output across common script types, producing a per-output fee that tracks the real economic cost of output creation as fee rates change. A single <code>k</code> value rather than per-script-type values matches the static fee's uniform-per-output model: the externalized cost being priced is per UTXO slot, not per script type.</p>
+<h3 id="interaction-with-bip-110">Interaction with BIP-110</h3>
+<p>BIP-110 targets dedicated high-bandwidth data channels. This BIP targets UTXO creation economics. They operate on different surfaces. The dynamic escalation layer does not change the relationship between this proposal and BIP-110 established in the static fee BIP. See <em><a href="/articles/the-achievable-floor">The Achievable Floor</a></em> for the channel taxonomy those proposals close.</p>
+<hr>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>The active fee replaces the static fee in the coinbase accounting formula. During any period in which the dynamic fee is below the static fee, the coinbase accounting matches the static fee BIP and no behavioral change occurs. The dynamic layer is additive: it can only raise the active fee above the static fee floor, never below it.</p>
+<p>Wallets and fee estimators that already account for the static per-output fee must also track the current period's active fee, which may differ from the static fee during elevated fee conditions. From the user's point of view there is still one fee; wallets present a single total that uses whichever of the two rates is currently active.</p>
+<hr>
+<h2 id="reference-implementation">Reference Implementation</h2>
+<p>High-level pseudocode, assuming the static fee BIP is active:</p>
+<pre><code class="language-python">def compute_period_active_fee(last_288_blocks, state):
+    # Step 1: sample
+    fee_rates = [
+        tx.fee_rate for block in last_288_blocks
+        for tx in block.transactions
+        if tx.fee &gt; 0 and not tx.is_coinbase
+    ]
+    if len(fee_rates) &lt; MIN_TX_COUNT:
+        p25_current = 0
+    else:
+        p25_current = percentile(fee_rates, 25)
+
+    # Step 2: EMA
+    p25_ema = ALPHA * p25_current + (1 - ALPHA) * state.p25_ema_previous
+
+    # Step 3: multi-window persistence
+    if (p25_ema &gt; PERSISTENCE_THRESHOLD and
+            state.p25_ema_previous &gt; PERSISTENCE_THRESHOLD):
+        candidate = K * p25_ema  # sat amount; K has units of vbytes
+    else:
+        candidate = state.dynamic_fee_previous
+
+    # Step 4: rate-of-change cap (upward only)
+    max_increase = state.dynamic_fee_previous * (1 + R)
+    dynamic_fee = min(candidate, max_increase)
+    dynamic_fee = max(0, dynamic_fee)
+
+    # Step 5: apply static fee floor
+    active_fee = max(STATIC_FEE, dynamic_fee)
+
+    # Update state
+    state.p25_ema_previous = p25_ema
+    state.dynamic_fee_previous = dynamic_fee
+    state.active_fee_previous = state.active_fee_current
+    state.active_fee_current = active_fee
+
+    return active_fee
+
+def fee_rate_for_coinbase(block_height, period_start, state):
+    if block_height &lt; period_start + G:
+        return state.active_fee_previous
+    return state.active_fee_current
+
+def is_valid_block(block, period_start, state):
+    rate = fee_rate_for_coinbase(block.height, period_start, state)
+    total_per_output_fees = sum(
+        len(tx.outputs) for tx in block.non_coinbase_transactions
+    ) * rate
+    expected_coinbase = (
+        block_subsidy(block.height)
+        + sum(tx.fee for tx in block.non_coinbase_transactions)
+        + total_per_output_fees
+    )
+    return block.coinbase_value == expected_coinbase
+</code></pre>
+<p>Detailed test vectors, integer arithmetic precision requirements, and edge-case handling will be provided in a future numbered BIP submission.</p>
+<hr>
+<h2 id="calibration-checklist">Calibration Checklist</h2>
+<p>This checklist is separate from and follows the static fee BIP's calibration. The static fee BIP's calibration must pass before this checklist begins.</p>
+<h3 id="a-dynamic-parameter-sensitivity">A. Dynamic Parameter Sensitivity</h3>
+<ul>
+<li>Sweep <code>α</code> in {0.05, 0.1, 0.2, 0.3} × <code>R</code> in {0.1, 0.25, 0.5} × <code>k</code> in {2, 3, 4} against full chain history.</li>
+<li>For each combination report: number of periods where dynamic fee exceeds static fee; maximum dynamic fee reached; EMA lag to a sustained 10x fee increase; periods required to ratchet 2x under simulated sustained fee pressure.</li>
+<li>Recommend a default parameter tuple only after sensitivity tables exist. Prefer slow <code>α</code> unless tables show a real benefit from faster response.</li>
+<li>Calibrate <code>persistence_threshold</code> above the noise floor of quiet periods and below the movement threshold for genuine sustained congestion.</li>
+<li>Confirm the dynamic fee sits visibly above the static fee during normal and high fee conditions at the recommended parameters.</li>
+</ul>
+<h3 id="b-anti-manipulation-stress-test">B. Anti-Manipulation Stress Test</h3>
+<ul>
+<li>Simulate a moderately funded attacker sustaining elevated p25 fee rates for 2, 4, 8, and 16 consecutive 288-block windows. Report dynamic fee trajectory and cost to the attacker at each duration.</li>
+<li>Confirm the rate-of-change cap prevents rapid ratcheting even under sustained pressure.</li>
+<li>Confirm the dynamic fee falls freely back to the static fee floor once pressure is removed, with no persistent elevation.</li>
+</ul>
+<h3 id="c-collateral-damage-at-dynamic-rates">C. Collateral Damage at Dynamic Rates</h3>
+<ul>
+<li>Lightning channel opens: confirm the active fee remains negligible at the 95th and 99th percentile of simulated dynamic fee values under historical and projected fee conditions.</li>
+<li>Exchange batch payouts: same analysis.</li>
+<li>Confirm the dynamic fee does not price out legitimate high-output transactions during fee spikes driven by monetary activity rather than spam.</li>
+</ul>
+<h3 id="d-consensus-edge-cases">D. Consensus Edge Cases</h3>
+<ul>
+<li>Specify behavior on reorgs crossing 288-block period boundaries: which period's EMA state and active fee apply to disconnected blocks.</li>
+<li>Specify IBD and assumeutxo interaction: EMA state must be fully reconstructable from block history alone without mempool history.</li>
+<li>Specify integer arithmetic precisely (fixed-point representation, rounding direction) so all implementations agree bit-for-bit.</li>
+<li>Define an identical percentile algorithm (sort order, even-N averaging) so all implementations agree bit-for-bit.</li>
+<li>Confirm grace window <code>G</code> is sufficient at period boundaries given historical mempool boundary-crossing data.</li>
+</ul>
+<h3 id="e-exit-criteria">E. Exit Criteria</h3>
+<ul>
+<li>Recommended (<code>k</code>, <code>α</code>, <code>R</code>, <code>persistence_threshold</code>, <code>G</code>, <code>min_tx_count</code>) published with full sensitivity tables.</li>
+<li>Anti-manipulation stress test B passes at recommended parameters.</li>
+<li>Collateral damage checklist C passes at recommended parameters.</li>
+<li>Consensus edge cases in checklist D resolved and written into Specification.</li>
+</ul>
+<hr>
+<h2 id="security-considerations">Security Considerations</h2>
+<p><strong>Fee rate manipulation.</strong> Moving the 25th percentile meaningfully requires sustaining elevated transaction volume across a full 288-block window. The three-layer dynamic architecture (EMA, persistence, rate cap) makes rapid ratcheting slow, expensive, and publicly visible on chain. A state-level actor treating fee spend as an operating cost can still move the dynamic fee upward over many periods; the cap bounds how fast, and the fee falls freely once pressure is removed.</p>
+<p><strong>Static fee as irreducible floor.</strong> The dynamic fee can never push the active fee below the static fee. The static fee BIP's security properties are fully preserved regardless of what the dynamic layer does.</p>
+<p><strong>Low-activity window.</strong> If the 288-block sample contains fewer than <code>min_tx_count</code> fee-paying transactions, the dynamic fee is set to zero and the static fee governs. That prevents dynamic fee collapse during quiet periods or deliberate low-fee block stuffing.</p>
+<p><strong>Period boundary coinbase accounting.</strong> The grace window rule keeps the coinbase accounting formula unambiguous at every period boundary. The previous period's rate governs the coinbase during the grace window; the new rate governs after. No block can be valid under two different interpretations of the coinbase formula at once.</p>
+<p><strong>Reorg safety.</strong> On a reorg crossing a 288-block period boundary, the EMA state must revert to the correct state for the reorganized chain tip. Implementations must cache EMA state snapshots at every period boundary. The consensus rule is: retain snapshots for the most recent 2,016 blocks (one difficulty adjustment period, about two weeks) of period boundaries. That bounds the cache to at most seven snapshots at any time and covers any reorg that Bitcoin's proof-of-work economics makes plausible, without relying on heuristic depth estimates. A reorg deeper than 2,016 blocks is treated as a chain split requiring operator intervention, consistent with existing Bitcoin consensus assumptions. Implementations that do not retain the required snapshots cannot correctly validate blocks after a deep reorg and must re-sync from a known-good checkpoint.</p>
+<hr>
+<h2 id="references">References</h2>
+<ul>
+<li><em><a href="/bips/static-per-output-miner-fee">BIP Pre-Proposal: Static Per-Output Miner Fee</a></em>. This BIP depends on it.</li>
+<li>BIP-110: Reduced Data Temporary Softfork</li>
+<li><em><a href="/articles/full-cost-of-running-a-bitcoin-node">Full Cost of Running a Bitcoin Node</a></em>, v2.4, July 2026.</li>
+<li>Mempool Research UTXO Set Report, May 2025, tip 892385 (<a href="https://research.mempool.space/utxo-set-report">research.mempool.space/utxo-set-report</a>).</li>
+<li><em><a href="/articles/the-achievable-floor">The Achievable Floor</a></em> (2026).</li>
+<li><em><a href="/articles/bitcoin-not-a-hard-drive">Bitcoin Is Not a Hard Drive</a></em> (2026).</li>
+<li>Lopp, Jameson. "Goldiblocks: A Dynamic Block Size Limit." OP_NEXT 2025.</li>
+<li>Various Delving Bitcoin and bitcoin-dev threads on UTXO bloat and spam mitigation (2023-2026)</li>
+</ul>
+<hr>
+<h2 id="copyright">Copyright</h2>
+<p>This document is licensed under the BSD 2-Clause License.</p>
+</article>
+        <aside class="bip-related" aria-label="Related">
+        <h2>Related</h2>
+        <ul class="bip-related-list">
+            <li><span class="bip-related-label">Depends on</span><a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a></li>
+            <li><span class="bip-related-label">Related writing</span><span><a href="/articles/full-cost-of-running-a-bitcoin-node">Full Cost of Running a Bitcoin Node</a></span></li>
+        </ul>
+    </aside>
+        <div class="article-share-bar" data-share-url="https://secsov.com/bips/dynamic-escalation-per-output-fee" data-share-title="Dynamic Escalation of the Per-Output Miner Fee (BIP Pre-Proposal)" data-share-text="Dynamic Escalation of the Per-Output Miner Fee (BIP Pre-Proposal): Bitcoin Improvement Pre-Proposal: optional EMA and 25th-percentile fee escalation on top of the static per-output miner fee so the deterrent does not decay over decades.">
+        <span class="share-label">Share</span>
+        <div class="article-share-icons"></div>
+    </div>
+    </div>
+    <script src="/share.js"></script>
+</body>
+</html>

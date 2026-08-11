@@ -12,6 +12,14 @@ const SITE = 'https://secsov.com';
 const MMDC = path.join(ROOT, 'node_modules', '.bin', 'mmdc');
 
 marked.setOptions({ gfm: true, breaks: false });
+// Keep ~ for "approximately"; GFM strikethrough pairs tildes into <del>.
+marked.use({
+  tokenizer: {
+    del() {
+      return undefined;
+    },
+  },
+});
 
 const MERMAID_THEME = [
   '%%{init: {',
@@ -187,6 +195,18 @@ function articleUrl(slug) {
   return `${SITE}${articlePath(slug)}`;
 }
 
+function bipPath(slug) {
+  return `/bips/${slug}`;
+}
+
+function bipUrl(slug) {
+  return `${SITE}${bipPath(slug)}`;
+}
+
+function mdPathForBipSlug(slug) {
+  return path.join(ROOT, 'bips', slug, 'index.md');
+}
+
 function formatArticleDate(isoDate) {
   if (!isoDate) return '';
   const [y, m, d] = isoDate.split('-').map(Number);
@@ -225,24 +245,50 @@ function renderHomepageWritingList(articles) {
   return `<ul class="writing-list">\n                ${items}\n            </ul>`;
 }
 
-function patchHomepageWriting(articles) {
+function renderHomepageBipList(bips) {
+  const items = bips.map((b) => {
+    const href = bipPath(b.slug);
+    const title = escapeHtml(b.title);
+    const status = escapeHtml(b.status || 'Pre-Proposal');
+    return `<li class="writing-item"><a href="${href}" class="writing-link">${title}</a><span class="writing-date">${status}</span></li>`;
+  }).join('\n                ');
+  return `<ul class="writing-list">\n                ${items}\n            </ul>`;
+}
+
+function patchHomepageMarkedSection(start, end, contentHtml, label) {
   const indexPath = path.join(ROOT, 'index.html');
   const html = fs.readFileSync(indexPath, 'utf8');
-  const start = '<!-- writing-list:start -->';
-  const end = '<!-- writing-list:end -->';
   const startIdx = html.indexOf(start);
   const endIdx = html.indexOf(end);
   if (startIdx === -1 || endIdx === -1 || endIdx <= startIdx) {
-    console.error('Missing writing-list markers in index.html');
+    console.error(`Missing ${label} markers in index.html`);
     process.exit(1);
   }
   const next = html.slice(0, startIdx + start.length)
     + '\n            '
-    + renderHomepageWritingList(articles)
+    + contentHtml
     + '\n            '
     + html.slice(endIdx);
   fs.writeFileSync(indexPath, next);
-  console.log('Wrote index.html (Writing section)');
+  console.log(`Wrote index.html (${label})`);
+}
+
+function patchHomepageWriting(articles) {
+  patchHomepageMarkedSection(
+    '<!-- writing-list:start -->',
+    '<!-- writing-list:end -->',
+    renderHomepageWritingList(articles),
+    'Writing section',
+  );
+}
+
+function patchHomepageBips(bips) {
+  patchHomepageMarkedSection(
+    '<!-- bip-list:start -->',
+    '<!-- bip-list:end -->',
+    renderHomepageBipList(bips),
+    'BIPs section',
+  );
 }
 
 function articleDatesLabel(article) {
@@ -296,19 +342,134 @@ function articleShareBarHtml({ url, title, text }) {
     </div>`;
 }
 
-function renderPage({ title, description, slug, bodyHtml, article }) {
-  const url = articleUrl(slug);
+function wrapBipToc(bodyHtml) {
+  const $ = cheerio.load(bodyHtml, null, false);
+  const heading = $('#contents');
+  if (!heading.length) return bodyHtml;
+  const list = heading.next('ul');
+  if (!list.length) return bodyHtml;
+  const hr = list.next('hr');
+  heading.add(list).wrapAll('<nav class="bip-toc" aria-label="Contents"></nav>');
+  if (hr.length) hr.remove();
+  return $.html();
+}
+
+function bipMetaHtml(bip) {
+  const esc = escapeHtml;
+  const status = esc(bip.status || 'Pre-Proposal');
+  const type = bip.type ? esc(bip.type) : '';
+  const created = bip.created ? formatArticleDate(bip.created) : '';
+  const license = bip.license ? esc(bip.license) : '';
+  const parts = [`<span class="bip-status">${status}</span>`];
+  if (type) parts.push(`<span>${type}</span>`);
+  if (created) {
+    parts.push(`<time datetime="${esc(bip.created)}">Created ${esc(created)}</time>`);
+  }
+  if (license) parts.push(`<span>${license}</span>`);
+
+  return `<header class="article-meta bip-meta">
+        <p class="article-dates">${parts.join('<span class="article-meta-sep" aria-hidden="true">·</span>')}</p>
+        <p class="article-origin">Bitcoin Improvement Pre-Proposal: not yet a numbered BIP.</p>
+    </header>`;
+}
+
+function bipRelatedFooterHtml(bip, bips) {
+  const esc = escapeHtml;
+  const items = [];
+
+  if (bip.companion) {
+    const companion = bipBySlug(bips, bip.companion);
+    if (companion) {
+      items.push(
+        `<li><span class="bip-related-label">Related BIP</span><a href="${esc(bipPath(companion.slug))}">${esc(companion.title)}</a></li>`,
+      );
+    }
+  }
+  if (bip.dependsOn) {
+    const dep = bipBySlug(bips, bip.dependsOn);
+    if (dep) {
+      items.push(
+        `<li><span class="bip-related-label">Depends on</span><a href="${esc(bipPath(dep.slug))}">${esc(dep.title)}</a></li>`,
+      );
+    }
+  }
+
+  const relatedWriting = (bip.related || []).filter((rel) => rel && rel.href && rel.title);
+  if (relatedWriting.length) {
+    const links = relatedWriting
+      .map((rel) => `<a href="${esc(rel.href)}">${esc(rel.title)}</a>`)
+      .join('<span class="article-meta-sep" aria-hidden="true">·</span>');
+    items.push(`<li><span class="bip-related-label">Related writing</span><span>${links}</span></li>`);
+  }
+
+  if (!items.length) return '';
+  return `<aside class="bip-related" aria-label="Related">
+        <h2>Related</h2>
+        <ul class="bip-related-list">
+            ${items.join('\n            ')}
+        </ul>
+    </aside>`;
+}
+
+function jsonLdScript(data) {
+  return `<script type="application/ld+json">${JSON.stringify(data)}</script>`;
+}
+
+function articleJsonLd({ title, description, url, published, updated, kind = 'article' }) {
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': kind === 'bip' ? 'TechArticle' : 'Article',
+    headline: title,
+    description,
+    url,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    author: {
+      '@type': 'Person',
+      name: 'Josh',
+      alternateName: 'Secure Sovereign',
+      url: `${SITE}/`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'SecureSovereign',
+      url: `${SITE}/`,
+    },
+    isPartOf: { '@type': 'WebSite', name: 'SecureSovereign', url: `${SITE}/` },
+  };
+  if (published) data.datePublished = published;
+  if (updated) data.dateModified = updated;
+  else if (published) data.dateModified = published;
+  if (kind === 'bip') {
+    data.creativeWorkStatus = 'Draft';
+    data.about = { '@type': 'Thing', name: 'Bitcoin' };
+  }
+  return jsonLdScript(data);
+}
+
+function renderPage({
+  title,
+  description,
+  url,
+  bodyHtml,
+  metaBlock = '',
+  publishedMeta = '',
+  modifiedMeta = '',
+  navParent = null,
+  afterBody = '',
+  documentTitle = null,
+  jsonLd = '',
+  robots = 'index,follow',
+}) {
   const desc = escapeHtml(description);
-  const pageTitle = escapeHtml(title + ' | SecureSovereign');
+  const socialTitle = documentTitle || title;
+  const pageTitle = escapeHtml(`${socialTitle} | SecureSovereign`);
   const navTitle = escapeHtml(title);
-  const shareText = description ? `${title}: ${description}` : title;
-  const shareCtx = { url, title, text: shareText };
-  const metaBlock = article ? articleMetaHtml(article) : '';
-  const publishedMeta = article && article.published
-    ? `\n    <meta property="article:published_time" content="${escapeHtml(article.published)}">`
-    : '';
-  const modifiedMeta = article && article.updated
-    ? `\n    <meta property="article:modified_time" content="${escapeHtml(article.updated)}">`
+  const shareText = description ? `${socialTitle}: ${description}` : socialTitle;
+  const shareCtx = { url, title: socialTitle, text: shareText };
+  const parentNav = navParent
+    ? `<a href="${escapeHtml(navParent.href)}">${escapeHtml(navParent.label)}</a>
+        <span class="sep">/</span>
+        `
     : '';
   return `<!DOCTYPE html>
 <html lang="en">
@@ -317,12 +478,18 @@ function renderPage({ title, description, slug, bodyHtml, article }) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${pageTitle}</title>
     <meta name="description" content="${desc}">
+    <meta name="robots" content="${escapeHtml(robots)}">
     <link rel="canonical" href="${url}">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="${escapeHtml(title)}">
+    <meta property="og:title" content="${escapeHtml(socialTitle)}">
     <meta property="og:description" content="${desc}">
     <meta property="og:url" content="${url}">
-    <meta property="og:site_name" content="SecureSovereign">${publishedMeta}${modifiedMeta}
+    <meta property="og:site_name" content="SecureSovereign">
+    <meta property="og:locale" content="en_US">${publishedMeta}${modifiedMeta}
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="${escapeHtml(socialTitle)}">
+    <meta name="twitter:description" content="${desc}">
+    ${jsonLd}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/article.css" rel="stylesheet">
@@ -332,15 +499,68 @@ function renderPage({ title, description, slug, bodyHtml, article }) {
     <nav class="site-nav">
         <a href="/">← Home</a>
         <span class="sep">/</span>
-        <span style="color: var(--text-muted); font-family: 'Courier New', monospace; font-size: 0.9rem;">${navTitle}</span>
+        ${parentNav}<span style="color: var(--text-muted); font-family: 'Courier New', monospace; font-size: 0.9rem;">${navTitle}</span>
         ${shareWidgetHtml({ ...shareCtx, extraClass: 'nav-share' })}
     </nav>
     <div class="article-wrap">
         ${metaBlock}
         <article class="article-body">${bodyHtml}</article>
+        ${afterBody}
         ${articleShareBarHtml(shareCtx)}
     </div>
     <script src="/share.js"></script>
+</body>
+</html>
+`;
+}
+
+function renderListIndex({ title, description, canonicalPath, intro, itemsHtml, navLabel }) {
+  const desc = escapeHtml(description);
+  const fullTitle = escapeHtml(`${title} | SecureSovereign`);
+  const url = `${SITE}${canonicalPath}`;
+  const jsonLd = jsonLdScript({
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: title,
+    description,
+    url,
+    isPartOf: { '@type': 'WebSite', name: 'SecureSovereign', url: `${SITE}/` },
+  });
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${fullTitle}</title>
+    <meta name="description" content="${desc}">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="${url}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="${fullTitle}">
+    <meta property="og:description" content="${desc}">
+    <meta property="og:url" content="${url}">
+    <meta property="og:site_name" content="SecureSovereign">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="${fullTitle}">
+    <meta name="twitter:description" content="${desc}">
+    ${jsonLd}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/article.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="site-nav">
+        <a href="/">← Home</a>
+        <span class="sep">/</span>
+        <span style="color: var(--text-muted); font-family: 'Courier New', monospace; font-size: 0.9rem;">${escapeHtml(navLabel)}</span>
+    </nav>
+    <div class="article-wrap">
+        <header class="article-index-header">
+            <h1>${escapeHtml(title)}</h1>
+            <p class="article-index-intro">${escapeHtml(intro)}</p>
+        </header>
+        <ul class="article-index-list">${itemsHtml}</ul>
+    </div>
 </body>
 </html>
 `;
@@ -357,38 +577,45 @@ function renderArticlesIndex(articles) {
     return `<li class="article-index-item"><a href="${href}">${title}</a>${datesHtml}${descHtml}</li>`;
   }).join('\n');
 
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Writing | SecureSovereign</title>
-    <meta name="description" content="Articles on Bitcoin governance, consensus, security, and blockspace policy by SecureSovereign.">
-    <link rel="canonical" href="${SITE}/articles">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Writing | SecureSovereign">
-    <meta property="og:description" content="Articles on Bitcoin governance, consensus, security, and blockspace policy.">
-    <meta property="og:url" content="${SITE}/articles">
-    <meta property="og:site_name" content="SecureSovereign">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/article.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="site-nav">
-        <a href="/">← Home</a>
-        <span class="sep">/</span>
-        <span style="color: var(--text-muted); font-family: 'Courier New', monospace; font-size: 0.9rem;">Writing</span>
-    </nav>
-    <div class="article-wrap">
-        <header class="article-index-header">
-            <h1>Writing</h1>
-            <p class="article-index-intro">Bitcoin governance research, consensus engineering, and blockspace policy.</p>
-        </header>
-        <ul class="article-index-list">${items}</ul>
-    </div>
-</body>
-</html>
-`;
+  return renderListIndex({
+    title: 'Writing',
+    description: 'Long-form Bitcoin writing on governance, consensus engineering, blockspace policy, and full-node operating costs.',
+    canonicalPath: '/articles',
+    intro: 'Bitcoin governance research, consensus engineering, and blockspace policy.',
+    itemsHtml: items,
+    navLabel: 'Writing',
+  });
+}
+
+function renderBipsIndex(bips) {
+  const items = bips.map((b) => {
+    const href = bipPath(b.slug);
+    const title = escapeHtml(b.title);
+    const desc = escapeHtml(b.description || '');
+    const descHtml = desc ? `<p class="article-index-desc">${desc}</p>` : '';
+    const status = escapeHtml(b.status || 'Pre-Proposal');
+    const created = b.created ? formatArticleDate(b.created) : '';
+    const metaParts = [status];
+    if (created) metaParts.push(`Created ${created}`);
+    const datesHtml = `<p class="article-index-dates">${escapeHtml(metaParts.join(' · '))}</p>`;
+    let depHtml = '';
+    if (b.dependsOn) {
+      const dep = bipBySlug(bips, b.dependsOn);
+      if (dep) {
+        depHtml = `<p class="article-index-dep">Depends on <a href="${escapeHtml(bipPath(dep.slug))}">${escapeHtml(dep.title)}</a></p>`;
+      }
+    }
+    return `<li class="article-index-item"><a href="${href}">${title}</a>${datesHtml}${depHtml}${descHtml}</li>`;
+  }).join('\n');
+
+  return renderListIndex({
+    title: 'BIPs',
+    description: 'Bitcoin Improvement Pre-Proposals: consensus per-output miner fees and related blockspace policy. Not yet numbered or submitted to the BIP process.',
+    canonicalPath: '/bips',
+    intro: 'Bitcoin Improvement Pre-Proposals. These are not numbered BIPs and have not been submitted to the BIP process.',
+    itemsHtml: items,
+    navLabel: 'BIPs',
+  });
 }
 
 const LLMS_ARTICLE_NOTES = {
@@ -397,6 +624,7 @@ const LLMS_ARTICLE_NOTES = {
   'bitcoin-social-capture': 'Structural logic of why Bitcoin governance produces capture outcomes without requiring conspiracy; permissionless protocol vs permissioned development; blocksize war and fork trap.',
   'bitcoin-not-a-hard-drive': 'Design-purpose case against non-monetary embedding: type confusion, IBD/storage/UTXO costs, externality structure, rebuttals to inscription justifications, permissionless counter-argument.',
   'the-achievable-floor': 'Technical taxonomy of embedding channels (free → dedicated), what consensus can close (OP_RETURN cap, Taproot envelope, annex), cost-per-byte tables, UTXO commitments, implementation path.',
+  'full-cost-of-running-a-bitcoin-node': 'v2.4 methodology: six cost categories, Profile A/B, $69.99/mo 2026 operating, $47.8M/yr full-population aggregate vs ~$9M Core spend, non-monetary ~$5.5/mo ($4M/yr).',
   'the-last-uncaptured-asset': 'Monetary sovereignty frame: state capture through ownership not destruction, access layer as asset, voluntary surveillance infrastructure, Bitcoin as last uncaptured asset.',
   'bitcoin-demographics-breakdown': 'Structured taxonomy of plausible Bitcoin appeal vectors by demographic slice; hypotheses for testing, not weighted statistics.',
   'dont-trust-verify': 'Coldcard RNG defect ($88M+ on-chain), credentialed endorsement without seed-path audit, HWI/tooling defaults, Ten31/Coinkite ties, parallel failures in Bitcoin Core review.',
@@ -407,13 +635,19 @@ const LLMS_ARTICLE_NOTES = {
   'bitcoins-hidden-crisis': 'Social vs protocol consensus; coordination crises (blocksize, Taproot); Bitcoin Commons cryptographic coordination model.',
 };
 
+const LLMS_BIP_NOTES = {
+  'static-per-output-miner-fee': 'Pre-proposal: consensus-enforced fixed satoshi fee to miners for every new non-coinbase output; closes value and count UTXO spam vectors.',
+  'dynamic-escalation-per-output-fee': 'Pre-proposal companion: EMA/p25 dynamic escalation on top of the static per-output fee to prevent long-run economic decay. Depends on static fee BIP.',
+};
+
 const LLMS_SECTIONS = [
   {
     title: 'Start here',
     links: [
-      { title: 'Homepage', url: `${SITE}/`, note: 'Author bio, expertise, project disclosures, links to all writing.' },
+      { title: 'Homepage', url: `${SITE}/`, note: 'Author bio, expertise, project disclosures, links to all writing and BIPs.' },
       { title: 'Article index', url: `${SITE}/articles`, note: 'Curated list of all long-form articles with one-line summaries.' },
-      { title: 'Full text (all articles)', url: `${SITE}/llms-full.txt`, note: 'Concatenated Markdown of every article for single-fetch ingestion.' },
+      { title: 'BIP index', url: `${SITE}/bips`, note: 'Bitcoin Improvement Pre-Proposals (not numbered BIPs; not yet submitted).' },
+      { title: 'Full text (articles + BIP pre-proposals)', url: `${SITE}/llms-full.txt`, note: 'Concatenated Markdown of every article and BIP pre-proposal for single-fetch ingestion.' },
     ],
   },
   {
@@ -433,7 +667,11 @@ const LLMS_SECTIONS = [
   },
   {
     title: 'Blockspace and consensus policy',
-    slugs: ['bitcoin-not-a-hard-drive', 'the-achievable-floor'],
+    slugs: ['bitcoin-not-a-hard-drive', 'the-achievable-floor', 'full-cost-of-running-a-bitcoin-node'],
+  },
+  {
+    title: 'BIP pre-proposals',
+    bipSlugs: ['static-per-output-miner-fee', 'dynamic-escalation-per-output-fee'],
   },
   {
     title: 'Monetary sovereignty',
@@ -468,26 +706,34 @@ function articleBySlug(articles, slug) {
   return articles.find((a) => a.slug === slug);
 }
 
-function buildLlmsTxt(articles) {
+function bipBySlug(bips, slug) {
+  return bips.find((b) => b.slug === slug);
+}
+
+function buildLlmsTxt(articles, bips) {
   const lines = [
     '# SecureSovereign (secsov.com)',
     '',
     '> Josh "Secure Sovereign" — Bitcoin builder, governance researcher, and Certified Bitcoin Professional (CBP). Long-form writing on Bitcoin Core governance capture, blockspace policy, consensus engineering, and monetary sovereignty. Bitcoin holder since 2010.',
     '',
-    'This site publishes **long-form reference articles**, not a blog feed. The homepage (`https://secsov.com/`) contains author bio and disclosures only — **article text lives at `/articles/{slug}`**. Fetch each article URL below, or use `https://secsov.com/llms-full.txt` for all content in one file.',
+    'This site publishes **long-form reference articles** and **BIP pre-proposals**, not a blog feed. The homepage (`https://secsov.com/`) contains author bio and disclosures — **article text lives at `/articles/{slug}`**, BIP text at `/bips/{slug}`. Fetch each URL below, or use `https://secsov.com/llms-full.txt` for all articles and BIP pre-proposals in one file.',
     '',
     '**URL patterns** (no trailing slash required; GitHub Pages may redirect):',
     '',
     '- HTML article: `https://secsov.com/articles/{slug}`',
     '- Markdown source: `https://secsov.com/articles/{slug}/index.md`',
+    '- HTML BIP: `https://secsov.com/bips/{slug}`',
+    '- BIP Markdown source: `https://secsov.com/bips/{slug}/index.md`',
     '- Bare slug redirect: `https://secsov.com/{slug}` → `/articles/{slug}` (via 404 handler)',
     '',
     '**Recommended reading order — blockspace cluster:**',
     '',
     '1. [Bitcoin Is Not a Hard Drive](https://secsov.com/articles/bitcoin-not-a-hard-drive) — why embedding is a category error',
     '2. [The Achievable Floor](https://secsov.com/articles/the-achievable-floor) — what consensus can technically close',
-    '3. [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance) — governance evidence (OP_RETURN arc, §V)',
-    '4. [Argument Map Part XXII](https://secsov.com/articles/bitcoin-governance-argument-map#part-xxii-blockspace-governance-and-relay-policy-failure) — numbered blockspace arguments',
+    '3. [Full Cost of Running a Bitcoin Node](https://secsov.com/articles/full-cost-of-running-a-bitcoin-node) — operator cost model and non-monetary burden',
+    '4. [Static Per-Output Miner Fee](https://secsov.com/bips/static-per-output-miner-fee) — pre-proposal consensus fee floor on UTXO creation',
+    '5. [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance) — governance evidence (OP_RETURN arc, §V)',
+    '6. [Argument Map Part XXII](https://secsov.com/articles/bitcoin-governance-argument-map#part-xxii-blockspace-governance-and-relay-policy-failure) — numbered blockspace arguments',
     '',
     '**Recommended reading order — governance cluster:**',
     '',
@@ -512,6 +758,14 @@ function buildLlmsTxt(articles) {
         lines.push(llmsLinkLine(article.title, articleUrl(slug), note));
       }
     }
+    if (section.bipSlugs) {
+      for (const slug of section.bipSlugs) {
+        const bip = bipBySlug(bips, slug);
+        if (!bip) continue;
+        const note = LLMS_BIP_NOTES[slug] || bip.description;
+        lines.push(llmsLinkLine(bip.title, bipUrl(slug), note));
+      }
+    }
     lines.push('');
   }
 
@@ -519,7 +773,7 @@ function buildLlmsTxt(articles) {
     '## Optional',
     '',
     llmsLinkLine('Sitemap', `${SITE}/sitemap.xml`, 'Machine-readable URL list for all pages.'),
-    llmsLinkLine('robots.txt', `${SITE}/robots.txt`, 'Disallows /articles/*/index.md from crawlers; sitemap reference.'),
+    llmsLinkLine('robots.txt', `${SITE}/robots.txt`, 'Disallows /articles/*/index.md and /bips/*/index.md from crawlers; sitemap reference.'),
     llmsLinkLine('GitHub (author)', 'https://github.com/secsovereign', 'Source repos and governance research.'),
     llmsLinkLine('X / Twitter', 'https://x.com/secsovereign', 'Author social.'),
     llmsLinkLine('Telegram', 'https://t.me/secsovereign', 'Author social.'),
@@ -535,17 +789,27 @@ function buildLlmsTxt(articles) {
     ));
   }
 
+  for (const bip of bips) {
+    lines.push(llmsLinkLine(
+      `${bip.title} (Markdown source)`,
+      `${SITE}/bips/${bip.slug}/index.md`,
+      'BIP pre-proposal Markdown source; preferred for LLM ingestion over HTML.',
+    ));
+  }
+
   lines.push('');
   return lines.join('\n');
 }
 
-function buildLlmsFullTxt(articles) {
+function buildLlmsFullTxt(articles, bips) {
   const parts = [
-    '# SecureSovereign — Full Article Corpus',
+    '# SecureSovereign — Full Corpus',
     '',
-    '> Concatenated Markdown sources from secsov.com. Generated by build script. Index: https://secsov.com/llms.txt',
+    '> Concatenated Markdown sources from secsov.com (articles and BIP pre-proposals). Generated by build script. Index: https://secsov.com/llms.txt',
     '',
     '---',
+    '',
+    '# Articles',
     '',
   ];
 
@@ -562,6 +826,24 @@ function buildLlmsFullTxt(articles) {
       '---',
       '',
     );
+  }
+
+  if (bips && bips.length) {
+    parts.push('# BIP Pre-Proposals', '');
+    for (const bip of bips) {
+      const mdPath = bip.file
+        ? path.join(ROOT, bip.file)
+        : mdPathForBipSlug(bip.slug);
+      const md = fs.readFileSync(mdPath, 'utf8');
+      parts.push(
+        `<!-- source: ${bipUrl(bip.slug)} -->`,
+        '',
+        md.trim(),
+        '',
+        '---',
+        '',
+      );
+    }
   }
 
   return parts.join('\n');
@@ -595,26 +877,33 @@ function build404(articles) {
         <a href="/">← Home</a>
         <span class="sep">/</span>
         <a href="/articles">Writing</a>
+        <span class="sep">/</span>
+        <a href="/bips">BIPs</a>
     </nav>
     <div class="article-wrap">
         <h1>Page not found</h1>
-        <p><a href="/">Home</a> · <a href="/articles">All articles</a></p>
+        <p><a href="/">Home</a> · <a href="/articles">All articles</a> · <a href="/bips">BIPs</a></p>
     </div>
 </body>
 </html>
 `;
 }
 
-function buildSitemap(articles) {
+function buildSitemap(articles, bips) {
   const entries = [
     { loc: `${SITE}/` },
     { loc: `${SITE}/articles` },
+    { loc: `${SITE}/bips` },
     { loc: `${SITE}/llms.txt` },
     { loc: `${SITE}/llms-full.txt` },
   ];
   for (const a of articles) {
     const lastmod = a.updated || a.published;
     entries.push({ loc: articleUrl(a.slug), lastmod });
+  }
+  for (const b of bips) {
+    const lastmod = b.updated || b.created;
+    entries.push({ loc: bipUrl(b.slug), lastmod });
   }
   const body = entries.map(({ loc, lastmod }) => {
     const lastmodTag = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : '';
@@ -661,6 +950,15 @@ function applyGitUpdatedDates(articles) {
   return changed;
 }
 
+function loadBips() {
+  const manifestPath = path.join(ROOT, 'bips.json');
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  return (manifest.bips || []).map((entry) => ({
+    ...entry,
+    slug: entry.slug || (entry.file ? fileToSlug(entry.file) : null),
+  }));
+}
+
 function main() {
   const manifestPath = path.join(ROOT, 'articles.json');
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
@@ -668,6 +966,7 @@ function main() {
     ...entry,
     slug: entry.slug || (entry.file ? fileToSlug(entry.file) : null),
   }));
+  const bips = loadBips();
 
   if (applyGitUpdatedDates(articles)) {
     manifest.articles = articles.map(({ slug, title, description, published, updated, originalUrl, file }) => {
@@ -703,12 +1002,27 @@ function main() {
     article.description = description;
     let bodyHtml = marked.parse(renderMermaidBlocks(md));
     bodyHtml = addHeadingIds(bodyHtml);
+    const publishedMeta = article.published
+      ? `\n    <meta property="article:published_time" content="${escapeHtml(article.published)}">`
+      : '';
+    const modifiedMeta = article.updated
+      ? `\n    <meta property="article:modified_time" content="${escapeHtml(article.updated)}">`
+      : '';
     const html = renderPage({
       title: article.title,
       description,
-      slug: article.slug,
+      url: articleUrl(article.slug),
       bodyHtml,
-      article,
+      metaBlock: articleMetaHtml(article),
+      publishedMeta,
+      modifiedMeta,
+      jsonLd: articleJsonLd({
+        title: article.title,
+        description,
+        url: articleUrl(article.slug),
+        published: article.published,
+        updated: article.updated,
+      }),
     });
     const outDir = path.join(articlesRoot, article.slug);
     fs.mkdirSync(outDir, { recursive: true });
@@ -719,22 +1033,77 @@ function main() {
   fs.writeFileSync(path.join(articlesRoot, 'index.html'), renderArticlesIndex(articles));
   console.log('Wrote articles/index.html');
 
+  const bipsRoot = path.join(ROOT, 'bips');
+  fs.mkdirSync(bipsRoot, { recursive: true });
+
+  for (const bip of bips) {
+    if (!bip.slug) {
+      console.error('Missing slug for BIP:', bip.title || bip);
+      process.exit(1);
+    }
+    const mdPath = bip.file
+      ? path.join(ROOT, bip.file)
+      : mdPathForBipSlug(bip.slug);
+    if (!fs.existsSync(mdPath)) {
+      console.error('Missing:', mdPath);
+      process.exit(1);
+    }
+    const md = fs.readFileSync(mdPath, 'utf8');
+    const description = bip.description || extractDescription(md, bip.title);
+    bip.description = description;
+    let bodyHtml = marked.parse(renderMermaidBlocks(md));
+    bodyHtml = addHeadingIds(bodyHtml);
+    bodyHtml = wrapBipToc(bodyHtml);
+    const bipDocTitle = `${bip.title} (BIP Pre-Proposal)`;
+    const publishedMeta = bip.created
+      ? `\n    <meta property="article:published_time" content="${escapeHtml(bip.created)}">`
+      : '';
+    const html = renderPage({
+      title: bip.title,
+      documentTitle: bipDocTitle,
+      description,
+      url: bipUrl(bip.slug),
+      bodyHtml,
+      metaBlock: bipMetaHtml(bip),
+      publishedMeta,
+      navParent: { href: '/bips', label: 'BIPs' },
+      afterBody: bipRelatedFooterHtml(bip, bips),
+      jsonLd: articleJsonLd({
+        title: bipDocTitle,
+        description,
+        url: bipUrl(bip.slug),
+        published: bip.created,
+        updated: bip.created,
+        kind: 'bip',
+      }),
+    });
+    const outDir = path.join(bipsRoot, bip.slug);
+    fs.mkdirSync(outDir, { recursive: true });
+    fs.writeFileSync(path.join(outDir, 'index.html'), html);
+    console.log('Wrote bips/' + bip.slug + '/index.html');
+  }
+
+  fs.writeFileSync(path.join(bipsRoot, 'index.html'), renderBipsIndex(bips));
+  console.log('Wrote bips/index.html');
+
   fs.writeFileSync(path.join(ROOT, '404.html'), build404(articles));
   console.log('Wrote 404.html');
 
-  fs.writeFileSync(path.join(ROOT, 'llms.txt'), buildLlmsTxt(articles));
+  fs.writeFileSync(path.join(ROOT, 'llms.txt'), buildLlmsTxt(articles, bips));
   console.log('Wrote llms.txt');
 
-  fs.writeFileSync(path.join(ROOT, 'llms-full.txt'), buildLlmsFullTxt(articles));
+  fs.writeFileSync(path.join(ROOT, 'llms-full.txt'), buildLlmsFullTxt(articles, bips));
   console.log('Wrote llms-full.txt');
 
-  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), buildSitemap(articles));
+  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), buildSitemap(articles, bips));
   console.log('Wrote sitemap.xml');
 
   patchHomepageWriting(articles);
+  patchHomepageBips(bips);
 
   const robots = `User-agent: *
 Disallow: /articles/*/index.md
+Disallow: /bips/*/index.md
 
 Sitemap: ${SITE}/sitemap.xml
 # LLM index: ${SITE}/llms.txt

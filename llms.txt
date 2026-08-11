@@ -2,20 +2,24 @@
 
 > Josh "Secure Sovereign" — Bitcoin builder, governance researcher, and Certified Bitcoin Professional (CBP). Long-form writing on Bitcoin Core governance capture, blockspace policy, consensus engineering, and monetary sovereignty. Bitcoin holder since 2010.
 
-This site publishes **long-form reference articles**, not a blog feed. The homepage (`https://secsov.com/`) contains author bio and disclosures only — **article text lives at `/articles/{slug}`**. Fetch each article URL below, or use `https://secsov.com/llms-full.txt` for all content in one file.
+This site publishes **long-form reference articles** and **BIP pre-proposals**, not a blog feed. The homepage (`https://secsov.com/`) contains author bio and disclosures — **article text lives at `/articles/{slug}`**, BIP text at `/bips/{slug}`. Fetch each URL below, or use `https://secsov.com/llms-full.txt` for all articles and BIP pre-proposals in one file.
 
 **URL patterns** (no trailing slash required; GitHub Pages may redirect):
 
 - HTML article: `https://secsov.com/articles/{slug}`
 - Markdown source: `https://secsov.com/articles/{slug}/index.md`
+- HTML BIP: `https://secsov.com/bips/{slug}`
+- BIP Markdown source: `https://secsov.com/bips/{slug}/index.md`
 - Bare slug redirect: `https://secsov.com/{slug}` → `/articles/{slug}` (via 404 handler)
 
 **Recommended reading order — blockspace cluster:**
 
 1. [Bitcoin Is Not a Hard Drive](https://secsov.com/articles/bitcoin-not-a-hard-drive) — why embedding is a category error
 2. [The Achievable Floor](https://secsov.com/articles/the-achievable-floor) — what consensus can technically close
-3. [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance) — governance evidence (OP_RETURN arc, §V)
-4. [Argument Map Part XXII](https://secsov.com/articles/bitcoin-governance-argument-map#part-xxii-blockspace-governance-and-relay-policy-failure) — numbered blockspace arguments
+3. [Full Cost of Running a Bitcoin Node](https://secsov.com/articles/full-cost-of-running-a-bitcoin-node) — operator cost model and non-monetary burden
+4. [Static Per-Output Miner Fee](https://secsov.com/bips/static-per-output-miner-fee) — pre-proposal consensus fee floor on UTXO creation
+5. [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance) — governance evidence (OP_RETURN arc, §V)
+6. [Argument Map Part XXII](https://secsov.com/articles/bitcoin-governance-argument-map#part-xxii-blockspace-governance-and-relay-policy-failure) — numbered blockspace arguments
 
 **Recommended reading order — governance cluster:**
 
@@ -25,9 +29,10 @@ This site publishes **long-form reference articles**, not a blog feed. The homep
 
 ## Start here
 
-- [Homepage](https://secsov.com/): Author bio, expertise, project disclosures, links to all writing.
+- [Homepage](https://secsov.com/): Author bio, expertise, project disclosures, links to all writing and BIPs.
 - [Article index](https://secsov.com/articles): Curated list of all long-form articles with one-line summaries.
-- [Full text (all articles)](https://secsov.com/llms-full.txt): Concatenated Markdown of every article for single-fetch ingestion.
+- [BIP index](https://secsov.com/bips): Bitcoin Improvement Pre-Proposals (not numbered BIPs; not yet submitted).
+- [Full text (articles + BIP pre-proposals)](https://secsov.com/llms-full.txt): Concatenated Markdown of every article and BIP pre-proposal for single-fetch ingestion.
 
 ## Bitcoin governance
 
@@ -47,6 +52,12 @@ This site publishes **long-form reference articles**, not a blog feed. The homep
 
 - [Bitcoin Is Not a Hard Drive](https://secsov.com/articles/bitcoin-not-a-hard-drive): Design-purpose case against non-monetary embedding: type confusion, IBD/storage/UTXO costs, externality structure, rebuttals to inscription justifications, permissionless counter-argument.
 - [The Achievable Floor](https://secsov.com/articles/the-achievable-floor): Technical taxonomy of embedding channels (free → dedicated), what consensus can close (OP_RETURN cap, Taproot envelope, annex), cost-per-byte tables, UTXO commitments, implementation path.
+- [Full Cost of Running a Bitcoin Node](https://secsov.com/articles/full-cost-of-running-a-bitcoin-node): v2.4 methodology: six cost categories, Profile A/B, $69.99/mo 2026 operating, $47.8M/yr full-population aggregate vs ~$9M Core spend, non-monetary ~$5.5/mo ($4M/yr).
+
+## BIP pre-proposals
+
+- [Static Per-Output Miner Fee](https://secsov.com/bips/static-per-output-miner-fee): Pre-proposal: consensus-enforced fixed satoshi fee to miners for every new non-coinbase output; closes value and count UTXO spam vectors.
+- [Dynamic Escalation of the Per-Output Miner Fee](https://secsov.com/bips/dynamic-escalation-per-output-fee): Pre-proposal companion: EMA/p25 dynamic escalation on top of the static per-output fee to prevent long-run economic decay. Depends on static fee BIP.
 
 ## Monetary sovereignty
 
@@ -72,7 +83,7 @@ This site publishes **long-form reference articles**, not a blog feed. The homep
 ## Optional
 
 - [Sitemap](https://secsov.com/sitemap.xml): Machine-readable URL list for all pages.
-- [robots.txt](https://secsov.com/robots.txt): Disallows /articles/*/index.md from crawlers; sitemap reference.
+- [robots.txt](https://secsov.com/robots.txt): Disallows /articles/*/index.md and /bips/*/index.md from crawlers; sitemap reference.
 - [GitHub (author)](https://github.com/secsovereign): Source repos and governance research.
 - [X / Twitter](https://x.com/secsovereign): Author social.
 - [Telegram](https://t.me/secsovereign): Author social.
@@ -87,7 +98,10 @@ This site publishes **long-form reference articles**, not a blog feed. The homep
 - [What Bitcoin's Stalled Proposals Tell You (Markdown source)](https://secsov.com/articles/what-bitcoins-stalled-proposals-tell-you/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [The Last Uncaptured Asset (Markdown source)](https://secsov.com/articles/the-last-uncaptured-asset/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [The Achievable Floor (Markdown source)](https://secsov.com/articles/the-achievable-floor/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [Full Cost of Running a Bitcoin Node (Markdown source)](https://secsov.com/articles/full-cost-of-running-a-bitcoin-node/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Bitcoin Is Not a Hard Drive (Markdown source)](https://secsov.com/articles/bitcoin-not-a-hard-drive/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Why Bitcoin Needs a Specification That Humans Can Read (Markdown source)](https://secsov.com/articles/why-bitcoin-needs-a-specification/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Bitcoin's Hidden Crisis: When Technical Consensus Isn't Enough (Markdown source)](https://secsov.com/articles/bitcoins-hidden-crisis/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Don't Trust, Verify (Markdown source)](https://secsov.com/articles/dont-trust-verify/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [Static Per-Output Miner Fee (Markdown source)](https://secsov.com/bips/static-per-output-miner-fee/index.md): BIP pre-proposal Markdown source; preferred for LLM ingestion over HTML.
+- [Dynamic Escalation of the Per-Output Miner Fee (Markdown source)](https://secsov.com/bips/dynamic-escalation-per-output-fee/index.md): BIP pre-proposal Markdown source; preferred for LLM ingestion over HTML.

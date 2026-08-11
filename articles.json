@@ -10,13 +10,13 @@
       "slug": "bitcoin-governance",
       "title": "Who Controls Bitcoin",
       "published": "2026-04-03",
-      "updated": "2026-08-05"
+      "updated": "2026-08-11"
     },
     {
       "slug": "bitcoin-governance-argument-map",
       "title": "Bitcoin Governance: Argument Map",
       "published": "2026-04-03",
-      "updated": "2026-08-05"
+      "updated": "2026-08-11"
     },
     {
       "slug": "bitcoin-social-capture",
@@ -37,7 +37,7 @@
       "title": "Bitcoin Core: The Biggest Fallacies",
       "description": "Eight common defenses of Core's implementation monopoly and why they fail logical scrutiny.",
       "published": "2026-03-21",
-      "updated": "2026-08-05",
+      "updated": "2026-08-11",
       "originalUrl": "https://btccommons.substack.com/p/bitcoin-core-the-biggest-fallacies"
     },
     {
@@ -45,7 +45,7 @@
       "title": "What Bitcoin's Stalled Proposals Tell You",
       "description": "Why Dandelion, UTXO commitments, Erlay, and a formal spec sit unmerged, and what shipping them looks like.",
       "published": "2026-06-04",
-      "updated": "2026-08-05",
+      "updated": "2026-08-11",
       "originalUrl": "https://btccommons.substack.com/p/what-bitcoins-stalled-proposals-tell"
     },
     {
@@ -58,13 +58,20 @@
       "slug": "the-achievable-floor",
       "title": "The Achievable Floor",
       "published": "2026-07-05",
-      "updated": "2026-08-07"
+      "updated": "2026-08-11"
+    },
+    {
+      "slug": "full-cost-of-running-a-bitcoin-node",
+      "title": "Full Cost of Running a Bitcoin Node",
+      "description": "What it costs to run a Bitcoin full node in 2026: hardware, bandwidth, power, learning, maintenance, and capital, plus network aggregates and the non-monetary data burden (v2.4).",
+      "published": "2026-07-23",
+      "updated": "2026-08-11"
     },
     {
       "slug": "bitcoin-not-a-hard-drive",
       "title": "Bitcoin Is Not a Hard Drive",
       "published": "2026-07-31",
-      "updated": "2026-08-05"
+      "updated": "2026-08-11"
     },
     {
       "slug": "why-bitcoin-needs-a-specification",
@@ -79,7 +86,7 @@
       "title": "Bitcoin's Hidden Crisis: When Technical Consensus Isn't Enough",
       "description": "Coordination asymmetry, escalating governance crises, and cryptographic coordination as a path forward.",
       "published": "2025-11-21",
-      "updated": "2026-08-05",
+      "updated": "2026-08-07",
       "originalUrl": "https://btccommons.substack.com/p/bitcoins-hidden-crisis-when-technical"
     },
     {

@@ -52,7 +52,7 @@ The claim that one megabyte of payment data equals one megabyte of arbitrary dat
 
 When a new participant joins the network, they download and validate the entire chain history from the genesis block forward. Every non-monetary payload ever embedded passes through that node's validation pipeline. **Spam does not become free once it is old.** It becomes a permanent toll on every future participant who wants to verify their own transactions.
 
-Non-monetary data accounts for an estimated **12 to 19 percent** of total chain storage. Blockspace devoted to spam intensified roughly **17-fold** relative to its pre-inscription baseline. A node operator syncing today pays for all of it, permanently.
+Non-monetary data accounts for an estimated **12 to 19 percent** of total chain storage. Blockspace devoted to spam intensified roughly **17-fold** relative to its pre-inscription baseline. A node operator syncing today pays for all of it, permanently. For the full operator-cost model (including the ~$5.50/month non-monetary slice inside ~$70/month operating cost), see *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*.
 
 **Pruning does not escape this.** A pruned node still downloads and validates the full chain history during initial sync. What pruning removes is the ongoing storage obligation afterward, at the cost of surrendering the ability to re-verify the full chain from the node's own copy. A pruned node must trust an external node for that function, sacrificing sovereignty.
 
@@ -134,7 +134,7 @@ Closing dedicated channels does not eliminate arbitrary data embedding. It force
 
 **UTXO commitments** address the historical storage burden. A node holding a root hash and verifying spends through inclusion proofs supplied by spenders does not need to carry the full UTXO set locally. This is not a new idea. The research has been complete since 2014, and every node that syncs today pays the full cost of chain history that UTXO commitments would have capped a decade ago, a cost that grows with every new participant.
 
-A **consensus-enforced per-output miner fee** addresses UTXO set bloat going forward. Two tools are easy to confuse. A minimum output value floor locks bitcoin in each output; that capital comes back when the output is spent, so a spammer can recycle it. A per-output miner fee is different: every newly created output pays a fixed fee to the miner that never comes back. That makes each spam run permanently more expensive, with no recycled capital to fund the next one. Inputs spend outputs created earlier, so if new outputs carry a permanent fee at consensus, stuffing data into later spend fields still requires paying that creation cost up front. Dedicated-channel caps and a per-output fee are complementary, and neither requires closing payment-necessary fields.
+A **consensus-enforced per-output miner fee** addresses UTXO set bloat going forward. Two tools are easy to confuse. A minimum output value floor locks bitcoin in each output; that capital comes back when the output is spent, so a spammer can recycle it. A per-output miner fee is different: every newly created output pays a fixed fee to the miner that never comes back. That makes each spam run permanently more expensive, with no recycled capital to fund the next one. Inputs spend outputs created earlier, so if new outputs carry a permanent fee at consensus, stuffing data into later spend fields still requires paying that creation cost up front. Dedicated-channel caps and a per-output fee are complementary, and neither requires closing payment-necessary fields. See the pre-proposal *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*.
 
 ---
 
@@ -152,4 +152,4 @@ The question is not whether monkey JPEGs are aesthetically objectionable. The qu
 
 ---
 
-*Companion to [The Achievable Floor](/articles/the-achievable-floor) (technical floor and channel taxonomy), [Who Controls Bitcoin](/articles/bitcoin-governance) (governance evidence), and [Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map) (numbered arguments).*
+*Companion to [The Achievable Floor](/articles/the-achievable-floor) (channel taxonomy), [Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node) (operator cost model), [Who Controls Bitcoin](/articles/bitcoin-governance) (governance evidence), and [Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map) (numbered arguments).*
