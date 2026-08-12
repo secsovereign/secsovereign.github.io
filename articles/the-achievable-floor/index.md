@@ -15,7 +15,7 @@
 
 ## I. Framing the Problem
 
-Bitcoin spam debate blurs **two layers.** Consensus forces every validating node to accept whatever is in a valid block, monkey jpegs included. **Relay and storage are policy.** No node must forward a transaction before it confirms, and no node must keep every byte forever after validation. Pruning exists because long-term storage is optional.
+The Bitcoin spam debate blurs **two layers.** Consensus forces every validating node to accept whatever is in a valid block, monkey jpegs included. **Relay and storage are policy.** No node must forward a transaction before it confirms, and no node must keep every byte forever after validation. Pruning exists because long-term storage is optional.
 
 Pruning has a cost. A pruned node cannot re-check the full chain from its own disk without asking someone else for old blocks. Pruning also does not remove the first-sync cost. Every pruned node still downloads and validates the whole history, including non-monetary data, during initial block download. The spam still passes through every new node at first sync, whether that node keeps the data afterward. Bandwidth and validation time at join are permanent costs on every participant who syncs. **Pruning changes when you pay for storage. It does not remove the download.**
 
@@ -25,7 +25,7 @@ The fight is usually about consensus capture, forking risk, and who decides whic
 
 Set politics aside. If consensus could change freely, how much non-monetary data could rules actually eliminate, and where is the hard floor?
 
-Spam has a workable definition. A spam transaction does not settle money, and it imposes lasting costs on every validating node. Lightning channel opens and closes settle money. Timelocked outputs and multisig setups settle money. A JPEG stuffed into a Taproot envelope does not. That follows from how Bitcoin works: every validating node must process the full chain history to know current balances. Using the payment layer as a cheap bulk data store pushes costs onto a network built for transfers, not file hosting. For the full case against non-monetary embedding, see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*. Asking for a definition that can never be met is a rhetorical move, not a technical objection. **The definition was always available.**
+Spam has a workable definition. A spam transaction does not settle money, and it imposes lasting costs on every validating node. Lightning channel opens and closes settle money. Timelocked outputs and multisig setups settle money. A JPEG stuffed into a Taproot envelope does not. That follows from how Bitcoin works: every validating node must process the full chain history to know current balances. Using the payment layer as a cheap bulk data store pushes costs onto a network built for transfers, not file hosting. For the full case against non-monetary embedding, see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*. Demanding a definition that can never be met is not a technical objection.
 
 ## II. Taxonomy of Channels by Cost
 
@@ -101,11 +101,9 @@ Consensus can also cap data hidden in script branches that never run, including 
 
 Consensus can also restrict unused witness versions, ban or cap the annex, and cap the Taproot control block (the path that reveals which script branch is being spent) so large unused branches cannot smuggle big payloads.
 
-A fee-linked minimum output value makes creating many tiny outputs expensive. That hits spam that spreads data across lots of small outputs.
+A consensus per-output miner fee makes creating many outputs expensive. Unlike a minimum output value (capital the spammer can recycle on spend), the fee is paid to the miner and does not come back. That hits spam that spreads data across lots of small outputs. Higher fees make each of these limits cost the embedder more.
 
-Higher fees make each of these limits cost the embedder more.
-
-The rows below close dedicated and unenforced embedding channels. **Two optional measures in §V address data already on chain:** selective sync (less history to replay when a node first joins) and UTXO set commitments (less UTXO state to store afterward). They are independent of each other and of the caps here.
+The rows below close dedicated and unenforced embedding channels. **§V addresses data already on chain** through UTXO set commitments (less UTXO state to store). That layer is independent of the caps here. Initial block download still carries the full history; AssumeValid does not remove that cost.
 
 <figure class="article-chart">
 <table class="chart-matrix">
@@ -118,9 +116,8 @@ The rows below close dedicated and unenforced embedding channels. **Two optional
 <tr class="close-yes"><td>Witness version restriction</td><td>Unenforced (OP_SUCCESS hooks)</td><td>Yes</td></tr>
 <tr class="close-yes"><td>Annex disallow or cap</td><td>Unenforced (Taproot annex)</td><td>Yes</td></tr>
 <tr class="close-yes"><td>Control block size cap</td><td>Unenforced (deep Merkle path hiding)</td><td>Yes</td></tr>
-<tr class="close-yes"><td>Dynamic minimum output value</td><td>Low-value UTXO spam (output count)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Per-output miner fee</td><td>Low-value UTXO spam (output count)</td><td>Yes</td></tr>
 <tr class="close-partial"><td>UTXO set commitments</td><td>Permanent storage burden for data already on chain (§V)</td><td>Parallel; not required for §III caps</td></tr>
-<tr class="close-partial"><td>Selective sync</td><td>Initial block download cost (§V)</td><td>Independent; not required for §III caps or commitments</td></tr>
 </tbody>
 </table>
 <figcaption>Closable measures. §IV fields omitted because monetary design requires them.</figcaption>
@@ -142,7 +139,7 @@ The rows below close dedicated and unenforced embedding channels. **Two optional
 </div>
 </figure>
 
-*Figure: §III closes OP_RETURN, envelope, annex, control block, and min-output channels. §IV fields cannot.*
+*Figure: §III closes OP_RETURN, envelope, annex, control block, and per-output fee. §IV fields cannot.*
 
 ## IV. Why the Free Channels Resist Closure
 
@@ -170,33 +167,48 @@ Bitcoin was built for payments, not token registries, inscriptions, or bulk data
 
 Sections I–IV are about new data reaching the chain. **Two separate problems remain for data already stored:** how much history a new node must download at first sync, and how much UTXO state every node must keep afterward.
 
-### Selective sync (initial block download)
+**Initial block download.** A full node still downloads the chain from genesis: every block, every transaction, every witness, including years of non-monetary data. Bitcoin Core's AssumeValid setting can skip script verification for blocks before a trusted hash, which cuts CPU during sync. **It does not skip the download.** The spam still crosses the wire for every new node. AssumeValid does not close embedding fields for new transactions, and it is not a substitute for consensus caps on dedicated channels.
 
-Today, a full node replays the entire chain from genesis: every block, every transaction, every witness, including years of non-monetary data. **Selective sync** means a node can become usable faster by starting from a recent checkpoint or loaded UTXO snapshot, validating forward from there, and optionally checking older history later in the background.
-
-Bitcoin Core's AssumeUTXO path is one example: load a snapshot file, trust a hash baked into the release (or your own verified snapshot), then catch up to the tip. Other designs start from headers and proof of work at a chosen height without requiring a UTXO commitment scheme. **Selective sync does not require UTXO commitments.** It reduces bandwidth and validation time when a node joins. It does not close embedding fields for new transactions.
-
-### UTXO set commitments (ongoing storage)
-
-Fake hash outputs stay in the UTXO set until spent. Without the secret behind the hash, no one knows whether an output will ever move. Inscription outputs already dominate UTXO count while holding almost no monetary value.
+**UTXO set commitments.** Fake hash outputs stay in the UTXO set until spent. Without the secret behind the hash, no one knows whether an output will ever move. Inscription outputs already dominate UTXO count while holding almost no monetary value.
 
 UTXO set commitments let a node keep a short root hash instead of the full set, and check spends using proofs the spender provides. Every node no longer has to store the whole set locally; spenders supply what is needed to prove ownership. Utreexo is one design. Putting that root in the block header under consensus rules removes the need to trust special bridge nodes that hand out set data.
 
-Some production designs ask peers to agree on the root rather than committing it in consensus rules. That requires trusting that most peers report the same value. **This is a storage and proof model, not the same thing as selective sync**, though a node could use both.
+Some production designs ask peers to agree on the root rather than committing it in consensus rules. That requires trusting that most peers report the same value. Commitments change ongoing set storage. They do not remove the IBD download cost above.
 
 ## VI. The Actual Floor
 
 `OP_RETURN`, the Taproot envelope, undefined witness versions, and the annex can close at consensus. Payments do not need them.
 
-Dedicated channels and witness-discounted envelopes drove most of the bandwidth. What remains is built into payment design: hash fields, amounts, sequence, locktime, and ordering. Close those and you lose hash-then-reveal privacy, satoshi precision, or supply auditability. **UTXO commitments can reduce how much old state each node stores; selective sync can reduce how much history a new node must replay. Neither removes the embedding floor in §IV.**
+Dedicated channels and witness-discounted envelopes drove most of the bandwidth. What remains is built into payment design: hash fields, amounts, sequence, locktime, and ordering. Close those and you lose hash-then-reveal privacy, satoshi precision, or supply auditability. **UTXO commitments can reduce how much old state each node stores. AssumeValid can cut script-check CPU during sync; it does not cut the download. Neither removes the embedding floor in §IV.**
 
 Some embedding capacity is built into payment fields on purpose. **Those fields exist for security and privacy, not as spare storage.**
 
 The blockspace impact is measured, not guessed. A full chain scan across 912,723 blocks and roughly 1.235 billion transactions finds spam's share of blockspace about 17 times higher than its pre-inscription baseline. Non-monetary data accounts for an estimated 12 to 19% of total chain storage; for the full operator-cost model behind those figures, see *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*. Per Mempool Research, 29.6% of all UTXOs are inscription-related, holding about 415 BTC in total value. Blocks ran between 91 and 97% full across multiple weeks in 2026. After Core v30 removed the relay cap on `OP_RETURN`, [Renaud Cuny's December 2025 analysis](https://blockspaceweekly.substack.com/p/issue-3-three-years-of-spam) found large OP_RETURN activity starting immediately while inscription witness data continued at scale, roughly 36% of blockspace non-financial as of December 2025. The policy change opened a new channel without closing the old one. Claims that the impact is negligible require ignoring documented methodology and published measurements. For the governance timeline behind removing the relay cap, see *[Who Controls Bitcoin, §V](/articles/bitcoin-governance#v-the-adversarial-layer-when-conflicts-become-visible)*.
 
-### Cost per embedded byte
+Another reply says the block weight limit already makes spam acceptable: each block is capped at roughly four million weight units (often called a four-megabyte ceiling), so damage has an upper bound.
 
-The table below is structural arithmetic from §II channel sizes, BIP141 weight rules, and Core v30 relay defaults. It is not a measurement of the live chain.
+That is a per-block validation rate limit, not a verdict on what the capacity is for. The cap keeps one block finite to validate. It does not bound the cumulative stock of confirmed non-monetary bytes. Every spam byte still hits every future IBD, still occupies archival storage, and for fake-hash or dust-shaped outputs still accumulates in the UTXO set. **A capped rate over years is still a large permanent burden.**
+
+The same ceiling is the monetary settlement budget. Blocks at 91 to 97% full with a large non-financial share are non-monetary demand competing for scarce payment capacity, not harm already contained. BIP141 makes the bound asymmetric: witness bytes cost one weight unit and non-witness bytes cost four, so envelope payloads buy more raw data per weight unit than base-transaction payment data. Weight also rate-limits new outputs per block without forcing never-spent spam UTXOs out of the set afterward. The inscription-related UTXO share above is bounded rate with unbounded accumulation of the wrong state.
+
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>What the weight limit does</th><th>What the spam debate is about</th></tr>
+</thead>
+<tbody>
+<tr><td>Caps bytes (by weight) in one block</td><td>Permanent IBD, storage, and UTXO costs across all future nodes</td></tr>
+<tr><td>Keeps one-block validation finite</td><td>Whether non-monetary use should consume the scarce settlement budget</td></tr>
+<tr class="close-partial"><td>Same MWU budget for all tx types</td><td>Witness discount admits more envelope payload per MWU than base payment data</td></tr>
+<tr class="close-no"><td>Rate-limits new outputs per block</td><td>Does not evict unspendable or never-spent spam UTXOs afterward</td></tr>
+</tbody>
+</table>
+<figcaption>Block weight is a DoS bound on one block, not a verdict that filling it with non-monetary data is acceptable.</figcaption>
+</figure>
+
+The weight limit answers whether one block can overwhelm a node. The spam problem asks who permanently pays bandwidth, disk, and UTXO set for non-monetary state. Those are different threats. For the same point as a justification failure, see *[Bitcoin Is Not a Hard Drive, §VI](/articles/bitcoin-not-a-hard-drive#vi-the-justifications-and-their-failures)*.
+
+**Cost per embedded byte.** The figures below are structural arithmetic from §II channel sizes, BIP141 weight rules, and Core v30 relay defaults. They are not a measurement of the live chain.
 
 **Payload size.** Core v30 defaults `-datacarriersize` to **100,000 bytes** of aggregate `OP_RETURN` `scriptPubKey` per transaction. Consensus imposes no byte cap. Both dedicated rows use **1,024 bytes** of payload. The per-transaction size limit binds before the datacarrier limit. The hash row uses 20 bytes per fake P2WPKH output; the near-free row uses 32 bytes per fake P2TR pubkey (§II).
 
@@ -231,7 +243,7 @@ The `OP_RETURN` cap and envelope push cap are straightforward. They remove inval
 
 Consensus caps on dedicated embedding channels do not close every cheap field on the input side. Inputs still carry low-cost fields such as `nSequence`, `nLockTime`, and ordering. A permanent per-output creation cost closes those paths indirectly. Inputs spend outputs created earlier. If new outputs cost something to create under consensus rules, stuffing data into later spend fields still requires paying that creation cost up front. The floor does not ban input fields directly. It removes the incentive to mint cheap outputs just to encode data when they are spent. Dedicated-channel caps and a consensus per-output fee work together; they are not competing proposals. See the pre-proposal *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*.
 
-**Selective sync and UTXO commitments are separate optional layers.** Each §III embedding cap can soft-fork on its own. Selective sync improves how fast a new node can join; UTXO commitments change how much set state a node must keep. Neither is a prerequisite for the other. Outputs that would fail a new rule need grandfathering.
+**UTXO commitments are an optional parallel layer.** Each §III embedding cap can soft-fork on its own. Commitments change how much set state a node must keep; they are not a prerequisite for the caps, and the caps are not a prerequisite for commitments. Outputs that would fail a new rule need grandfathering.
 
 Policy tools (mempool filters, envelope detection, miner fee multipliers) stay useful but do not bind the network. A transaction that pays a willing miner still confirms. **Only consensus binds everyone.**
 
