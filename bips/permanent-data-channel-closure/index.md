@@ -84,7 +84,9 @@ Spend-side rules and output-side rules are not the same exemption.
 
 **Output rules (Rule 1).** Apply to every transaction output created in a block at or above `activation_height`, including coinbase outputs. A transaction that spends only pre-activation UTXOs still may not create a non-template scriptPubKey. One old input does not exempt new outputs.
 
-**Spend rules (Rules 2 through 13).** Apply only to inputs whose prevout was created at or after `activation_height`. Inputs spending UTXOs created before `activation_height` are exempt from Rules 2 through 13. Existing coins are never frozen. Once a UTXO is grandfathered for spends, it remains spendable under pre-activation spend rules indefinitely, including inscription-style witness on those spends.
+**Spend rules (Rules 2 through 13).** Apply only to inputs whose prevout was created at or after `activation_height`. Inputs spending UTXOs created before `activation_height` are exempt from Rules 2 through 13 so those coins are not frozen. That exemption is per input and covers only the spend of that already-created UTXO. It is not a license to mint new inscriptions.
+
+A pre-activation envelope UTXO may still reveal its committed witness when it is spent. The next outputs in that same transaction are new. They must satisfy Rule 1. When those new outputs are later spent, Rules 2 through 13 apply. Funding a new P2TR from old coins does not grandfather the new output's spend: P2TR is a valid template, but an inscription-style witness on that later spend is invalid.
 
 Mixed transactions are valid if every new output satisfies Rule 1 and every post-activation input satisfies Rules 2 through 13.
 
@@ -248,7 +250,7 @@ The [Static Per-Output Miner Fee](/bips/static-per-output-miner-fee) and [Dynami
 
 ## Backwards Compatibility
 
-Existing coins are never frozen. Pre-activation UTXOs can be spent under pre-activation spend rules. New outputs created at or after `activation_height` must match Rule 1 even when funded entirely by pre-activation inputs. Coinbase outputs created at or after activation must also be a defined template or a valid 83-byte OP_RETURN. Coinbase `scriptSig` is unchanged.
+Existing coins are never frozen. A pre-activation UTXO can be spent under pre-activation spend rules, including one inscription reveal if that coin already committed an envelope. That spend does not create a new grandfathered inscription UTXO. New outputs created at or after `activation_height` must match Rule 1 even when funded entirely by pre-activation inputs, and their later spends are fully bound by Rules 2 through 13. Coinbase outputs created at or after activation must also be a defined template or a valid 83-byte OP_RETURN. Coinbase `scriptSig` is unchanged.
 
 Some wallet software, including certain Miniscript compilers, habitually creates Tapleaves containing OP_IF and may place required scripts deeper than 7 Taptree levels. Lightning taproot-channel designs that keep OP_IF in a Tapscript HTLC leaf must split those branches. Current P2WSH Lightning funding scripts are unaffected by Rule 7. The mitigations are: split OP_IF branches into separate Tapleaves and keep every required script-path leaf at depth 7 or less. Taproot control blocks are capped at 257 bytes, limiting Taptrees to 128 script leaves, which is sufficient for modern complex transactions but may constrain advanced off-chain contract schemes that rely on very large script trees.
 
@@ -515,7 +517,7 @@ Same as V0 except `0xae` = 0, `0xaf` = 0, `0xba` = 3. SUCCESS bytes are already 
 
 **No expiry surface.** Because this BIP is permanent, there is no expiry date for the data-embedding ecosystem to plan around. The rule is stable indefinitely.
 
-**Grandfathering boundary.** Rule 1 uses the creating block's height. Rules 2 through 13 use the prevout's creating height. A mixed transaction is not a blanket exemption. Implementations must not treat “any grandfathered input” as exempting new outputs. Pre-activation envelope UTXOs may still reveal witness data on spend.
+**Grandfathering boundary.** Rule 1 uses the creating block's height. Rules 2 through 13 use the prevout's creating height. A mixed transaction is not a blanket exemption. Implementations must not treat “any grandfathered input” as exempting new outputs, and must not treat a grandfathered spend as authorizing inscription witness on later spends of the new outputs. A pre-activation envelope UTXO may still reveal its committed witness once, when that coin is spent. New envelopes cannot be created: a post-activation P2TR funded from old coins is a new prevout, and Rules 2 through 13 reject inscription-style witness when it is spent.
 
 **Undefined-version creation.** Rule 1 and Rule 3 must agree: undefined witness-version outputs cannot be created after activation and cannot be spent except via grandfathered pre-activation UTXOs. Implementations that allow creation while rejecting spends, or the reverse, will split the chain.
 
