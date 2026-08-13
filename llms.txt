@@ -7,9 +7,11 @@ This site publishes **long-form reference articles** and **BIP pre-proposals**, 
 **URL patterns** (no trailing slash required; GitHub Pages may redirect):
 
 - HTML article: `https://secsov.com/articles/{slug}`
-- Markdown source: `https://secsov.com/articles/{slug}/index.md`
+- Markdown source (canonical): `https://secsov.com/articles/{slug}/index.md`
+- PDF snapshot: `https://secsov.com/articles/{slug}/index.pdf`
 - HTML BIP: `https://secsov.com/bips/{slug}`
-- BIP Markdown source: `https://secsov.com/bips/{slug}/index.md`
+- BIP Markdown source (canonical): `https://secsov.com/bips/{slug}/index.md`
+- BIP PDF snapshot: `https://secsov.com/bips/{slug}/index.pdf`
 - Bare slug redirect: `https://secsov.com/{slug}` → `/articles/{slug}` (via 404 handler)
 
 **Recommended reading order — blockspace cluster:**

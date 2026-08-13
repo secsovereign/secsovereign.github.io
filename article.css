@@ -72,7 +72,7 @@ body {
     border-radius: 6px;
 }
 
-.article-index-item a {
+.article-index-item > a {
     color: var(--accent);
     text-decoration: none;
     font-family: 'Courier New', monospace;
@@ -80,7 +80,7 @@ body {
     font-weight: 600;
 }
 
-.article-index-item a:hover {
+.article-index-item > a:hover {
     color: var(--primary);
     text-decoration: underline;
 }
@@ -133,6 +133,69 @@ body {
 
 .article-origin a:hover {
     text-decoration: underline;
+}
+
+.article-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 0.75rem;
+}
+
+.article-downloads {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0;
+}
+
+.article-file-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.32rem 0.6rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--primary);
+    background: var(--light-gray);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+}
+
+.article-file-link:hover {
+    color: var(--secondary);
+    border-color: var(--primary);
+    text-decoration: none;
+}
+
+.article-index-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.35rem 0.75rem;
+    margin: 0.3rem 0 0;
+}
+
+.article-index-meta .article-index-dates {
+    margin: 0;
+}
+
+.article-index-files {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0;
+}
+
+.article-index-files .article-file-link {
+    padding: 0.18rem 0.45rem;
+    font-size: 0.72rem;
 }
 
 .bip-status {
@@ -295,6 +358,11 @@ body {
 @media (max-width: 600px) {
     .bip-toc ul {
         columns: 1;
+    }
+
+    .article-meta-row,
+    .article-index-meta {
+        align-items: flex-start;
     }
 }
 

@@ -1,0 +1,278 @@
+/* Print snapshot for articles and BIP pre-proposals.
+   Public byline only: Josh / Secure Sovereign. Never a legal name. */
+
+@page {
+  size: letter;
+}
+
+html, body {
+  background: #f4f1ea !important;
+  color: #1c1b19 !important;
+  color-scheme: light !important;
+  margin: 0;
+  padding: 0;
+  font-size: 10.5pt;
+  line-height: 1.58;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+:root {
+  --background: #f4f1ea;
+  --primary: #0b6cb3;
+  --secondary: #1c1b19;
+  --accent: #a33b3b;
+  --light-gray: #ece7dc;
+  --border: #d3cdc2;
+  --text-muted: #5e5a54;
+}
+
+.pdf-page {
+  color: #1c1b19;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.pdf-masthead {
+  margin: 0 0 1.65rem;
+  padding: 0 0 1.05rem;
+  border-bottom: 2px solid #0b6cb3;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.pdf-masthead h1 {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.7rem;
+  line-height: 1.22;
+  color: #0b6cb3;
+  margin: 0 0 0.6rem;
+  font-weight: 600;
+}
+
+.pdf-byline {
+  margin: 0 0 0.22rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  color: #1c1b19;
+}
+
+.pdf-meta {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.72rem;
+  color: #5e5a54;
+  letter-spacing: 0.02em;
+}
+
+.pdf-body h1 {
+  display: none;
+}
+
+.pdf-body h2,
+.pdf-body h3,
+.pdf-body h4,
+.pdf-body h5,
+.pdf-body h6 {
+  font-family: 'Courier New', Courier, monospace;
+  color: #0b6cb3;
+  break-after: avoid;
+  page-break-after: avoid;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.pdf-body h2 {
+  font-size: 1.12rem;
+  color: #a33b3b;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.22rem;
+  border-bottom: 1px solid #d3cdc2;
+}
+
+.pdf-body h2:first-child {
+  margin-top: 0;
+}
+
+.pdf-body h3 {
+  font-size: 1rem;
+  color: #1c1b19;
+  margin-top: 1.15rem;
+}
+
+.pdf-body p {
+  orphans: 3;
+  widows: 3;
+}
+
+.pdf-body a {
+  color: #0b6cb3;
+  text-decoration: none;
+}
+
+.pdf-body strong {
+  color: #1c1b19;
+}
+
+.pdf-body hr {
+  border: none;
+  border-top: 1px solid #d3cdc2;
+  margin: 1.15rem 0;
+}
+
+.pdf-body code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.86em;
+  background: #ece7dc;
+  border: 1px solid #d3cdc2;
+  color: #1c1b19;
+}
+
+.pdf-body pre {
+  background: #ece7dc;
+  border: 1px solid #d3cdc2;
+  color: #1c1b19;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.pdf-body pre code {
+  background: transparent;
+  border: none;
+}
+
+.pdf-body table {
+  break-inside: auto;
+  page-break-inside: auto;
+  font-size: 0.82rem;
+}
+
+.pdf-body th {
+  background: #ece7dc;
+  color: #0b6cb3;
+}
+
+.pdf-body td,
+.pdf-body th {
+  border-color: #d3cdc2;
+}
+
+.pdf-body blockquote {
+  background: #ece7dc;
+  color: #5e5a54;
+  border-left-color: #0b6cb3;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.pdf-body li::marker {
+  color: #a33b3b;
+}
+
+.keep-with-next {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.keep-with-next > h2:first-child,
+.keep-with-next > h3:first-child,
+.keep-with-next > h4:first-child {
+  margin-top: 1.5rem;
+}
+
+.pdf-body > .keep-with-next:first-child > h2:first-child {
+  margin-top: 0;
+}
+
+.bip-toc,
+figure,
+.article-chart {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.bip-toc {
+  background: #ece7dc;
+  border-color: #d3cdc2;
+}
+
+.bip-toc h2 {
+  color: #5e5a54;
+  border: none;
+  padding: 0;
+  margin: 0 0 0.5rem;
+}
+
+.bip-toc a {
+  color: #0b6cb3;
+}
+
+.bip-related {
+  border-top-color: #d3cdc2;
+}
+
+.bip-related h2 {
+  color: #5e5a54;
+}
+
+.bip-related a {
+  color: #0b6cb3;
+}
+
+/* Mermaid and site charts stay dark so SVG palettes remain readable. */
+.article-chart {
+  background: #161616;
+  border-color: #2c2c2c;
+  color: #f5f5f5;
+}
+
+.article-chart .chart-heading,
+.article-chart figcaption,
+.article-chart .stackbar-legend,
+.article-chart .chart-stats dt {
+  color: #a8a8a8;
+}
+
+.article-chart .chart-stats dd,
+.article-chart .compare-label,
+.article-chart .intensity-name,
+.article-chart .net-node {
+  color: #f5f5f5;
+}
+
+.article-chart .net-node {
+  background: #121212;
+  border-color: #0099ff;
+}
+
+.pdf-colophon {
+  margin-top: 1.5rem;
+  padding-top: 0.85rem;
+  border-top: 2px solid #0b6cb3;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  break-before: avoid;
+  page-break-before: avoid;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.72rem;
+  color: #5e5a54;
+  line-height: 1.5;
+}
+
+.pdf-colophon-mark {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0b6cb3;
+  font-weight: 700;
+  font-size: 0.68rem;
+  margin: 0 0 0.5rem;
+}
+
+.pdf-colophon p {
+  margin: 0 0 0.28rem;
+}
+
+.pdf-colophon a {
+  color: #0b6cb3;
+  text-decoration: none;
+}

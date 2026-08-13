@@ -6,6 +6,7 @@ const os = require('os');
 const { execFileSync } = require('child_process');
 const { marked } = require('marked');
 const cheerio = require('cheerio');
+const { writePdfs } = require('./render-pdf');
 
 const ROOT = path.join(__dirname, '..');
 const SITE = 'https://secsov.com';
@@ -302,7 +303,10 @@ function articleDatesLabel(article) {
 }
 
 function articleMetaHtml(article) {
-  if (!article.published) return '';
+  const downloads = documentDownloadsHtml(article.slug);
+  if (!article.published) {
+    return downloads ? `<header class="article-meta">${downloads}</header>` : '';
+  }
   const esc = escapeHtml;
   const pubLabel = formatArticleDate(article.published);
   const showUpdated = article.updated && article.updated !== article.published;
@@ -319,9 +323,29 @@ function articleMetaHtml(article) {
   }
 
   return `<header class="article-meta">
-        <p class="article-dates">${datesHtml}</p>
+        <div class="article-meta-row">
+            <p class="article-dates">${datesHtml}</p>
+            ${downloads}
+        </div>
         ${originHtml}
     </header>`;
+}
+
+function documentDownloadsHtml(slug) {
+  if (!slug) return '';
+  const pdfName = `${slug}.pdf`;
+  const mdName = `${slug}.md`;
+  return `<p class="article-downloads">
+        <a class="article-file-link" href="index.pdf" download="${escapeHtml(pdfName)}">PDF</a>
+        <a class="article-file-link" href="index.md" download="${escapeHtml(mdName)}">Markdown</a>
+    </p>`;
+}
+
+function indexFileLinksHtml(href, slug) {
+  return `<span class="article-index-files">
+        <a class="article-file-link" href="${href}/index.pdf" download="${escapeHtml(slug)}.pdf">PDF</a>
+        <a class="article-file-link" href="${href}/index.md" download="${escapeHtml(slug)}.md">Markdown</a>
+    </span>`;
 }
 
 function shareWidgetHtml({ url, title, text, extraClass = '' }) {
@@ -368,7 +392,10 @@ function bipMetaHtml(bip) {
   if (license) parts.push(`<span>${license}</span>`);
 
   return `<header class="article-meta bip-meta">
-        <p class="article-dates">${parts.join('<span class="article-meta-sep" aria-hidden="true">·</span>')}</p>
+        <div class="article-meta-row">
+            <p class="article-dates">${parts.join('<span class="article-meta-sep" aria-hidden="true">·</span>')}</p>
+            ${documentDownloadsHtml(bip.slug)}
+        </div>
         <p class="article-origin">Bitcoin Improvement Pre-Proposal: not yet a numbered BIP.</p>
     </header>`;
 }
@@ -586,7 +613,8 @@ function renderArticlesIndex(articles) {
     const descHtml = desc ? `<p class="article-index-desc">${desc}</p>` : '';
     const dates = articleDatesLabel(a);
     const datesHtml = dates ? `<p class="article-index-dates">${escapeHtml(dates)}</p>` : '';
-    return `<li class="article-index-item"><a href="${href}">${title}</a>${datesHtml}${descHtml}</li>`;
+    const metaHtml = `<div class="article-index-meta">${datesHtml}${indexFileLinksHtml(href, a.slug)}</div>`;
+    return `<li class="article-index-item"><a href="${href}">${title}</a>${metaHtml}${descHtml}</li>`;
   }).join('\n');
 
   return renderListIndex({
@@ -609,7 +637,7 @@ function renderBipsIndex(bips) {
     const created = b.created ? formatArticleDate(b.created) : '';
     const metaParts = [status];
     if (created) metaParts.push(`Created ${created}`);
-    const datesHtml = `<p class="article-index-dates">${escapeHtml(metaParts.join(' · '))}</p>`;
+    const datesHtml = `<div class="article-index-meta"><p class="article-index-dates">${escapeHtml(metaParts.join(' · '))}</p>${indexFileLinksHtml(href, b.slug)}</div>`;
     let depHtml = '';
     if (b.dependsOn) {
       const dep = bipBySlug(bips, b.dependsOn);
@@ -744,9 +772,11 @@ function buildLlmsTxt(articles, bips) {
     '**URL patterns** (no trailing slash required; GitHub Pages may redirect):',
     '',
     '- HTML article: `https://secsov.com/articles/{slug}`',
-    '- Markdown source: `https://secsov.com/articles/{slug}/index.md`',
+    '- Markdown source (canonical): `https://secsov.com/articles/{slug}/index.md`',
+    '- PDF snapshot: `https://secsov.com/articles/{slug}/index.pdf`',
     '- HTML BIP: `https://secsov.com/bips/{slug}`',
-    '- BIP Markdown source: `https://secsov.com/bips/{slug}/index.md`',
+    '- BIP Markdown source (canonical): `https://secsov.com/bips/{slug}/index.md`',
+    '- BIP PDF snapshot: `https://secsov.com/bips/{slug}/index.pdf`',
     '- Bare slug redirect: `https://secsov.com/{slug}` → `/articles/{slug}` (via 404 handler)',
     '',
     '**Recommended reading order — blockspace cluster:**',
@@ -984,7 +1014,7 @@ function loadBips() {
   }));
 }
 
-function main() {
+async function main() {
   const manifestPath = path.join(ROOT, 'articles.json');
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   const articles = (manifest.articles || []).map((entry) => ({
@@ -1009,6 +1039,7 @@ function main() {
 
   const articlesRoot = path.join(ROOT, 'articles');
   fs.mkdirSync(articlesRoot, { recursive: true });
+  const pdfJobs = [];
 
   for (const article of articles) {
     if (!article.slug) {
@@ -1053,6 +1084,21 @@ function main() {
     fs.mkdirSync(outDir, { recursive: true });
     fs.writeFileSync(path.join(outDir, 'index.html'), html);
     console.log('Wrote articles/' + article.slug + '/index.html');
+    pdfJobs.push({
+      slug: article.slug,
+      title: article.title,
+      kind: 'article',
+      bodyHtml,
+      canonicalUrl: articleUrl(article.slug),
+      markdownUrl: `${SITE}/articles/${article.slug}/index.md`,
+      metaLines: [
+        article.published ? `Published ${formatArticleDate(article.published)}` : '',
+        article.updated && article.updated !== article.published
+          ? `Updated ${formatArticleDate(article.updated)}`
+          : '',
+      ],
+      outPath: path.join(outDir, 'index.pdf'),
+    });
   }
 
   fs.writeFileSync(path.join(articlesRoot, 'index.html'), renderArticlesIndex(articles));
@@ -1106,6 +1152,20 @@ function main() {
     fs.mkdirSync(outDir, { recursive: true });
     fs.writeFileSync(path.join(outDir, 'index.html'), html);
     console.log('Wrote bips/' + bip.slug + '/index.html');
+    pdfJobs.push({
+      slug: bip.slug,
+      title: bip.title,
+      kind: 'bip',
+      bodyHtml: bodyHtml + bipRelatedFooterHtml(bip, bips),
+      canonicalUrl: bipUrl(bip.slug),
+      markdownUrl: `${SITE}/bips/${bip.slug}/index.md`,
+      metaLines: [
+        bip.status || 'Pre-Proposal',
+        bip.type || '',
+        bip.created ? `Created ${formatArticleDate(bip.created)}` : '',
+      ],
+      outPath: path.join(outDir, 'index.pdf'),
+    });
   }
 
   fs.writeFileSync(path.join(bipsRoot, 'index.html'), renderBipsIndex(bips));
@@ -1136,6 +1196,11 @@ Sitemap: ${SITE}/sitemap.xml
 `;
   fs.writeFileSync(path.join(ROOT, 'robots.txt'), robots);
   console.log('Wrote robots.txt');
+
+  await writePdfs(pdfJobs);
 }
 
-main();
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
