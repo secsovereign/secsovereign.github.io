@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plebly: Fund open Bitcoin work</title>
+    <meta name="description" content="Fund open Bitcoin work with publicly verifiable on-chain escrow. No custodian in the middle.">
+    <link rel="canonical" href="https://secsov.com/presentation/plebly/">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Plebly">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Plebly: Fund open Bitcoin work">
+    <meta property="og:description" content="Fund open Bitcoin work with publicly verifiable on-chain escrow. No custodian in the middle.">
+    <meta property="og:url" content="https://secsov.com/presentation/plebly/">
+    <meta property="og:image" content="https://secsov.com/presentation/plebly/logo.jpeg">
+    <meta property="og:image:alt" content="Plebly">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@joinplebly">
+    <meta name="twitter:title" content="Plebly: Fund open Bitcoin work">
+    <meta name="twitter:description" content="Fund open Bitcoin work with publicly verifiable on-chain escrow. No custodian in the middle.">
+    <meta name="twitter:image" content="https://secsov.com/presentation/plebly/logo.jpeg">
+    <link rel="stylesheet" href="fonts.css">
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #0c0b10;
+            --bg-elevated: #15131c;
+            --ink: #f2f0f6;
+            --ink-secondary: #b5b0c2;
+            --muted: #78728a;
+            --line: #2a2634;
+            --accent: #8e3fd4;
+            --accent-rgb: 142, 63, 212;
+            --accent-deep: #7828b8;
+            --accent-hover: #9d55e0;
+            --accent-text: #b57aef;
+            --accent-soft: rgba(142, 63, 212, 0.14);
+            --accent-on: #faf8ff;
+            --tertiary: #3ecfbf;
+            --tertiary-rgb: 62, 207, 191;
+            --good: #4ebf8a;
+            --overfund: #f0a04a;
+            --bad: #d47373;
+            --sans: "Inter", system-ui, -apple-system, sans-serif;
+            --mono: "IBM Plex Mono", ui-monospace, monospace;
+            --radius: 10px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--ink);
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 15% 20%, rgba(var(--accent-rgb), 0.18), transparent 55%),
+                radial-gradient(ellipse 50% 45% at 90% 80%, rgba(var(--tertiary-rgb), 0.1), transparent 50%),
+                linear-gradient(180deg, #12101a 0%, var(--bg) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .slideshow-container {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            text-align: center;
+            max-width: 920px;
+            width: min(920px, calc(100% - 3rem));
+            padding: 32px 16px 96px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .slide.wide {
+            max-width: 1080px;
+            width: min(1080px, calc(100% - 2rem));
+        }
+
+        .slide.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius);
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        .logo.sm { width: 52px; height: 52px; margin-bottom: 0.85rem; }
+
+        .wordmark {
+            font-family: var(--mono);
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            color: var(--accent);
+            font-size: clamp(2.2rem, 5.5vw, 3.2rem);
+            line-height: 1;
+            margin-bottom: 0.85rem;
+        }
+
+        h2 {
+            font-size: clamp(1.6rem, 3.6vw, 2.2rem);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.15rem;
+            color: var(--ink);
+        }
+
+        h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.55rem;
+            color: var(--accent-text);
+        }
+
+        p, li {
+            font-size: 1.12rem;
+            line-height: 1.5;
+            margin-bottom: 0.7rem;
+            color: var(--ink-secondary);
+        }
+
+        .hero-title {
+            font-size: clamp(1.25rem, 3vw, 1.65rem);
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            line-height: 1.25;
+            color: var(--ink-secondary);
+            margin-bottom: 0.7rem;
+        }
+
+        .hero-sub {
+            font-size: 1.02rem;
+            color: var(--ink-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .network-badge {
+            display: inline-block;
+            margin-bottom: 0.85rem;
+            padding: 0.25rem 0.625rem;
+            border-radius: 999px;
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--accent-text);
+            background: var(--accent-soft);
+            border: 1px solid rgba(var(--accent-rgb), 0.28);
+        }
+
+        .signet-note {
+            font-size: 0.95rem;
+            color: var(--muted);
+            margin-bottom: 1.1rem;
+        }
+
+        .links {
+            font-family: var(--mono);
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .links a { color: var(--accent-text); text-decoration: none; }
+        .links a:hover { color: var(--accent-hover); }
+
+        ul, ol {
+            text-align: left;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        li { margin-bottom: 0.55rem; }
+
+        .beliefs { text-align: left; max-width: 720px; margin: 0 auto; }
+        .belief { margin-bottom: 0.95rem; }
+        .belief dt { font-weight: 600; color: var(--ink); font-size: 1.12rem; margin-bottom: 0.2rem; }
+        .belief dd { color: var(--ink-secondary); font-size: 1.02rem; line-height: 1.45; }
+
+        .cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            text-align: left;
+            margin: 0 auto 1rem;
+            max-width: 860px;
+        }
+
+        .col {
+            background: var(--bg-elevated);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 0.95rem 1.05rem;
+        }
+
+        .col ul { max-width: none; margin: 0; padding-left: 1.05rem; }
+        .col li { font-size: 0.98rem; margin-bottom: 0.4rem; }
+
+        .highlight {
+            background: var(--accent-soft);
+            padding: 1rem 1.15rem;
+            border-radius: var(--radius);
+            border-left: 5px solid var(--accent);
+            margin: 1rem 0;
+            text-align: left;
+        }
+
+        .highlight p { margin-bottom: 0.4rem; color: var(--ink); }
+        .highlight p:last-child { margin-bottom: 0; }
+
+        .warning {
+            background: rgba(212, 115, 115, 0.12);
+            padding: 0.95rem 1.1rem;
+            border-radius: var(--radius);
+            border-left: 5px solid var(--bad);
+            margin: 1rem 0;
+            text-align: left;
+        }
+
+        .warning p { margin: 0; color: var(--ink); font-size: 1rem; }
+
+        .note { font-size: 0.92rem; color: var(--muted); margin-top: 0.75rem; }
+        .ln { color: var(--tertiary); font-family: var(--mono); font-size: 0.85em; font-weight: 500; }
+
+        .ask-amount {
+            font-family: var(--mono);
+            font-size: clamp(1.25rem, 3vw, 1.7rem);
+            font-weight: 600;
+            color: var(--accent-text);
+            letter-spacing: -0.03em;
+        }
+
+        .product {
+            text-align: left;
+            max-width: 560px;
+            margin: 1rem auto 0;
+            background: var(--bg-elevated);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .product-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 0.7rem;
+            border-bottom: 1px solid var(--line);
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--muted);
+        }
+
+        .product-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--line);
+        }
+
+        .product-body { padding: 1.1rem 1.2rem 1.2rem; }
+        .product-body .network-badge { margin-bottom: 0.65rem; }
+        .product-brand {
+            font-family: var(--mono);
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            color: var(--accent);
+            font-size: 1.35rem;
+            margin-bottom: 0.35rem;
+        }
+        .product-title {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--ink-secondary);
+            margin-bottom: 0.35rem;
+        }
+        .product-sub { font-size: 0.92rem; color: var(--muted); margin: 0; }
+
+        .navigation {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: var(--bg-elevated);
+            border: 1px solid var(--line);
+            color: var(--ink);
+            padding: 9px 18px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+            font-family: var(--sans);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--accent-on);
+            transform: translateY(-1px);
+        }
+
+        .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .slide-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--line);
+            color: var(--muted);
+            padding: 7px 12px;
+            border-radius: 999px;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            z-index: 1000;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            text-align: left;
+            list-style: none;
+            max-width: 680px;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 40px;
+            color: var(--ink-secondary);
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0.12em;
+            background: var(--accent);
+            color: var(--accent-on);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--mono);
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        .comparison-wrap {
+            text-align: left;
+            max-width: 100%;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-elevated);
+            border-radius: var(--radius);
+            overflow: hidden;
+            table-layout: fixed;
+        }
+
+        .comparison-table th {
+            background: var(--accent-soft);
+            color: var(--ink);
+            padding: 8px 7px;
+            border: 1px solid var(--line);
+            text-align: left;
+            font-family: var(--mono);
+            font-weight: 500;
+            font-size: 0.72rem;
+            letter-spacing: 0.02em;
+        }
+
+        .comparison-table td {
+            padding: 8px 7px;
+            border: 1px solid var(--line);
+            vertical-align: top;
+            color: var(--ink-secondary);
+            font-size: 0.82rem;
+            line-height: 1.35;
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .comparison-table tr.plebly-row td {
+            color: var(--ink);
+            background: var(--accent-soft);
+        }
+
+        @media (max-width: 720px) {
+            .cols { grid-template-columns: 1fr; }
+            p, li { font-size: 1rem; }
+            .slide { padding: 20px 8px 96px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow-container">
+        <!-- 1: Title — homepage hero, plus one honest line -->
+        <div class="slide active">
+            <img class="logo" src="logo.jpeg" alt="Plebly">
+            <span class="network-badge">Signet · test coins</span>
+            <p class="wordmark">Plebly</p>
+            <p class="hero-title">Fund open Bitcoin work.<br>Protocol over platform.</p>
+            <p class="hero-sub">Public escrow anyone can verify. No custodian in the middle.</p>
+            <p class="signet-note">Soft launch on <strong>signet</strong>. Mainnet is 3-of-5. That wallet is not live.</p>
+            <p class="links">
+                <a href="https://plebly.fund">plebly.fund</a>
+                ·
+                <a href="https://x.com/joinplebly">@joinplebly</a>
+            </p>
+        </div>
+
+        <!-- 2: Problem -->
+        <div class="slide">
+            <h2>Someone else holds the money</h2>
+            <ul>
+                <li><strong>GitHub Sponsors</strong> — the platform holds it, then pays you.</li>
+                <li><strong>OpenSats, Brink, Spiral</strong> — a board sits on a treasury.</li>
+                <li><strong>Geyser</strong> — a campaign page, not a public address in git.</li>
+            </ul>
+            <div class="warning">
+                <p>They can freeze it, redirect it, or sit on it. That is a queue. It is not escrow.</p>
+            </div>
+        </div>
+
+        <!-- 3: Beliefs — About wording, labeled mainnet -->
+        <div class="slide">
+            <h2>What we believe</h2>
+            <p class="signet-note" style="margin-top:-0.4rem;">Mainnet design. Signet is still one operator key.</p>
+            <dl class="beliefs">
+                <div class="belief">
+                    <dt>Nobody holds the keys</dt>
+                    <dd>Project funds sit in public Bitcoin escrow. Plebly cannot freeze, redirect, or take them. Five keyholders sign. The org holds none.</dd>
+                </div>
+                <div class="belief">
+                    <dt>The record is public</dt>
+                    <dd>Proposals live in Plebly/proposals. Anyone can fork it. GitHub is not the last copy.</dd>
+                </div>
+                <div class="belief">
+                    <dt>Rules over discretion</dt>
+                    <dd>Fees and payout rules are published in git. Changes happen in the open.</dd>
+                </div>
+            </dl>
+        </div>
+
+        <!-- 4: How it works -->
+        <div class="slide">
+            <h2>How it works</h2>
+            <ol class="step-list">
+                <li><strong>Propose.</strong> Name the problem. Say what done looks like.</li>
+                <li><strong>Donate.</strong> Send Bitcoin to the project’s public address. No account.</li>
+                <li><strong>Build.</strong> Hit the floor. A builder applies. A small bond holds the place.</li>
+                <li><strong>Pay.</strong> Reviewers check the work. Payment goes out monthly.</li>
+            </ol>
+            <p class="note"><span class="ln">Lightning</span> lands in that same address on mainnet. Unpaid invoices do not count. Floor: 100,000 sats mainnet · 10,000 sats signet.</p>
+            <div class="product" aria-label="Plebly homepage, as shipped">
+                <div class="product-bar">
+                    <span class="product-dot"></span><span class="product-dot"></span><span class="product-dot"></span>
+                    plebly.fund
+                </div>
+                <div class="product-body">
+                    <span class="network-badge">Signet · test coins</span>
+                    <p class="product-brand">Plebly</p>
+                    <p class="product-title">Fund open Bitcoin work. Protocol over platform.</p>
+                    <p class="product-sub">Public escrow anyone can verify. No custodian in the middle.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5: Trust -->
+        <div class="slide wide">
+            <h2>What Plebly cannot do</h2>
+            <div class="cols">
+                <div class="col">
+                    <h3>The site</h3>
+                    <ul>
+                        <li>Hosts the app</li>
+                        <li>Opens PRs into git</li>
+                        <li>Checks fees and balances</li>
+                        <li>Tracks claims and windows</li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h3>Not the site</h3>
+                    <ul>
+                        <li>No production spending key</li>
+                        <li>No signed releases from Workers</li>
+                        <li>No erasing the git record</li>
+                        <li>No fee on refunds</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="warning">
+                <p>Mainnet is 3-of-5. No timelock. Three keyholders can stall. The stall is public. No one holds more than one key. At least two keyholders have no other Plebly role.</p>
+            </div>
+        </div>
+
+        <!-- 6: Comparison -->
+        <div class="slide wide">
+            <h2>Same job, different custody</h2>
+            <div class="comparison-wrap">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Holds the sats</th>
+                            <th>Allocates</th>
+                            <th>Record</th>
+                            <th>Fee</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GitHub Sponsors</td>
+                            <td>GitHub</td>
+                            <td>Sponsor → maintainer</td>
+                            <td>GitHub</td>
+                            <td>Platform cut</td>
+                        </tr>
+                        <tr>
+                            <td>OpenSats / Brink / Spiral</td>
+                            <td>Org treasury</td>
+                            <td>Board</td>
+                            <td>Org reports</td>
+                            <td>Grant org</td>
+                        </tr>
+                        <tr>
+                            <td>Geyser</td>
+                            <td>Campaign checkout</td>
+                            <td>Backers</td>
+                            <td>Geyser site</td>
+                            <td>Platform fee</td>
+                        </tr>
+                        <tr class="plebly-row">
+                            <td>Plebly (mainnet)</td>
+                            <td>3-of-5 keyholders</td>
+                            <td>You pick a proposal</td>
+                            <td>Git, forkable</td>
+                            <td>5% at payout</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="note">Last row is mainnet. Today is signet, one operator key.</p>
+        </div>
+
+        <!-- 7: Status + fees -->
+        <div class="slide">
+            <h2>Where we are</h2>
+            <div class="warning">
+                <p>Live mode: <strong>single-key-test</strong>. Not production escrow. Not a multisig rehearsal. No real mainnet bounties.</p>
+            </div>
+            <ul>
+                <li>Fee address for mainnet — not published</li>
+                <li>Five keyholders — roster empty</li>
+                <li>Five reviewers — live count is zero</li>
+            </ul>
+            <ul>
+                <li>10,000 sat submission fee</li>
+                <li>5% at payout — 3% platform, 2% keyholders, 500,000 sat cap</li>
+                <li>Taken when the work is paid, not when you donate</li>
+                <li>Fee changes: public process, 30-day notice</li>
+            </ul>
+            <p class="note">No users. No TVL. No mainnet volume.</p>
+        </div>
+
+        <!-- 8: Ask + close -->
+        <div class="slide">
+            <img class="logo sm" src="logo.jpeg" alt="Plebly">
+            <h2>Help us ship mainnet</h2>
+            <div class="highlight">
+                <p class="ask-amount">The nonprofit-track grant</p>
+                <p>Plebly is not a registered charity. We need a fiscal host or a direct operator grant.</p>
+            </div>
+            <ul>
+                <li>Publish the fee address. Flip escrow to 3-of-5.</li>
+                <li>Seat five keyholders — two independent.</li>
+                <li>Seat five reviewers.</li>
+                <li>Runway for the first cycle, so 5% is not the whole business.</li>
+            </ul>
+            <p>The seats matter more than the money. Ask this room for both.</p>
+            <p class="hero-title" style="margin-top:1.15rem;">Protocol over platform.</p>
+            <p class="links">
+                <a href="https://plebly.fund">plebly.fund</a>
+                ·
+                <a href="https://github.com/Plebly">github.com/Plebly</a>
+                ·
+                <a href="https://x.com/joinplebly">@joinplebly</a>
+            </p>
+            <p class="note">Josh — Plebly · Bitcoin Commons · Strategy₿ Hub</p>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="slideNumber">1</span> / <span id="totalSlides">8</span>
+    </div>
+
+    <div class="navigation">
+        <button type="button" class="nav-btn" id="prevBtn">← Previous</button>
+        <button type="button" class="nav-btn" id="nextBtn">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll(".slide");
+        const totalSlides = slides.length;
+
+        document.getElementById("totalSlides").textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove("active");
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add("active");
+            document.getElementById("slideNumber").textContent = currentSlide + 1;
+            document.getElementById("prevBtn").disabled = currentSlide === 0;
+            document.getElementById("nextBtn").disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
+            else if (direction === -1 && currentSlide > 0) showSlide(currentSlide - 1);
+        }
+
+        document.getElementById("prevBtn").addEventListener("click", () => changeSlide(-1));
+        document.getElementById("nextBtn").addEventListener("click", () => changeSlide(1));
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "ArrowRight" || e.key === " ") {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === "ArrowLeft") {
+                changeSlide(-1);
+            }
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>
