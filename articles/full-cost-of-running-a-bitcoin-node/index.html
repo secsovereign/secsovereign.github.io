@@ -289,7 +289,7 @@
 <p>Putting an exact dollar figure on security loss is out of scope. For scale: a 1% market-cap discount on a ~$2T asset is $20B, against ~$48M/year full-population operating cost in this model.</p>
 <hr>
 <h2 id="vii-non-monetary-data-cost-distribution">VII. Non-Monetary Data: Cost Distribution</h2>
-<p>Every full node stores and downloads historical chain data whether or not the operator cares about non-monetary use. For the design case against treating Bitcoin as general-purpose storage, see <em><a href="/articles/bitcoin-not-a-hard-drive">Bitcoin Is Not a Hard Drive</a></em>. For which embedding channels consensus can close, see <em><a href="/articles/the-achievable-floor">The Achievable Floor</a></em>.</p>
+<p>Every full node stores and downloads historical chain data whether or not the operator cares about non-monetary use. For the design case against treating Bitcoin as general-purpose storage, see <em><a href="/articles/bitcoin-not-a-hard-drive">Bitcoin Is Not a Hard Drive</a></em>. For which embedding channels consensus can close, see <em><a href="/articles/the-achievable-floor">The Achievable Floor</a></em>. The specified stack: <em><a href="/bips/permanent-data-channel-closure">Permanent Data Channel Closure</a></em>, <em><a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a></em>, <em><a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation of the Per-Output Miner Fee</a></em>.</p>
 <h3 id="utxo-set-burden">UTXO set burden</h3>
 <p>Mempool Research (May 2025, tip 892385): <strong>29.6%</strong> of UTXOs are inscription-related (51,188,145 of 173,190,861), holding only 415.16 BTC total (mean 811 sats). Roughly 3.3GB of every node's ~11GB chainstate is inscription-related. Inscription UTXOs are spendable, so the share can fall if they are spent, but spent outputs stay in chain history and still load IBD.</p>
 <figure class="article-chart chart-stackbar">
@@ -324,7 +324,7 @@
 </figure>
 
 <p>One-time / cohort research estimates: $17-28 per node in storage capital for 85-140GB at $200/TB. Across 9,000-12,000 new nodes/year, collective inscription IBD bandwidth is about 765GB-1.68TB annually.</p>
-<p>These figures motivate consensus pricing of UTXO creation in the <em><a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a></em> pre-proposal.</p>
+<p>These figures motivate the three-BIP stack: consensus pricing of UTXO creation in <em><a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a></em> and <em><a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation of the Per-Output Miner Fee</a></em>, and closure of dedicated embedding channels in <em><a href="/bips/permanent-data-channel-closure">Permanent Data Channel Closure</a></em>.</p>
 <hr>
 <h2 id="viii-limitations">VIII. Limitations</h2>
 <ul>

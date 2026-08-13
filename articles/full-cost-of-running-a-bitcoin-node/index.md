@@ -245,7 +245,7 @@ Putting an exact dollar figure on security loss is out of scope. For scale: a 1%
 
 ## VII. Non-Monetary Data: Cost Distribution
 
-Every full node stores and downloads historical chain data whether or not the operator cares about non-monetary use. For the design case against treating Bitcoin as general-purpose storage, see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*. For which embedding channels consensus can close, see *[The Achievable Floor](/articles/the-achievable-floor)*.
+Every full node stores and downloads historical chain data whether or not the operator cares about non-monetary use. For the design case against treating Bitcoin as general-purpose storage, see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*. For which embedding channels consensus can close, see *[The Achievable Floor](/articles/the-achievable-floor)*. The specified stack: *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*, *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*, *[Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)*.
 
 ### UTXO set burden
 
@@ -288,7 +288,7 @@ Ongoing monthly non-monetary burden inside operating cost (storage depreciation 
 
 One-time / cohort research estimates: $17-28 per node in storage capital for 85-140GB at $200/TB. Across 9,000-12,000 new nodes/year, collective inscription IBD bandwidth is about 765GB-1.68TB annually.
 
-These figures motivate consensus pricing of UTXO creation in the *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)* pre-proposal.
+These figures motivate the three-BIP stack: consensus pricing of UTXO creation in *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)* and *[Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)*, and closure of dedicated embedding channels in *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*.
 
 ---
 

@@ -393,6 +393,18 @@ function bipRelatedFooterHtml(bip, bips) {
       );
     }
   }
+  if (bip.relatedBips && bip.relatedBips.length) {
+    const links = bip.relatedBips
+      .map((slug) => bipBySlug(bips, slug))
+      .filter(Boolean)
+      .map((related) => `<a href="${esc(bipPath(related.slug))}">${esc(related.title)}</a>`)
+      .join('<span class="article-meta-sep" aria-hidden="true">·</span>');
+    if (links) {
+      items.push(
+        `<li><span class="bip-related-label">${esc(bip.relatedBipsLabel || 'Related BIPs')}</span><span>${links}</span></li>`,
+      );
+    }
+  }
 
   const relatedWriting = (bip.related || []).filter((rel) => rel && rel.href && rel.title);
   if (relatedWriting.length) {
@@ -604,6 +616,16 @@ function renderBipsIndex(bips) {
       if (dep) {
         depHtml = `<p class="article-index-dep">Depends on <a href="${escapeHtml(bipPath(dep.slug))}">${escapeHtml(dep.title)}</a></p>`;
       }
+    } else if (b.relatedBips && b.relatedBips.length) {
+      const label = b.relatedBipsLabel || 'Related BIPs';
+      const links = b.relatedBips
+        .map((slug) => bipBySlug(bips, slug))
+        .filter(Boolean)
+        .map((related) => `<a href="${escapeHtml(bipPath(related.slug))}">${escapeHtml(related.title)}</a>`)
+        .join(', ');
+      if (links) {
+        depHtml = `<p class="article-index-dep">${escapeHtml(label)}: ${links}</p>`;
+      }
     }
     return `<li class="article-index-item"><a href="${href}">${title}</a>${datesHtml}${depHtml}${descHtml}</li>`;
   }).join('\n');
@@ -619,25 +641,26 @@ function renderBipsIndex(bips) {
 }
 
 const LLMS_ARTICLE_NOTES = {
-  'bitcoin-governance': 'Primary governance reference: funding map, maintainer merge authority, personnel revolving door, OP_RETURN arc (2023–2025), Brink/OpenSats/Chaincode ties, suppression patterns. Start here for evidence.',
-  'bitcoin-governance-argument-map': '105 numbered arguments across 22 sections for debate; points to Who Controls Bitcoin for narrative and Social Layer for structure. Includes blockspace/relay-policy failure (Part XXII).',
+  'bitcoin-governance': 'Primary governance reference: funding map, maintainer merge authority, personnel revolving door, OP_RETURN arc (2023–2025), Brink/OpenSats/Chaincode ties, suppression patterns. Points to the three-BIP consensus stack. Start here for evidence.',
+  'bitcoin-governance-argument-map': '105 numbered arguments across 22 sections for debate; points to Who Controls Bitcoin for narrative and Social Layer for structure. Includes blockspace/relay-policy failure (Part XXII) and the three-BIP consensus stack.',
   'bitcoin-social-capture': 'Structural logic of why Bitcoin governance produces capture outcomes without requiring conspiracy; permissionless protocol vs permissioned development; blocksize war and fork trap.',
-  'bitcoin-not-a-hard-drive': 'Design-purpose case against non-monetary embedding: type confusion, IBD/storage/UTXO costs, externality structure, rebuttals to inscription justifications, permissionless counter-argument.',
-  'the-achievable-floor': 'Technical taxonomy of embedding channels (free → dedicated), what consensus can close (OP_RETURN cap, Taproot envelope, annex), cost-per-byte tables, UTXO commitments, implementation path.',
-  'full-cost-of-running-a-bitcoin-node': 'v2.4 methodology: six cost categories, Profile A/B, $69.99/mo 2026 operating, $47.8M/yr full-population aggregate vs ~$9M Core spend, non-monetary ~$5.5/mo ($4M/yr).',
+  'bitcoin-not-a-hard-drive': 'Design-purpose case against non-monetary embedding: type confusion, IBD/storage/UTXO costs, externality structure, rebuttals to inscription justifications, permissionless counter-argument. Companion to the three-BIP stack.',
+  'the-achievable-floor': 'Technical taxonomy of embedding channels (free → dedicated), what consensus can close (OP_RETURN cap, Taproot envelope, annex), cost-per-byte tables, UTXO commitments, implementation path. Specifies the three-BIP stack.',
+  'full-cost-of-running-a-bitcoin-node': 'v2.4 methodology: six cost categories, Profile A/B, $69.99/mo 2026 operating, $47.8M/yr full-population aggregate vs ~$9M Core spend, non-monetary ~$5.5/mo ($4M/yr). Motivates the three-BIP stack.',
   'the-last-uncaptured-asset': 'Monetary sovereignty frame: state capture through ownership not destruction, access layer as asset, voluntary surveillance infrastructure, Bitcoin as last uncaptured asset.',
   'bitcoin-demographics-breakdown': 'Structured taxonomy of plausible Bitcoin appeal vectors by demographic slice; hypotheses for testing, not weighted statistics.',
   'dont-trust-verify': 'Coldcard RNG defect ($88M+ on-chain), credentialed endorsement without seed-path audit, HWI/tooling defaults, Ten31/Coinkite ties, parallel failures in Bitcoin Core review.',
   'governance-paralysis-was-the-victory': 'Block size war as resource capture, MIT/DCI/Epstein funding context, CVE-2018-17144, good vs bad ossification, alternative implementations survey, Bitcoin Commons.',
   'bitcoin-core-the-biggest-fallacies': 'Eight rebuttals to Core monopoly defenses: contributor count, adoption, rough consensus, conservatism, reviewer pool. Companion to Argument Map.',
-  'what-bitcoins-stalled-proposals-tell-you': 'Dandelion, UTXO commitments, Erlay, wallet/node split, formal verification: stalled in Core vs shipped in Commons; OP_RETURN/Knots policy monoculture.',
-  'why-bitcoin-needs-a-specification': 'Human-readable spec (Orange Paper) vs Lean/DSL; verification as governance; spec-lock with Z3; defense-in-depth stack.',
+  'what-bitcoins-stalled-proposals-tell-you': 'Dandelion, UTXO commitments, Erlay, wallet/node split, formal verification: stalled in Core vs shipped in Commons; OP_RETURN/Knots policy monoculture; 83-byte cap belongs at consensus (Permanent Data Channel Closure).',
+  'why-bitcoin-needs-a-specification': 'Human-readable spec (Orange Paper) vs Lean/DSL; verification as governance; spec-lock with Z3; defense-in-depth stack. Related: Permanent Data Channel Closure.',
   'bitcoins-hidden-crisis': 'Social vs protocol consensus; coordination crises (blocksize, Taproot); Bitcoin Commons cryptographic coordination model.',
 };
 
 const LLMS_BIP_NOTES = {
-  'static-per-output-miner-fee': 'Pre-proposal: consensus-enforced fixed satoshi fee to miners for every new non-coinbase output; closes value and count UTXO spam vectors.',
+  'static-per-output-miner-fee': 'Pre-proposal: consensus transaction-fee floor of a fixed satoshi amount per new non-coinbase output; prices UTXO-slot cost. Soft fork, not extra mint.',
   'dynamic-escalation-per-output-fee': 'Pre-proposal companion: EMA/p25 dynamic escalation on top of the static per-output fee to prevent long-run economic decay. Depends on static fee BIP.',
+  'permanent-data-channel-closure': 'Pre-proposal: permanent consensus closure of data embedding channels (256-byte per-item caps, aggregate witness limits, output template whitelist, Tapleaf and P2WSH unreferenced-push analysis with a 256-byte stack_items_read appendix). BIP141 weight unchanged. Complements the per-output fee BIPs.',
 };
 
 const LLMS_SECTIONS = [
@@ -671,7 +694,7 @@ const LLMS_SECTIONS = [
   },
   {
     title: 'BIP pre-proposals',
-    bipSlugs: ['static-per-output-miner-fee', 'dynamic-escalation-per-output-fee'],
+    bipSlugs: ['static-per-output-miner-fee', 'dynamic-escalation-per-output-fee', 'permanent-data-channel-closure'],
   },
   {
     title: 'Monetary sovereignty',
@@ -732,8 +755,10 @@ function buildLlmsTxt(articles, bips) {
     '2. [The Achievable Floor](https://secsov.com/articles/the-achievable-floor) — what consensus can technically close',
     '3. [Full Cost of Running a Bitcoin Node](https://secsov.com/articles/full-cost-of-running-a-bitcoin-node) — operator cost model and non-monetary burden',
     '4. [Static Per-Output Miner Fee](https://secsov.com/bips/static-per-output-miner-fee) — pre-proposal consensus fee floor on UTXO creation',
-    '5. [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance) — governance evidence (OP_RETURN arc, §V)',
-    '6. [Argument Map Part XXII](https://secsov.com/articles/bitcoin-governance-argument-map#part-xxii-blockspace-governance-and-relay-policy-failure) — numbered blockspace arguments',
+    '5. [Dynamic Escalation of the Per-Output Miner Fee](https://secsov.com/bips/dynamic-escalation-per-output-fee) — optional fee escalation layer',
+    '6. [Permanent Data Channel Closure](https://secsov.com/bips/permanent-data-channel-closure) — permanent consensus closure of data embedding channels',
+    '7. [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance) — governance evidence (OP_RETURN arc, §V)',
+    '8. [Argument Map Part XXII](https://secsov.com/articles/bitcoin-governance-argument-map#part-xxii-blockspace-governance-and-relay-policy-failure) — numbered blockspace arguments',
     '',
     '**Recommended reading order — governance cluster:**',
     '',

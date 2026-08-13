@@ -17,13 +17,13 @@
 
 ## Abstract
 
-This BIP proposes a consensus-enforced per-output miner fee: a fixed satoshi amount paid permanently to the miner of each block for every newly created non-coinbase transaction output.
+This BIP proposes a consensus-enforced per-output miner fee: a fixed satoshi floor that every non-coinbase transaction must leave as part of its ordinary transaction fee for each output it creates.
 
-Bitcoin has no consensus-enforced fee floor today. Policy-based dust limits and mempool filters are unenforceable, because any transaction that pays enough miner fees can still be included by a participant who chooses not to enforce those filters. This proposal is the first consensus rule that directly prices the permanent cost of UTXO creation, and it binds every participant.
+Bitcoin has no consensus-enforced fee floor today. Policy-based dust limits and mempool filters are unenforceable, because any transaction that pays enough miner fees can still be included by a participant who chooses not to enforce those filters. This proposal prices the permanent cost of UTXO creation at consensus, and it binds every participant.
 
-The fee is a single fixed constant. There is no dynamic component, no sampling window, no moving average, and no rate adjustment. Every non-coinbase output pays the same fee regardless of script type, value, or fee environment. The fee goes to the miner of the confirming block and is not recoverable by the sender.
+The fee is a single fixed constant. There is no dynamic component, no sampling window, no moving average, and no rate adjustment. Every non-coinbase output pays the same fee regardless of script type, value, or fee environment. The amount is paid as ordinary miner fee (`sum(inputs) - sum(outputs)`), not minted into the coinbase. It is not recoverable by the sender. Old nodes see a valid high-fee transaction. New nodes reject transactions that miss the floor. That is a soft fork.
 
-The design is deliberately small. A [companion BIP](/bips/dynamic-escalation-per-output-fee) adds a dynamic escalation layer on top of this static fee once the network has operational experience with the base rule.
+The design is deliberately small. A [companion BIP](/bips/dynamic-escalation-per-output-fee) adds a dynamic escalation layer on top of this static fee once the network has operational experience with the base rule. Dedicated embedding channels are a different surface; they are closed by [Permanent Data Channel Closure](/bips/permanent-data-channel-closure). The three pre-proposals are one stack. This BIP prices the UTXO slot.
 
 ---
 
@@ -110,7 +110,7 @@ The per-output fee is not a new tax on Bitcoin use. It prices a cost that alread
 <figcaption>Node operators absorb a non-monetary burden approaching half of total protocol development spend, with no recovery path.</figcaption>
 </figure>
 
-That also names a natural constituency: about 60,000 node operators absorbing roughly $4 million per year in non-monetary burden. It is a large, distributed group with a direct interest in activation.
+That also names a political constituency: about 60,000 node operators absorbing roughly $4 million per year in non-monetary burden. They have a direct interest in this rule. They are not the BIP-8/9 signaling threshold.
 
 ### Why Determined Spammers Require a Permanent Fee
 
@@ -155,7 +155,9 @@ The right question is: what lifetime cost does one newly created non-monetary UT
 2. **Ongoing monthly storage and RAM burden:** $5.52 per month per node in non-monetary ongoing cost. At 60,000 nodes and 51 million inscription UTXOs, that is about 78 sats per UTXO per year across the network, or roughly 6 to 7 sats per UTXO per node-year.
 3. **IBD cost** on every future node that syncs the chain: 85 to 140GB of inscription data downloaded once per new node, at about 9,000 to 12,000 new nodes per year.
 
-Summing those pieces and discounting over a reasonable UTXO lifetime at current BTC price yields a per-UTXO externalized lifetime cost around **16 to 20 sats per output**. That is a cost-derived provisional anchor, not a conclusion. It rests on one methodology paper, uses several approximations, and must be checked against two independent tests: what per-output fee would have made the 2023 to 2026 inscription and ordinals waves uneconomical at historical fees, and what fee stays negligible relative to legitimate output values across historical fee regimes. If calibration shows 16 to 20 sats is too low to deter determined count-vector spam at realistic attacker budgets, the static fee will be raised and the change documented before the proposal moves forward.
+Summing those pieces and discounting over a reasonable UTXO lifetime at current BTC price yields a per-UTXO externalized lifetime cost around **16 to 20 sats per output**. That is a cost-derived provisional anchor for the **UTXO-slot** externality, not a conclusion, and not an inscription-killer. The 2023 to 2026 inscription waves already paid far more than 20 sats per output in weight fees. Those waves would have continued at this floor on fee grounds alone. Closing dedicated data channels is the job of *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*. This BIP prices output count.
+
+The 16 to 20 sat band must still be checked against two tests: what floor deters high-count UTXO spam at realistic attacker budgets, and what floor stays negligible relative to legitimate output values across historical fee regimes. If calibration shows 16 to 20 sats is too low to deter determined count-vector spam, the static fee will be raised and the change documented before the proposal moves forward.
 
 ---
 
@@ -163,51 +165,38 @@ Summing those pieces and discounting over a reasonable UTXO lifetime at current 
 
 ### Fee Rule
 
-Every non-coinbase transaction output created in a valid block must cause the miner of that block to collect a fee of exactly `static_fee` satoshis, in addition to the block subsidy and all transaction fees.
+This is a transaction-fee floor, not extra mint. Coinbase accounting is unchanged from existing consensus (`coinbase_value <= block_subsidy + sum(tx_fees)`). Adding the per-output amount to the coinbase above subsidy-plus-fees would be a hard fork and is not this BIP.
+
+For every non-coinbase transaction in a block at or above `activation_height`:
+
+```text
+tx_fee = sum(input_values) - sum(output_values)
+n_outputs = count(outputs in this transaction)
+tx_fee >= active_fee × n_outputs
+```
 
 ```text
 active_fee = static_fee
 ```
 
-`static_fee` is a consensus constant fixed at activation. It changes only by a future soft fork.
+`tx_fee` is the existing consensus fee: a non-negative integer satoshi amount. Transactions with `sum(input_values) < sum(output_values)` remain invalid under existing rules. `static_fee` is a consensus constant fixed at activation. It changes only by a future soft fork.
+
+Overpayment is valid. The floor is per transaction from that transaction's own inputs and outputs. Package fee rate and CPFP do not count: a parent that misses the floor is invalid even if a child pays more.
+
+All arithmetic is integer satoshis. Multiplication uses at least 64-bit unsigned range. A transaction that overflows that range is invalid.
 
 ### Exempt Outputs
 
-Coinbase outputs are the only exemption. They are how the fee is collected, so charging them would be circular. All other outputs pay the fee, including `OP_RETURN` and provably unspendable outputs.
+The coinbase transaction is the only exemption. Charging coinbase outputs would be circular: the coinbase is how the miner collects `tx_fee`. All other transactions pay the floor, including those whose outputs are `OP_RETURN` or otherwise unspendable.
 
-### Coinbase Accounting
+### Validation
 
-Block validity requires that the coinbase transaction output value equals the block subsidy plus all transaction fees plus all per-output fees collected in that block:
+1. Skip the coinbase transaction.
+2. For each remaining transaction, compute `tx_fee` and `n_outputs` as above. A transaction with zero outputs has `n_outputs = 0` and meets the floor automatically.
+3. If `tx_fee < static_fee × n_outputs`, the transaction is invalid and the block is invalid.
+4. Existing coinbase rules are unchanged. Miners receive the per-output amount because it is part of `sum(tx_fees)`.
 
-```text
-coinbase_value = block_subsidy + sum(tx_fees) + per_output_fees_total
-
-per_output_fees_total = static_fee × count(all non-coinbase outputs in block)
-```
-
-<figure class="article-chart chart-flowchart" role="img" aria-label="Coinbase value equals subsidy plus transaction fees plus per-output fees">
-<div class="flowchart-ladder" aria-hidden="true">
-  <span class="flow-node">Block subsidy</span>
-  <span class="flow-arrow" aria-hidden="true">+</span>
-  <span class="flow-node">Σ tx fees</span>
-  <span class="flow-arrow" aria-hidden="true">+</span>
-  <span class="flow-node">static_fee × outputs</span>
-  <span class="flow-arrow" aria-hidden="true">=</span>
-  <span class="flow-node">Coinbase value</span>
-</div>
-</figure>
-
-*Figure: Coinbase accounting after activation. Exact equality is required; underpayment orphans the block.*
-
-Validation rules:
-
-1. Count all outputs across all non-coinbase transactions in the block. Do not count coinbase outputs.
-2. Transactions with zero outputs contribute zero to the count.
-3. Multiply the total output count by `static_fee`.
-4. The coinbase output value must equal `block_subsidy + sum(tx_fees) + per_output_fees_total` exactly.
-5. A block where the coinbase output value does not satisfy this equation is invalid.
-
-This is self-enforcing: miners who validate correctly will orphan blocks that undercount or omit per-output fees in the coinbase.
+This is a soft fork. Old nodes accept any non-negative fee. New nodes reject transactions that miss the floor. A miner who includes a non-compliant transaction produces a block that enforcing nodes reject.
 
 ### Activation Height
 
@@ -255,9 +244,15 @@ At the provisional band, count-vector cost scales linearly:
 
 This BIP is meant to deploy via a soft fork using BIP-8 or BIP-9 style signaling, with a minimum activation window of one year and no mandatory lock-in fallback. Miners who do not signal are not penalized. If signaling does not reach the threshold within the window, the proposal does not activate and the process restarts with revised parameters or renewed community discussion.
 
+BIP-8/9 without lock-in-on-timeout is miner signaling. Node operators absorbing non-monetary burden are a political constituency for this rule; they are not the signaling threshold. If miners do not signal, this BIP does not activate under the specified mechanism. User-activated soft fork deployment is a separate choice and is not specified here.
+
 ---
 
 ## Rationale
+
+### Why a Fee Floor, Not Extra Mint
+
+The per-output amount must be part of `tx_fee`. Minting it on top of subsidy-plus-fees would raise `coinbase_value` above what pre-activation nodes allow, which is a hard fork. A floor on `tx_fee` is a soft fork: old nodes accept the transaction; new nodes reject a miss. Miners still receive the sats. The amount is still permanent and not recoverable by the sender.
 
 ### Why a Permanent Fee Rather Than a Capital Lockup
 
@@ -279,25 +274,25 @@ A combined static-plus-dynamic rule has more review surface, more implementation
 
 ### Miner Incentives
 
-Miners receive per-output fees in their coinbase. They have a financial interest in including transactions that create outputs. That is not new: miners already want fee-paying transactions. The per-output fee raises the price floor on all output creation. Spammers pay miners more per output than before. The per-output cost to attackers rises whether or not aggregate spam volume falls.
+Miners receive per-output fees as part of ordinary `tx_fee` in the coinbase. They have a financial interest in including transactions that create outputs. That is not new: miners already want fee-paying transactions. The per-output fee raises the price floor on all output creation. Spammers pay miners more per output than before. The per-output cost to attackers rises whether or not aggregate spam volume falls.
 
 Large miners who earn significant revenue from inscription-style activity may oppose this. That opposition is short-term: a fee market where monetary transactions compete on equal terms with correctly priced non-monetary use produces more durable revenue than one distorted by externalized costs.
 
-### Interaction with BIP-110
+### Interaction with Permanent Data Channel Closure
 
-BIP-110 targets dedicated high-bandwidth data channels: `OP_RETURN` and Taproot envelopes. This BIP targets UTXO creation economics and charges all outputs, including `OP_RETURN`. The two proposals address different surfaces and reinforce each other when activated together. Coordinated activation closes the full documented surface at once. For the channel taxonomy, see *[The Achievable Floor](/articles/the-achievable-floor)* and *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*.
+The [Permanent Data Channel Closure](/bips/permanent-data-channel-closure) pre-proposal targets dedicated high-bandwidth data channels: `OP_RETURN`, Taproot envelopes, witness fragmentation, and related embedding surfaces. This BIP targets UTXO creation economics and charges all outputs, including `OP_RETURN`. The two proposals address different surfaces and reinforce each other when activated together. Coordinated activation of all three pre-proposals closes the full documented surface at once. For the channel taxonomy, see *[The Achievable Floor](/articles/the-achievable-floor)* and *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*.
 
 ### Activation Game Theory
 
-Prior soft fork proposals that use mandatory lock-in fallbacks treat non-signaling miners as attackers rather than participants with legitimate concerns. This BIP uses voluntary signaling with no mandatory lock-in. If inscription-dependent miners block signaling, that outcome documents the network's governance dynamics and strengthens the case for implementation diversity and alternative node software.
+Prior soft fork proposals that use mandatory lock-in fallbacks treat non-signaling miners as attackers rather than participants with legitimate concerns. This BIP uses voluntary signaling with no mandatory lock-in. If inscription-dependent miners block signaling, that outcome documents the network's governance dynamics and strengthens the case for implementation diversity and alternative node software. It does not activate the rule. Node-operator interest is not a substitute for the specified signaling threshold.
 
-The most credible activation path is to deploy on signet and testnet, run the rule in production across Bitcoin Commons and Bitcoin Knots, publish calibrated parameters with full chain scan results, and treat miner signaling as a multi-year process. The roughly 60,000 node operators absorbing about $4 million per year in non-monetary burden are a natural, financially motivated activation coalition that spam-mitigation efforts have not usually named explicitly.
+The most credible activation path is to deploy on signet and testnet, run the rule in production across Bitcoin Commons and Bitcoin Knots, publish calibrated parameters with full chain scan results, and treat miner signaling as a multi-year process.
 
 ---
 
 ## Backwards Compatibility
 
-Existing UTXOs remain valid and spendable. Old nodes will see new blocks as valid under the soft fork. From the user's point of view there is one fee: wallets add the weight-based transaction fee and the per-output component internally and show a single total. Wallets that do not update will underestimate fees and produce transactions that enforcing nodes reject at and after the activation height. The one-year minimum signaling window gives the wallet ecosystem time to update. Updates should be done before lock-in, not merely before activation: unlike soft forks that affect only unusual transaction types, the per-output fee affects fee estimation for nearly every transaction that creates outputs. A wallet that is not updated by lock-in will start producing invalid transactions the moment the rule activates, with no warning to the user.
+Existing UTXOs remain valid and spendable. Old nodes will see new blocks as valid under the soft fork. From the user's point of view there is one fee: wallets add the weight-based transaction fee and the per-output component internally and show a single total. Wallets that do not update will underestimate fees and produce transactions that enforcing nodes reject at and after the activation height. The one-year minimum signaling window gives the wallet ecosystem time to update. Updates should be complete before activation: unlike soft forks that affect only unusual transaction types, the per-output fee affects fee estimation for nearly every transaction that creates outputs. A wallet that is not updated by activation will start producing invalid transactions the moment the rule applies, with no warning to the user.
 
 Lightning channel opens, CoinJoin transactions, and exchange batch payouts will pay the per-output fee for each output created. Calibration must confirm the fee is negligible relative to typical output values across historical fee regimes. Exchanges should be engaged before signaling begins.
 
@@ -311,20 +306,19 @@ High-level pseudocode:
 STATIC_FEE = <value to be set at activation>
 ACTIVATION_HEIGHT = <determined by signaling process>
 
-def per_output_fees_for_block(block):
-    if block.height < ACTIVATION_HEIGHT:
-        return 0
-    count = sum(len(tx.outputs) for tx in block.non_coinbase_transactions)
-    return STATIC_FEE * count
+def tx_fee(tx):
+    return sum(inp.value for inp in tx.inputs) - sum(out.value for out in tx.outputs)
+
+def is_valid_transaction(tx, block_height):
+    if block_height < ACTIVATION_HEIGHT or tx.is_coinbase:
+        return True
+    return tx_fee(tx) >= STATIC_FEE * len(tx.outputs)
 
 def is_valid_block(block):
-    expected_coinbase = (
-        block_subsidy(block.height)
-        + sum(tx.fee for tx in block.non_coinbase_transactions)
-        + per_output_fees_for_block(block)
-    )
-    return block.coinbase_value == expected_coinbase
+    return all(is_valid_transaction(tx, block.height) for tx in block.transactions)
 ```
+
+Coinbase value is not part of this check. Existing subsidy-plus-fee rules still apply.
 
 Detailed test vectors, integer arithmetic precision requirements, and treatment of edge cases (zero-output transactions, reorgs at activation height, IBD validation) will be provided in a future numbered BIP submission.
 
@@ -336,8 +330,7 @@ Calibration is a hard gate. The static fee value is provisional until this check
 
 ### A. Static Fee Determination (Hard Gate)
 
-- Validate the provisional 16-20 sat anchor: measure what per-output fee would have made documented 2023-2026 inscription and ordinals wave transactions uneconomical at historical fee conditions.
-- Stress-test against high-count attack economics at realistic attacker budgets: model cost per spam run at 1,000 / 10,000 / 100,000 output counts. Raise the static fee if the provisional number does not deter at scale.
+- Validate the provisional 16-20 sat anchor as a UTXO-slot price: stress-test against high-count attack economics at realistic attacker budgets (1,000 / 10,000 / 100,000 outputs). Raise the static fee if the provisional number does not deter count-vector spam at scale. Do not treat "would inscriptions have stopped at 20 sats" as a pass condition; that is the data-channel BIP.
 - Confirm the static fee is negligible relative to Lightning channel open values, CoinJoin outputs, and exchange batch withdrawal amounts at the 99th percentile fee rate.
 - Confirm the static fee does not make ordinary small payment outputs uneconomical under any historical fee regime.
 - Lock in the static fee value, or document the required adjustment with full reasoning.
@@ -354,16 +347,15 @@ Calibration is a hard gate. The static fee value is provisional until this check
 
 - Verify the static fee makes the documented value-vector spam pattern permanently uneconomical.
 - Confirm no capital recovery path exists under the per-output fee mechanism.
-- Model inscription-wave attacker economics: would the 2023-2026 activity have continued at the recommended static fee?
+- Model inscription-wave attacker economics **together with** the data-channel BIP: the static fee alone does not claim to have stopped 2023-2026 dedicated embedding.
 
 ### D. Consensus Edge Cases
 
-- Specify behavior on reorgs at or near activation height.
-- Specify IBD and assumeutxo interaction: activation height and static fee must be reconstructable from soft fork parameters alone.
-- Specify integer arithmetic precisely so all implementations agree bit-for-bit.
-- Confirm coinbase exemption scope exactly.
-- Specify treatment of transactions with zero non-coinbase outputs.
 - Confirm reorg behavior at activation height: blocks below `activation_height` are never subject to the fee rule, regardless of reorg depth.
+- Confirm IBD and assumeutxo: activation height and static fee are reconstructable from soft fork parameters alone.
+- Confirm integer arithmetic: satoshi amounts, 64-bit multiply of `static_fee × n_outputs`.
+- Confirm coinbase exemption: the floor applies to non-coinbase transactions only; coinbase value uses existing subsidy-plus-fee rules.
+- Confirm the floor is per-transaction `tx_fee`, not package or CPFP attribution.
 
 ### E. Wallet and Exchange Validation
 
@@ -384,9 +376,11 @@ Calibration is a hard gate. The static fee value is provisional until this check
 
 **No dynamic manipulation surface.** The static fee is a constant. It has no sampling window, no moving average, and no parameter an attacker can influence through fee activity. That is the main security advantage of the static-only design.
 
-**Coinbase underpayment.** A miner who fails to collect per-output fees in the coinbase produces an invalid block, orphaned by correctly validating nodes. Self-enforcing.
+**Soft fork boundary.** The floor restricts currently valid (low-fee) transactions. It does not mint coins. Blocks that meet the floor are valid to old nodes.
 
-**Clean activation boundary.** The rule takes effect at `activation_height` with no grace window. The one-year minimum signaling window is enough for wallets and services to update before the rule applies. Transactions broadcast before `activation_height` that remain unconfirmed at that height must pay the per-output fee to confirm. Wallets should watch approaching activation and rebroadcast or bump fees as needed.
+**Insufficient tx fee.** A transaction with `tx_fee < static_fee × n_outputs` is invalid. A block that includes it is invalid. Self-enforcing among enforcing nodes. CPFP cannot rescue the parent.
+
+**Clean activation boundary.** The rule takes effect at `activation_height` with no grace window. The one-year minimum signaling window is enough for wallets and services to update before the rule applies. Transactions broadcast before `activation_height` that remain unconfirmed at that height must meet the floor to confirm. Wallets should watch approaching activation and rebroadcast or bump fees as needed.
 
 **Private mempool arrangements.** Miners accepting non-compliant transactions through private arrangements produce blocks rejected by enforcing nodes. Orphan risk limits sustained defection.
 
@@ -396,7 +390,8 @@ Calibration is a hard gate. The static fee value is provisional until this check
 
 ## References
 
-- BIP-110: Reduced Data Temporary Softfork
+- *[BIP Pre-Proposal: Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)* (Josh / Secure Sovereign, July 2026). Optional companion.
+- *[BIP Pre-Proposal: Permanent Data Channel Closure](/bips/permanent-data-channel-closure)* (Josh / Secure Sovereign, August 2026).
 - Bitcoin Core dust limit implementation (`GetDustThreshold` / `-dustrelayfee`; Core PRs #2577, #10817, #22863)
 - *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*, v2.4, July 2026. Source of per-node non-monetary burden ($5.52-$5.54/month) and network aggregate ($4M/year) figures.
 - Mempool Research UTXO Set Report, May 2025, tip 892385 ([research.mempool.space/utxo-set-report](https://research.mempool.space/utxo-set-report)). Source of 29.6% inscription UTXO share and 51,188,145 inscription UTXO count.

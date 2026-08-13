@@ -8,10 +8,13 @@
       "created": "2026-07-23",
       "license": "BSD-2-Clause",
       "companion": "dynamic-escalation-per-output-fee",
-      "description": "Bitcoin Improvement Pre-Proposal: a consensus-enforced fixed satoshi fee to miners for every new non-coinbase output, pricing permanent UTXO-creation costs that relay policy cannot bind.",
+      "relatedBips": ["permanent-data-channel-closure"],
+      "relatedBipsLabel": "Works with",
+      "description": "Bitcoin Improvement Pre-Proposal: a consensus transaction-fee floor of a fixed satoshi amount per new non-coinbase output, pricing permanent UTXO-creation costs that relay policy cannot bind.",
       "related": [
         { "title": "Full Cost of Running a Bitcoin Node", "href": "/articles/full-cost-of-running-a-bitcoin-node" },
-        { "title": "The Achievable Floor", "href": "/articles/the-achievable-floor" }
+        { "title": "The Achievable Floor", "href": "/articles/the-achievable-floor" },
+        { "title": "Bitcoin Is Not a Hard Drive", "href": "/articles/bitcoin-not-a-hard-drive" }
       ]
     },
     {
@@ -22,8 +25,28 @@
       "created": "2026-07-23",
       "license": "BSD-2-Clause",
       "dependsOn": "static-per-output-miner-fee",
+      "relatedBips": ["permanent-data-channel-closure"],
+      "relatedBipsLabel": "Works with",
       "description": "Bitcoin Improvement Pre-Proposal: optional EMA and 25th-percentile fee escalation on top of the static per-output miner fee so the deterrent does not decay over decades.",
       "related": [
+        { "title": "Full Cost of Running a Bitcoin Node", "href": "/articles/full-cost-of-running-a-bitcoin-node" },
+        { "title": "The Achievable Floor", "href": "/articles/the-achievable-floor" },
+        { "title": "Bitcoin Is Not a Hard Drive", "href": "/articles/bitcoin-not-a-hard-drive" }
+      ]
+    },
+    {
+      "slug": "permanent-data-channel-closure",
+      "title": "Permanent Data Channel Closure",
+      "status": "Pre-Proposal",
+      "type": "Standards Track",
+      "created": "2026-08-12",
+      "license": "BSD-2-Clause",
+      "relatedBips": ["static-per-output-miner-fee", "dynamic-escalation-per-output-fee"],
+      "relatedBipsLabel": "Works with",
+      "description": "Bitcoin Improvement Pre-Proposal: permanent consensus closure of data embedding channels (per-item caps, aggregate witness limits, output templates, Tapleaf and P2WSH script analysis) to complement the per-output fee BIPs.",
+      "related": [
+        { "title": "The Achievable Floor", "href": "/articles/the-achievable-floor" },
+        { "title": "Bitcoin Is Not a Hard Drive", "href": "/articles/bitcoin-not-a-hard-drive" },
         { "title": "Full Cost of Running a Bitcoin Node", "href": "/articles/full-cost-of-running-a-bitcoin-node" }
       ]
     }

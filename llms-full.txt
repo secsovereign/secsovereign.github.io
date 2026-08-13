@@ -890,7 +890,7 @@ The funding map in Section III is not a static diagram. When a protocol change w
 
 ### Conflicted Advocacy on Blockspace Policy
 
-The OP_RETURN fight exposed a recurring pattern, not a one-off. Figures with equity in base-layer data businesses publicly opposed consensus proposals that would restrict arbitrary embedding, while promoting capacity-expansion proposals such as dynamic block size schemes that would give those businesses more headroom. Testnet and early-mainnet rollup usage had already demonstrated that data-availability demand can consume a significant fraction of Bitcoin bandwidth before full adoption. Policy positions aligned with portfolio exposure without requiring explicit coordination. After a funded rollup reached mainnet, the same pattern continued: opposition to BIP-110 alongside advocacy for block capacity expansion. For the technical taxonomy of embedding channels and what consensus can close, see *[The Achievable Floor](/articles/the-achievable-floor)*. For why treating Bitcoin as general-purpose storage is a category error regardless of governance, see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*.
+The OP_RETURN fight exposed a recurring pattern, not a one-off. Figures with equity in base-layer data businesses publicly opposed consensus proposals that would restrict arbitrary embedding, while promoting capacity-expansion proposals such as dynamic block size schemes that would give those businesses more headroom. Testnet and early-mainnet rollup usage had already demonstrated that data-availability demand can consume a significant fraction of Bitcoin bandwidth before full adoption. Policy positions aligned with portfolio exposure without requiring explicit coordination. After a funded rollup reached mainnet, the same pattern continued: opposition to BIP-110 alongside advocacy for block capacity expansion. For the technical taxonomy of embedding channels and what consensus can close, see *[The Achievable Floor](/articles/the-achievable-floor)*. For why treating Bitcoin as general-purpose storage is a category error regardless of governance, see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*. The consensus response specified as pre-proposals: *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*, *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*, and *[Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)*.
 
 ### The Dual Positioning of Brink's Founders
 
@@ -1183,7 +1183,7 @@ For the full stalled-proposals dossier and what shipping looks like from a forma
 
 ## Part VI. Forced Participation
 
-For the consensus-vs-policy distinction and which embedding channels consensus can close, see *[The Achievable Floor](/articles/the-achievable-floor)*. For quantified operator burden, see *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*.
+For the consensus-vs-policy distinction and which embedding channels consensus can close, see *[The Achievable Floor](/articles/the-achievable-floor)*. For quantified operator burden, see *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*. The specified consensus stack: *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*, *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*, *[Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)*.
 
 32. **The actual problem with blockchain spam: you cannot opt out.** The problem is not that spam exists. It is that every full node must download, store, and validate all of it forever to participate in Bitcoin. Policy defaults and relay configurations are theater. Consensus validity is what matters.
 
@@ -1453,9 +1453,9 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 ## Part XXII. Blockspace Governance and Relay-Policy Failure
 
-*These arguments address the blockspace governance crisis of 2025 to 2026: relay-policy collapse, consensus paralysis, and design-purpose drift. For the documented OP_RETURN timeline, see [Who Controls Bitcoin, §V](/articles/bitcoin-governance#v-the-adversarial-layer-when-conflicts-become-visible). For measured impact, see [The Achievable Floor, §VI](/articles/the-achievable-floor#vi-the-actual-floor). For operator cost accounting, see [Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node). For the design-purpose argument, see [Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive). For a consensus fee-floor pre-proposal, see [Static Per-Output Miner Fee](/bips/static-per-output-miner-fee).*
+*These arguments address the blockspace governance crisis of 2025 to 2026: relay-policy collapse, consensus paralysis, and design-purpose drift. For the documented OP_RETURN timeline, see [Who Controls Bitcoin, §V](/articles/bitcoin-governance#v-the-adversarial-layer-when-conflicts-become-visible). For measured impact, see [The Achievable Floor, §VI](/articles/the-achievable-floor#vi-the-actual-floor). For operator cost accounting, see [Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node). For the design-purpose argument, see [Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive). The consensus stack that implements that response: [Permanent Data Channel Closure](/bips/permanent-data-channel-closure), [Static Per-Output Miner Fee](/bips/static-per-output-miner-fee), [Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee).*
 
-103. **The policy enforcement collapse.** For approximately 14 years, the blockspace policy against non-monetary data held because Bitcoin Core's single dominant implementation enforced it. Relay bypass infrastructure (direct submission APIs, alternative relay networks, private pool peering) hollowed enforcement before inscriptions arrived. Core v30's OP_RETURN uncap ratified a surrender the infrastructure had already produced; it did not cause the failure. The correct engineering response was to move protections to consensus. The actual response was to remove the policy and call it pragmatism.
+103. **The policy enforcement collapse.** For approximately 14 years, the blockspace policy against non-monetary data held because Bitcoin Core's single dominant implementation enforced it. Relay bypass infrastructure (direct submission APIs, alternative relay networks, private pool peering) hollowed enforcement before inscriptions arrived. Core v30's OP_RETURN uncap ratified a surrender the infrastructure had already produced; it did not cause the failure. The correct engineering response was to move protections to consensus. The actual response was to remove the policy and call it pragmatism. That consensus response is specified in *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)* and the per-output fee pre-proposals.
 
 104. **When documented consensus proposals stall.** Full-chain analysis now exists at scale. Proposals to cap dedicated embedding channels at consensus can cite that record and face no credible technical refutation. Activation support nonetheless stays negligible. When empirical support cannot convert into forward movement against coordinated social pressure and incumbent inertia, the bottleneck is governance structure, not technical merit.
 
@@ -1961,7 +1961,7 @@ Bitcoin's consensus rules are sound, covering a small, well-defined set of opera
 
 Bitcoin’s long-term value proposition depends on it being genuinely ungovernable by any single entity, whether a state, a corporation, or a development team. That property requires infrastructure diversity, meaning multiple independent implementations, multiple funding sources, and governance that no single party can capture. What exists today is the opposite: one implementation, a handful of maintainers, and funding concentrated in a small number of grant organizations. The infrastructure surrounding them is a single point of failure, and it has been producing the same failure mode for years.
 
-Caution is appropriate for consensus changes. **It is not an explanation for why networking and privacy improvements with no consensus implications sit unmerged for years.** The features below are not controversial. They are not dangerous. They are research-complete improvements that a functional governance structure would have shipped. **The fact that they haven't shipped is the data.** For governance evidence behind the stall, see *[Who Controls Bitcoin](/articles/bitcoin-governance)*. For the blocksize-war paralysis narrative, see *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory)*. For numbered arguments and monopoly-defense refutations, see *[Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map)* and *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)*. For what consensus can close on blockspace, see *[The Achievable Floor](/articles/the-achievable-floor)*.
+Caution is appropriate for consensus changes. **It is not an explanation for why networking and privacy improvements with no consensus implications sit unmerged for years.** The features below are not controversial. They are not dangerous. They are research-complete improvements that a functional governance structure would have shipped. **The fact that they haven't shipped is the data.** For governance evidence behind the stall, see *[Who Controls Bitcoin](/articles/bitcoin-governance)*. For the blocksize-war paralysis narrative, see *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory)*. For numbered arguments and monopoly-defense refutations, see *[Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map)* and *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)*. For what consensus can close on blockspace, see *[The Achievable Floor](/articles/the-achievable-floor)* and the three-BIP stack ([Permanent Data Channel Closure](/bips/permanent-data-channel-closure), [Static Per-Output Miner Fee](/bips/static-per-output-miner-fee), [Dynamic Escalation](/bips/dynamic-escalation-per-output-fee)).
 
 ---
 
@@ -2025,7 +2025,7 @@ Wallet and Node Separation has had universal conceptual agreement since GitHub i
 
 When one implementation sets policy defaults for the entire network, every policy disagreement becomes an all-or-nothing fight for control of what that implementation ships. The OP_RETURN debate was not about 80 bytes. The mempool policy fights, the dust limit arguments, the RBF debates are structurally identical, civil wars over a throne that exists only because there is one throne to capture.
 
-The OP_RETURN debate is worth dwelling on because it illustrates the mechanism precisely. Bitcoin Core merged a change in 2025 raising the default OP_RETURN data limit, a relay policy decision with no consensus implications. Operators who disagreed had no meaningful recourse inside the Core process. For many, the only way to enforce a different policy was to run different software. That is what they did. Knots, a Bitcoin Core fork maintained by Luke Dashjr that applies stricter defaults, went from under 2% to roughly 20% of the reachable network in the months following the merge. A five-fold move in reachable nodes driven by a relay policy disagreement.
+The OP_RETURN debate is worth dwelling on because it illustrates the mechanism precisely. Bitcoin Core merged a change in 2025 raising the default OP_RETURN data limit, a relay policy decision with no consensus implications. Operators who disagreed had no meaningful recourse inside the Core process. For many, the only way to enforce a different policy was to run different software. That is what they did. Knots, a Bitcoin Core fork maintained by Luke Dashjr that applies stricter defaults, went from under 2% to roughly 20% of the reachable network in the months following the merge. A five-fold move in reachable nodes driven by a relay policy disagreement. Policy does not bind miners who bypass relay. The 83-byte cap belongs at consensus; that is *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*.
 
 The demand for policy plurality was always there. The monoculture was suppressing it. When a conservative alternative presented itself, a significant fraction of the network moved to it immediately.
 
@@ -2430,11 +2430,11 @@ Dedicated and unenforced channels can close at consensus. Ordinary payments do n
 
 A consensus hard cap on `OP_RETURN` closes bulk dedicated-data outputs and binds every participant. Relay limits bind only the operators who choose them.
 
-Consensus can also cap data hidden in script branches that never run, including the `OP_FALSE OP_IF` envelope used for inscriptions. Multisig, Lightning, and covenant spending rules live in branches that do run, so those uses would not be affected.
+Consensus can also cap data hidden in script branches that never run, including the `OP_FALSE OP_IF` envelope used for inscriptions. *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)* does that by invalidating `OP_IF` and `OP_NOTIF` anywhere in Tapscript, even unexecuted. Current P2WSH Lightning is unaffected. Taproot Miniscript and taproot-channel HTLC leaves must split those branches into separate leaves.
 
 Consensus can also restrict unused witness versions, ban or cap the annex, and cap the Taproot control block (the path that reveals which script branch is being spent) so large unused branches cannot smuggle big payloads.
 
-A consensus per-output miner fee makes creating many outputs expensive. Unlike a minimum output value (capital the spammer can recycle on spend), the fee is paid to the miner and does not come back. That hits spam that spreads data across lots of small outputs. Higher fees make each of these limits cost the embedder more.
+A consensus per-output miner fee makes creating many outputs expensive. Unlike a minimum output value (capital the spammer can recycle on spend), the fee is paid to the miner as ordinary transaction fee and does not come back. That hits spam that spreads data across lots of small outputs. Higher fees make each of these limits cost the embedder more. See *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*.
 
 The rows below close dedicated and unenforced embedding channels. **§V addresses data already on chain** through UTXO set commitments (less UTXO state to store). That layer is independent of the caps here. Initial block download still carries the full history; AssumeValid does not remove that cost.
 
@@ -2453,7 +2453,7 @@ The rows below close dedicated and unenforced embedding channels. **§V addresse
 <tr class="close-partial"><td>UTXO set commitments</td><td>Permanent storage burden for data already on chain (§V)</td><td>Parallel; not required for §III caps</td></tr>
 </tbody>
 </table>
-<figcaption>Closable measures. §IV fields omitted because monetary design requires them.</figcaption>
+<figcaption>Closable measures. First five rows: <a href="/bips/permanent-data-channel-closure">Permanent Data Channel Closure</a>. Per-output fee: <a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a> plus optional <a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation</a>. Commitments remain a parallel track (§V). §IV fields omitted because monetary design requires them.</figcaption>
 </figure>
 
 <figure class="article-chart chart-flowchart" role="img" aria-label="Consensus-closable channels versus the irreducible embedding floor">
@@ -2572,9 +2572,11 @@ Policy and fees still matter. Consensus can close high-bandwidth channels and re
 
 ## VII. Implementation Path
 
-The `OP_RETURN` cap and envelope push cap are straightforward. They remove invalid transaction shapes. Witness version, annex, and control block caps need wording for how to reopen a version or redefine a placeholder later. A consensus per-output miner fee needs a calibrated static constant and, optionally, a fee-rate reference for long-run anti-decay; static dust thresholds already run as policy on several implementations.
+The §III dedicated and unenforced caps are specified as one pre-proposal: *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)* (output templates, 83-byte OP_RETURN `scriptPubKey`, 256-byte item caps, aggregate witness limits, annex ban, control-block cap, Tapscript `OP_IF`/`OP_NOTIF` invalid, Tapleaf and P2WSH unreferenced-push analysis). Envelope closure is by invalidating `OP_IF` in Tapscript, not by a payload cap on skipped branches; Miniscript and taproot-channel HTLC leaves must split into separate leaves. Undefined witness versions cannot be created or spent; a future version is added by amending the template list in the same soft fork that defines spending. BIP141 weight is unchanged.
 
-Consensus caps on dedicated embedding channels do not close every cheap field on the input side. Inputs still carry low-cost fields such as `nSequence`, `nLockTime`, and ordering. A permanent per-output creation cost closes those paths indirectly. Inputs spend outputs created earlier. If new outputs cost something to create under consensus rules, stuffing data into later spend fields still requires paying that creation cost up front. The floor does not ban input fields directly. It removes the incentive to mint cheap outputs just to encode data when they are spent. Dedicated-channel caps and a consensus per-output fee work together; they are not competing proposals. See the pre-proposal *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*.
+The per-output fee is *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*: a consensus floor on `tx_fee` of `static_fee × n_outputs`, paid as ordinary miner fee, not minted. *[Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)* is the optional anti-decay layer on top of that floor.
+
+Consensus caps on dedicated embedding channels do not close every cheap field on the input side. Inputs still carry low-cost fields such as `nSequence`, `nLockTime`, and ordering. A permanent per-output creation cost closes those paths indirectly. Inputs spend outputs created earlier. If new outputs cost something to create under consensus rules, stuffing data into later spend fields still requires paying that creation cost up front. The floor does not ban input fields directly. It removes the incentive to mint cheap outputs just to encode data when they are spent. Dedicated-channel caps and a consensus per-output fee work together; they are not competing proposals. The three pre-proposals are meant to be considered as one stack. Separate activation is possible. The combined effect is stronger.
 
 **UTXO commitments are an optional parallel layer.** Each §III embedding cap can soft-fork on its own. Commitments change how much set state a node must keep; they are not a prerequisite for the caps, and the caps are not a prerequisite for commitments. Outputs that would fail a new rule need grandfathering.
 
@@ -2586,7 +2588,7 @@ Even if consensus could change without a political fight, **non-monetary data on
 
 Data that never appears on chain, including Taproot script branches never revealed in a spend, is outside this analysis.
 
-The §III caps belong in a formal spec. The [Bitcoin Commons consensus spec](https://thebitcoincommons.org/spec.html) is the reference. For why a human-readable specification matters as governance infrastructure, see *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)*. For the dollar cost of leaving non-monetary data unpriced, see *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*; for a consensus fee floor on UTXO creation, see *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*.
+The §III caps belong in a formal spec. The [Bitcoin Commons consensus spec](https://thebitcoincommons.org/spec.html) is the reference. For why a human-readable specification matters as governance infrastructure, see *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)*. For the dollar cost of leaving non-monetary data unpriced, see *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*. The three-BIP stack that implements §III plus a UTXO-creation floor: *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*, *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*, *[Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)*.
 
 ---
 
@@ -2839,7 +2841,7 @@ Putting an exact dollar figure on security loss is out of scope. For scale: a 1%
 
 ## VII. Non-Monetary Data: Cost Distribution
 
-Every full node stores and downloads historical chain data whether or not the operator cares about non-monetary use. For the design case against treating Bitcoin as general-purpose storage, see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*. For which embedding channels consensus can close, see *[The Achievable Floor](/articles/the-achievable-floor)*.
+Every full node stores and downloads historical chain data whether or not the operator cares about non-monetary use. For the design case against treating Bitcoin as general-purpose storage, see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*. For which embedding channels consensus can close, see *[The Achievable Floor](/articles/the-achievable-floor)*. The specified stack: *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*, *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*, *[Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)*.
 
 ### UTXO set burden
 
@@ -2882,7 +2884,7 @@ Ongoing monthly non-monetary burden inside operating cost (storage depreciation 
 
 One-time / cohort research estimates: $17-28 per node in storage capital for 85-140GB at $200/TB. Across 9,000-12,000 new nodes/year, collective inscription IBD bandwidth is about 765GB-1.68TB annually.
 
-These figures motivate consensus pricing of UTXO creation in the *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)* pre-proposal.
+These figures motivate the three-BIP stack: consensus pricing of UTXO creation in *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)* and *[Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)*, and closure of dedicated embedding channels in *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*.
 
 ---
 
@@ -3046,13 +3048,13 @@ Arbitrary data cannot be reduced to zero. The fields that carry embedded data ov
 
 Hash fields carrying fake pubkeys or script hashes, amount fields encoding data in low-order bits, and sequence numbers and locktimes within valid ranges all resist consensus closure because the same fields serve legitimate payment functions. Distinguishing a real pubkey hash from a fake one at the consensus layer is not possible without stripping hash-then-reveal privacy from every payment.
 
-What consensus **can** close are the **dedicated high-bandwidth channels:** `OP_RETURN` outputs with large payloads, and the Taproot envelope used as a bulk data container. These channels serve no monetary function, and closing them removes nothing that payments require.
+What consensus **can** close are the **dedicated high-bandwidth channels:** `OP_RETURN` outputs with large payloads, and the Taproot envelope used as a bulk data container. These channels serve no monetary function, and closing them removes nothing that payments require. That closure is specified in *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*.
 
 Closing dedicated channels does not eliminate arbitrary data embedding. It forces embedders into hash and pubkey output fields that carry a dust floor on each output and cost more per embedded byte at every fee rate. The goal is making non-monetary use costly and unwelcome rather than subsidized by infrastructure built for something else. For the full technical breakdown of which channels consensus can close and where the floor actually sits, see *[The Achievable Floor](/articles/the-achievable-floor)*.
 
 **UTXO commitments** address the historical storage burden. A node holding a root hash and verifying spends through inclusion proofs supplied by spenders does not need to carry the full UTXO set locally. The research has been complete since 2014. Every node that syncs today still pays the full cost of chain history that commitments would have capped a decade ago, and that cost grows with every new participant.
 
-A **consensus-enforced per-output miner fee** addresses UTXO set bloat going forward. Two tools are easy to confuse. A minimum output value floor locks bitcoin in each output; that capital comes back when the output is spent, so a spammer can recycle it. A per-output miner fee is different: every newly created output pays a fixed fee to the miner that never comes back. That makes each spam run permanently more expensive, with no recycled capital to fund the next one. Inputs spend outputs created earlier, so if new outputs carry a permanent fee at consensus, stuffing data into later spend fields still requires paying that creation cost up front. Dedicated-channel caps and a per-output fee are complementary, and neither requires closing payment-necessary fields. See the pre-proposal *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*.
+A **consensus-enforced per-output miner fee** addresses UTXO set bloat going forward. Two tools are easy to confuse. A minimum output value floor locks bitcoin in each output; that capital comes back when the output is spent, so a spammer can recycle it. A per-output miner fee is different: every newly created output pays a fixed fee to the miner, as ordinary transaction fee, that never comes back. That makes each spam run permanently more expensive, with no recycled capital to fund the next one. Inputs spend outputs created earlier, so if new outputs carry a permanent fee at consensus, stuffing data into later spend fields still requires paying that creation cost up front. Dedicated-channel caps and a per-output fee are complementary, and neither requires closing payment-necessary fields. See *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)* and the optional anti-decay companion *[Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)*. The three pre-proposals are one stack: the fee BIPs price the UTXO slot; the data-channel BIP closes the bus.
 
 ---
 
@@ -3070,7 +3072,7 @@ Monkey JPEGs are beside the point. The question is whether the people running th
 
 ---
 
-*Companion to [The Achievable Floor](/articles/the-achievable-floor) (channel taxonomy), [Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node) (operator cost model), [Who Controls Bitcoin](/articles/bitcoin-governance) (governance evidence), and [Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map) (numbered arguments).*
+*Companion to [The Achievable Floor](/articles/the-achievable-floor) (channel taxonomy), [Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node) (operator cost model), [Who Controls Bitcoin](/articles/bitcoin-governance) (governance evidence), [Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map) (numbered arguments), and the three-BIP stack: [Permanent Data Channel Closure](/bips/permanent-data-channel-closure), [Static Per-Output Miner Fee](/bips/static-per-output-miner-fee), [Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee).*
 
 ---
 
@@ -3170,7 +3172,7 @@ That is what implementation diversity actually requires. **Not a better single i
 - [Orange Paper / Bitcoin Commons consensus spec](https://thebitcoincommons.org/spec.html)
 - [Bitcoin Core repository](https://github.com/bitcoin/bitcoin)
 
-*Related: [Who Controls Bitcoin](/articles/bitcoin-governance), [The Achievable Floor](/articles/the-achievable-floor), [Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map).*
+*Related: [Who Controls Bitcoin](/articles/bitcoin-governance), [The Achievable Floor](/articles/the-achievable-floor), [Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map), [Permanent Data Channel Closure](/bips/permanent-data-channel-closure).*
 
 ---
 
@@ -3620,13 +3622,13 @@ The commandment is real. **The question is whether the community actually lives 
 
 ## Abstract
 
-This BIP proposes a consensus-enforced per-output miner fee: a fixed satoshi amount paid permanently to the miner of each block for every newly created non-coinbase transaction output.
+This BIP proposes a consensus-enforced per-output miner fee: a fixed satoshi floor that every non-coinbase transaction must leave as part of its ordinary transaction fee for each output it creates.
 
-Bitcoin has no consensus-enforced fee floor today. Policy-based dust limits and mempool filters are unenforceable, because any transaction that pays enough miner fees can still be included by a participant who chooses not to enforce those filters. This proposal is the first consensus rule that directly prices the permanent cost of UTXO creation, and it binds every participant.
+Bitcoin has no consensus-enforced fee floor today. Policy-based dust limits and mempool filters are unenforceable, because any transaction that pays enough miner fees can still be included by a participant who chooses not to enforce those filters. This proposal prices the permanent cost of UTXO creation at consensus, and it binds every participant.
 
-The fee is a single fixed constant. There is no dynamic component, no sampling window, no moving average, and no rate adjustment. Every non-coinbase output pays the same fee regardless of script type, value, or fee environment. The fee goes to the miner of the confirming block and is not recoverable by the sender.
+The fee is a single fixed constant. There is no dynamic component, no sampling window, no moving average, and no rate adjustment. Every non-coinbase output pays the same fee regardless of script type, value, or fee environment. The amount is paid as ordinary miner fee (`sum(inputs) - sum(outputs)`), not minted into the coinbase. It is not recoverable by the sender. Old nodes see a valid high-fee transaction. New nodes reject transactions that miss the floor. That is a soft fork.
 
-The design is deliberately small. A [companion BIP](/bips/dynamic-escalation-per-output-fee) adds a dynamic escalation layer on top of this static fee once the network has operational experience with the base rule.
+The design is deliberately small. A [companion BIP](/bips/dynamic-escalation-per-output-fee) adds a dynamic escalation layer on top of this static fee once the network has operational experience with the base rule. Dedicated embedding channels are a different surface; they are closed by [Permanent Data Channel Closure](/bips/permanent-data-channel-closure). The three pre-proposals are one stack. This BIP prices the UTXO slot.
 
 ---
 
@@ -3713,7 +3715,7 @@ The per-output fee is not a new tax on Bitcoin use. It prices a cost that alread
 <figcaption>Node operators absorb a non-monetary burden approaching half of total protocol development spend, with no recovery path.</figcaption>
 </figure>
 
-That also names a natural constituency: about 60,000 node operators absorbing roughly $4 million per year in non-monetary burden. It is a large, distributed group with a direct interest in activation.
+That also names a political constituency: about 60,000 node operators absorbing roughly $4 million per year in non-monetary burden. They have a direct interest in this rule. They are not the BIP-8/9 signaling threshold.
 
 ### Why Determined Spammers Require a Permanent Fee
 
@@ -3758,7 +3760,9 @@ The right question is: what lifetime cost does one newly created non-monetary UT
 2. **Ongoing monthly storage and RAM burden:** $5.52 per month per node in non-monetary ongoing cost. At 60,000 nodes and 51 million inscription UTXOs, that is about 78 sats per UTXO per year across the network, or roughly 6 to 7 sats per UTXO per node-year.
 3. **IBD cost** on every future node that syncs the chain: 85 to 140GB of inscription data downloaded once per new node, at about 9,000 to 12,000 new nodes per year.
 
-Summing those pieces and discounting over a reasonable UTXO lifetime at current BTC price yields a per-UTXO externalized lifetime cost around **16 to 20 sats per output**. That is a cost-derived provisional anchor, not a conclusion. It rests on one methodology paper, uses several approximations, and must be checked against two independent tests: what per-output fee would have made the 2023 to 2026 inscription and ordinals waves uneconomical at historical fees, and what fee stays negligible relative to legitimate output values across historical fee regimes. If calibration shows 16 to 20 sats is too low to deter determined count-vector spam at realistic attacker budgets, the static fee will be raised and the change documented before the proposal moves forward.
+Summing those pieces and discounting over a reasonable UTXO lifetime at current BTC price yields a per-UTXO externalized lifetime cost around **16 to 20 sats per output**. That is a cost-derived provisional anchor for the **UTXO-slot** externality, not a conclusion, and not an inscription-killer. The 2023 to 2026 inscription waves already paid far more than 20 sats per output in weight fees. Those waves would have continued at this floor on fee grounds alone. Closing dedicated data channels is the job of *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*. This BIP prices output count.
+
+The 16 to 20 sat band must still be checked against two tests: what floor deters high-count UTXO spam at realistic attacker budgets, and what floor stays negligible relative to legitimate output values across historical fee regimes. If calibration shows 16 to 20 sats is too low to deter determined count-vector spam, the static fee will be raised and the change documented before the proposal moves forward.
 
 ---
 
@@ -3766,51 +3770,38 @@ Summing those pieces and discounting over a reasonable UTXO lifetime at current 
 
 ### Fee Rule
 
-Every non-coinbase transaction output created in a valid block must cause the miner of that block to collect a fee of exactly `static_fee` satoshis, in addition to the block subsidy and all transaction fees.
+This is a transaction-fee floor, not extra mint. Coinbase accounting is unchanged from existing consensus (`coinbase_value <= block_subsidy + sum(tx_fees)`). Adding the per-output amount to the coinbase above subsidy-plus-fees would be a hard fork and is not this BIP.
+
+For every non-coinbase transaction in a block at or above `activation_height`:
+
+```text
+tx_fee = sum(input_values) - sum(output_values)
+n_outputs = count(outputs in this transaction)
+tx_fee >= active_fee × n_outputs
+```
 
 ```text
 active_fee = static_fee
 ```
 
-`static_fee` is a consensus constant fixed at activation. It changes only by a future soft fork.
+`tx_fee` is the existing consensus fee: a non-negative integer satoshi amount. Transactions with `sum(input_values) < sum(output_values)` remain invalid under existing rules. `static_fee` is a consensus constant fixed at activation. It changes only by a future soft fork.
+
+Overpayment is valid. The floor is per transaction from that transaction's own inputs and outputs. Package fee rate and CPFP do not count: a parent that misses the floor is invalid even if a child pays more.
+
+All arithmetic is integer satoshis. Multiplication uses at least 64-bit unsigned range. A transaction that overflows that range is invalid.
 
 ### Exempt Outputs
 
-Coinbase outputs are the only exemption. They are how the fee is collected, so charging them would be circular. All other outputs pay the fee, including `OP_RETURN` and provably unspendable outputs.
+The coinbase transaction is the only exemption. Charging coinbase outputs would be circular: the coinbase is how the miner collects `tx_fee`. All other transactions pay the floor, including those whose outputs are `OP_RETURN` or otherwise unspendable.
 
-### Coinbase Accounting
+### Validation
 
-Block validity requires that the coinbase transaction output value equals the block subsidy plus all transaction fees plus all per-output fees collected in that block:
+1. Skip the coinbase transaction.
+2. For each remaining transaction, compute `tx_fee` and `n_outputs` as above. A transaction with zero outputs has `n_outputs = 0` and meets the floor automatically.
+3. If `tx_fee < static_fee × n_outputs`, the transaction is invalid and the block is invalid.
+4. Existing coinbase rules are unchanged. Miners receive the per-output amount because it is part of `sum(tx_fees)`.
 
-```text
-coinbase_value = block_subsidy + sum(tx_fees) + per_output_fees_total
-
-per_output_fees_total = static_fee × count(all non-coinbase outputs in block)
-```
-
-<figure class="article-chart chart-flowchart" role="img" aria-label="Coinbase value equals subsidy plus transaction fees plus per-output fees">
-<div class="flowchart-ladder" aria-hidden="true">
-  <span class="flow-node">Block subsidy</span>
-  <span class="flow-arrow" aria-hidden="true">+</span>
-  <span class="flow-node">Σ tx fees</span>
-  <span class="flow-arrow" aria-hidden="true">+</span>
-  <span class="flow-node">static_fee × outputs</span>
-  <span class="flow-arrow" aria-hidden="true">=</span>
-  <span class="flow-node">Coinbase value</span>
-</div>
-</figure>
-
-*Figure: Coinbase accounting after activation. Exact equality is required; underpayment orphans the block.*
-
-Validation rules:
-
-1. Count all outputs across all non-coinbase transactions in the block. Do not count coinbase outputs.
-2. Transactions with zero outputs contribute zero to the count.
-3. Multiply the total output count by `static_fee`.
-4. The coinbase output value must equal `block_subsidy + sum(tx_fees) + per_output_fees_total` exactly.
-5. A block where the coinbase output value does not satisfy this equation is invalid.
-
-This is self-enforcing: miners who validate correctly will orphan blocks that undercount or omit per-output fees in the coinbase.
+This is a soft fork. Old nodes accept any non-negative fee. New nodes reject transactions that miss the floor. A miner who includes a non-compliant transaction produces a block that enforcing nodes reject.
 
 ### Activation Height
 
@@ -3858,9 +3849,15 @@ At the provisional band, count-vector cost scales linearly:
 
 This BIP is meant to deploy via a soft fork using BIP-8 or BIP-9 style signaling, with a minimum activation window of one year and no mandatory lock-in fallback. Miners who do not signal are not penalized. If signaling does not reach the threshold within the window, the proposal does not activate and the process restarts with revised parameters or renewed community discussion.
 
+BIP-8/9 without lock-in-on-timeout is miner signaling. Node operators absorbing non-monetary burden are a political constituency for this rule; they are not the signaling threshold. If miners do not signal, this BIP does not activate under the specified mechanism. User-activated soft fork deployment is a separate choice and is not specified here.
+
 ---
 
 ## Rationale
+
+### Why a Fee Floor, Not Extra Mint
+
+The per-output amount must be part of `tx_fee`. Minting it on top of subsidy-plus-fees would raise `coinbase_value` above what pre-activation nodes allow, which is a hard fork. A floor on `tx_fee` is a soft fork: old nodes accept the transaction; new nodes reject a miss. Miners still receive the sats. The amount is still permanent and not recoverable by the sender.
 
 ### Why a Permanent Fee Rather Than a Capital Lockup
 
@@ -3882,25 +3879,25 @@ A combined static-plus-dynamic rule has more review surface, more implementation
 
 ### Miner Incentives
 
-Miners receive per-output fees in their coinbase. They have a financial interest in including transactions that create outputs. That is not new: miners already want fee-paying transactions. The per-output fee raises the price floor on all output creation. Spammers pay miners more per output than before. The per-output cost to attackers rises whether or not aggregate spam volume falls.
+Miners receive per-output fees as part of ordinary `tx_fee` in the coinbase. They have a financial interest in including transactions that create outputs. That is not new: miners already want fee-paying transactions. The per-output fee raises the price floor on all output creation. Spammers pay miners more per output than before. The per-output cost to attackers rises whether or not aggregate spam volume falls.
 
 Large miners who earn significant revenue from inscription-style activity may oppose this. That opposition is short-term: a fee market where monetary transactions compete on equal terms with correctly priced non-monetary use produces more durable revenue than one distorted by externalized costs.
 
-### Interaction with BIP-110
+### Interaction with Permanent Data Channel Closure
 
-BIP-110 targets dedicated high-bandwidth data channels: `OP_RETURN` and Taproot envelopes. This BIP targets UTXO creation economics and charges all outputs, including `OP_RETURN`. The two proposals address different surfaces and reinforce each other when activated together. Coordinated activation closes the full documented surface at once. For the channel taxonomy, see *[The Achievable Floor](/articles/the-achievable-floor)* and *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*.
+The [Permanent Data Channel Closure](/bips/permanent-data-channel-closure) pre-proposal targets dedicated high-bandwidth data channels: `OP_RETURN`, Taproot envelopes, witness fragmentation, and related embedding surfaces. This BIP targets UTXO creation economics and charges all outputs, including `OP_RETURN`. The two proposals address different surfaces and reinforce each other when activated together. Coordinated activation of all three pre-proposals closes the full documented surface at once. For the channel taxonomy, see *[The Achievable Floor](/articles/the-achievable-floor)* and *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*.
 
 ### Activation Game Theory
 
-Prior soft fork proposals that use mandatory lock-in fallbacks treat non-signaling miners as attackers rather than participants with legitimate concerns. This BIP uses voluntary signaling with no mandatory lock-in. If inscription-dependent miners block signaling, that outcome documents the network's governance dynamics and strengthens the case for implementation diversity and alternative node software.
+Prior soft fork proposals that use mandatory lock-in fallbacks treat non-signaling miners as attackers rather than participants with legitimate concerns. This BIP uses voluntary signaling with no mandatory lock-in. If inscription-dependent miners block signaling, that outcome documents the network's governance dynamics and strengthens the case for implementation diversity and alternative node software. It does not activate the rule. Node-operator interest is not a substitute for the specified signaling threshold.
 
-The most credible activation path is to deploy on signet and testnet, run the rule in production across Bitcoin Commons and Bitcoin Knots, publish calibrated parameters with full chain scan results, and treat miner signaling as a multi-year process. The roughly 60,000 node operators absorbing about $4 million per year in non-monetary burden are a natural, financially motivated activation coalition that spam-mitigation efforts have not usually named explicitly.
+The most credible activation path is to deploy on signet and testnet, run the rule in production across Bitcoin Commons and Bitcoin Knots, publish calibrated parameters with full chain scan results, and treat miner signaling as a multi-year process.
 
 ---
 
 ## Backwards Compatibility
 
-Existing UTXOs remain valid and spendable. Old nodes will see new blocks as valid under the soft fork. From the user's point of view there is one fee: wallets add the weight-based transaction fee and the per-output component internally and show a single total. Wallets that do not update will underestimate fees and produce transactions that enforcing nodes reject at and after the activation height. The one-year minimum signaling window gives the wallet ecosystem time to update. Updates should be done before lock-in, not merely before activation: unlike soft forks that affect only unusual transaction types, the per-output fee affects fee estimation for nearly every transaction that creates outputs. A wallet that is not updated by lock-in will start producing invalid transactions the moment the rule activates, with no warning to the user.
+Existing UTXOs remain valid and spendable. Old nodes will see new blocks as valid under the soft fork. From the user's point of view there is one fee: wallets add the weight-based transaction fee and the per-output component internally and show a single total. Wallets that do not update will underestimate fees and produce transactions that enforcing nodes reject at and after the activation height. The one-year minimum signaling window gives the wallet ecosystem time to update. Updates should be complete before activation: unlike soft forks that affect only unusual transaction types, the per-output fee affects fee estimation for nearly every transaction that creates outputs. A wallet that is not updated by activation will start producing invalid transactions the moment the rule applies, with no warning to the user.
 
 Lightning channel opens, CoinJoin transactions, and exchange batch payouts will pay the per-output fee for each output created. Calibration must confirm the fee is negligible relative to typical output values across historical fee regimes. Exchanges should be engaged before signaling begins.
 
@@ -3914,20 +3911,19 @@ High-level pseudocode:
 STATIC_FEE = <value to be set at activation>
 ACTIVATION_HEIGHT = <determined by signaling process>
 
-def per_output_fees_for_block(block):
-    if block.height < ACTIVATION_HEIGHT:
-        return 0
-    count = sum(len(tx.outputs) for tx in block.non_coinbase_transactions)
-    return STATIC_FEE * count
+def tx_fee(tx):
+    return sum(inp.value for inp in tx.inputs) - sum(out.value for out in tx.outputs)
+
+def is_valid_transaction(tx, block_height):
+    if block_height < ACTIVATION_HEIGHT or tx.is_coinbase:
+        return True
+    return tx_fee(tx) >= STATIC_FEE * len(tx.outputs)
 
 def is_valid_block(block):
-    expected_coinbase = (
-        block_subsidy(block.height)
-        + sum(tx.fee for tx in block.non_coinbase_transactions)
-        + per_output_fees_for_block(block)
-    )
-    return block.coinbase_value == expected_coinbase
+    return all(is_valid_transaction(tx, block.height) for tx in block.transactions)
 ```
+
+Coinbase value is not part of this check. Existing subsidy-plus-fee rules still apply.
 
 Detailed test vectors, integer arithmetic precision requirements, and treatment of edge cases (zero-output transactions, reorgs at activation height, IBD validation) will be provided in a future numbered BIP submission.
 
@@ -3939,8 +3935,7 @@ Calibration is a hard gate. The static fee value is provisional until this check
 
 ### A. Static Fee Determination (Hard Gate)
 
-- Validate the provisional 16-20 sat anchor: measure what per-output fee would have made documented 2023-2026 inscription and ordinals wave transactions uneconomical at historical fee conditions.
-- Stress-test against high-count attack economics at realistic attacker budgets: model cost per spam run at 1,000 / 10,000 / 100,000 output counts. Raise the static fee if the provisional number does not deter at scale.
+- Validate the provisional 16-20 sat anchor as a UTXO-slot price: stress-test against high-count attack economics at realistic attacker budgets (1,000 / 10,000 / 100,000 outputs). Raise the static fee if the provisional number does not deter count-vector spam at scale. Do not treat "would inscriptions have stopped at 20 sats" as a pass condition; that is the data-channel BIP.
 - Confirm the static fee is negligible relative to Lightning channel open values, CoinJoin outputs, and exchange batch withdrawal amounts at the 99th percentile fee rate.
 - Confirm the static fee does not make ordinary small payment outputs uneconomical under any historical fee regime.
 - Lock in the static fee value, or document the required adjustment with full reasoning.
@@ -3957,16 +3952,15 @@ Calibration is a hard gate. The static fee value is provisional until this check
 
 - Verify the static fee makes the documented value-vector spam pattern permanently uneconomical.
 - Confirm no capital recovery path exists under the per-output fee mechanism.
-- Model inscription-wave attacker economics: would the 2023-2026 activity have continued at the recommended static fee?
+- Model inscription-wave attacker economics **together with** the data-channel BIP: the static fee alone does not claim to have stopped 2023-2026 dedicated embedding.
 
 ### D. Consensus Edge Cases
 
-- Specify behavior on reorgs at or near activation height.
-- Specify IBD and assumeutxo interaction: activation height and static fee must be reconstructable from soft fork parameters alone.
-- Specify integer arithmetic precisely so all implementations agree bit-for-bit.
-- Confirm coinbase exemption scope exactly.
-- Specify treatment of transactions with zero non-coinbase outputs.
 - Confirm reorg behavior at activation height: blocks below `activation_height` are never subject to the fee rule, regardless of reorg depth.
+- Confirm IBD and assumeutxo: activation height and static fee are reconstructable from soft fork parameters alone.
+- Confirm integer arithmetic: satoshi amounts, 64-bit multiply of `static_fee × n_outputs`.
+- Confirm coinbase exemption: the floor applies to non-coinbase transactions only; coinbase value uses existing subsidy-plus-fee rules.
+- Confirm the floor is per-transaction `tx_fee`, not package or CPFP attribution.
 
 ### E. Wallet and Exchange Validation
 
@@ -3987,9 +3981,11 @@ Calibration is a hard gate. The static fee value is provisional until this check
 
 **No dynamic manipulation surface.** The static fee is a constant. It has no sampling window, no moving average, and no parameter an attacker can influence through fee activity. That is the main security advantage of the static-only design.
 
-**Coinbase underpayment.** A miner who fails to collect per-output fees in the coinbase produces an invalid block, orphaned by correctly validating nodes. Self-enforcing.
+**Soft fork boundary.** The floor restricts currently valid (low-fee) transactions. It does not mint coins. Blocks that meet the floor are valid to old nodes.
 
-**Clean activation boundary.** The rule takes effect at `activation_height` with no grace window. The one-year minimum signaling window is enough for wallets and services to update before the rule applies. Transactions broadcast before `activation_height` that remain unconfirmed at that height must pay the per-output fee to confirm. Wallets should watch approaching activation and rebroadcast or bump fees as needed.
+**Insufficient tx fee.** A transaction with `tx_fee < static_fee × n_outputs` is invalid. A block that includes it is invalid. Self-enforcing among enforcing nodes. CPFP cannot rescue the parent.
+
+**Clean activation boundary.** The rule takes effect at `activation_height` with no grace window. The one-year minimum signaling window is enough for wallets and services to update before the rule applies. Transactions broadcast before `activation_height` that remain unconfirmed at that height must meet the floor to confirm. Wallets should watch approaching activation and rebroadcast or bump fees as needed.
 
 **Private mempool arrangements.** Miners accepting non-compliant transactions through private arrangements produce blocks rejected by enforcing nodes. Orphan risk limits sustained defection.
 
@@ -3999,7 +3995,8 @@ Calibration is a hard gate. The static fee value is provisional until this check
 
 ## References
 
-- BIP-110: Reduced Data Temporary Softfork
+- *[BIP Pre-Proposal: Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)* (Josh / Secure Sovereign, July 2026). Optional companion.
+- *[BIP Pre-Proposal: Permanent Data Channel Closure](/bips/permanent-data-channel-closure)* (Josh / Secure Sovereign, August 2026).
 - Bitcoin Core dust limit implementation (`GetDustThreshold` / `-dustrelayfee`; Core PRs #2577, #10817, #22863)
 - *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*, v2.4, July 2026. Source of per-node non-monetary burden ($5.52-$5.54/month) and network aggregate ($4M/year) figures.
 - Mempool Research UTXO Set Report, May 2025, tip 892385 ([research.mempool.space/utxo-set-report](https://research.mempool.space/utxo-set-report)). Source of 29.6% inscription UTXO share and 51,188,145 inscription UTXO count.
@@ -4037,13 +4034,13 @@ This document is licensed under the BSD 2-Clause License.
 
 ## Abstract
 
-This BIP adds a dynamic escalation layer on top of the static per-output miner fee from its predecessor. It has a hard consensus dependency on *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*: the dynamic rules are inert for any block at or below the static fee BIP's activation height, regardless of this BIP's own signaling or lock-in status. A block that applies dynamic escalation rules before that height is invalid.
+This BIP adds a dynamic escalation layer on top of the static per-output miner fee from its predecessor. It has a hard consensus dependency on *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*: the dynamic rules are inert for any block at or below the static fee BIP's activation height, regardless of this BIP's own signaling or lock-in status. Until that height, this BIP adds no fee floor.
 
 The problem is long-run decay. A static satoshi amount fixed under today's conditions becomes trivial as Bitcoin's price and fee levels rise over decades. Without automatic adjustment, the static fee stops working as a real disincentive, and the only fix is another soft fork to raise the constant. Repeated soft forks to update a fixed number create a permanent dependency on governance processes that can be captured, delayed, or blocked.
 
 This BIP specifies a dynamic fee component derived from the 25th percentile fee rate sampled over 288-block windows, smoothed by an exponential moving average, confirmed by multi-window persistence, and bounded by an upward-only rate-of-change cap. The active per-output fee is the maximum of the static fee and the dynamic fee. In normal and high fee conditions the dynamic fee sits above the static fee and tracks economic conditions. In prolonged low-fee regimes the static fee governs and the dynamic component contributes nothing.
 
-This BIP is an optional long-term upgrade. The static fee BIP works fully without it.
+This BIP is an optional long-term upgrade to the static fee. The static fee BIP works fully without it. Dedicated embedding channels are closed by [Permanent Data Channel Closure](/bips/permanent-data-channel-closure), which does not depend on this BIP.
 
 ---
 
@@ -4051,7 +4048,7 @@ This BIP is an optional long-term upgrade. The static fee BIP works fully withou
 
 ### The Known Limitation of the Static Fee
 
-The static per-output miner fee closes both the value vector and the count vector of UTXO spam with a permanent, non-recoverable cost per output. It is the main piece of the two-BIP design. It has one known limit, already noted in its security considerations: a fixed satoshi amount decays in real terms as Bitcoin's price and fee levels rise.
+The static per-output miner fee closes both the value vector and the count vector of UTXO spam with a permanent, non-recoverable cost per output. It is the main piece of the fee layer. It has one known limit, already noted in its security considerations: a fixed satoshi amount decays in real terms as Bitcoin's price and fee levels rise.
 
 At 20 sats per output and current BTC prices, creating 100,000 outputs costs 2 million sats. That is a material cost today. At 10x BTC price it is one-tenth the real cost. At 100x BTC price it approaches noise:
 
@@ -4084,7 +4081,7 @@ Separation also lets the network gain operational experience with the static fee
 The dynamic component has one job: keep the static fee from becoming economically trivial over decades. It is not meant to respond to short-term spam waves, react to individual fee spikes, or replace the static fee as the primary deterrent. During short-term fee anomalies the dynamic fee should stay stable. During genuine multi-year fee drift it should move up. The design choices below (slow EMA, multi-window persistence, upward-only rate cap) all follow from that single role.
 
 <figure class="article-chart chart-compare">
-<div class="chart-heading">Division of labor in the two-BIP design</div>
+<div class="chart-heading">Division of labor in the fee layer</div>
 <div class="compare-cols" role="img" aria-label="Static fee is the permanent floor; dynamic fee prevents long-run decay">
 <div class="compare-col compare-open">
 <div class="compare-label">Static fee BIP</div>
@@ -4124,14 +4121,30 @@ The active per-output fee for any given 288-block period is:
 active_fee = max(static_fee, dynamic_fee)
 ```
 
-Where `static_fee` is the constant from the static fee BIP and `dynamic_fee` is computed as specified below. The coinbase accounting formula from the static fee BIP is unchanged except that `static_fee` in that formula is replaced by `active_fee`:
+Where `static_fee` is the constant from the static fee BIP and `dynamic_fee` is computed as specified below. The static fee BIP's validation rule is unchanged except that `static_fee` is replaced by `active_fee`:
 
 ```text
-coinbase_value = block_subsidy + sum(tx_fees)
-               + (active_fee × count(all non-coinbase outputs in block))
+tx_fee >= active_fee × n_outputs
 ```
 
-During any period in which the dynamic fee falls below or equals the static fee, the active fee equals the static fee and the coinbase accounting matches what the static fee BIP specifies.
+Coinbase accounting is unchanged from existing consensus. The dynamic amount is paid as ordinary `tx_fee`, not minted.
+
+During any period in which the dynamic fee falls below or equals the static fee, the active fee equals the static fee and validation matches the static fee BIP.
+
+### Period Alignment
+
+A period is the half-open height interval `[n × 288, (n + 1) × 288)` for integer `n >= 0`, aligned to genesis (`height // 288`). The dynamic fee computed from the transactions in period `n − 1` applies to non-coinbase transactions in period `n`.
+
+This BIP performs no dynamic computation until the first full 288-block period that begins at or after this BIP's `activation_height`. Until that boundary, `active_fee = static_fee`. If the static fee BIP is not yet active, this BIP is inert and adds no floor.
+
+Initial state at the first computation boundary:
+
+- `p25_ema_previous = 0`
+- `dynamic_fee_previous = 0`
+- `active_fee_previous = static_fee`
+- `active_fee_current = static_fee`
+
+Persistence requires two consecutive windows above threshold, so the first computed period cannot raise `dynamic_fee`. The second consecutive window can.
 
 ### Dynamic Fee Computation
 
@@ -4155,41 +4168,57 @@ The dynamic fee is computed at each 288-block boundary and cached for the follow
 
 #### Step 1: Sample the fee rate
 
-This step is the sole definition of fee sampling in the two-BIP design. The static fee BIP needs no fee sampling; all fee rate computation starts here.
+This step is the sole definition of fee sampling in the fee-layer BIPs. The static fee BIP needs no fee sampling; all fee rate computation starts here.
 
-Collect the fee rate for every fee-paying transaction in the previous 288 blocks. Fee rate is in sat/vB using consensus weight (not stripped size). Exclude coinbase transactions. Exclude transactions with zero fee. Fee rate is computed per transaction from that transaction's own fee and weight only, with no package or CPFP attribution: package fee rate is mempool policy and is not observable from block data alone. Per-transaction fee rate keeps the computation reproducible by any node from block data without mempool history.
+Collect the fee rate for every fee-paying transaction in the previous 288-block period. Fee rate is in milli-sat/vB as a non-negative integer:
 
-Compute the 25th percentile of the resulting set using the algorithm in the consensus edge cases checklist (sort order and even-N averaging must match across implementations). If the set has fewer than `min_tx_count` fee-paying transactions, the sample is insufficient and the dynamic fee for the next period is set to zero, so the static fee governs.
+```text
+vsize = ceil(weight / 4)          # vbytes, weight in WU
+rate  = floor(tx_fee * 1000 / vsize)   # milli-sat per vB
+```
+
+`tx_fee` is `sum(input_values) - sum(output_values)` as in the static fee BIP. Exclude coinbase transactions. Exclude transactions with `tx_fee = 0`. Rate uses that transaction's own fee and weight only: no package or CPFP attribution.
+
+Compute the 25th percentile of the resulting integer set. Sort ascending. For `N` samples, the 25th percentile is the element at index `floor((N − 1) × 25 / 100)` (0-based). No interpolation on even `N`. If the set has fewer than `min_tx_count` fee-paying transactions, **do not update** `p25_ema_previous` or `dynamic_fee_previous` (hold). Do not set them to zero. A thin sample must not collapse or freeze-from-zero the dynamic component.
 
 #### Step 2: Apply the exponential moving average
 
+All EMA math is integer, toward zero:
+
 ```text
-p25_ema = α × p25_current + (1 − α) × p25_ema_previous
+ALPHA_DEN = 1000
+alpha_n   = <integer, 100 means α = 0.1>
+p25_ema   = (alpha_n × p25_current + (ALPHA_DEN − alpha_n) × p25_ema_previous) / ALPHA_DEN
 ```
 
-Where `α` is the smoothing parameter. A slow `α` toward 0.1 tracks multi-year fee drift while ignoring short-term spikes. Because the dynamic layer's only job is anti-decay over decades rather than short-term spam response, `α` must be tuned slow. A faster `α` toward 0.3 is appropriate only if sensitivity analysis shows a real benefit from faster response without instability.
+A slow `alpha_n` toward 100 tracks multi-year fee drift while ignoring short-term spikes. Because the dynamic layer's only job is anti-decay over decades rather than short-term spam response, `alpha_n` must be tuned slow. A faster value toward 300 is appropriate only if sensitivity analysis shows a real benefit from faster response without instability.
 
 #### Step 3: Apply multi-window persistence
 
 ```text
 if p25_ema_current > persistence_threshold
    and p25_ema_previous > persistence_threshold:
-    candidate_dynamic = k × p25_ema_current
+    candidate_dynamic = (k × p25_ema_current) / 1000
 else:
     candidate_dynamic = dynamic_fee_previous
 ```
 
-Where `k` has units of vbytes and converts the p25 EMA (in sat/vB) into a per-output satoshi fee. Dimensionally: (sat/vB) × (vB) = sat. So `k` encodes an assumed typical output size in vbytes, set during calibration to match a representative output across common script types. A single `k` value, rather than per-script-type values, matches the static fee's uniform-per-output design. The resulting `candidate_dynamic` is a satoshi amount per output. A single elevated 288-block window (~2 days) does not move the dynamic fee. An attacker must sustain elevated fee conditions across at least two consecutive windows (~4 days) to produce any upward movement.
+`persistence_threshold` is in milli-sat/vB, the same units as `p25_ema`. `k` is an integer vbyte scale that converts that EMA into a per-output satoshi fee. Truncation toward zero. `k` is **not** the serialized size of an output. It is a calibrated scale so that at a reference p25 (about 5 to 10 sat/vB) the dynamic component is the same order of magnitude as `static_fee`. A single `k`, rather than per-script-type values, matches the static fee's uniform-per-output design. A single elevated 288-block window (~2 days) does not move the dynamic fee. An attacker must sustain elevated fee conditions across at least two consecutive windows (~4 days) to produce any upward movement.
 
 #### Step 4: Apply the rate-of-change cap
 
 ```text
-max_increase = dynamic_fee_previous × (1 + R)
+R_NUM = 1
+R_DEN = 4                          # R = 0.25 unless calibration sets otherwise
+cap_base = max(dynamic_fee_previous, static_fee)
+max_increase = cap_base + (cap_base × R_NUM) / R_DEN
 dynamic_fee_new = min(candidate_dynamic, max_increase)
 dynamic_fee_new = max(0, dynamic_fee_new)
 ```
 
-The dynamic fee may not increase by more than `R` percent per 288-block period, no matter what the fee statistic produces. Decreases are uncapped: the dynamic fee falls freely back toward zero when fee conditions normalize, at which point the static fee governs.
+All integer, toward zero. `cap_base` is never 0 while the static fee BIP is active, so a zero `dynamic_fee_previous` cannot trap the cap at 0. The first upward move is bounded by `static_fee × (1 + R)`, not by an uncapped jump to `candidate_dynamic`.
+
+The dynamic fee may not increase faster than that bound per 288-block period. Decreases are uncapped: the dynamic fee falls freely back toward zero when fee conditions normalize, at which point the static fee governs.
 
 #### Step 5: Apply the static fee floor
 
@@ -4197,17 +4226,19 @@ The dynamic fee may not increase by more than `R` percent per 288-block period, 
 active_fee = max(static_fee, dynamic_fee_new)
 ```
 
-### Coinbase Accounting During the Grace Window
+### Transaction Fee Floor During the Grace Window
 
-The grace window from the static fee BIP does not apply here in the same form, because the dynamic fee changes every 288 blocks rather than once at activation. The coinbase accounting rule for period boundaries is:
+The static fee BIP has no grace window at activation. This BIP changes `active_fee` every 288 blocks, so in-flight transactions need a short hold at period boundaries.
 
-During the first `G` blocks of a new 288-block period, the coinbase must account for per-output fees at the previous period's active fee rate. After `G` blocks, the new period's active fee rate applies. That keeps transactions broadcast under the previous rate and confirmed during the boundary window from being invalidated by a mid-flight rate change, and keeps the coinbase calculation unambiguous for everyone.
+During the first `G` blocks of a new 288-block period, the required floor is the previous period's `active_fee`. After `G` blocks, the new period's `active_fee` applies. Coinbase rules are unchanged.
 
 ```text
 if block_height < period_start + G:
-    fee_rate_for_coinbase = active_fee_previous_period
+    required_fee = active_fee_previous_period
 else:
-    fee_rate_for_coinbase = active_fee_current_period
+    required_fee = active_fee_current_period
+
+tx_fee >= required_fee × n_outputs
 ```
 
 ### Consensus State
@@ -4216,7 +4247,7 @@ Each node must carry the following state across 288-block period boundaries, in 
 
 - `dynamic_fee_previous` (the dynamic fee from the prior period)
 - `p25_ema_previous` (the EMA value from the prior period)
-- `active_fee_previous` (for grace window coinbase accounting)
+- `active_fee_previous` (for grace window floor)
 - `active_fee_current` (the active fee for the current period)
 
 All values are deterministic from block history and need no external input. Implementations must also retain EMA state snapshots at every period boundary for the most recent 2,016 blocks of boundaries to support reorg recovery, as specified in Security Considerations.
@@ -4231,22 +4262,24 @@ All parameters are consensus parameters adjustable by a future soft fork. Initia
 <tr><th>Parameter</th><th>Description</th><th>Provisional value</th></tr>
 </thead>
 <tbody>
-<tr><td><code>k</code></td><td>Multiplier scaling p25 EMA to sat per output (units: vB)</td><td>2-4</td></tr>
-<tr><td><code>α</code></td><td>EMA smoothing factor</td><td>0.1-0.3 (tune slow)</td></tr>
-<tr><td><code>persistence_threshold</code></td><td>Minimum p25 EMA for a window to count toward persistence</td><td>TBD via calibration</td></tr>
-<tr><td><code>R</code></td><td>Maximum upward rate of change per period</td><td>0.25</td></tr>
+<tr><td><code>k</code></td><td>Integer vbyte scale from p25 EMA (milli-sat/vB) to sat per output</td><td>2-4</td></tr>
+<tr><td><code>alpha_n</code></td><td>EMA numerator over 1000 (100 = α 0.1)</td><td>100-300 (tune slow)</td></tr>
+<tr><td><code>persistence_threshold</code></td><td>Minimum p25 EMA (milli-sat/vB) for a window to count toward persistence</td><td>TBD via calibration</td></tr>
+<tr><td><code>R_NUM / R_DEN</code></td><td>Maximum upward rate of change per period</td><td>1/4</td></tr>
 <tr><td><code>G</code></td><td>Grace window in blocks at period boundaries</td><td>6-12</td></tr>
 <tr><td><code>min_tx_count</code></td><td>Minimum fee-paying transactions for a valid sample</td><td>1,000</td></tr>
 </tbody>
 </table>
-<figcaption>Prefer slow <code>α</code> unless sensitivity tables show a real benefit from faster response without instability.</figcaption>
+<figcaption>Prefer slow <code>alpha_n</code> unless sensitivity tables show a real benefit from faster response without instability. <code>k</code> is a scale, not output vsize.</figcaption>
 </figure>
 
 ### Activation
 
 This BIP is meant to deploy via a soft fork using BIP-8 or BIP-9 style signaling, with a minimum activation window of one year and no mandatory lock-in fallback. Miners who do not signal are not penalized.
 
-This BIP has an explicit consensus dependency: the dynamic escalation rules are inert for any block whose height is less than or equal to the static fee BIP's `activation_height`, regardless of this BIP's own signaling or lock-in status. Even if this BIP's signaling reaches threshold before the static fee BIP activates, no block applies dynamic escalation rules until the static fee BIP is fully active. Implementations must enforce that ordering at the consensus layer, not merely as a deployment convention. A block that applies dynamic escalation rules before the static fee BIP's `activation_height` is invalid.
+This BIP has an explicit consensus dependency: it is inert for any block whose height is less than or equal to the static fee BIP's `activation_height`, regardless of this BIP's own signaling or lock-in status. Until the static fee BIP is active, `active_fee` is not applied by this BIP (the static BIP's floor is also absent). After the static fee BIP is active and this BIP has completed its first full 288-block period, `active_fee = max(static_fee, dynamic_fee)` as specified. Signaling order is not enough; implementations must enforce the height dependency at the consensus layer.
+
+BIP-8/9 without lock-in-on-timeout is miner signaling. Node-operator interest is not the threshold. User-activated soft fork deployment is a separate choice and is not specified here.
 
 ---
 
@@ -4272,21 +4305,21 @@ A single elevated 288-block window is achievable by a moderately funded actor fo
 
 Even with EMA smoothing and persistence, a sustained campaign could ratchet the dynamic fee upward over many periods. The rate cap bounds how fast that can happen regardless of fee pressure: even a perfectly sustained campaign can raise the dynamic fee by only `R` percent per period, so rapid ratcheting is slow, expensive, and publicly visible on chain. The cap is asymmetric on purpose: the dynamic fee falls freely when pressure stops, so a manipulation attempt does not leave a permanently elevated floor once the attacker withdraws.
 
-### Why k Has Units of Vbytes
+### Why k Is a Scale, Not Output Size
 
-The p25 EMA is in sat/vB. To produce a satoshi amount per output, `k` must have units of vbytes. Dimensionally: (sat/vB) × (vB) = sat. So `k` encodes a representative output size assumption. Calibration sets `k` to match the vbyte cost of a typical output across common script types, producing a per-output fee that tracks the real economic cost of output creation as fee rates change. A single `k` value rather than per-script-type values matches the static fee's uniform-per-output model: the externalized cost being priced is per UTXO slot, not per script type.
+The p25 EMA is in milli-sat/vB. Multiplying by an integer `k` and dividing by 1000 produces sats per output. Dimensionally `k` has units of vbytes, but it is **not** set to the serialized size of a P2WPKH or P2TR output (31–43 vB). Using literal output vsize would make `dynamic_fee` track weight fees one-for-one and would overprice Lightning and CoinJoin during congestion. Calibration sets `k` so that at a reference p25 of about 5 to 10 sat/vB, `dynamic_fee` is the same order as `static_fee` (provisional `k` in 2–4). A single `k` matches the static fee's uniform-per-output model: the externalized cost being priced is per UTXO slot, not per script type.
 
-### Interaction with BIP-110
+### Interaction with Permanent Data Channel Closure
 
-BIP-110 targets dedicated high-bandwidth data channels. This BIP targets UTXO creation economics. They operate on different surfaces. The dynamic escalation layer does not change the relationship between this proposal and BIP-110 established in the static fee BIP. See *[The Achievable Floor](/articles/the-achievable-floor)* for the channel taxonomy those proposals close.
+The [Permanent Data Channel Closure](/bips/permanent-data-channel-closure) pre-proposal targets dedicated high-bandwidth data channels. This BIP targets UTXO creation economics. They operate on different surfaces. Dynamic escalation does not change that split. See *[The Achievable Floor](/articles/the-achievable-floor)* and *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*.
 
 ---
 
 ## Backwards Compatibility
 
-The active fee replaces the static fee in the coinbase accounting formula. During any period in which the dynamic fee is below the static fee, the coinbase accounting matches the static fee BIP and no behavioral change occurs. The dynamic layer is additive: it can only raise the active fee above the static fee floor, never below it.
+The active fee replaces the static fee in the per-transaction floor. During any period in which the dynamic fee is below the static fee, validation matches the static fee BIP. The dynamic layer is additive: it can only raise the active fee above the static fee floor, never below it.
 
-Wallets and fee estimators that already account for the static per-output fee must also track the current period's active fee, which may differ from the static fee during elevated fee conditions. From the user's point of view there is still one fee; wallets present a single total that uses whichever of the two rates is currently active.
+Wallets and fee estimators that already account for the static per-output fee must also track the current period's active fee, which may differ from the static fee during elevated fee conditions. From the user's point of view there is still one fee; wallets present a single total that uses whichever of the two rates is currently required, including the grace-window hold at period boundaries.
 
 ---
 
@@ -4295,60 +4328,71 @@ Wallets and fee estimators that already account for the static per-output fee mu
 High-level pseudocode, assuming the static fee BIP is active:
 
 ```python
+STATIC_FEE = <from static fee BIP>
+ALPHA_N = 100
+ALPHA_DEN = 1000
+K = <2-4 pending calibration>
+R_NUM, R_DEN = 1, 4
+MIN_TX_COUNT = 1000
+G = <6-12>
+RATE_SCALE = 1000  # milli-sat/vB
+
+def tx_vsize(tx):
+    return (tx.weight + 3) // 4
+
+def tx_fee(tx):
+    return sum(inp.value for inp in tx.inputs) - sum(out.value for out in tx.outputs)
+
+def sample_rates(period_blocks):
+    rates = []
+    for block in period_blocks:
+        for tx in block.transactions:
+            if tx.is_coinbase or tx_fee(tx) == 0:
+                continue
+            rates.append((tx_fee(tx) * RATE_SCALE) // tx_vsize(tx))
+    rates.sort()
+    return rates
+
+def percentile_25(rates):
+    n = len(rates)
+    return rates[(n - 1) * 25 // 100]
+
 def compute_period_active_fee(last_288_blocks, state):
-    # Step 1: sample
-    fee_rates = [
-        tx.fee_rate for block in last_288_blocks
-        for tx in block.transactions
-        if tx.fee > 0 and not tx.is_coinbase
-    ]
-    if len(fee_rates) < MIN_TX_COUNT:
-        p25_current = 0
-    else:
-        p25_current = percentile(fee_rates, 25)
+    rates = sample_rates(last_288_blocks)
+    if len(rates) < MIN_TX_COUNT:
+        state.active_fee_previous = state.active_fee_current
+        return state.active_fee_current  # hold ema and dynamic_fee; rotate grace window
 
-    # Step 2: EMA
-    p25_ema = ALPHA * p25_current + (1 - ALPHA) * state.p25_ema_previous
+    p25_current = percentile_25(rates)
+    p25_ema = (ALPHA_N * p25_current + (ALPHA_DEN - ALPHA_N) * state.p25_ema_previous) // ALPHA_DEN
 
-    # Step 3: multi-window persistence
     if (p25_ema > PERSISTENCE_THRESHOLD and
             state.p25_ema_previous > PERSISTENCE_THRESHOLD):
-        candidate = K * p25_ema  # sat amount; K has units of vbytes
+        candidate = (K * p25_ema) // RATE_SCALE
     else:
         candidate = state.dynamic_fee_previous
 
-    # Step 4: rate-of-change cap (upward only)
-    max_increase = state.dynamic_fee_previous * (1 + R)
+    cap_base = max(state.dynamic_fee_previous, STATIC_FEE)
+    max_increase = cap_base + (cap_base * R_NUM) // R_DEN
     dynamic_fee = min(candidate, max_increase)
     dynamic_fee = max(0, dynamic_fee)
-
-    # Step 5: apply static fee floor
     active_fee = max(STATIC_FEE, dynamic_fee)
 
-    # Update state
     state.p25_ema_previous = p25_ema
     state.dynamic_fee_previous = dynamic_fee
     state.active_fee_previous = state.active_fee_current
     state.active_fee_current = active_fee
-
     return active_fee
 
-def fee_rate_for_coinbase(block_height, period_start, state):
+def required_fee(block_height, period_start, state):
     if block_height < period_start + G:
         return state.active_fee_previous
     return state.active_fee_current
 
-def is_valid_block(block, period_start, state):
-    rate = fee_rate_for_coinbase(block.height, period_start, state)
-    total_per_output_fees = sum(
-        len(tx.outputs) for tx in block.non_coinbase_transactions
-    ) * rate
-    expected_coinbase = (
-        block_subsidy(block.height)
-        + sum(tx.fee for tx in block.non_coinbase_transactions)
-        + total_per_output_fees
-    )
-    return block.coinbase_value == expected_coinbase
+def is_valid_transaction(tx, block_height, period_start, state):
+    if tx.is_coinbase:
+        return True
+    return tx_fee(tx) >= required_fee(block_height, period_start, state) * len(tx.outputs)
 ```
 
 Detailed test vectors, integer arithmetic precision requirements, and edge-case handling will be provided in a future numbered BIP submission.
@@ -4361,9 +4405,9 @@ This checklist is separate from and follows the static fee BIP's calibration. Th
 
 ### A. Dynamic Parameter Sensitivity
 
-- Sweep `α` in {0.05, 0.1, 0.2, 0.3} × `R` in {0.1, 0.25, 0.5} × `k` in {2, 3, 4} against full chain history.
+- Sweep `alpha_n` in {50, 100, 200, 300} × `R` in {1/10, 1/4, 1/2} × `k` in {2, 3, 4} against full chain history.
 - For each combination report: number of periods where dynamic fee exceeds static fee; maximum dynamic fee reached; EMA lag to a sustained 10x fee increase; periods required to ratchet 2x under simulated sustained fee pressure.
-- Recommend a default parameter tuple only after sensitivity tables exist. Prefer slow `α` unless tables show a real benefit from faster response.
+- Recommend a default parameter tuple only after sensitivity tables exist. Prefer slow `alpha_n` unless tables show a real benefit from faster response.
 - Calibrate `persistence_threshold` above the noise floor of quiet periods and below the movement threshold for genuine sustained congestion.
 - Confirm the dynamic fee sits visibly above the static fee during normal and high fee conditions at the recommended parameters.
 
@@ -4383,13 +4427,14 @@ This checklist is separate from and follows the static fee BIP's calibration. Th
 
 - Specify behavior on reorgs crossing 288-block period boundaries: which period's EMA state and active fee apply to disconnected blocks.
 - Specify IBD and assumeutxo interaction: EMA state must be fully reconstructable from block history alone without mempool history.
-- Specify integer arithmetic precisely (fixed-point representation, rounding direction) so all implementations agree bit-for-bit.
-- Define an identical percentile algorithm (sort order, even-N averaging) so all implementations agree bit-for-bit.
+- Specify integer arithmetic precisely (milli-sat/vB rates, EMA division toward zero, `k × ema / 1000`, rate cap via `cap_base = max(previous, static_fee)`) so all implementations agree bit-for-bit.
+- Define the identical percentile algorithm specified in Step 1 (sort ascending, index `floor((N − 1) × 25 / 100)`, no interpolation).
 - Confirm grace window `G` is sufficient at period boundaries given historical mempool boundary-crossing data.
+- Confirm periods are genesis-aligned `[n×288, (n+1)×288)` and the first full period after activation is the first computation window.
 
 ### E. Exit Criteria
 
-- Recommended (`k`, `α`, `R`, `persistence_threshold`, `G`, `min_tx_count`) published with full sensitivity tables.
+- Recommended (`k`, `alpha_n`, `R_NUM/R_DEN`, `persistence_threshold`, `G`, `min_tx_count`) published with full sensitivity tables.
 - Anti-manipulation stress test B passes at recommended parameters.
 - Collateral damage checklist C passes at recommended parameters.
 - Consensus edge cases in checklist D resolved and written into Specification.
@@ -4402,9 +4447,11 @@ This checklist is separate from and follows the static fee BIP's calibration. Th
 
 **Static fee as irreducible floor.** The dynamic fee can never push the active fee below the static fee. The static fee BIP's security properties are fully preserved regardless of what the dynamic layer does.
 
-**Low-activity window.** If the 288-block sample contains fewer than `min_tx_count` fee-paying transactions, the dynamic fee is set to zero and the static fee governs. That prevents dynamic fee collapse during quiet periods or deliberate low-fee block stuffing.
+**Low-activity window.** If the 288-block sample contains fewer than `min_tx_count` fee-paying transactions, EMA and `dynamic_fee` are held, not zeroed. Zeroing would re-introduce a from-zero rate-cap trap. The static fee still floors `active_fee`.
 
-**Period boundary coinbase accounting.** The grace window rule keeps the coinbase accounting formula unambiguous at every period boundary. The previous period's rate governs the coinbase during the grace window; the new rate governs after. No block can be valid under two different interpretations of the coinbase formula at once.
+**Period boundary floor.** The grace window keeps the required per-transaction floor unambiguous at every period boundary. The previous period's `active_fee` governs during the grace window; the new rate governs after. Coinbase value is not part of this BIP.
+
+**Rate cap from zero.** `cap_base = max(dynamic_fee_previous, static_fee)` so a zero previous dynamic fee cannot pin `max_increase` at 0.
 
 **Reorg safety.** On a reorg crossing a 288-block period boundary, the EMA state must revert to the correct state for the reorganized chain tip. Implementations must cache EMA state snapshots at every period boundary. The consensus rule is: retain snapshots for the most recent 2,016 blocks (one difficulty adjustment period, about two weeks) of period boundaries. That bounds the cache to at most seven snapshots at any time and covers any reorg that Bitcoin's proof-of-work economics makes plausible, without relying on heuristic depth estimates. A reorg deeper than 2,016 blocks is treated as a chain split requiring operator intervention, consistent with existing Bitcoin consensus assumptions. Implementations that do not retain the required snapshots cannot correctly validate blocks after a deep reorg and must re-sync from a known-good checkpoint.
 
@@ -4413,13 +4460,567 @@ This checklist is separate from and follows the static fee BIP's calibration. Th
 ## References
 
 - *[BIP Pre-Proposal: Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*. This BIP depends on it.
-- BIP-110: Reduced Data Temporary Softfork
+- *[BIP Pre-Proposal: Permanent Data Channel Closure](/bips/permanent-data-channel-closure)* (Josh / Secure Sovereign, August 2026).
 - *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*, v2.4, July 2026.
 - Mempool Research UTXO Set Report, May 2025, tip 892385 ([research.mempool.space/utxo-set-report](https://research.mempool.space/utxo-set-report)).
 - *[The Achievable Floor](/articles/the-achievable-floor)* (2026).
 - *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)* (2026).
 - Lopp, Jameson. "Goldiblocks: A Dynamic Block Size Limit." OP_NEXT 2025.
 - Various Delving Bitcoin and bitcoin-dev threads on UTXO bloat and spam mitigation (2023-2026)
+
+---
+
+## Copyright
+
+This document is licensed under the BSD 2-Clause License.
+
+---
+
+<!-- source: https://secsov.com/bips/permanent-data-channel-closure -->
+
+# Permanent Data Channel Closure
+
+## Contents
+
+- [Abstract](#abstract)
+- [Motivation](#motivation)
+- [Specification](#specification)
+- [Unreferenced push analysis](#unreferenced-push-analysis)
+- [Witness item classification](#witness-item-classification)
+- [Rationale](#rationale)
+- [Backwards Compatibility](#backwards-compatibility)
+- [Reference Implementation](#reference-implementation)
+- [Calibration Checklist](#calibration-checklist)
+- [Appendix A. `stack_items_read`](#appendix-a-stack_items_read)
+- [Security Considerations](#security-considerations)
+- [References](#references)
+- [Copyright](#copyright)
+
+---
+
+## Abstract
+
+This BIP permanently closes the consensus-layer data embedding channels that have been used to bloat the Bitcoin blockchain with arbitrary non-monetary content. It is a permanent soft fork with no expiry.
+
+The proposal invalidates the dedicated and unenforced embedding channels used for bulk non-monetary content: large `OP_RETURN` outputs, non-template scriptPubKeys, Tapleaf and P2WSH dead pushes, annexes, unconstrained witness versions, and oversized control blocks. It restores the long-established 83-byte `scriptPubKey` limit on OP_RETURN at the consensus layer, caps individual script-argument items at 256 bytes, and adds aggregate witness byte limits per input and per transaction that close multi-push fragmentation inside a transaction. It does not close payment-necessary fields (hashes, amounts, `nSequence`, ordering) or coinbase `scriptSig`. BIP141 witness weight is unchanged. Pre-activation UTXOs remain spendable, including spends that reveal data already committed before activation.
+
+This BIP is designed to work in conjunction with the [Static Per-Output Miner Fee](/bips/static-per-output-miner-fee) and [Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee) pre-proposals. Those BIPs make UTXO creation permanently more expensive. This BIP closes the data channels that would otherwise let spammers circumvent that cost by fragmenting payloads across many small pushes or many cheap outputs. The three proposals together form a coherent anti-spam stack: the fee BIPs price the surface; this BIP closes the channels.
+
+---
+
+## Motivation
+
+### The Problem
+
+Bitcoin has no consensus rule preventing arbitrary data from being embedded in transactions. Policy filters and relay rules can be bypassed by routing through a miner who does not enforce them. That is why data embedding debates have continued without resolution. Policy binds willing participants. Consensus binds everyone.
+
+Starting with the inscription technique first exploited in 2022, a sustained trend has emerged around embedding arbitrary data into Bitcoin transactions. Ordinals, BRC-20 tokens, Runes, and similar protocols use Bitcoin as a data store rather than a monetary network. This creates significant and permanent burdens on node operators: storage, bandwidth, and RAM costs that fall on roughly 60,000 full nodes, none of whom were compensated for accepting that burden. Pruning can drop old blocks from disk. It does not skip the download at first sync. *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)* (v2.4, July 2026) estimates the aggregate non-monetary burden on the node network at approximately $4 million per year.
+
+The core externality is structural. The actor embedding data pays a miner once. The burden of storing and serving that data falls on every node operator indefinitely. No market mechanism corrects this because node operators receive no part of the miner fee and have no mechanism to refuse specific content at the consensus layer.
+
+### The Two Embedding Surfaces
+
+Data embedding operates on two surfaces that require different consensus tools to close.
+
+The first is the per-item surface: individual data fields large enough to carry meaningful payloads. Output scriptPubKeys, OP_PUSHDATA payloads, witness stack items, Taproot annexes, and control blocks have all been exploited as single-field embedding vectors. Capping each field at a size that is sufficient for legitimate cryptographic use but insufficient for image-scale payloads closes this surface.
+
+The second is the fragmentation surface: multiple sub-cap items assembled by an off-chain indexer into a larger payload. A per-item cap creates a window of permitted size per push. A transaction can contain many inputs, each with many witness stack items. An image or arbitrary file can be reconstructed from a sequence of small chunks distributed across witness fields in one transaction or spread across multiple transactions with a reassembly index maintained off-chain. Per-item caps raise the cost and complexity of embedding; they do not close the channel.
+
+Closing both surfaces requires two complementary rule types: per-item caps on individual fields, and aggregate caps on total witness data per input and per transaction.
+
+### Why Permanent Rules Are the Right Mechanism
+
+A temporary consensus rule creates an expiry event that the data-embedding ecosystem can plan around. Tooling can be built for the post-expiry environment, and activity resumes the moment the rule lapses. A permanent rule removes that planning horizon entirely and eliminates the repeated soft-fork cost of re-litigating the same question on a cycle.
+
+The underlying principle does not weaken over time: node operators should not bear the indefinite cost of arbitrary data storage initiated by parties who paid miners once and never compensated them. The rule should match the principle.
+
+### The Fragmentation Surface in Detail
+
+Two fragmentation paths must be closed by this proposal.
+
+The within-transaction path uses multiple witness stack items, each within the per-item cap, within a single transaction. No existing consensus rule limits the count of such items or their aggregate byte total per input or per transaction. A single transaction can carry an arbitrarily large payload distributed across many small pushes.
+
+The cross-transaction path splits a payload across multiple transactions, each carrying one or more small chunks, with a reassembly index maintained off-chain. Each individual transaction complies with per-item caps. The payload is reconstructed by an indexer that reads the chain as a data store rather than as a ledger of monetary transfers. The Ordinals developer community published fragmentation tooling confirming this path is viable and ready to deploy whenever per-item caps are enforced.
+
+Closing both paths requires aggregate limits: a maximum total witness byte count per input and per transaction that makes large-payload fragmentation invalid regardless of how finely the payload is divided.
+
+### The Interaction With the Per-Output Fee BIPs
+
+The [Static Per-Output Miner Fee](/bips/static-per-output-miner-fee) prices every new non-coinbase output permanently. The [Dynamic Escalation](/bips/dynamic-escalation-per-output-fee) layer keeps that price from decaying. Together they make UTXO creation costly in sats, permanently and irrecoverably.
+
+Without data channel closure, a spammer facing the per-output fee can minimize output count while maximizing payload per output by fragmenting data within the witness fields of a small number of transactions. The fee BIPs price outputs; they do not directly price witness bytes. This BIP closes that gap. With all three proposals active, the available surface for data embedding is narrow, the per-output cost is permanent, and fragmentation increases the transaction count and thus the aggregate fee burden rather than routing around it.
+
+---
+
+## Specification
+
+### Permanent Deployment
+
+The rules in this BIP have no expiry. They take effect at `activation_height` and remain in effect for all subsequent blocks. There is no `active_duration` parameter and no EXPIRED state. The deployment transitions from ACTIVE to a permanent terminal state with continued enforcement, not expiry.
+
+### UTXO Grandfathering
+
+Spend-side rules and output-side rules are not the same exemption.
+
+**Output rules (Rule 1).** Apply to every transaction output created in a block at or above `activation_height`, including coinbase outputs. A transaction that spends only pre-activation UTXOs still may not create a non-template scriptPubKey. One old input does not exempt new outputs.
+
+**Spend rules (Rules 2 through 13).** Apply only to inputs whose prevout was created at or after `activation_height`. Inputs spending UTXOs created before `activation_height` are exempt from Rules 2 through 13. Existing coins are never frozen. Once a UTXO is grandfathered for spends, it remains spendable under pre-activation spend rules indefinitely, including inscription-style witness on those spends.
+
+Mixed transactions are valid if every new output satisfies Rule 1 and every post-activation input satisfies Rules 2 through 13.
+
+Coinbase `scriptSig` / extraNonce is out of scope.
+
+### Rule Set
+
+The following rules apply to all blocks at or above `activation_height`.
+
+**Rule 1.** Every output `scriptPubKey` created at or after `activation_height` must be exactly one of the templates below, or a valid OP_RETURN output as defined here. Any other `scriptPubKey` is invalid. Templates are byte-exact (push opcodes must be the minimal opcode for that length; `OP_PUSHDATA1` for a 20-byte hash is not P2PKH).
+
+| Name | `scriptPubKey` |
+|---|---|
+| P2PK compressed | `OP_PUSHBYTES_33 {33-byte pubkey} OP_CHECKSIG` |
+| P2PK uncompressed | `OP_PUSHBYTES_65 {65-byte pubkey} OP_CHECKSIG` |
+| P2PKH | `OP_DUP OP_HASH160 OP_PUSHBYTES_20 {20-byte hash} OP_EQUALVERIFY OP_CHECKSIG` |
+| P2SH | `OP_HASH160 OP_PUSHBYTES_20 {20-byte hash} OP_EQUAL` |
+| P2WPKH | `OP_0 OP_PUSHBYTES_20 {20-byte hash}` |
+| P2WSH | `OP_0 OP_PUSHBYTES_32 {32-byte hash}` |
+| P2TR | `OP_1 OP_PUSHBYTES_32 {32-byte x-only pubkey}` |
+| P2A | `OP_1 OP_PUSHBYTES_2 0x4e73` (BIP 433) |
+
+**OP_RETURN.** A valid OP_RETURN output has `len(scriptPubKey) <= 83` bytes, the first opcode is `OP_RETURN` (0x6a), and the remainder is at most one data push (opcodes `OP_0`, `OP_1NEGATE`, `OP_1`–`OP_16`, or a single `OP_PUSHBYTES` / `OP_PUSHDATA1` / `OP_PUSHDATA2` with its payload). No further opcodes. 83 bytes is the `scriptPubKey` length (historical Core datacarrier), not 83 bytes of payload. Multiple OP_RETURN outputs in one transaction are each subject to this cap.
+
+Bare multisig and all other non-template forms are invalid.
+
+**Rule 2.** Individual OP_PUSHDATA payloads and script-argument witness items exceeding 256 bytes are invalid, except for the redeemScript push in BIP16 scriptSigs. Script-argument witness items are witness stack elements passed to the script interpreter as inputs, excluding witness scripts, Tapleaf scripts, control blocks, annexes, and Taproot key-path signatures.
+
+**Rule 3.** Spending undefined witness versions or Tapleaf versions is invalid. Creating outputs with undefined witness versions is already invalid under Rule 1: those scriptPubKeys are not a defined template. A future soft fork that defines a new witness version must add the corresponding template to the Rule 1 whitelist in the same deployment that defines spending rules. There is no pre-creation window.
+
+**Rule 4.** Witness stacks with a Taproot annex are invalid.
+
+**Rule 5.** Taproot control blocks larger than 257 bytes are invalid.
+
+**Rule 6.** Tapscripts including OP_SUCCESS opcodes anywhere, even unexecuted, are invalid.
+
+**Rule 7.** Tapscripts containing OP_IF or OP_NOTIF anywhere, even unexecuted, are invalid.
+
+**Rule 8.** The aggregate byte count of all script-argument witness items across all inputs in a single transaction must not exceed `max_witness_bytes_per_tx`. The same exclusions as Rule 2 apply. A transaction where the aggregate exceeds `max_witness_bytes_per_tx` is invalid.
+
+**Rule 9.** The aggregate byte count of all script-argument witness items within a single input must not exceed `max_witness_bytes_per_input`. The same exclusions as Rule 2 apply. An input where the aggregate exceeds `max_witness_bytes_per_input` is invalid.
+
+**Rule 10.** Tapleaf scripts containing unreferenced push data are invalid. The determination is static, without execution, using the algorithm in [Unreferenced push analysis](#unreferenced-push-analysis) with `kind = TAPSCRIPT` ([Appendix A](#appendix-a-stack_items_read)).
+
+**Rule 11.** Tapscripts containing push constants whose aggregate byte count exceeds `max_tapleaf_push_bytes` are invalid, as a secondary enforcement layer on Tapleaf script body size independent of the unreferenced push analysis in Rule 10. This cap is load-bearing for consume-and-ignore patterns (for example `OP_PUSH` followed by `OP_DROP`) that Rule 10 treats as referenced.
+
+**Rule 12.** Segwit v0 witness scripts (the last witness stack item on P2WSH spends) containing unreferenced push data are invalid. The static analysis is the same as Rule 10 with `kind = WITNESS_V0`.
+
+**Rule 13.** Segwit v0 witness scripts containing push constants whose aggregate byte count exceeds `max_witness_script_push_bytes` are invalid. This is the P2WSH counterpart to Rule 11. Witness scripts remain excluded from Rules 2, 8, and 9: those rules cap script-argument items, not script bodies.
+
+### Unreferenced push analysis
+
+Used by Rules 10 and 12. Walk the script as a sequence of opcodes plus immediate payloads. A **push** is any of: `OP_0`, `OP_1NEGATE`, `OP_1` through `OP_16`, a direct push `0x01`–`0x4b`, `OP_PUSHDATA1`, `OP_PUSHDATA2`, or `OP_PUSHDATA4`.
+
+For each push, let `next` be the following opcode after that push and its payload.
+
+- If there is no `next` (the push is last), the push is unreferenced and the script is invalid.
+- If `next` is itself a push, the first push is unreferenced and the script is invalid.
+- If `stack_items_read(next, kind) == 0`, the push is unreferenced and the script is invalid.
+- If `stack_items_read(next, kind) >= 1`, the push is referenced.
+
+`stack_items_read(opcode, kind)` is defined for every byte `0x00`–`0xFF` in [Appendix A](#appendix-a-stack_items_read). Rule 10 uses `kind = TAPSCRIPT`. Rule 12 uses `kind = WITNESS_V0`. The value is the data-independent prefix of main-stack items Bitcoin Core's `EvalScript` requires from the top: items the opcode always inspects or pops before any data-dependent extra pops. Replacement versus deletion does not matter. `OP_DUP`, `OP_DROP`, `OP_IF`, `OP_SIZE`, and `OP_CHECKLOCKTIMEVERIFY` are all `>= 1`. `OP_NOP`, `OP_DEPTH`, `OP_FROMALTSTACK`, `OP_ELSE`, `OP_CODESEPARATOR`, disabled opcodes, `OP_RETURN`, and unknown bytes are `0`.
+
+`OP_PUSH` followed by `OP_DROP` is referenced under this test. Rule 11 (Tapleaf) and Rule 13 (P2WSH) exist to cap that consume-and-ignore pattern by aggregate push-constant bytes.
+
+Tapscript `OP_SUCCESS` bytes have `stack_items_read = 0` and are independently invalid under Rule 6.
+
+### Parameters
+
+| Parameter | Description | Value |
+|---|---|---|
+| `max_witness_bytes_per_input` | Aggregate script-argument witness byte cap per input | TBD via calibration |
+| `max_witness_bytes_per_tx` | Aggregate script-argument witness byte cap per transaction | TBD via calibration |
+| `max_tapleaf_push_bytes` | Aggregate push constant byte cap per Tapleaf script body | TBD via calibration |
+| `max_witness_script_push_bytes` | Aggregate push constant byte cap per P2WSH witness script body | TBD via calibration |
+| `activation_height` | Set by signaling process | Determined at deployment |
+
+Provisional anchors for calibration: `max_witness_bytes_per_input` should be set high enough that legitimate complex multisig and Lightning channel constructions are unaffected and low enough that fragmented image-scale payloads are blocked within a single input. `max_witness_bytes_per_tx` should be set to a multiple of `max_witness_bytes_per_input` sufficient for high-input-count CoinJoin and batch transactions while still blocking cross-input fragmentation at payload scales that impose meaningful node burden. `max_witness_script_push_bytes` may equal `max_tapleaf_push_bytes` after calibration; it is listed separately because segwit v0 scripts have a 10,000-byte historical ceiling and legitimate P2WSH multisig paths may need a larger push-constant budget than a Tapleaf.
+
+### Defined Witness Versions
+
+Rules 1 and 3 apply to all witness versions not defined as of this BIP. Creation of such outputs is invalid under Rule 1. Spending them is invalid under Rule 3. Pre-activation UTXOs remain grandfathered. The defined versions are:
+
+- Witness v0 with a 20-byte program (P2WPKH) or a 32-byte program (P2WSH), per BIP 141.
+- Witness v1 with a 32-byte program (Taproot/P2TR), per BIP 341. The only defined Tapleaf version is 0xc0 (Tapscript), per BIP 342.
+- Witness v1 with the 2-byte program 0x4e73 (P2A, per BIP 433), spent with an empty witness stack only.
+
+### Witness item classification
+
+Rules 2, 8, and 9 count only **script-argument** witness items:
+
+- **P2WPKH:** both items (signature, pubkey) are script-argument.
+- **P2WSH:** every item except the last. The last item is the witness script (Rules 12–13).
+- **P2TR key-path:** the signature item is excluded. BIP 341 already makes extra items invalid.
+- **P2TR script-path:** every item except the last two (Tapleaf script, control block). An annex is invalid under Rule 4.
+- **P2A:** empty witness only.
+
+Byte counts are `len(item)` for each counted item, summed as 64-bit integers.
+
+### Activation
+
+This BIP deploys via BIP-8 or BIP-9 style signaling with a minimum activation window of one year and no mandatory lock-in fallback. The threshold and signaling parameters are set at deployment. Miners who do not signal are not penalized. If signaling does not reach threshold within the window, the process restarts with revised parameters or renewed community discussion.
+
+BIP-8/9 without lock-in-on-timeout is miner signaling. Node operators absorbing non-monetary burden are a political constituency for this rule; they are not the signaling threshold. If miners do not signal, this BIP does not activate under the specified mechanism. User-activated soft fork deployment is a separate choice and is not specified here.
+
+---
+
+## Rationale
+
+### Why Permanent Rather Than Temporary
+
+A temporary rule creates an expiry date. Expiry gives the data-embedding ecosystem a planning horizon: tooling can be built for the post-expiry environment, and activity can resume the moment the rule lapses. A permanent rule removes that horizon entirely. The case for permanence rests on the same foundation as the case for the permanent per-output fee: the cost imposed on node operators by arbitrary data storage is not a temporary problem. The externality is structural. The rule should be structural too.
+
+### Why Per-Item Caps Alone Are Insufficient
+
+A 256-byte cap per individual witness item is the correct tool for closing single-field contiguous data embedding. It does not close fragmentation because it imposes no constraint on the number of items or on their aggregate size. Rules 8 and 9 are the missing constraint. They place a ceiling on total witness data per input and per transaction that makes large-payload fragmentation invalid regardless of how finely the payload is divided. A 50 kilobyte image split into 256-byte chunks requires roughly 200 chunks. With appropriate aggregate limits, that transaction or that input is invalid. With cross-transaction fragmentation, the aggregate limit per transaction is reached before the payload fits, so the payload requires more transactions, each paying the per-output fee, making the total cost of data embedding proportional to data volume. That is the correct pricing signal.
+
+### Why the Aggregate Limits Are Scoped to Script-Argument Witness Items
+
+Witness scripts and Tapleaf scripts are excluded from the aggregate counts because they are scripts, not data. Their size is governed by legitimate cryptographic and contract requirements. Taproot key-path signatures are fixed-length by consensus. Control blocks encode the Merkle path to a Tapscript and are governed by Rule 5. Annexes are invalidated by Rule 4. The aggregate limits target the data surface, not the script surface, consistent with this BIP's purpose.
+
+### Why OP_RETURN Is Capped at 83 Bytes
+
+OP_RETURN outputs are provably unspendable and do not enter the UTXO set. Historically, up to 83 bytes of `scriptPubKey` have been tolerated to avoid unprovably unspendable spam in other output scripts. This BIP restores that cap at consensus. It does not charge the per-output fee; that is the static fee BIP. At a correctly calibrated per-output fee, the cost per OP_RETURN output is negligible for legitimate low-volume use and material only for high-volume data embedding. The 83-byte figure is total script length, matching historical `-datacarriersize`, not 83 bytes of payload after `OP_RETURN`. Capping OP_RETURN at consensus restores a principle that Core relay policy previously enforced but that miners could bypass.
+
+### Why OP_IF and OP_NOTIF Are Invalidated in Tapscript
+
+With Taproot, branching conditions can be evaluated off-chain, revealing only the intended execution path. OP_IF is redundant in Tapscript for well-designed monetary constructions and has been commonly used to inject data that is skipped at execution. Closing this gap eliminates a common embedding abuse. Current Lightning is mostly P2WSH and is not affected. Taproot Miniscript and taproot-channel HTLC leaves that still use OP_IF must split those branches into separate leaves before activation.
+
+### Why Undefined Witness Versions Are Closed to Creation and Spending
+
+Undefined witness versions have unlimited witness stack sizes, creating an unconstrained embedding surface. Rule 3 closes spending. Rule 1 already closes creation: an undefined-version scriptPubKey is not a defined template. Leaving creation valid would park a new class of hash-channel UTXOs and is not required for upgrades.
+
+A future witness version is added the same way P2TR was added: one soft fork that both whitelists the output template and defines spending rules. Senders do not need a pre-creation window. Pre-activation UTXOs, including any rare undefined-version outputs that already exist, remain spendable under grandfathering.
+
+### Why BIP141 Weight Is Unchanged
+
+This BIP does not reprice witness bytes. After Rules 2, 7, and 10 through 13, bulk JPEG payload is invalid, so the BIP141 discount no longer subsidizes dedicated embedding. Remaining witness bytes are signatures, scripts, and control blocks.
+
+Repricing all witness data is a different proposal and would mix a Lightning and batching design fight into this activation. It is not required for channel closure. A later BIP could, if desired, apply full weight to script-argument witness items only (the Rule 2 set) without touching signature or script weight. That change is out of scope here.
+
+### Why Bare Multisig Is Closed at the Output Template Layer
+
+Bare multisig scriptPubKeys encode public keys directly in the output script. The Stamps protocol exploits this by substituting arbitrary data for valid public key bytes. Because the output script is stored permanently in the UTXO set until spent, this creates indefinite node storage burden with no monetary justification. A length cap on scriptPubKeys does not cleanly close this channel because a three-of-three bare multisig output can be constructed within plausible byte limits while still carrying meaningful data payloads in its fake keys. The output template whitelist in Rule 1 closes the channel completely: bare multisig is not a defined template and is invalid at output creation, before any data reaches the UTXO set. Legitimate monetary use cases that historically relied on bare multisig are fully served by P2SH, P2WSH, and P2TR, all of which are on the whitelist.
+
+### Why Tapleaf Scripts Are Analyzed for Unreferenced Push Data
+
+The exclusion of Tapleaf scripts from per-item witness caps in Rule 2 is correct for legitimate contract logic: push constants in a Tapleaf script serve as inputs to opcodes that consume them. The Taproot envelope embedding technique abuses this exemption by placing arbitrary data as push constants that are never consumed by any opcode in the script. These dead pushes are present in the witness at spend time, visible to every node, and stored indefinitely. A static analysis pass over the script bytecode identifies them without executing the script: any OP_PUSH or OP_PUSHDATA opcode followed by an opcode that does not consume the stack top is unreferenced. Rule 10 invalidates scripts containing unreferenced pushes. Rule 11 adds a secondary aggregate size cap on all push constants within a Tapleaf script body as a belt-and-suspenders enforcement layer for cases where static analysis edge cases exist, including consume-and-ignore patterns such as `OP_PUSH` followed by `OP_DROP` that Rule 10 treats as referenced.
+
+### Why P2WSH Witness Scripts Get the Same Treatment
+
+Rules 2, 8, and 9 correctly exclude witness scripts from per-item and aggregate witness-item caps: those scripts are program bodies, not data fields. Segwit v0 witness scripts can still be up to 10,000 bytes. Dead pushes inside a P2WSH script are therefore a remaining dedicated channel if only Tapleaf bodies are analyzed.
+
+Rules 12 and 13 close that channel. Rule 12 applies the Rule 10 unreferenced-push analysis to the last witness stack item on a P2WSH spend. Rule 13 applies the Rule 11 aggregate push-constant cap via `max_witness_script_push_bytes`. BIP16 redeemScripts are not given this treatment: P2SH script-path dumps remain a leftover by scope. RedeemScript pushes remain excepted from the 256-byte item cap in Rule 2. P2SH is not the high-bandwidth inscription channel; P2WSH was.
+
+### Interaction With the Per-Output Fee BIPs
+
+The [Static Per-Output Miner Fee](/bips/static-per-output-miner-fee) and [Dynamic Escalation](/bips/dynamic-escalation-per-output-fee) BIPs price UTXO creation. This BIP closes the data channels. The three proposals are complementary and are intended to be considered for coordinated activation. Separate activation is possible and each BIP functions independently, but the combined anti-spam effect is stronger when all three are active. Without this BIP, an attacker facing only the fee BIPs can minimize UTXO count and pack data into witness fields through fragmentation, paying little in fees. Without the fee BIPs, an attacker facing only this BIP can spread data across many cheap transactions. The three proposals close those routes together.
+
+---
+
+## Backwards Compatibility
+
+Existing coins are never frozen. Pre-activation UTXOs can be spent under pre-activation spend rules. New outputs created at or after `activation_height` must match Rule 1 even when funded entirely by pre-activation inputs. Coinbase outputs created at or after activation must also be a defined template or a valid 83-byte OP_RETURN. Coinbase `scriptSig` is unchanged.
+
+Some wallet software, including certain Miniscript compilers, habitually creates Tapleaves containing OP_IF and may place required scripts deeper than 7 Taptree levels. Lightning taproot-channel designs that keep OP_IF in a Tapscript HTLC leaf must split those branches. Current P2WSH Lightning funding scripts are unaffected by Rule 7. The mitigations are: split OP_IF branches into separate Tapleaves and keep every required script-path leaf at depth 7 or less. Taproot control blocks are capped at 257 bytes, limiting Taptrees to 128 script leaves, which is sufficient for modern complex transactions but may constrain advanced off-chain contract schemes that rely on very large script trees.
+
+Rules 8 and 9 require wallets and transaction construction libraries to track aggregate witness byte consumption per input and per transaction. Rules 12 and 13 require P2WSH constructors to avoid unreferenced pushes and to stay within `max_witness_script_push_bytes`. The calibration checklist must confirm that no legitimate high-witness-count use case (Lightning channel opens, complex multisig, CoinJoin, large P2WSH) is invalidated at correctly calibrated parameter values.
+
+Wallets that do not update will produce transactions that enforcing nodes reject at and after `activation_height`. The minimum one-year signaling window provides time for updates. As with the per-output fee BIPs, updates should be complete before activation.
+
+---
+
+## Reference Implementation
+
+High-level pseudocode:
+
+```python
+ACTIVATION_HEIGHT = <determined by signaling process>
+MAX_WITNESS_BYTES_PER_INPUT = <value to be set at activation>
+MAX_WITNESS_BYTES_PER_TX = <value to be set at activation>
+
+def script_argument_witness_items(input_witness):
+    # Exclude: witness scripts, Tapleaf scripts, control blocks,
+    # annexes, and Taproot key-path signatures.
+    # Return the remaining witness stack elements.
+    ...
+
+def is_valid_transaction(tx, block_height):
+    if block_height < ACTIVATION_HEIGHT:
+        return True
+
+    # Rule 1: every new output, including coinbase outputs
+    for out in tx.outputs:
+        if not is_allowed_scriptpubkey(out.scriptPubKey):
+            return False
+
+    if tx.is_coinbase:
+        return True
+
+    tx_aggregate = 0
+
+    for inp in tx.inputs:
+        if inp.utxo_height < ACTIVATION_HEIGHT:
+            continue  # spend rules only; Rule 1 already applied to outputs
+
+        items = script_argument_witness_items(inp.witness)
+
+        # Rule 2: per-item cap
+        for item in items:
+            if len(item) > 256:
+                return False
+
+        # Rule 9: per-input aggregate cap
+        input_aggregate = sum(len(item) for item in items)
+        if input_aggregate > MAX_WITNESS_BYTES_PER_INPUT:
+            return False
+
+        tx_aggregate += input_aggregate
+
+    # Rule 8: per-transaction aggregate cap (post-activation inputs only)
+    if tx_aggregate > MAX_WITNESS_BYTES_PER_TX:
+        return False
+
+    # Rules 3–7, 10–13: omitted here for brevity; see Specification
+    ...
+
+    return True
+```
+
+Detailed test vectors, integer arithmetic requirements, precise witness item classification, and edge cases will be provided in a future numbered BIP submission.
+
+---
+
+## Calibration Checklist
+
+### A. Aggregate Limit Determination (Hard Gate)
+
+- Establish the maximum script-argument witness byte count per input required by legitimate high-witness-count constructions: Lightning channel opens, complex multisig (5-of-7 and above), CoinJoin inputs at realistic participant counts, and Taproot script-path spends with deep trees up to the 128-leaf limit imposed by Rule 5.
+- Set `max_witness_bytes_per_input` above the 99th percentile of legitimate per-input witness consumption observed across full chain history.
+- Confirm that an image-scale fragmented payload (50 kilobytes, split into 256-byte chunks) requires per-input or per-transaction witness aggregates that exceed the calibrated limits and is therefore invalid.
+- Set `max_witness_bytes_per_tx` to accommodate high-input-count CoinJoin transactions at realistic participant counts while blocking cross-input fragmentation at image scale.
+- Lock in both values or document required adjustments with full reasoning before the proposal moves forward.
+- Set `max_tapleaf_push_bytes` and `max_witness_script_push_bytes` above legitimate Miniscript, Lightning, and P2WSH multisig push-constant totals and below image-scale script-body dumps. Confirm Rule 11 and Rule 13 catch consume-and-ignore patterns that Rule 10 and Rule 12 treat as referenced.
+
+### B. Collateral Damage (Must Pass)
+
+- Lightning channel opens: confirm per-input and per-transaction aggregate witness bytes remain below limits at all relevant funding configurations.
+- CoinJoin transactions at 50, 100, and 200 participants: confirm aggregate limits are not reached.
+- Complex multisig up to 5-of-7 and above: confirm script-path spend witness aggregates remain within limits.
+- Taproot script-path spends at maximum allowed tree depth (128 leaves, Rule 5): confirm aggregate limits not reached.
+- Ordinary payments (P2WPKH, P2TR keypath): confirm negligible witness aggregates relative to limits.
+- P2WSH multisig spends: confirm Rule 12 and Rule 13 do not invalidate legitimate witness scripts at calibrated `max_witness_script_push_bytes`.
+
+### C. Spam Efficacy
+
+- Confirm that image-scale payloads (at 50 kilobytes and above) cannot be embedded in a single transaction without exceeding Rule 8 or Rule 9 limits, and cannot be embedded in a P2WSH witness script or Tapleaf body without exceeding Rule 11 or Rule 13.
+- Confirm that cross-transaction fragmentation at image scale, priced through the per-output fee BIPs, produces a per-byte cost that makes sustained spam economically irrational at calibrated fee levels.
+- Model the combined cost of the three-BIP stack (per-output fee plus aggregate witness limits) against realistic attacker budgets for inscription-wave-scale activity.
+
+### D. Consensus Edge Cases
+
+- Confirm the witness item classification in Specification (P2WPKH, P2WSH, P2TR key-path, P2TR script-path, P2A).
+- Confirm integer arithmetic for aggregate byte counting so all implementations agree bit-for-bit.
+- Confirm grandfathering: Rule 1 on every output created at or after `activation_height`; Rules 2–13 only on inputs whose prevout was created at or after that height.
+- Confirm reorg behavior at `activation_height`: blocks below the activation height are never subject to any rule in this BIP regardless of reorg depth.
+- Confirm that the witness item classification algorithm is reproducible from block data alone without mempool history.
+- Confirm implementations match the Appendix A grids bit-for-bit for both `WITNESS_V0` and `TAPSCRIPT`.
+
+### E. Wallet and Exchange Validation
+
+- Share calibration results with at least one Lightning implementation developer, one exchange wallet engineer, and one CoinJoin implementation developer before proceeding.
+- Confirm that fee estimation and transaction construction tooling can enforce aggregate witness limits internally before broadcasting.
+
+### F. Exit Criteria
+
+- Both aggregate limit values confirmed and gate A passes.
+- Collateral damage checklist B passes at calibrated values.
+- Spam efficacy checklist C confirms image-scale payloads are blocked or prohibitively expensive under the three-BIP stack.
+- Consensus edge cases in checklist D resolved and written into Specification.
+
+---
+
+## Appendix A. `stack_items_read`
+
+Normative. Every opcode byte has an assigned integer. Implementations MUST NOT treat any byte as unspecified.
+
+Source of the counts: Bitcoin Core `EvalScript` in `src/script/interpreter.cpp` and `IsOpSuccess` in `src/script/script.cpp` as of commit [`b2c45888`](https://github.com/bitcoin/bitcoin/commit/b2c45888fde06429e86913fab5e7b7a075f091c3) (2026-08-12). A later Core change that alters stack effects of an existing opcode requires a new consensus discussion; it does not silently amend this appendix.
+
+### Definition
+
+`stack_items_read(opcode, kind) -> integer >= 0`
+
+`kind` is `WITNESS_V0` (Rule 12) or `TAPSCRIPT` (Rule 10).
+
+The return value is how many main-stack items, counted from the top, the opcode **always** requires before any data-dependent extra pops. It is not the eventual total for `OP_PICK`, `OP_ROLL`, or `OP_CHECKMULTISIG`. Those opcodes always consume the top item first (`n` or `nKeys`), so a push immediately before them is referenced whenever the V0 count is `>= 1`.
+
+Unexecuted `OP_IF` / `OP_NOTIF` do not pop in `EvalScript`. This analysis is static and does not track `vfExec`. Both opcodes are `1` in both kinds. Tapscript still invalidates them under Rule 7.
+
+`OP_CHECKLOCKTIMEVERIFY` and `OP_CHECKSEQUENCEVERIFY` inspect the top item and leave it in place. They are `1`. This BIP assumes the consensus flags that activate those opcodes; it does not model the historical NOP2/NOP3 fallback.
+
+### Assignment (apply in order)
+
+1. If `kind == TAPSCRIPT` and `IsOpSuccess(opcode)` (BIP 342): return `0`. The SUCCESS bytes are `0x50`, `0x62`, `0x7e`–`0x81`, `0x83`–`0x86`, `0x89`–`0x8a`, `0x8d`–`0x8e`, `0x95`–`0x99`, and `0xbb`–`0xfe`.
+2. If `kind == TAPSCRIPT` and opcode is `OP_CHECKMULTISIG` (`0xae`) or `OP_CHECKMULTISIGVERIFY` (`0xaf`): return `0` (Core fails with `SCRIPT_ERR_TAPSCRIPT_CHECKMULTISIG` before popping).
+3. If opcode is `OP_CHECKSIGADD` (`0xba`): return `3` if `kind == TAPSCRIPT`, else `0` (`SCRIPT_ERR_BAD_OPCODE` in v0).
+4. If `kind == WITNESS_V0` and opcode is a disabled splice/bitwise/numeric opcode (`OP_CAT`, `OP_SUBSTR`, `OP_LEFT`, `OP_RIGHT`, `OP_INVERT`, `OP_AND`, `OP_OR`, `OP_XOR`, `OP_2MUL`, `OP_2DIV`, `OP_MUL`, `OP_DIV`, `OP_MOD`, `OP_LSHIFT`, `OP_RSHIFT`): return `0` (fail before the `EvalScript` switch).
+5. If opcode is a push (`0x00`–`0x4e`, `OP_1NEGATE`, `OP_1`–`OP_16`): return `0`.
+6. Otherwise use the named table below. Bytes with no named row, including `OP_RESERVED`, `OP_VER`, `OP_VERIF`, `OP_VERNOTIF`, `OP_NOP1`/`OP_NOP4`–`OP_NOP10`, and `0xff`, return `0`.
+
+### Named opcodes (`stack_items_read >= 1`, plus zeros that are easy to get wrong)
+
+Values below are for `WITNESS_V0`. Tapscript differs only on `0xae`, `0xaf`, and `0xba` (steps 1–3).
+
+| Byte | Name | V0 | Notes |
+|---|---|---|---|
+| `0x63` | `OP_IF` | 1 | Pops when executed; static analysis uses 1 |
+| `0x64` | `OP_NOTIF` | 1 | Same |
+| `0x69` | `OP_VERIFY` | 1 | |
+| `0x6a` | `OP_RETURN` | 0 | Fails without reading the stack |
+| `0x6b` | `OP_TOALTSTACK` | 1 | |
+| `0x6c` | `OP_FROMALTSTACK` | 0 | Reads altstack only |
+| `0x6d` | `OP_2DROP` | 2 | |
+| `0x6e` | `OP_2DUP` | 2 | |
+| `0x6f` | `OP_3DUP` | 3 | |
+| `0x70` | `OP_2OVER` | 4 | |
+| `0x71` | `OP_2ROT` | 6 | |
+| `0x72` | `OP_2SWAP` | 4 | |
+| `0x73` | `OP_IFDUP` | 1 | |
+| `0x74` | `OP_DEPTH` | 0 | Reads stack *size*, not an item |
+| `0x75` | `OP_DROP` | 1 | |
+| `0x76` | `OP_DUP` | 1 | |
+| `0x77` | `OP_NIP` | 2 | Erases second-to-top; top still required |
+| `0x78` | `OP_OVER` | 2 | |
+| `0x79` | `OP_PICK` | 1 | Prefix: pops `n`. Then `n+1` more. Min depth 2 |
+| `0x7a` | `OP_ROLL` | 1 | Same prefix as `OP_PICK` |
+| `0x7b` | `OP_ROT` | 3 | |
+| `0x7c` | `OP_SWAP` | 2 | |
+| `0x7d` | `OP_TUCK` | 2 | Not a SUCCESS byte |
+| `0x82` | `OP_SIZE` | 1 | Inspects top; does not pop |
+| `0x87` | `OP_EQUAL` | 2 | |
+| `0x88` | `OP_EQUALVERIFY` | 2 | |
+| `0x8b` | `OP_1ADD` | 1 | |
+| `0x8c` | `OP_1SUB` | 1 | |
+| `0x8f` | `OP_NEGATE` | 1 | |
+| `0x90` | `OP_ABS` | 1 | |
+| `0x91` | `OP_NOT` | 1 | |
+| `0x92` | `OP_0NOTEQUAL` | 1 | |
+| `0x93` | `OP_ADD` | 2 | |
+| `0x94` | `OP_SUB` | 2 | |
+| `0x9a` | `OP_BOOLAND` | 2 | |
+| `0x9b` | `OP_BOOLOR` | 2 | |
+| `0x9c` | `OP_NUMEQUAL` | 2 | |
+| `0x9d` | `OP_NUMEQUALVERIFY` | 2 | |
+| `0x9e` | `OP_NUMNOTEQUAL` | 2 | |
+| `0x9f` | `OP_LESSTHAN` | 2 | |
+| `0xa0` | `OP_GREATERTHAN` | 2 | |
+| `0xa1` | `OP_LESSTHANOREQUAL` | 2 | |
+| `0xa2` | `OP_GREATERTHANOREQUAL` | 2 | |
+| `0xa3` | `OP_MIN` | 2 | |
+| `0xa4` | `OP_MAX` | 2 | |
+| `0xa5` | `OP_WITHIN` | 3 | |
+| `0xa6` | `OP_RIPEMD160` | 1 | |
+| `0xa7` | `OP_SHA1` | 1 | |
+| `0xa8` | `OP_SHA256` | 1 | |
+| `0xa9` | `OP_HASH160` | 1 | |
+| `0xaa` | `OP_HASH256` | 1 | |
+| `0xab` | `OP_CODESEPARATOR` | 0 | |
+| `0xac` | `OP_CHECKSIG` | 2 | |
+| `0xad` | `OP_CHECKSIGVERIFY` | 2 | |
+| `0xae` | `OP_CHECKMULTISIG` | 1 | Prefix: `nKeys`. Tapscript: 0 |
+| `0xaf` | `OP_CHECKMULTISIGVERIFY` | 1 | Same. Tapscript: 0 |
+| `0xb1` | `OP_CHECKLOCKTIMEVERIFY` | 1 | Inspects top; does not pop |
+| `0xb2` | `OP_CHECKSEQUENCEVERIFY` | 1 | Same |
+| `0xba` | `OP_CHECKSIGADD` | 0 | Tapscript: 3 |
+
+Worked cases: `PUSH jpeg / OP_DROP` is referenced. `PUSH jpeg / OP_NOP`, `PUSH jpeg / OP_DEPTH`, and `PUSH jpeg / OP_FROMALTSTACK` are unreferenced.
+
+### Complete grids (byte `0xRF` at row `R`, column `F`)
+
+**`WITNESS_V0` (Rule 12)**
+
+| | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | A | B | C | D | E | F |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `0_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `1_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `2_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `3_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `4_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `5_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `6_` | 0 | 0 | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 2 | 2 | 3 |
+| `7_` | 4 | 6 | 4 | 1 | 0 | 1 | 1 | 2 | 2 | 1 | 1 | 3 | 2 | 2 | 0 | 0 |
+| `8_` | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 2 | 2 | 0 | 0 | 1 | 1 | 0 | 0 | 1 |
+| `9_` | 1 | 1 | 1 | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 2 | 2 | 2 | 2 | 2 | 2 |
+| `A_` | 2 | 2 | 2 | 2 | 2 | 3 | 1 | 1 | 1 | 1 | 1 | 0 | 2 | 2 | 1 | 1 |
+| `B_` | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `C_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `D_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `E_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `F_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+**`TAPSCRIPT` (Rule 10)**
+
+Same as V0 except `0xae` = 0, `0xaf` = 0, `0xba` = 3. SUCCESS bytes are already 0 in both grids.
+
+| | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | A | B | C | D | E | F |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `0_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `1_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `2_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `3_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `4_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `5_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `6_` | 0 | 0 | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 2 | 2 | 3 |
+| `7_` | 4 | 6 | 4 | 1 | 0 | 1 | 1 | 2 | 2 | 1 | 1 | 3 | 2 | 2 | 0 | 0 |
+| `8_` | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 2 | 2 | 0 | 0 | 1 | 1 | 0 | 0 | 1 |
+| `9_` | 1 | 1 | 1 | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 2 | 2 | 2 | 2 | 2 | 2 |
+| `A_` | 2 | 2 | 2 | 2 | 2 | 3 | 1 | 1 | 1 | 1 | 1 | 0 | 2 | 2 | 0 | 0 |
+| `B_` | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3 | 0 | 0 | 0 | 0 | 0 |
+| `C_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `D_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `E_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `F_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+---
+
+## Security Considerations
+
+**No expiry surface.** Because this BIP is permanent, there is no expiry date for the data-embedding ecosystem to plan around. The rule is stable indefinitely.
+
+**Grandfathering boundary.** Rule 1 uses the creating block's height. Rules 2 through 13 use the prevout's creating height. A mixed transaction is not a blanket exemption. Implementations must not treat “any grandfathered input” as exempting new outputs. Pre-activation envelope UTXOs may still reveal witness data on spend.
+
+**Undefined-version creation.** Rule 1 and Rule 3 must agree: undefined witness-version outputs cannot be created after activation and cannot be spent except via grandfathered pre-activation UTXOs. Implementations that allow creation while rejecting spends, or the reverse, will split the chain.
+
+**Aggregate limit manipulation.** An attacker who knows the `max_witness_bytes_per_tx` limit could construct transactions that stay just below it across many transactions, accumulating a fragmented payload. The per-output fee BIPs price each such transaction through its output count, so aggregate data embedding volume remains proportional to aggregate fee spend. This is the intended outcome. Fragmentation across many transactions in one block remains possible up to the weight limit. A per-block data cap is rejected: it collides with high-throughput monetary blocks (batch payouts, many channel closes, several CoinJoins). That path is priced by the per-output fee, not by a fourth aggregate.
+
+**Witness item classification.** The exclusion of witness scripts, Tapleaf scripts, control blocks, annexes, and key-path signatures from the aggregate counts must be specified precisely and implemented identically across all compliant implementations. Classification errors that treat script material as data (or vice versa) produce consensus failures. Witness scripts and Tapleaf scripts are instead governed by Rules 10 through 13. The calibration checklist requires a shared witness item classification algorithm before submission.
+
+**Private mempool arrangements.** Miners accepting non-compliant transactions through private arrangements produce blocks that enforcing nodes reject. Orphan risk limits sustained defection, as with the per-output fee BIPs.
+
+---
+
+## References
+
+- *[BIP Pre-Proposal: Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)* (Josh / Secure Sovereign, July 2026).
+- *[BIP Pre-Proposal: Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)* (Josh / Secure Sovereign, July 2026).
+- BIP 141: Segregated Witness.
+- BIP 341: Taproot.
+- BIP 342: Tapscript (`IsOpSuccess` ranges).
+- Bitcoin Core `src/script/interpreter.cpp` (`EvalScript`) and `src/script/script.cpp` (`IsOpSuccess`), commit [`b2c45888`](https://github.com/bitcoin/bitcoin/commit/b2c45888fde06429e86913fab5e7b7a075f091c3).
+- BIP 433: Pay-to-Anchor (P2A).
+- BIP 16: Pay to Script Hash.
+- *[The Achievable Floor](/articles/the-achievable-floor)* (secsov.com, 2026).
+- *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)* (secsov.com, 2026).
+- *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*, v2.4 (secsov.com, July 2026).
+- Various Delving Bitcoin and bitcoin-dev threads on UTXO bloat and data embedding (2023–2026).
 
 ---
 

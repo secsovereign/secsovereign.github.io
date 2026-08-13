@@ -18,8 +18,10 @@ This site publishes **long-form reference articles** and **BIP pre-proposals**, 
 2. [The Achievable Floor](https://secsov.com/articles/the-achievable-floor) — what consensus can technically close
 3. [Full Cost of Running a Bitcoin Node](https://secsov.com/articles/full-cost-of-running-a-bitcoin-node) — operator cost model and non-monetary burden
 4. [Static Per-Output Miner Fee](https://secsov.com/bips/static-per-output-miner-fee) — pre-proposal consensus fee floor on UTXO creation
-5. [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance) — governance evidence (OP_RETURN arc, §V)
-6. [Argument Map Part XXII](https://secsov.com/articles/bitcoin-governance-argument-map#part-xxii-blockspace-governance-and-relay-policy-failure) — numbered blockspace arguments
+5. [Dynamic Escalation of the Per-Output Miner Fee](https://secsov.com/bips/dynamic-escalation-per-output-fee) — optional fee escalation layer
+6. [Permanent Data Channel Closure](https://secsov.com/bips/permanent-data-channel-closure) — permanent consensus closure of data embedding channels
+7. [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance) — governance evidence (OP_RETURN arc, §V)
+8. [Argument Map Part XXII](https://secsov.com/articles/bitcoin-governance-argument-map#part-xxii-blockspace-governance-and-relay-policy-failure) — numbered blockspace arguments
 
 **Recommended reading order — governance cluster:**
 
@@ -36,28 +38,29 @@ This site publishes **long-form reference articles** and **BIP pre-proposals**, 
 
 ## Bitcoin governance
 
-- [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance): Primary governance reference: funding map, maintainer merge authority, personnel revolving door, OP_RETURN arc (2023–2025), Brink/OpenSats/Chaincode ties, suppression patterns. Start here for evidence.
-- [Bitcoin Governance: Argument Map](https://secsov.com/articles/bitcoin-governance-argument-map): 105 numbered arguments across 22 sections for debate; points to Who Controls Bitcoin for narrative and Social Layer for structure. Includes blockspace/relay-policy failure (Part XXII).
+- [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance): Primary governance reference: funding map, maintainer merge authority, personnel revolving door, OP_RETURN arc (2023–2025), Brink/OpenSats/Chaincode ties, suppression patterns. Points to the three-BIP consensus stack. Start here for evidence.
+- [Bitcoin Governance: Argument Map](https://secsov.com/articles/bitcoin-governance-argument-map): 105 numbered arguments across 22 sections for debate; points to Who Controls Bitcoin for narrative and Social Layer for structure. Includes blockspace/relay-policy failure (Part XXII) and the three-BIP consensus stack.
 - [The Social Layer Is the Attack Surface](https://secsov.com/articles/bitcoin-social-capture): Structural logic of why Bitcoin governance produces capture outcomes without requiring conspiracy; permissionless protocol vs permissioned development; blocksize war and fork trap.
 - [Governance Paralysis Was The Victory](https://secsov.com/articles/governance-paralysis-was-the-victory): Block size war as resource capture, MIT/DCI/Epstein funding context, CVE-2018-17144, good vs bad ossification, alternative implementations survey, Bitcoin Commons.
 - [Bitcoin Core: The Biggest Fallacies](https://secsov.com/articles/bitcoin-core-the-biggest-fallacies): Eight rebuttals to Core monopoly defenses: contributor count, adoption, rough consensus, conservatism, reviewer pool. Companion to Argument Map.
-- [What Bitcoin's Stalled Proposals Tell You](https://secsov.com/articles/what-bitcoins-stalled-proposals-tell-you): Dandelion, UTXO commitments, Erlay, wallet/node split, formal verification: stalled in Core vs shipped in Commons; OP_RETURN/Knots policy monoculture.
+- [What Bitcoin's Stalled Proposals Tell You](https://secsov.com/articles/what-bitcoins-stalled-proposals-tell-you): Dandelion, UTXO commitments, Erlay, wallet/node split, formal verification: stalled in Core vs shipped in Commons; OP_RETURN/Knots policy monoculture; 83-byte cap belongs at consensus (Permanent Data Channel Closure).
 
 ## Implementation diversity and specification
 
-- [Why Bitcoin Needs a Specification That Humans Can Read](https://secsov.com/articles/why-bitcoin-needs-a-specification): Human-readable spec (Orange Paper) vs Lean/DSL; verification as governance; spec-lock with Z3; defense-in-depth stack.
+- [Why Bitcoin Needs a Specification That Humans Can Read](https://secsov.com/articles/why-bitcoin-needs-a-specification): Human-readable spec (Orange Paper) vs Lean/DSL; verification as governance; spec-lock with Z3; defense-in-depth stack. Related: Permanent Data Channel Closure.
 - [Bitcoin's Hidden Crisis: When Technical Consensus Isn't Enough](https://secsov.com/articles/bitcoins-hidden-crisis): Social vs protocol consensus; coordination crises (blocksize, Taproot); Bitcoin Commons cryptographic coordination model.
 
 ## Blockspace and consensus policy
 
-- [Bitcoin Is Not a Hard Drive](https://secsov.com/articles/bitcoin-not-a-hard-drive): Design-purpose case against non-monetary embedding: type confusion, IBD/storage/UTXO costs, externality structure, rebuttals to inscription justifications, permissionless counter-argument.
-- [The Achievable Floor](https://secsov.com/articles/the-achievable-floor): Technical taxonomy of embedding channels (free → dedicated), what consensus can close (OP_RETURN cap, Taproot envelope, annex), cost-per-byte tables, UTXO commitments, implementation path.
-- [Full Cost of Running a Bitcoin Node](https://secsov.com/articles/full-cost-of-running-a-bitcoin-node): v2.4 methodology: six cost categories, Profile A/B, $69.99/mo 2026 operating, $47.8M/yr full-population aggregate vs ~$9M Core spend, non-monetary ~$5.5/mo ($4M/yr).
+- [Bitcoin Is Not a Hard Drive](https://secsov.com/articles/bitcoin-not-a-hard-drive): Design-purpose case against non-monetary embedding: type confusion, IBD/storage/UTXO costs, externality structure, rebuttals to inscription justifications, permissionless counter-argument. Companion to the three-BIP stack.
+- [The Achievable Floor](https://secsov.com/articles/the-achievable-floor): Technical taxonomy of embedding channels (free → dedicated), what consensus can close (OP_RETURN cap, Taproot envelope, annex), cost-per-byte tables, UTXO commitments, implementation path. Specifies the three-BIP stack.
+- [Full Cost of Running a Bitcoin Node](https://secsov.com/articles/full-cost-of-running-a-bitcoin-node): v2.4 methodology: six cost categories, Profile A/B, $69.99/mo 2026 operating, $47.8M/yr full-population aggregate vs ~$9M Core spend, non-monetary ~$5.5/mo ($4M/yr). Motivates the three-BIP stack.
 
 ## BIP pre-proposals
 
-- [Static Per-Output Miner Fee](https://secsov.com/bips/static-per-output-miner-fee): Pre-proposal: consensus-enforced fixed satoshi fee to miners for every new non-coinbase output; closes value and count UTXO spam vectors.
+- [Static Per-Output Miner Fee](https://secsov.com/bips/static-per-output-miner-fee): Pre-proposal: consensus transaction-fee floor of a fixed satoshi amount per new non-coinbase output; prices UTXO-slot cost. Soft fork, not extra mint.
 - [Dynamic Escalation of the Per-Output Miner Fee](https://secsov.com/bips/dynamic-escalation-per-output-fee): Pre-proposal companion: EMA/p25 dynamic escalation on top of the static per-output fee to prevent long-run economic decay. Depends on static fee BIP.
+- [Permanent Data Channel Closure](https://secsov.com/bips/permanent-data-channel-closure): Pre-proposal: permanent consensus closure of data embedding channels (256-byte per-item caps, aggregate witness limits, output template whitelist, Tapleaf and P2WSH unreferenced-push analysis with a 256-byte stack_items_read appendix). BIP141 weight unchanged. Complements the per-output fee BIPs.
 
 ## Monetary sovereignty
 
@@ -105,3 +108,4 @@ This site publishes **long-form reference articles** and **BIP pre-proposals**, 
 - [Don't Trust, Verify (Markdown source)](https://secsov.com/articles/dont-trust-verify/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Static Per-Output Miner Fee (Markdown source)](https://secsov.com/bips/static-per-output-miner-fee/index.md): BIP pre-proposal Markdown source; preferred for LLM ingestion over HTML.
 - [Dynamic Escalation of the Per-Output Miner Fee (Markdown source)](https://secsov.com/bips/dynamic-escalation-per-output-fee/index.md): BIP pre-proposal Markdown source; preferred for LLM ingestion over HTML.
+- [Permanent Data Channel Closure (Markdown source)](https://secsov.com/bips/permanent-data-channel-closure/index.md): BIP pre-proposal Markdown source; preferred for LLM ingestion over HTML.

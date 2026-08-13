@@ -97,11 +97,11 @@ Dedicated and unenforced channels can close at consensus. Ordinary payments do n
 
 A consensus hard cap on `OP_RETURN` closes bulk dedicated-data outputs and binds every participant. Relay limits bind only the operators who choose them.
 
-Consensus can also cap data hidden in script branches that never run, including the `OP_FALSE OP_IF` envelope used for inscriptions. Multisig, Lightning, and covenant spending rules live in branches that do run, so those uses would not be affected.
+Consensus can also cap data hidden in script branches that never run, including the `OP_FALSE OP_IF` envelope used for inscriptions. *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)* does that by invalidating `OP_IF` and `OP_NOTIF` anywhere in Tapscript, even unexecuted. Current P2WSH Lightning is unaffected. Taproot Miniscript and taproot-channel HTLC leaves must split those branches into separate leaves.
 
 Consensus can also restrict unused witness versions, ban or cap the annex, and cap the Taproot control block (the path that reveals which script branch is being spent) so large unused branches cannot smuggle big payloads.
 
-A consensus per-output miner fee makes creating many outputs expensive. Unlike a minimum output value (capital the spammer can recycle on spend), the fee is paid to the miner and does not come back. That hits spam that spreads data across lots of small outputs. Higher fees make each of these limits cost the embedder more.
+A consensus per-output miner fee makes creating many outputs expensive. Unlike a minimum output value (capital the spammer can recycle on spend), the fee is paid to the miner as ordinary transaction fee and does not come back. That hits spam that spreads data across lots of small outputs. Higher fees make each of these limits cost the embedder more. See *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*.
 
 The rows below close dedicated and unenforced embedding channels. **§V addresses data already on chain** through UTXO set commitments (less UTXO state to store). That layer is independent of the caps here. Initial block download still carries the full history; AssumeValid does not remove that cost.
 
@@ -120,7 +120,7 @@ The rows below close dedicated and unenforced embedding channels. **§V addresse
 <tr class="close-partial"><td>UTXO set commitments</td><td>Permanent storage burden for data already on chain (§V)</td><td>Parallel; not required for §III caps</td></tr>
 </tbody>
 </table>
-<figcaption>Closable measures. §IV fields omitted because monetary design requires them.</figcaption>
+<figcaption>Closable measures. First five rows: <a href="/bips/permanent-data-channel-closure">Permanent Data Channel Closure</a>. Per-output fee: <a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a> plus optional <a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation</a>. Commitments remain a parallel track (§V). §IV fields omitted because monetary design requires them.</figcaption>
 </figure>
 
 <figure class="article-chart chart-flowchart" role="img" aria-label="Consensus-closable channels versus the irreducible embedding floor">
@@ -239,9 +239,11 @@ Policy and fees still matter. Consensus can close high-bandwidth channels and re
 
 ## VII. Implementation Path
 
-The `OP_RETURN` cap and envelope push cap are straightforward. They remove invalid transaction shapes. Witness version, annex, and control block caps need wording for how to reopen a version or redefine a placeholder later. A consensus per-output miner fee needs a calibrated static constant and, optionally, a fee-rate reference for long-run anti-decay; static dust thresholds already run as policy on several implementations.
+The §III dedicated and unenforced caps are specified as one pre-proposal: *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)* (output templates, 83-byte OP_RETURN `scriptPubKey`, 256-byte item caps, aggregate witness limits, annex ban, control-block cap, Tapscript `OP_IF`/`OP_NOTIF` invalid, Tapleaf and P2WSH unreferenced-push analysis). Envelope closure is by invalidating `OP_IF` in Tapscript, not by a payload cap on skipped branches; Miniscript and taproot-channel HTLC leaves must split into separate leaves. Undefined witness versions cannot be created or spent; a future version is added by amending the template list in the same soft fork that defines spending. BIP141 weight is unchanged.
 
-Consensus caps on dedicated embedding channels do not close every cheap field on the input side. Inputs still carry low-cost fields such as `nSequence`, `nLockTime`, and ordering. A permanent per-output creation cost closes those paths indirectly. Inputs spend outputs created earlier. If new outputs cost something to create under consensus rules, stuffing data into later spend fields still requires paying that creation cost up front. The floor does not ban input fields directly. It removes the incentive to mint cheap outputs just to encode data when they are spent. Dedicated-channel caps and a consensus per-output fee work together; they are not competing proposals. See the pre-proposal *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*.
+The per-output fee is *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*: a consensus floor on `tx_fee` of `static_fee × n_outputs`, paid as ordinary miner fee, not minted. *[Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)* is the optional anti-decay layer on top of that floor.
+
+Consensus caps on dedicated embedding channels do not close every cheap field on the input side. Inputs still carry low-cost fields such as `nSequence`, `nLockTime`, and ordering. A permanent per-output creation cost closes those paths indirectly. Inputs spend outputs created earlier. If new outputs cost something to create under consensus rules, stuffing data into later spend fields still requires paying that creation cost up front. The floor does not ban input fields directly. It removes the incentive to mint cheap outputs just to encode data when they are spent. Dedicated-channel caps and a consensus per-output fee work together; they are not competing proposals. The three pre-proposals are meant to be considered as one stack. Separate activation is possible. The combined effect is stronger.
 
 **UTXO commitments are an optional parallel layer.** Each §III embedding cap can soft-fork on its own. Commitments change how much set state a node must keep; they are not a prerequisite for the caps, and the caps are not a prerequisite for commitments. Outputs that would fail a new rule need grandfathering.
 
@@ -253,4 +255,4 @@ Even if consensus could change without a political fight, **non-monetary data on
 
 Data that never appears on chain, including Taproot script branches never revealed in a spend, is outside this analysis.
 
-The §III caps belong in a formal spec. The [Bitcoin Commons consensus spec](https://thebitcoincommons.org/spec.html) is the reference. For why a human-readable specification matters as governance infrastructure, see *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)*. For the dollar cost of leaving non-monetary data unpriced, see *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*; for a consensus fee floor on UTXO creation, see *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*.
+The §III caps belong in a formal spec. The [Bitcoin Commons consensus spec](https://thebitcoincommons.org/spec.html) is the reference. For why a human-readable specification matters as governance infrastructure, see *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)*. For the dollar cost of leaving non-monetary data unpriced, see *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*. The three-BIP stack that implements §III plus a UTXO-creation floor: *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*, *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*, *[Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)*.

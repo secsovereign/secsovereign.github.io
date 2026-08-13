@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permanent Data Channel Closure (BIP Pre-Proposal) | SecureSovereign</title>
+    <meta name="description" content="Bitcoin Improvement Pre-Proposal: permanent consensus closure of data embedding channels (per-item caps, aggregate witness limits, output templates, Tapleaf and P2WSH script analysis) to complement the per-output fee BIPs.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://secsov.com/bips/permanent-data-channel-closure">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Permanent Data Channel Closure (BIP Pre-Proposal)">
+    <meta property="og:description" content="Bitcoin Improvement Pre-Proposal: permanent consensus closure of data embedding channels (per-item caps, aggregate witness limits, output templates, Tapleaf and P2WSH script analysis) to complement the per-output fee BIPs.">
+    <meta property="og:url" content="https://secsov.com/bips/permanent-data-channel-closure">
+    <meta property="og:site_name" content="SecureSovereign">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-08-12">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Permanent Data Channel Closure (BIP Pre-Proposal)">
+    <meta name="twitter:description" content="Bitcoin Improvement Pre-Proposal: permanent consensus closure of data embedding channels (per-item caps, aggregate witness limits, output templates, Tapleaf and P2WSH script analysis) to complement the per-output fee BIPs.">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Permanent Data Channel Closure (BIP Pre-Proposal)","description":"Bitcoin Improvement Pre-Proposal: permanent consensus closure of data embedding channels (per-item caps, aggregate witness limits, output templates, Tapleaf and P2WSH script analysis) to complement the per-output fee BIPs.","url":"https://secsov.com/bips/permanent-data-channel-closure","mainEntityOfPage":{"@type":"WebPage","@id":"https://secsov.com/bips/permanent-data-channel-closure"},"author":{"@type":"Person","name":"Josh","alternateName":"Secure Sovereign","url":"https://secsov.com/"},"publisher":{"@type":"Organization","name":"SecureSovereign","url":"https://secsov.com/"},"isPartOf":{"@type":"WebSite","name":"SecureSovereign","url":"https://secsov.com/"},"datePublished":"2026-08-12","dateModified":"2026-08-12","creativeWorkStatus":"Draft","about":{"@type":"Thing","name":"Bitcoin"}}</script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/article.css" rel="stylesheet">
+    <link href="/share.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="site-nav">
+        <a href="/">← Home</a>
+        <span class="sep">/</span>
+        <a href="/bips">BIPs</a>
+        <span class="sep">/</span>
+        <span style="color: var(--text-muted); font-family: 'Courier New', monospace; font-size: 0.9rem;">Permanent Data Channel Closure</span>
+        <div class="share-widget nav-share" data-share-url="https://secsov.com/bips/permanent-data-channel-closure" data-share-title="Permanent Data Channel Closure (BIP Pre-Proposal)" data-share-text="Permanent Data Channel Closure (BIP Pre-Proposal): Bitcoin Improvement Pre-Proposal: permanent consensus closure of data embedding channels (per-item caps, aggregate witness limits, output templates, Tapleaf and P2WSH script analysis) to complement the per-output fee BIPs.">
+        <button type="button" class="share-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Share">
+            <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Share
+        </button>
+        <div class="share-menu" role="menu"></div>
+    </div>
+    </nav>
+    <div class="article-wrap">
+        <header class="article-meta bip-meta">
+        <p class="article-dates"><span class="bip-status">Pre-Proposal</span><span class="article-meta-sep" aria-hidden="true">·</span><span>Standards Track</span><span class="article-meta-sep" aria-hidden="true">·</span><time datetime="2026-08-12">Created August 12, 2026</time><span class="article-meta-sep" aria-hidden="true">·</span><span>BSD-2-Clause</span></p>
+        <p class="article-origin">Bitcoin Improvement Pre-Proposal: not yet a numbered BIP.</p>
+    </header>
+        <article class="article-body"><h1>Permanent Data Channel Closure</h1>
+<nav class="bip-toc" aria-label="Contents"><h2 id="contents">Contents</h2><ul>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#motivation">Motivation</a></li>
+<li><a href="#specification">Specification</a></li>
+<li><a href="#unreferenced-push-analysis">Unreferenced push analysis</a></li>
+<li><a href="#witness-item-classification">Witness item classification</a></li>
+<li><a href="#rationale">Rationale</a></li>
+<li><a href="#backwards-compatibility">Backwards Compatibility</a></li>
+<li><a href="#reference-implementation">Reference Implementation</a></li>
+<li><a href="#calibration-checklist">Calibration Checklist</a></li>
+<li><a href="#appendix-a-stack_items_read">Appendix A. <code>stack_items_read</code></a></li>
+<li><a href="#security-considerations">Security Considerations</a></li>
+<li><a href="#references">References</a></li>
+<li><a href="#copyright">Copyright</a></li>
+</ul></nav>
+
+
+<h2 id="abstract">Abstract</h2>
+<p>This BIP permanently closes the consensus-layer data embedding channels that have been used to bloat the Bitcoin blockchain with arbitrary non-monetary content. It is a permanent soft fork with no expiry.</p>
+<p>The proposal invalidates the dedicated and unenforced embedding channels used for bulk non-monetary content: large <code>OP_RETURN</code> outputs, non-template scriptPubKeys, Tapleaf and P2WSH dead pushes, annexes, unconstrained witness versions, and oversized control blocks. It restores the long-established 83-byte <code>scriptPubKey</code> limit on OP_RETURN at the consensus layer, caps individual script-argument items at 256 bytes, and adds aggregate witness byte limits per input and per transaction that close multi-push fragmentation inside a transaction. It does not close payment-necessary fields (hashes, amounts, <code>nSequence</code>, ordering) or coinbase <code>scriptSig</code>. BIP141 witness weight is unchanged. Pre-activation UTXOs remain spendable, including spends that reveal data already committed before activation.</p>
+<p>This BIP is designed to work in conjunction with the <a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a> and <a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation of the Per-Output Miner Fee</a> pre-proposals. Those BIPs make UTXO creation permanently more expensive. This BIP closes the data channels that would otherwise let spammers circumvent that cost by fragmenting payloads across many small pushes or many cheap outputs. The three proposals together form a coherent anti-spam stack: the fee BIPs price the surface; this BIP closes the channels.</p>
+<hr>
+<h2 id="motivation">Motivation</h2>
+<h3 id="the-problem">The Problem</h3>
+<p>Bitcoin has no consensus rule preventing arbitrary data from being embedded in transactions. Policy filters and relay rules can be bypassed by routing through a miner who does not enforce them. That is why data embedding debates have continued without resolution. Policy binds willing participants. Consensus binds everyone.</p>
+<p>Starting with the inscription technique first exploited in 2022, a sustained trend has emerged around embedding arbitrary data into Bitcoin transactions. Ordinals, BRC-20 tokens, Runes, and similar protocols use Bitcoin as a data store rather than a monetary network. This creates significant and permanent burdens on node operators: storage, bandwidth, and RAM costs that fall on roughly 60,000 full nodes, none of whom were compensated for accepting that burden. Pruning can drop old blocks from disk. It does not skip the download at first sync. <em><a href="/articles/full-cost-of-running-a-bitcoin-node">Full Cost of Running a Bitcoin Node</a></em> (v2.4, July 2026) estimates the aggregate non-monetary burden on the node network at approximately $4 million per year.</p>
+<p>The core externality is structural. The actor embedding data pays a miner once. The burden of storing and serving that data falls on every node operator indefinitely. No market mechanism corrects this because node operators receive no part of the miner fee and have no mechanism to refuse specific content at the consensus layer.</p>
+<h3 id="the-two-embedding-surfaces">The Two Embedding Surfaces</h3>
+<p>Data embedding operates on two surfaces that require different consensus tools to close.</p>
+<p>The first is the per-item surface: individual data fields large enough to carry meaningful payloads. Output scriptPubKeys, OP_PUSHDATA payloads, witness stack items, Taproot annexes, and control blocks have all been exploited as single-field embedding vectors. Capping each field at a size that is sufficient for legitimate cryptographic use but insufficient for image-scale payloads closes this surface.</p>
+<p>The second is the fragmentation surface: multiple sub-cap items assembled by an off-chain indexer into a larger payload. A per-item cap creates a window of permitted size per push. A transaction can contain many inputs, each with many witness stack items. An image or arbitrary file can be reconstructed from a sequence of small chunks distributed across witness fields in one transaction or spread across multiple transactions with a reassembly index maintained off-chain. Per-item caps raise the cost and complexity of embedding; they do not close the channel.</p>
+<p>Closing both surfaces requires two complementary rule types: per-item caps on individual fields, and aggregate caps on total witness data per input and per transaction.</p>
+<h3 id="why-permanent-rules-are-the-right-mechanism">Why Permanent Rules Are the Right Mechanism</h3>
+<p>A temporary consensus rule creates an expiry event that the data-embedding ecosystem can plan around. Tooling can be built for the post-expiry environment, and activity resumes the moment the rule lapses. A permanent rule removes that planning horizon entirely and eliminates the repeated soft-fork cost of re-litigating the same question on a cycle.</p>
+<p>The underlying principle does not weaken over time: node operators should not bear the indefinite cost of arbitrary data storage initiated by parties who paid miners once and never compensated them. The rule should match the principle.</p>
+<h3 id="the-fragmentation-surface-in-detail">The Fragmentation Surface in Detail</h3>
+<p>Two fragmentation paths must be closed by this proposal.</p>
+<p>The within-transaction path uses multiple witness stack items, each within the per-item cap, within a single transaction. No existing consensus rule limits the count of such items or their aggregate byte total per input or per transaction. A single transaction can carry an arbitrarily large payload distributed across many small pushes.</p>
+<p>The cross-transaction path splits a payload across multiple transactions, each carrying one or more small chunks, with a reassembly index maintained off-chain. Each individual transaction complies with per-item caps. The payload is reconstructed by an indexer that reads the chain as a data store rather than as a ledger of monetary transfers. The Ordinals developer community published fragmentation tooling confirming this path is viable and ready to deploy whenever per-item caps are enforced.</p>
+<p>Closing both paths requires aggregate limits: a maximum total witness byte count per input and per transaction that makes large-payload fragmentation invalid regardless of how finely the payload is divided.</p>
+<h3 id="the-interaction-with-the-per-output-fee-bips">The Interaction With the Per-Output Fee BIPs</h3>
+<p>The <a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a> prices every new non-coinbase output permanently. The <a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation</a> layer keeps that price from decaying. Together they make UTXO creation costly in sats, permanently and irrecoverably.</p>
+<p>Without data channel closure, a spammer facing the per-output fee can minimize output count while maximizing payload per output by fragmenting data within the witness fields of a small number of transactions. The fee BIPs price outputs; they do not directly price witness bytes. This BIP closes that gap. With all three proposals active, the available surface for data embedding is narrow, the per-output cost is permanent, and fragmentation increases the transaction count and thus the aggregate fee burden rather than routing around it.</p>
+<hr>
+<h2 id="specification">Specification</h2>
+<h3 id="permanent-deployment">Permanent Deployment</h3>
+<p>The rules in this BIP have no expiry. They take effect at <code>activation_height</code> and remain in effect for all subsequent blocks. There is no <code>active_duration</code> parameter and no EXPIRED state. The deployment transitions from ACTIVE to a permanent terminal state with continued enforcement, not expiry.</p>
+<h3 id="utxo-grandfathering">UTXO Grandfathering</h3>
+<p>Spend-side rules and output-side rules are not the same exemption.</p>
+<p><strong>Output rules (Rule 1).</strong> Apply to every transaction output created in a block at or above <code>activation_height</code>, including coinbase outputs. A transaction that spends only pre-activation UTXOs still may not create a non-template scriptPubKey. One old input does not exempt new outputs.</p>
+<p><strong>Spend rules (Rules 2 through 13).</strong> Apply only to inputs whose prevout was created at or after <code>activation_height</code>. Inputs spending UTXOs created before <code>activation_height</code> are exempt from Rules 2 through 13. Existing coins are never frozen. Once a UTXO is grandfathered for spends, it remains spendable under pre-activation spend rules indefinitely, including inscription-style witness on those spends.</p>
+<p>Mixed transactions are valid if every new output satisfies Rule 1 and every post-activation input satisfies Rules 2 through 13.</p>
+<p>Coinbase <code>scriptSig</code> / extraNonce is out of scope.</p>
+<h3 id="rule-set">Rule Set</h3>
+<p>The following rules apply to all blocks at or above <code>activation_height</code>.</p>
+<p><strong>Rule 1.</strong> Every output <code>scriptPubKey</code> created at or after <code>activation_height</code> must be exactly one of the templates below, or a valid OP_RETURN output as defined here. Any other <code>scriptPubKey</code> is invalid. Templates are byte-exact (push opcodes must be the minimal opcode for that length; <code>OP_PUSHDATA1</code> for a 20-byte hash is not P2PKH).</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th><code>scriptPubKey</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P2PK compressed</td>
+<td><code>OP_PUSHBYTES_33 {33-byte pubkey} OP_CHECKSIG</code></td>
+</tr>
+<tr>
+<td>P2PK uncompressed</td>
+<td><code>OP_PUSHBYTES_65 {65-byte pubkey} OP_CHECKSIG</code></td>
+</tr>
+<tr>
+<td>P2PKH</td>
+<td><code>OP_DUP OP_HASH160 OP_PUSHBYTES_20 {20-byte hash} OP_EQUALVERIFY OP_CHECKSIG</code></td>
+</tr>
+<tr>
+<td>P2SH</td>
+<td><code>OP_HASH160 OP_PUSHBYTES_20 {20-byte hash} OP_EQUAL</code></td>
+</tr>
+<tr>
+<td>P2WPKH</td>
+<td><code>OP_0 OP_PUSHBYTES_20 {20-byte hash}</code></td>
+</tr>
+<tr>
+<td>P2WSH</td>
+<td><code>OP_0 OP_PUSHBYTES_32 {32-byte hash}</code></td>
+</tr>
+<tr>
+<td>P2TR</td>
+<td><code>OP_1 OP_PUSHBYTES_32 {32-byte x-only pubkey}</code></td>
+</tr>
+<tr>
+<td>P2A</td>
+<td><code>OP_1 OP_PUSHBYTES_2 0x4e73</code> (BIP 433)</td>
+</tr>
+</tbody></table>
+<p><strong>OP_RETURN.</strong> A valid OP_RETURN output has <code>len(scriptPubKey) &lt;= 83</code> bytes, the first opcode is <code>OP_RETURN</code> (0x6a), and the remainder is at most one data push (opcodes <code>OP_0</code>, <code>OP_1NEGATE</code>, <code>OP_1</code>–<code>OP_16</code>, or a single <code>OP_PUSHBYTES</code> / <code>OP_PUSHDATA1</code> / <code>OP_PUSHDATA2</code> with its payload). No further opcodes. 83 bytes is the <code>scriptPubKey</code> length (historical Core datacarrier), not 83 bytes of payload. Multiple OP_RETURN outputs in one transaction are each subject to this cap.</p>
+<p>Bare multisig and all other non-template forms are invalid.</p>
+<p><strong>Rule 2.</strong> Individual OP_PUSHDATA payloads and script-argument witness items exceeding 256 bytes are invalid, except for the redeemScript push in BIP16 scriptSigs. Script-argument witness items are witness stack elements passed to the script interpreter as inputs, excluding witness scripts, Tapleaf scripts, control blocks, annexes, and Taproot key-path signatures.</p>
+<p><strong>Rule 3.</strong> Spending undefined witness versions or Tapleaf versions is invalid. Creating outputs with undefined witness versions is already invalid under Rule 1: those scriptPubKeys are not a defined template. A future soft fork that defines a new witness version must add the corresponding template to the Rule 1 whitelist in the same deployment that defines spending rules. There is no pre-creation window.</p>
+<p><strong>Rule 4.</strong> Witness stacks with a Taproot annex are invalid.</p>
+<p><strong>Rule 5.</strong> Taproot control blocks larger than 257 bytes are invalid.</p>
+<p><strong>Rule 6.</strong> Tapscripts including OP_SUCCESS opcodes anywhere, even unexecuted, are invalid.</p>
+<p><strong>Rule 7.</strong> Tapscripts containing OP_IF or OP_NOTIF anywhere, even unexecuted, are invalid.</p>
+<p><strong>Rule 8.</strong> The aggregate byte count of all script-argument witness items across all inputs in a single transaction must not exceed <code>max_witness_bytes_per_tx</code>. The same exclusions as Rule 2 apply. A transaction where the aggregate exceeds <code>max_witness_bytes_per_tx</code> is invalid.</p>
+<p><strong>Rule 9.</strong> The aggregate byte count of all script-argument witness items within a single input must not exceed <code>max_witness_bytes_per_input</code>. The same exclusions as Rule 2 apply. An input where the aggregate exceeds <code>max_witness_bytes_per_input</code> is invalid.</p>
+<p><strong>Rule 10.</strong> Tapleaf scripts containing unreferenced push data are invalid. The determination is static, without execution, using the algorithm in <a href="#unreferenced-push-analysis">Unreferenced push analysis</a> with <code>kind = TAPSCRIPT</code> (<a href="#appendix-a-stack_items_read">Appendix A</a>).</p>
+<p><strong>Rule 11.</strong> Tapscripts containing push constants whose aggregate byte count exceeds <code>max_tapleaf_push_bytes</code> are invalid, as a secondary enforcement layer on Tapleaf script body size independent of the unreferenced push analysis in Rule 10. This cap is load-bearing for consume-and-ignore patterns (for example <code>OP_PUSH</code> followed by <code>OP_DROP</code>) that Rule 10 treats as referenced.</p>
+<p><strong>Rule 12.</strong> Segwit v0 witness scripts (the last witness stack item on P2WSH spends) containing unreferenced push data are invalid. The static analysis is the same as Rule 10 with <code>kind = WITNESS_V0</code>.</p>
+<p><strong>Rule 13.</strong> Segwit v0 witness scripts containing push constants whose aggregate byte count exceeds <code>max_witness_script_push_bytes</code> are invalid. This is the P2WSH counterpart to Rule 11. Witness scripts remain excluded from Rules 2, 8, and 9: those rules cap script-argument items, not script bodies.</p>
+<h3 id="unreferenced-push-analysis">Unreferenced push analysis</h3>
+<p>Used by Rules 10 and 12. Walk the script as a sequence of opcodes plus immediate payloads. A <strong>push</strong> is any of: <code>OP_0</code>, <code>OP_1NEGATE</code>, <code>OP_1</code> through <code>OP_16</code>, a direct push <code>0x01</code>–<code>0x4b</code>, <code>OP_PUSHDATA1</code>, <code>OP_PUSHDATA2</code>, or <code>OP_PUSHDATA4</code>.</p>
+<p>For each push, let <code>next</code> be the following opcode after that push and its payload.</p>
+<ul>
+<li>If there is no <code>next</code> (the push is last), the push is unreferenced and the script is invalid.</li>
+<li>If <code>next</code> is itself a push, the first push is unreferenced and the script is invalid.</li>
+<li>If <code>stack_items_read(next, kind) == 0</code>, the push is unreferenced and the script is invalid.</li>
+<li>If <code>stack_items_read(next, kind) &gt;= 1</code>, the push is referenced.</li>
+</ul>
+<p><code>stack_items_read(opcode, kind)</code> is defined for every byte <code>0x00</code>–<code>0xFF</code> in <a href="#appendix-a-stack_items_read">Appendix A</a>. Rule 10 uses <code>kind = TAPSCRIPT</code>. Rule 12 uses <code>kind = WITNESS_V0</code>. The value is the data-independent prefix of main-stack items Bitcoin Core's <code>EvalScript</code> requires from the top: items the opcode always inspects or pops before any data-dependent extra pops. Replacement versus deletion does not matter. <code>OP_DUP</code>, <code>OP_DROP</code>, <code>OP_IF</code>, <code>OP_SIZE</code>, and <code>OP_CHECKLOCKTIMEVERIFY</code> are all <code>&gt;= 1</code>. <code>OP_NOP</code>, <code>OP_DEPTH</code>, <code>OP_FROMALTSTACK</code>, <code>OP_ELSE</code>, <code>OP_CODESEPARATOR</code>, disabled opcodes, <code>OP_RETURN</code>, and unknown bytes are <code>0</code>.</p>
+<p><code>OP_PUSH</code> followed by <code>OP_DROP</code> is referenced under this test. Rule 11 (Tapleaf) and Rule 13 (P2WSH) exist to cap that consume-and-ignore pattern by aggregate push-constant bytes.</p>
+<p>Tapscript <code>OP_SUCCESS</code> bytes have <code>stack_items_read = 0</code> and are independently invalid under Rule 6.</p>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>max_witness_bytes_per_input</code></td>
+<td>Aggregate script-argument witness byte cap per input</td>
+<td>TBD via calibration</td>
+</tr>
+<tr>
+<td><code>max_witness_bytes_per_tx</code></td>
+<td>Aggregate script-argument witness byte cap per transaction</td>
+<td>TBD via calibration</td>
+</tr>
+<tr>
+<td><code>max_tapleaf_push_bytes</code></td>
+<td>Aggregate push constant byte cap per Tapleaf script body</td>
+<td>TBD via calibration</td>
+</tr>
+<tr>
+<td><code>max_witness_script_push_bytes</code></td>
+<td>Aggregate push constant byte cap per P2WSH witness script body</td>
+<td>TBD via calibration</td>
+</tr>
+<tr>
+<td><code>activation_height</code></td>
+<td>Set by signaling process</td>
+<td>Determined at deployment</td>
+</tr>
+</tbody></table>
+<p>Provisional anchors for calibration: <code>max_witness_bytes_per_input</code> should be set high enough that legitimate complex multisig and Lightning channel constructions are unaffected and low enough that fragmented image-scale payloads are blocked within a single input. <code>max_witness_bytes_per_tx</code> should be set to a multiple of <code>max_witness_bytes_per_input</code> sufficient for high-input-count CoinJoin and batch transactions while still blocking cross-input fragmentation at payload scales that impose meaningful node burden. <code>max_witness_script_push_bytes</code> may equal <code>max_tapleaf_push_bytes</code> after calibration; it is listed separately because segwit v0 scripts have a 10,000-byte historical ceiling and legitimate P2WSH multisig paths may need a larger push-constant budget than a Tapleaf.</p>
+<h3 id="defined-witness-versions">Defined Witness Versions</h3>
+<p>Rules 1 and 3 apply to all witness versions not defined as of this BIP. Creation of such outputs is invalid under Rule 1. Spending them is invalid under Rule 3. Pre-activation UTXOs remain grandfathered. The defined versions are:</p>
+<ul>
+<li>Witness v0 with a 20-byte program (P2WPKH) or a 32-byte program (P2WSH), per BIP 141.</li>
+<li>Witness v1 with a 32-byte program (Taproot/P2TR), per BIP 341. The only defined Tapleaf version is 0xc0 (Tapscript), per BIP 342.</li>
+<li>Witness v1 with the 2-byte program 0x4e73 (P2A, per BIP 433), spent with an empty witness stack only.</li>
+</ul>
+<h3 id="witness-item-classification">Witness item classification</h3>
+<p>Rules 2, 8, and 9 count only <strong>script-argument</strong> witness items:</p>
+<ul>
+<li><strong>P2WPKH:</strong> both items (signature, pubkey) are script-argument.</li>
+<li><strong>P2WSH:</strong> every item except the last. The last item is the witness script (Rules 12–13).</li>
+<li><strong>P2TR key-path:</strong> the signature item is excluded. BIP 341 already makes extra items invalid.</li>
+<li><strong>P2TR script-path:</strong> every item except the last two (Tapleaf script, control block). An annex is invalid under Rule 4.</li>
+<li><strong>P2A:</strong> empty witness only.</li>
+</ul>
+<p>Byte counts are <code>len(item)</code> for each counted item, summed as 64-bit integers.</p>
+<h3 id="activation">Activation</h3>
+<p>This BIP deploys via BIP-8 or BIP-9 style signaling with a minimum activation window of one year and no mandatory lock-in fallback. The threshold and signaling parameters are set at deployment. Miners who do not signal are not penalized. If signaling does not reach threshold within the window, the process restarts with revised parameters or renewed community discussion.</p>
+<p>BIP-8/9 without lock-in-on-timeout is miner signaling. Node operators absorbing non-monetary burden are a political constituency for this rule; they are not the signaling threshold. If miners do not signal, this BIP does not activate under the specified mechanism. User-activated soft fork deployment is a separate choice and is not specified here.</p>
+<hr>
+<h2 id="rationale">Rationale</h2>
+<h3 id="why-permanent-rather-than-temporary">Why Permanent Rather Than Temporary</h3>
+<p>A temporary rule creates an expiry date. Expiry gives the data-embedding ecosystem a planning horizon: tooling can be built for the post-expiry environment, and activity can resume the moment the rule lapses. A permanent rule removes that horizon entirely. The case for permanence rests on the same foundation as the case for the permanent per-output fee: the cost imposed on node operators by arbitrary data storage is not a temporary problem. The externality is structural. The rule should be structural too.</p>
+<h3 id="why-per-item-caps-alone-are-insufficient">Why Per-Item Caps Alone Are Insufficient</h3>
+<p>A 256-byte cap per individual witness item is the correct tool for closing single-field contiguous data embedding. It does not close fragmentation because it imposes no constraint on the number of items or on their aggregate size. Rules 8 and 9 are the missing constraint. They place a ceiling on total witness data per input and per transaction that makes large-payload fragmentation invalid regardless of how finely the payload is divided. A 50 kilobyte image split into 256-byte chunks requires roughly 200 chunks. With appropriate aggregate limits, that transaction or that input is invalid. With cross-transaction fragmentation, the aggregate limit per transaction is reached before the payload fits, so the payload requires more transactions, each paying the per-output fee, making the total cost of data embedding proportional to data volume. That is the correct pricing signal.</p>
+<h3 id="why-the-aggregate-limits-are-scoped-to-script-argument-witness-items">Why the Aggregate Limits Are Scoped to Script-Argument Witness Items</h3>
+<p>Witness scripts and Tapleaf scripts are excluded from the aggregate counts because they are scripts, not data. Their size is governed by legitimate cryptographic and contract requirements. Taproot key-path signatures are fixed-length by consensus. Control blocks encode the Merkle path to a Tapscript and are governed by Rule 5. Annexes are invalidated by Rule 4. The aggregate limits target the data surface, not the script surface, consistent with this BIP's purpose.</p>
+<h3 id="why-op_return-is-capped-at-83-bytes">Why OP_RETURN Is Capped at 83 Bytes</h3>
+<p>OP_RETURN outputs are provably unspendable and do not enter the UTXO set. Historically, up to 83 bytes of <code>scriptPubKey</code> have been tolerated to avoid unprovably unspendable spam in other output scripts. This BIP restores that cap at consensus. It does not charge the per-output fee; that is the static fee BIP. At a correctly calibrated per-output fee, the cost per OP_RETURN output is negligible for legitimate low-volume use and material only for high-volume data embedding. The 83-byte figure is total script length, matching historical <code>-datacarriersize</code>, not 83 bytes of payload after <code>OP_RETURN</code>. Capping OP_RETURN at consensus restores a principle that Core relay policy previously enforced but that miners could bypass.</p>
+<h3 id="why-op_if-and-op_notif-are-invalidated-in-tapscript">Why OP_IF and OP_NOTIF Are Invalidated in Tapscript</h3>
+<p>With Taproot, branching conditions can be evaluated off-chain, revealing only the intended execution path. OP_IF is redundant in Tapscript for well-designed monetary constructions and has been commonly used to inject data that is skipped at execution. Closing this gap eliminates a common embedding abuse. Current Lightning is mostly P2WSH and is not affected. Taproot Miniscript and taproot-channel HTLC leaves that still use OP_IF must split those branches into separate leaves before activation.</p>
+<h3 id="why-undefined-witness-versions-are-closed-to-creation-and-spending">Why Undefined Witness Versions Are Closed to Creation and Spending</h3>
+<p>Undefined witness versions have unlimited witness stack sizes, creating an unconstrained embedding surface. Rule 3 closes spending. Rule 1 already closes creation: an undefined-version scriptPubKey is not a defined template. Leaving creation valid would park a new class of hash-channel UTXOs and is not required for upgrades.</p>
+<p>A future witness version is added the same way P2TR was added: one soft fork that both whitelists the output template and defines spending rules. Senders do not need a pre-creation window. Pre-activation UTXOs, including any rare undefined-version outputs that already exist, remain spendable under grandfathering.</p>
+<h3 id="why-bip141-weight-is-unchanged">Why BIP141 Weight Is Unchanged</h3>
+<p>This BIP does not reprice witness bytes. After Rules 2, 7, and 10 through 13, bulk JPEG payload is invalid, so the BIP141 discount no longer subsidizes dedicated embedding. Remaining witness bytes are signatures, scripts, and control blocks.</p>
+<p>Repricing all witness data is a different proposal and would mix a Lightning and batching design fight into this activation. It is not required for channel closure. A later BIP could, if desired, apply full weight to script-argument witness items only (the Rule 2 set) without touching signature or script weight. That change is out of scope here.</p>
+<h3 id="why-bare-multisig-is-closed-at-the-output-template-layer">Why Bare Multisig Is Closed at the Output Template Layer</h3>
+<p>Bare multisig scriptPubKeys encode public keys directly in the output script. The Stamps protocol exploits this by substituting arbitrary data for valid public key bytes. Because the output script is stored permanently in the UTXO set until spent, this creates indefinite node storage burden with no monetary justification. A length cap on scriptPubKeys does not cleanly close this channel because a three-of-three bare multisig output can be constructed within plausible byte limits while still carrying meaningful data payloads in its fake keys. The output template whitelist in Rule 1 closes the channel completely: bare multisig is not a defined template and is invalid at output creation, before any data reaches the UTXO set. Legitimate monetary use cases that historically relied on bare multisig are fully served by P2SH, P2WSH, and P2TR, all of which are on the whitelist.</p>
+<h3 id="why-tapleaf-scripts-are-analyzed-for-unreferenced-push-data">Why Tapleaf Scripts Are Analyzed for Unreferenced Push Data</h3>
+<p>The exclusion of Tapleaf scripts from per-item witness caps in Rule 2 is correct for legitimate contract logic: push constants in a Tapleaf script serve as inputs to opcodes that consume them. The Taproot envelope embedding technique abuses this exemption by placing arbitrary data as push constants that are never consumed by any opcode in the script. These dead pushes are present in the witness at spend time, visible to every node, and stored indefinitely. A static analysis pass over the script bytecode identifies them without executing the script: any OP_PUSH or OP_PUSHDATA opcode followed by an opcode that does not consume the stack top is unreferenced. Rule 10 invalidates scripts containing unreferenced pushes. Rule 11 adds a secondary aggregate size cap on all push constants within a Tapleaf script body as a belt-and-suspenders enforcement layer for cases where static analysis edge cases exist, including consume-and-ignore patterns such as <code>OP_PUSH</code> followed by <code>OP_DROP</code> that Rule 10 treats as referenced.</p>
+<h3 id="why-p2wsh-witness-scripts-get-the-same-treatment">Why P2WSH Witness Scripts Get the Same Treatment</h3>
+<p>Rules 2, 8, and 9 correctly exclude witness scripts from per-item and aggregate witness-item caps: those scripts are program bodies, not data fields. Segwit v0 witness scripts can still be up to 10,000 bytes. Dead pushes inside a P2WSH script are therefore a remaining dedicated channel if only Tapleaf bodies are analyzed.</p>
+<p>Rules 12 and 13 close that channel. Rule 12 applies the Rule 10 unreferenced-push analysis to the last witness stack item on a P2WSH spend. Rule 13 applies the Rule 11 aggregate push-constant cap via <code>max_witness_script_push_bytes</code>. BIP16 redeemScripts are not given this treatment: P2SH script-path dumps remain a leftover by scope. RedeemScript pushes remain excepted from the 256-byte item cap in Rule 2. P2SH is not the high-bandwidth inscription channel; P2WSH was.</p>
+<h3 id="interaction-with-the-per-output-fee-bips">Interaction With the Per-Output Fee BIPs</h3>
+<p>The <a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a> and <a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation</a> BIPs price UTXO creation. This BIP closes the data channels. The three proposals are complementary and are intended to be considered for coordinated activation. Separate activation is possible and each BIP functions independently, but the combined anti-spam effect is stronger when all three are active. Without this BIP, an attacker facing only the fee BIPs can minimize UTXO count and pack data into witness fields through fragmentation, paying little in fees. Without the fee BIPs, an attacker facing only this BIP can spread data across many cheap transactions. The three proposals close those routes together.</p>
+<hr>
+<h2 id="backwards-compatibility">Backwards Compatibility</h2>
+<p>Existing coins are never frozen. Pre-activation UTXOs can be spent under pre-activation spend rules. New outputs created at or after <code>activation_height</code> must match Rule 1 even when funded entirely by pre-activation inputs. Coinbase outputs created at or after activation must also be a defined template or a valid 83-byte OP_RETURN. Coinbase <code>scriptSig</code> is unchanged.</p>
+<p>Some wallet software, including certain Miniscript compilers, habitually creates Tapleaves containing OP_IF and may place required scripts deeper than 7 Taptree levels. Lightning taproot-channel designs that keep OP_IF in a Tapscript HTLC leaf must split those branches. Current P2WSH Lightning funding scripts are unaffected by Rule 7. The mitigations are: split OP_IF branches into separate Tapleaves and keep every required script-path leaf at depth 7 or less. Taproot control blocks are capped at 257 bytes, limiting Taptrees to 128 script leaves, which is sufficient for modern complex transactions but may constrain advanced off-chain contract schemes that rely on very large script trees.</p>
+<p>Rules 8 and 9 require wallets and transaction construction libraries to track aggregate witness byte consumption per input and per transaction. Rules 12 and 13 require P2WSH constructors to avoid unreferenced pushes and to stay within <code>max_witness_script_push_bytes</code>. The calibration checklist must confirm that no legitimate high-witness-count use case (Lightning channel opens, complex multisig, CoinJoin, large P2WSH) is invalidated at correctly calibrated parameter values.</p>
+<p>Wallets that do not update will produce transactions that enforcing nodes reject at and after <code>activation_height</code>. The minimum one-year signaling window provides time for updates. As with the per-output fee BIPs, updates should be complete before activation.</p>
+<hr>
+<h2 id="reference-implementation">Reference Implementation</h2>
+<p>High-level pseudocode:</p>
+<pre><code class="language-python">ACTIVATION_HEIGHT = &lt;determined by signaling process&gt;
+MAX_WITNESS_BYTES_PER_INPUT = &lt;value to be set at activation&gt;
+MAX_WITNESS_BYTES_PER_TX = &lt;value to be set at activation&gt;
+
+def script_argument_witness_items(input_witness):
+    # Exclude: witness scripts, Tapleaf scripts, control blocks,
+    # annexes, and Taproot key-path signatures.
+    # Return the remaining witness stack elements.
+    ...
+
+def is_valid_transaction(tx, block_height):
+    if block_height &lt; ACTIVATION_HEIGHT:
+        return True
+
+    # Rule 1: every new output, including coinbase outputs
+    for out in tx.outputs:
+        if not is_allowed_scriptpubkey(out.scriptPubKey):
+            return False
+
+    if tx.is_coinbase:
+        return True
+
+    tx_aggregate = 0
+
+    for inp in tx.inputs:
+        if inp.utxo_height &lt; ACTIVATION_HEIGHT:
+            continue  # spend rules only; Rule 1 already applied to outputs
+
+        items = script_argument_witness_items(inp.witness)
+
+        # Rule 2: per-item cap
+        for item in items:
+            if len(item) &gt; 256:
+                return False
+
+        # Rule 9: per-input aggregate cap
+        input_aggregate = sum(len(item) for item in items)
+        if input_aggregate &gt; MAX_WITNESS_BYTES_PER_INPUT:
+            return False
+
+        tx_aggregate += input_aggregate
+
+    # Rule 8: per-transaction aggregate cap (post-activation inputs only)
+    if tx_aggregate &gt; MAX_WITNESS_BYTES_PER_TX:
+        return False
+
+    # Rules 3–7, 10–13: omitted here for brevity; see Specification
+    ...
+
+    return True
+</code></pre>
+<p>Detailed test vectors, integer arithmetic requirements, precise witness item classification, and edge cases will be provided in a future numbered BIP submission.</p>
+<hr>
+<h2 id="calibration-checklist">Calibration Checklist</h2>
+<h3 id="a-aggregate-limit-determination-hard-gate">A. Aggregate Limit Determination (Hard Gate)</h3>
+<ul>
+<li>Establish the maximum script-argument witness byte count per input required by legitimate high-witness-count constructions: Lightning channel opens, complex multisig (5-of-7 and above), CoinJoin inputs at realistic participant counts, and Taproot script-path spends with deep trees up to the 128-leaf limit imposed by Rule 5.</li>
+<li>Set <code>max_witness_bytes_per_input</code> above the 99th percentile of legitimate per-input witness consumption observed across full chain history.</li>
+<li>Confirm that an image-scale fragmented payload (50 kilobytes, split into 256-byte chunks) requires per-input or per-transaction witness aggregates that exceed the calibrated limits and is therefore invalid.</li>
+<li>Set <code>max_witness_bytes_per_tx</code> to accommodate high-input-count CoinJoin transactions at realistic participant counts while blocking cross-input fragmentation at image scale.</li>
+<li>Lock in both values or document required adjustments with full reasoning before the proposal moves forward.</li>
+<li>Set <code>max_tapleaf_push_bytes</code> and <code>max_witness_script_push_bytes</code> above legitimate Miniscript, Lightning, and P2WSH multisig push-constant totals and below image-scale script-body dumps. Confirm Rule 11 and Rule 13 catch consume-and-ignore patterns that Rule 10 and Rule 12 treat as referenced.</li>
+</ul>
+<h3 id="b-collateral-damage-must-pass">B. Collateral Damage (Must Pass)</h3>
+<ul>
+<li>Lightning channel opens: confirm per-input and per-transaction aggregate witness bytes remain below limits at all relevant funding configurations.</li>
+<li>CoinJoin transactions at 50, 100, and 200 participants: confirm aggregate limits are not reached.</li>
+<li>Complex multisig up to 5-of-7 and above: confirm script-path spend witness aggregates remain within limits.</li>
+<li>Taproot script-path spends at maximum allowed tree depth (128 leaves, Rule 5): confirm aggregate limits not reached.</li>
+<li>Ordinary payments (P2WPKH, P2TR keypath): confirm negligible witness aggregates relative to limits.</li>
+<li>P2WSH multisig spends: confirm Rule 12 and Rule 13 do not invalidate legitimate witness scripts at calibrated <code>max_witness_script_push_bytes</code>.</li>
+</ul>
+<h3 id="c-spam-efficacy">C. Spam Efficacy</h3>
+<ul>
+<li>Confirm that image-scale payloads (at 50 kilobytes and above) cannot be embedded in a single transaction without exceeding Rule 8 or Rule 9 limits, and cannot be embedded in a P2WSH witness script or Tapleaf body without exceeding Rule 11 or Rule 13.</li>
+<li>Confirm that cross-transaction fragmentation at image scale, priced through the per-output fee BIPs, produces a per-byte cost that makes sustained spam economically irrational at calibrated fee levels.</li>
+<li>Model the combined cost of the three-BIP stack (per-output fee plus aggregate witness limits) against realistic attacker budgets for inscription-wave-scale activity.</li>
+</ul>
+<h3 id="d-consensus-edge-cases">D. Consensus Edge Cases</h3>
+<ul>
+<li>Confirm the witness item classification in Specification (P2WPKH, P2WSH, P2TR key-path, P2TR script-path, P2A).</li>
+<li>Confirm integer arithmetic for aggregate byte counting so all implementations agree bit-for-bit.</li>
+<li>Confirm grandfathering: Rule 1 on every output created at or after <code>activation_height</code>; Rules 2–13 only on inputs whose prevout was created at or after that height.</li>
+<li>Confirm reorg behavior at <code>activation_height</code>: blocks below the activation height are never subject to any rule in this BIP regardless of reorg depth.</li>
+<li>Confirm that the witness item classification algorithm is reproducible from block data alone without mempool history.</li>
+<li>Confirm implementations match the Appendix A grids bit-for-bit for both <code>WITNESS_V0</code> and <code>TAPSCRIPT</code>.</li>
+</ul>
+<h3 id="e-wallet-and-exchange-validation">E. Wallet and Exchange Validation</h3>
+<ul>
+<li>Share calibration results with at least one Lightning implementation developer, one exchange wallet engineer, and one CoinJoin implementation developer before proceeding.</li>
+<li>Confirm that fee estimation and transaction construction tooling can enforce aggregate witness limits internally before broadcasting.</li>
+</ul>
+<h3 id="f-exit-criteria">F. Exit Criteria</h3>
+<ul>
+<li>Both aggregate limit values confirmed and gate A passes.</li>
+<li>Collateral damage checklist B passes at calibrated values.</li>
+<li>Spam efficacy checklist C confirms image-scale payloads are blocked or prohibitively expensive under the three-BIP stack.</li>
+<li>Consensus edge cases in checklist D resolved and written into Specification.</li>
+</ul>
+<hr>
+<h2 id="appendix-a-stack_items_read">Appendix A. <code>stack_items_read</code></h2>
+<p>Normative. Every opcode byte has an assigned integer. Implementations MUST NOT treat any byte as unspecified.</p>
+<p>Source of the counts: Bitcoin Core <code>EvalScript</code> in <code>src/script/interpreter.cpp</code> and <code>IsOpSuccess</code> in <code>src/script/script.cpp</code> as of commit <a href="https://github.com/bitcoin/bitcoin/commit/b2c45888fde06429e86913fab5e7b7a075f091c3"><code>b2c45888</code></a> (2026-08-12). A later Core change that alters stack effects of an existing opcode requires a new consensus discussion; it does not silently amend this appendix.</p>
+<h3 id="definition">Definition</h3>
+<p><code>stack_items_read(opcode, kind) -&gt; integer &gt;= 0</code></p>
+<p><code>kind</code> is <code>WITNESS_V0</code> (Rule 12) or <code>TAPSCRIPT</code> (Rule 10).</p>
+<p>The return value is how many main-stack items, counted from the top, the opcode <strong>always</strong> requires before any data-dependent extra pops. It is not the eventual total for <code>OP_PICK</code>, <code>OP_ROLL</code>, or <code>OP_CHECKMULTISIG</code>. Those opcodes always consume the top item first (<code>n</code> or <code>nKeys</code>), so a push immediately before them is referenced whenever the V0 count is <code>&gt;= 1</code>.</p>
+<p>Unexecuted <code>OP_IF</code> / <code>OP_NOTIF</code> do not pop in <code>EvalScript</code>. This analysis is static and does not track <code>vfExec</code>. Both opcodes are <code>1</code> in both kinds. Tapscript still invalidates them under Rule 7.</p>
+<p><code>OP_CHECKLOCKTIMEVERIFY</code> and <code>OP_CHECKSEQUENCEVERIFY</code> inspect the top item and leave it in place. They are <code>1</code>. This BIP assumes the consensus flags that activate those opcodes; it does not model the historical NOP2/NOP3 fallback.</p>
+<h3 id="assignment-apply-in-order">Assignment (apply in order)</h3>
+<ol>
+<li>If <code>kind == TAPSCRIPT</code> and <code>IsOpSuccess(opcode)</code> (BIP 342): return <code>0</code>. The SUCCESS bytes are <code>0x50</code>, <code>0x62</code>, <code>0x7e</code>–<code>0x81</code>, <code>0x83</code>–<code>0x86</code>, <code>0x89</code>–<code>0x8a</code>, <code>0x8d</code>–<code>0x8e</code>, <code>0x95</code>–<code>0x99</code>, and <code>0xbb</code>–<code>0xfe</code>.</li>
+<li>If <code>kind == TAPSCRIPT</code> and opcode is <code>OP_CHECKMULTISIG</code> (<code>0xae</code>) or <code>OP_CHECKMULTISIGVERIFY</code> (<code>0xaf</code>): return <code>0</code> (Core fails with <code>SCRIPT_ERR_TAPSCRIPT_CHECKMULTISIG</code> before popping).</li>
+<li>If opcode is <code>OP_CHECKSIGADD</code> (<code>0xba</code>): return <code>3</code> if <code>kind == TAPSCRIPT</code>, else <code>0</code> (<code>SCRIPT_ERR_BAD_OPCODE</code> in v0).</li>
+<li>If <code>kind == WITNESS_V0</code> and opcode is a disabled splice/bitwise/numeric opcode (<code>OP_CAT</code>, <code>OP_SUBSTR</code>, <code>OP_LEFT</code>, <code>OP_RIGHT</code>, <code>OP_INVERT</code>, <code>OP_AND</code>, <code>OP_OR</code>, <code>OP_XOR</code>, <code>OP_2MUL</code>, <code>OP_2DIV</code>, <code>OP_MUL</code>, <code>OP_DIV</code>, <code>OP_MOD</code>, <code>OP_LSHIFT</code>, <code>OP_RSHIFT</code>): return <code>0</code> (fail before the <code>EvalScript</code> switch).</li>
+<li>If opcode is a push (<code>0x00</code>–<code>0x4e</code>, <code>OP_1NEGATE</code>, <code>OP_1</code>–<code>OP_16</code>): return <code>0</code>.</li>
+<li>Otherwise use the named table below. Bytes with no named row, including <code>OP_RESERVED</code>, <code>OP_VER</code>, <code>OP_VERIF</code>, <code>OP_VERNOTIF</code>, <code>OP_NOP1</code>/<code>OP_NOP4</code>–<code>OP_NOP10</code>, and <code>0xff</code>, return <code>0</code>.</li>
+</ol>
+<h3 id="named-opcodes-stack_items_read-1-plus-zeros-that-are-easy-to-get-wrong">Named opcodes (<code>stack_items_read &gt;= 1</code>, plus zeros that are easy to get wrong)</h3>
+<p>Values below are for <code>WITNESS_V0</code>. Tapscript differs only on <code>0xae</code>, <code>0xaf</code>, and <code>0xba</code> (steps 1–3).</p>
+<table>
+<thead>
+<tr>
+<th>Byte</th>
+<th>Name</th>
+<th>V0</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>0x63</code></td>
+<td><code>OP_IF</code></td>
+<td>1</td>
+<td>Pops when executed; static analysis uses 1</td>
+</tr>
+<tr>
+<td><code>0x64</code></td>
+<td><code>OP_NOTIF</code></td>
+<td>1</td>
+<td>Same</td>
+</tr>
+<tr>
+<td><code>0x69</code></td>
+<td><code>OP_VERIFY</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x6a</code></td>
+<td><code>OP_RETURN</code></td>
+<td>0</td>
+<td>Fails without reading the stack</td>
+</tr>
+<tr>
+<td><code>0x6b</code></td>
+<td><code>OP_TOALTSTACK</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x6c</code></td>
+<td><code>OP_FROMALTSTACK</code></td>
+<td>0</td>
+<td>Reads altstack only</td>
+</tr>
+<tr>
+<td><code>0x6d</code></td>
+<td><code>OP_2DROP</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x6e</code></td>
+<td><code>OP_2DUP</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x6f</code></td>
+<td><code>OP_3DUP</code></td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x70</code></td>
+<td><code>OP_2OVER</code></td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x71</code></td>
+<td><code>OP_2ROT</code></td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x72</code></td>
+<td><code>OP_2SWAP</code></td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x73</code></td>
+<td><code>OP_IFDUP</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x74</code></td>
+<td><code>OP_DEPTH</code></td>
+<td>0</td>
+<td>Reads stack <em>size</em>, not an item</td>
+</tr>
+<tr>
+<td><code>0x75</code></td>
+<td><code>OP_DROP</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x76</code></td>
+<td><code>OP_DUP</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x77</code></td>
+<td><code>OP_NIP</code></td>
+<td>2</td>
+<td>Erases second-to-top; top still required</td>
+</tr>
+<tr>
+<td><code>0x78</code></td>
+<td><code>OP_OVER</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x79</code></td>
+<td><code>OP_PICK</code></td>
+<td>1</td>
+<td>Prefix: pops <code>n</code>. Then <code>n+1</code> more. Min depth 2</td>
+</tr>
+<tr>
+<td><code>0x7a</code></td>
+<td><code>OP_ROLL</code></td>
+<td>1</td>
+<td>Same prefix as <code>OP_PICK</code></td>
+</tr>
+<tr>
+<td><code>0x7b</code></td>
+<td><code>OP_ROT</code></td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x7c</code></td>
+<td><code>OP_SWAP</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x7d</code></td>
+<td><code>OP_TUCK</code></td>
+<td>2</td>
+<td>Not a SUCCESS byte</td>
+</tr>
+<tr>
+<td><code>0x82</code></td>
+<td><code>OP_SIZE</code></td>
+<td>1</td>
+<td>Inspects top; does not pop</td>
+</tr>
+<tr>
+<td><code>0x87</code></td>
+<td><code>OP_EQUAL</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x88</code></td>
+<td><code>OP_EQUALVERIFY</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x8b</code></td>
+<td><code>OP_1ADD</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x8c</code></td>
+<td><code>OP_1SUB</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x8f</code></td>
+<td><code>OP_NEGATE</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x90</code></td>
+<td><code>OP_ABS</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x91</code></td>
+<td><code>OP_NOT</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x92</code></td>
+<td><code>OP_0NOTEQUAL</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x93</code></td>
+<td><code>OP_ADD</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x94</code></td>
+<td><code>OP_SUB</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x9a</code></td>
+<td><code>OP_BOOLAND</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x9b</code></td>
+<td><code>OP_BOOLOR</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x9c</code></td>
+<td><code>OP_NUMEQUAL</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x9d</code></td>
+<td><code>OP_NUMEQUALVERIFY</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x9e</code></td>
+<td><code>OP_NUMNOTEQUAL</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0x9f</code></td>
+<td><code>OP_LESSTHAN</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xa0</code></td>
+<td><code>OP_GREATERTHAN</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xa1</code></td>
+<td><code>OP_LESSTHANOREQUAL</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xa2</code></td>
+<td><code>OP_GREATERTHANOREQUAL</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xa3</code></td>
+<td><code>OP_MIN</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xa4</code></td>
+<td><code>OP_MAX</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xa5</code></td>
+<td><code>OP_WITHIN</code></td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xa6</code></td>
+<td><code>OP_RIPEMD160</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xa7</code></td>
+<td><code>OP_SHA1</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xa8</code></td>
+<td><code>OP_SHA256</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xa9</code></td>
+<td><code>OP_HASH160</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xaa</code></td>
+<td><code>OP_HASH256</code></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xab</code></td>
+<td><code>OP_CODESEPARATOR</code></td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xac</code></td>
+<td><code>OP_CHECKSIG</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xad</code></td>
+<td><code>OP_CHECKSIGVERIFY</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>0xae</code></td>
+<td><code>OP_CHECKMULTISIG</code></td>
+<td>1</td>
+<td>Prefix: <code>nKeys</code>. Tapscript: 0</td>
+</tr>
+<tr>
+<td><code>0xaf</code></td>
+<td><code>OP_CHECKMULTISIGVERIFY</code></td>
+<td>1</td>
+<td>Same. Tapscript: 0</td>
+</tr>
+<tr>
+<td><code>0xb1</code></td>
+<td><code>OP_CHECKLOCKTIMEVERIFY</code></td>
+<td>1</td>
+<td>Inspects top; does not pop</td>
+</tr>
+<tr>
+<td><code>0xb2</code></td>
+<td><code>OP_CHECKSEQUENCEVERIFY</code></td>
+<td>1</td>
+<td>Same</td>
+</tr>
+<tr>
+<td><code>0xba</code></td>
+<td><code>OP_CHECKSIGADD</code></td>
+<td>0</td>
+<td>Tapscript: 3</td>
+</tr>
+</tbody></table>
+<p>Worked cases: <code>PUSH jpeg / OP_DROP</code> is referenced. <code>PUSH jpeg / OP_NOP</code>, <code>PUSH jpeg / OP_DEPTH</code>, and <code>PUSH jpeg / OP_FROMALTSTACK</code> are unreferenced.</p>
+<h3 id="complete-grids-byte-0xrf-at-row-r-column-f">Complete grids (byte <code>0xRF</code> at row <code>R</code>, column <code>F</code>)</h3>
+<p><strong><code>WITNESS_V0</code> (Rule 12)</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>0_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>1_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>2_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>3_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>4_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>5_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>6_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td><code>7_</code></td>
+<td>4</td>
+<td>6</td>
+<td>4</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>8_</code></td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>9_</code></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td><code>A_</code></td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>B_</code></td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>C_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>D_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>E_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>F_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p><strong><code>TAPSCRIPT</code> (Rule 10)</strong></p>
+<p>Same as V0 except <code>0xae</code> = 0, <code>0xaf</code> = 0, <code>0xba</code> = 3. SUCCESS bytes are already 0 in both grids.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>0_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>1_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>2_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>3_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>4_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>5_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>6_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td><code>7_</code></td>
+<td>4</td>
+<td>6</td>
+<td>4</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>8_</code></td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>9_</code></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td><code>A_</code></td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>B_</code></td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>C_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>D_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>E_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>F_</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="security-considerations">Security Considerations</h2>
+<p><strong>No expiry surface.</strong> Because this BIP is permanent, there is no expiry date for the data-embedding ecosystem to plan around. The rule is stable indefinitely.</p>
+<p><strong>Grandfathering boundary.</strong> Rule 1 uses the creating block's height. Rules 2 through 13 use the prevout's creating height. A mixed transaction is not a blanket exemption. Implementations must not treat “any grandfathered input” as exempting new outputs. Pre-activation envelope UTXOs may still reveal witness data on spend.</p>
+<p><strong>Undefined-version creation.</strong> Rule 1 and Rule 3 must agree: undefined witness-version outputs cannot be created after activation and cannot be spent except via grandfathered pre-activation UTXOs. Implementations that allow creation while rejecting spends, or the reverse, will split the chain.</p>
+<p><strong>Aggregate limit manipulation.</strong> An attacker who knows the <code>max_witness_bytes_per_tx</code> limit could construct transactions that stay just below it across many transactions, accumulating a fragmented payload. The per-output fee BIPs price each such transaction through its output count, so aggregate data embedding volume remains proportional to aggregate fee spend. This is the intended outcome. Fragmentation across many transactions in one block remains possible up to the weight limit. A per-block data cap is rejected: it collides with high-throughput monetary blocks (batch payouts, many channel closes, several CoinJoins). That path is priced by the per-output fee, not by a fourth aggregate.</p>
+<p><strong>Witness item classification.</strong> The exclusion of witness scripts, Tapleaf scripts, control blocks, annexes, and key-path signatures from the aggregate counts must be specified precisely and implemented identically across all compliant implementations. Classification errors that treat script material as data (or vice versa) produce consensus failures. Witness scripts and Tapleaf scripts are instead governed by Rules 10 through 13. The calibration checklist requires a shared witness item classification algorithm before submission.</p>
+<p><strong>Private mempool arrangements.</strong> Miners accepting non-compliant transactions through private arrangements produce blocks that enforcing nodes reject. Orphan risk limits sustained defection, as with the per-output fee BIPs.</p>
+<hr>
+<h2 id="references">References</h2>
+<ul>
+<li><em><a href="/bips/static-per-output-miner-fee">BIP Pre-Proposal: Static Per-Output Miner Fee</a></em> (Josh / Secure Sovereign, July 2026).</li>
+<li><em><a href="/bips/dynamic-escalation-per-output-fee">BIP Pre-Proposal: Dynamic Escalation of the Per-Output Miner Fee</a></em> (Josh / Secure Sovereign, July 2026).</li>
+<li>BIP 141: Segregated Witness.</li>
+<li>BIP 341: Taproot.</li>
+<li>BIP 342: Tapscript (<code>IsOpSuccess</code> ranges).</li>
+<li>Bitcoin Core <code>src/script/interpreter.cpp</code> (<code>EvalScript</code>) and <code>src/script/script.cpp</code> (<code>IsOpSuccess</code>), commit <a href="https://github.com/bitcoin/bitcoin/commit/b2c45888fde06429e86913fab5e7b7a075f091c3"><code>b2c45888</code></a>.</li>
+<li>BIP 433: Pay-to-Anchor (P2A).</li>
+<li>BIP 16: Pay to Script Hash.</li>
+<li><em><a href="/articles/the-achievable-floor">The Achievable Floor</a></em> (secsov.com, 2026).</li>
+<li><em><a href="/articles/bitcoin-not-a-hard-drive">Bitcoin Is Not a Hard Drive</a></em> (secsov.com, 2026).</li>
+<li><em><a href="/articles/full-cost-of-running-a-bitcoin-node">Full Cost of Running a Bitcoin Node</a></em>, v2.4 (secsov.com, July 2026).</li>
+<li>Various Delving Bitcoin and bitcoin-dev threads on UTXO bloat and data embedding (2023–2026).</li>
+</ul>
+<hr>
+<h2 id="copyright">Copyright</h2>
+<p>This document is licensed under the BSD 2-Clause License.</p>
+</article>
+        <aside class="bip-related" aria-label="Related">
+        <h2>Related</h2>
+        <ul class="bip-related-list">
+            <li><span class="bip-related-label">Works with</span><span><a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a><span class="article-meta-sep" aria-hidden="true">·</span><a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation of the Per-Output Miner Fee</a></span></li>
+            <li><span class="bip-related-label">Related writing</span><span><a href="/articles/the-achievable-floor">The Achievable Floor</a><span class="article-meta-sep" aria-hidden="true">·</span><a href="/articles/bitcoin-not-a-hard-drive">Bitcoin Is Not a Hard Drive</a><span class="article-meta-sep" aria-hidden="true">·</span><a href="/articles/full-cost-of-running-a-bitcoin-node">Full Cost of Running a Bitcoin Node</a></span></li>
+        </ul>
+    </aside>
+        <div class="article-share-bar" data-share-url="https://secsov.com/bips/permanent-data-channel-closure" data-share-title="Permanent Data Channel Closure (BIP Pre-Proposal)" data-share-text="Permanent Data Channel Closure (BIP Pre-Proposal): Bitcoin Improvement Pre-Proposal: permanent consensus closure of data embedding channels (per-item caps, aggregate witness limits, output templates, Tapleaf and P2WSH script analysis) to complement the per-output fee BIPs.">
+        <span class="share-label">Share</span>
+        <div class="article-share-icons"></div>
+    </div>
+    </div>
+    <script src="/share.js"></script>
+</body>
+</html>
