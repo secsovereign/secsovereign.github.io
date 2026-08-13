@@ -3885,7 +3885,7 @@ Large miners who earn significant revenue from inscription-style activity may op
 
 ### Interaction with Permanent Data Channel Closure
 
-The [Permanent Data Channel Closure](/bips/permanent-data-channel-closure) pre-proposal targets dedicated high-bandwidth data channels: `OP_RETURN`, Taproot envelopes, witness fragmentation, and related embedding surfaces. This BIP targets UTXO creation economics and charges all outputs, including `OP_RETURN`. The two proposals address different surfaces and reinforce each other when activated together. Coordinated activation of all three pre-proposals closes the full documented surface at once. For the channel taxonomy, see *[The Achievable Floor](/articles/the-achievable-floor)* and *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*.
+The [Permanent Data Channel Closure](/bips/permanent-data-channel-closure) pre-proposal targets dedicated high-bandwidth data channels: `OP_RETURN`, Taproot envelopes, witness fragmentation, and related embedding surfaces. This BIP targets UTXO creation economics and charges all outputs, including `OP_RETURN`. The two proposals address different surfaces and reinforce each other when activated together. Coordinated activation of all three pre-proposals closes dedicated embedding channels and prices UTXO creation. Hash, amount, `nSequence`, and ordering fields remain open because payments require them; see *[The Achievable Floor](/articles/the-achievable-floor)* and *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*.
 
 ### Activation Game Theory
 
@@ -4179,7 +4179,7 @@ rate  = floor(tx_fee * 1000 / vsize)   # milli-sat per vB
 
 `tx_fee` is `sum(input_values) - sum(output_values)` as in the static fee BIP. Exclude coinbase transactions. Exclude transactions with `tx_fee = 0`. Rate uses that transaction's own fee and weight only: no package or CPFP attribution.
 
-Compute the 25th percentile of the resulting integer set. Sort ascending. For `N` samples, the 25th percentile is the element at index `floor((N − 1) × 25 / 100)` (0-based). No interpolation on even `N`. If the set has fewer than `min_tx_count` fee-paying transactions, **do not update** `p25_ema_previous` or `dynamic_fee_previous` (hold). Do not set them to zero. A thin sample must not collapse or freeze-from-zero the dynamic component.
+Compute the 25th percentile of the resulting integer set. Sort ascending. For `N` samples, the 25th percentile is the element at index `floor((N − 1) × 25 / 100)` (0-based). No interpolation on even `N`. If the set has fewer than `min_tx_count` fee-paying transactions, **do not update** `p25_ema_previous` or `dynamic_fee_previous` (hold). Do not set them to zero. A thin sample must not collapse or freeze-from-zero the dynamic component. The period still advances: set `active_fee_previous = active_fee_current` so the grace window tracks the held fee. `active_fee_current` stays unchanged.
 
 #### Step 2: Apply the exponential moving average
 
@@ -4502,9 +4502,9 @@ This document is licensed under the BSD 2-Clause License.
 
 This BIP permanently closes the consensus-layer data embedding channels that have been used to bloat the Bitcoin blockchain with arbitrary non-monetary content. It is a permanent soft fork with no expiry.
 
-The proposal invalidates the dedicated and unenforced embedding channels used for bulk non-monetary content: large `OP_RETURN` outputs, non-template scriptPubKeys, Tapleaf and P2WSH dead pushes, annexes, unconstrained witness versions, and oversized control blocks. It restores the long-established 83-byte `scriptPubKey` limit on OP_RETURN at the consensus layer, caps individual script-argument items at 256 bytes, and adds aggregate witness byte limits per input and per transaction that close multi-push fragmentation inside a transaction. It does not close payment-necessary fields (hashes, amounts, `nSequence`, ordering) or coinbase `scriptSig`. BIP141 witness weight is unchanged. Pre-activation UTXOs remain spendable, including spends that reveal data already committed before activation.
+The proposal invalidates the dedicated and unenforced embedding channels used for bulk non-monetary content: large `OP_RETURN` outputs, non-template scriptPubKeys, Tapleaf and P2WSH dead pushes, annexes, unconstrained witness versions, and oversized control blocks. It restores the long-established 83-byte `scriptPubKey` limit on OP_RETURN at the consensus layer, caps individual script-argument items at 256 bytes, and adds aggregate witness byte limits per input and per transaction that close multi-push fragmentation inside a transaction. It does not close payment-necessary fields (hashes, amounts, `nSequence`, ordering) or coinbase `scriptSig`. BIP141 witness weight is unchanged. A pre-activation UTXO remains spendable, including one reveal of data already committed in that coin. That spend does not authorize new envelopes.
 
-This BIP is designed to work in conjunction with the [Static Per-Output Miner Fee](/bips/static-per-output-miner-fee) and [Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee) pre-proposals. Those BIPs make UTXO creation permanently more expensive. This BIP closes the data channels that would otherwise let spammers circumvent that cost by fragmenting payloads across many small pushes or many cheap outputs. The three proposals together form a coherent anti-spam stack: the fee BIPs price the surface; this BIP closes the channels.
+This BIP is designed to work in conjunction with the [Static Per-Output Miner Fee](/bips/static-per-output-miner-fee) and [Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee) pre-proposals. Those BIPs price UTXO creation. This BIP closes the data channels that would otherwise let spammers pack payload into witness fields of a few transactions. The three proposals together form a coherent anti-spam stack: the fee BIPs price output count; this BIP closes the dedicated channels.
 
 ---
 
@@ -4570,7 +4570,7 @@ A pre-activation envelope UTXO may still reveal its committed witness when it is
 
 Mixed transactions are valid if every new output satisfies Rule 1 and every post-activation input satisfies Rules 2 through 13.
 
-Coinbase `scriptSig` / extraNonce is out of scope.
+Coinbase `scriptSig` / extraNonce is out of scope. The coinbase transaction has no prevout, so Rules 2 through 13 do not apply to it. Rule 1 still applies to coinbase outputs.
 
 ### Rule Set
 
@@ -4593,7 +4593,7 @@ The following rules apply to all blocks at or above `activation_height`.
 
 Bare multisig and all other non-template forms are invalid.
 
-**Rule 2.** Individual OP_PUSHDATA payloads and script-argument witness items exceeding 256 bytes are invalid, except for the redeemScript push in BIP16 scriptSigs. Script-argument witness items are witness stack elements passed to the script interpreter as inputs, excluding witness scripts, Tapleaf scripts, control blocks, annexes, and Taproot key-path signatures.
+**Rule 2.** On inputs whose prevout was created at or after `activation_height`, individual OP_PUSHDATA payloads in that input's `scriptSig` and script-argument witness items exceeding 256 bytes are invalid, except for the redeemScript push in BIP16 scriptSigs. Script-argument witness items are witness stack elements passed to the script interpreter as inputs, excluding witness scripts, Tapleaf scripts, control blocks, annexes, and Taproot key-path signatures. Rule 2 does not apply to `scriptPubKey` (Rule 1) or to grandfathered inputs.
 
 **Rule 3.** Spending undefined witness versions or Tapleaf versions is invalid. Creating outputs with undefined witness versions is already invalid under Rule 1: those scriptPubKeys are not a defined template. A future soft fork that defines a new witness version must add the corresponding template to the Rule 1 whitelist in the same deployment that defines spending rules. There is no pre-creation window.
 
@@ -4605,9 +4605,9 @@ Bare multisig and all other non-template forms are invalid.
 
 **Rule 7.** Tapscripts containing OP_IF or OP_NOTIF anywhere, even unexecuted, are invalid.
 
-**Rule 8.** The aggregate byte count of all script-argument witness items across all inputs in a single transaction must not exceed `max_witness_bytes_per_tx`. The same exclusions as Rule 2 apply. A transaction where the aggregate exceeds `max_witness_bytes_per_tx` is invalid.
+**Rule 8.** The aggregate byte count of all script-argument witness items across **post-activation inputs only** in a single transaction must not exceed `max_witness_bytes_per_tx`. Grandfathered inputs are omitted. The same exclusions as Rule 2 apply. A transaction where that aggregate exceeds `max_witness_bytes_per_tx` is invalid.
 
-**Rule 9.** The aggregate byte count of all script-argument witness items within a single input must not exceed `max_witness_bytes_per_input`. The same exclusions as Rule 2 apply. An input where the aggregate exceeds `max_witness_bytes_per_input` is invalid.
+**Rule 9.** The aggregate byte count of all script-argument witness items within a single **post-activation** input must not exceed `max_witness_bytes_per_input`. Grandfathered inputs are omitted. The same exclusions as Rule 2 apply. An input where the aggregate exceeds `max_witness_bytes_per_input` is invalid.
 
 **Rule 10.** Tapleaf scripts containing unreferenced push data are invalid. The determination is static, without execution, using the algorithm in [Unreferenced push analysis](#unreferenced-push-analysis) with `kind = TAPSCRIPT` ([Appendix A](#appendix-a-stack_items_read)).
 
@@ -4624,13 +4624,13 @@ Used by Rules 10 and 12. Walk the script as a sequence of opcodes plus immediate
 For each push, let `next` be the following opcode after that push and its payload.
 
 - If there is no `next` (the push is last), the push is unreferenced and the script is invalid.
-- If `next` is itself a push, the first push is unreferenced and the script is invalid.
-- If `stack_items_read(next, kind) == 0`, the push is unreferenced and the script is invalid.
-- If `stack_items_read(next, kind) >= 1`, the push is referenced.
+- If `next` is itself a push, this push is **not** classified by that fact. Consecutive pushes are how `OP_2 <key> <key> OP_3 OP_CHECKMULTISIG` and other multi-argument scripts work. Multi-chunk dumps are invalid because the last chunk is followed by a non-consuming opcode (`OP_ENDIF`, `OP_NOP`, …) or is last; Rule 11 and Rule 13 cap consume-and-ignore patterns (`OP_PUSH` / `OP_DROP`).
+- If `next` is not a push and `stack_items_read(next, kind) == 0`, the push is unreferenced and the script is invalid.
+- If `next` is not a push and `stack_items_read(next, kind) >= 1`, the push is referenced.
 
 `stack_items_read(opcode, kind)` is defined for every byte `0x00`–`0xFF` in [Appendix A](#appendix-a-stack_items_read). Rule 10 uses `kind = TAPSCRIPT`. Rule 12 uses `kind = WITNESS_V0`. The value is the data-independent prefix of main-stack items Bitcoin Core's `EvalScript` requires from the top: items the opcode always inspects or pops before any data-dependent extra pops. Replacement versus deletion does not matter. `OP_DUP`, `OP_DROP`, `OP_IF`, `OP_SIZE`, and `OP_CHECKLOCKTIMEVERIFY` are all `>= 1`. `OP_NOP`, `OP_DEPTH`, `OP_FROMALTSTACK`, `OP_ELSE`, `OP_CODESEPARATOR`, disabled opcodes, `OP_RETURN`, and unknown bytes are `0`.
 
-`OP_PUSH` followed by `OP_DROP` is referenced under this test. Rule 11 (Tapleaf) and Rule 13 (P2WSH) exist to cap that consume-and-ignore pattern by aggregate push-constant bytes.
+`OP_PUSH` followed by `OP_DROP` is referenced under this test. Rule 11 (Tapleaf) and Rule 13 (P2WSH) exist to cap that consume-and-ignore pattern by aggregate push-constant bytes. `OP_FALSE OP_IF <data> OP_ENDIF` is invalid because `<data>` is followed by `OP_ENDIF` (`stack_items_read = 0`). Standard P2WSH multisig remains valid because each key push is followed by another push or by `OP_CHECKMULTISIG`.
 
 Tapscript `OP_SUCCESS` bytes have `stack_items_read = 0` and are independently invalid under Rule 6.
 
@@ -4690,7 +4690,7 @@ Witness scripts and Tapleaf scripts are excluded from the aggregate counts becau
 
 ### Why OP_RETURN Is Capped at 83 Bytes
 
-OP_RETURN outputs are provably unspendable and do not enter the UTXO set. Historically, up to 83 bytes of `scriptPubKey` have been tolerated to avoid unprovably unspendable spam in other output scripts. This BIP restores that cap at consensus. It does not charge the per-output fee; that is the static fee BIP. At a correctly calibrated per-output fee, the cost per OP_RETURN output is negligible for legitimate low-volume use and material only for high-volume data embedding. The 83-byte figure is total script length, matching historical `-datacarriersize`, not 83 bytes of payload after `OP_RETURN`. Capping OP_RETURN at consensus restores a principle that Core relay policy previously enforced but that miners could bypass.
+OP_RETURN outputs are provably unspendable and do not enter the UTXO set. Historically, up to 83 bytes of `scriptPubKey` have been tolerated to avoid unprovably unspendable spam in other output scripts. This BIP restores that cap at consensus. It does not replace the per-output fee: `OP_RETURN` still pays *[Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)* when that BIP is active. At a correctly calibrated per-output fee, the cost per OP_RETURN output is negligible for legitimate low-volume use and material only for high-volume data embedding. The 83-byte figure is total script length, matching historical `-datacarriersize`, not 83 bytes of payload after `OP_RETURN`. Capping OP_RETURN at consensus restores a principle that Core relay policy previously enforced but that miners could bypass.
 
 ### Why OP_IF and OP_NOTIF Are Invalidated in Tapscript
 
@@ -4714,17 +4714,17 @@ Bare multisig scriptPubKeys encode public keys directly in the output script. Th
 
 ### Why Tapleaf Scripts Are Analyzed for Unreferenced Push Data
 
-The exclusion of Tapleaf scripts from per-item witness caps in Rule 2 is correct for legitimate contract logic: push constants in a Tapleaf script serve as inputs to opcodes that consume them. The Taproot envelope embedding technique abuses this exemption by placing arbitrary data as push constants that are never consumed by any opcode in the script. These dead pushes are present in the witness at spend time, visible to every node, and stored indefinitely. A static analysis pass over the script bytecode identifies them without executing the script: any OP_PUSH or OP_PUSHDATA opcode followed by an opcode that does not consume the stack top is unreferenced. Rule 10 invalidates scripts containing unreferenced pushes. Rule 11 adds a secondary aggregate size cap on all push constants within a Tapleaf script body as a belt-and-suspenders enforcement layer for cases where static analysis edge cases exist, including consume-and-ignore patterns such as `OP_PUSH` followed by `OP_DROP` that Rule 10 treats as referenced.
+The exclusion of Tapleaf scripts from per-item witness caps in Rule 2 is correct for legitimate contract logic: push constants in a Tapleaf script serve as inputs to opcodes that consume them. The Taproot envelope embedding technique abuses this exemption by placing arbitrary data as push constants that are never consumed: typically `OP_FALSE OP_IF <data> OP_ENDIF`, where `<data>` is followed by `OP_ENDIF` (`stack_items_read = 0`). These dead pushes are present in the witness at spend time, visible to every node, and stored indefinitely. Rule 10 invalidates a script-body push whose immediate next non-push opcode consumes nothing, or a push that is last. Consecutive pushes are not, by themselves, unreferenced: that pattern is monetary (`OP_2 <keys> OP_3 OP_CHECKMULTISIG`). Rule 11 caps consume-and-ignore patterns such as `OP_PUSH` followed by `OP_DROP` that Rule 10 treats as referenced.
 
 ### Why P2WSH Witness Scripts Get the Same Treatment
 
 Rules 2, 8, and 9 correctly exclude witness scripts from per-item and aggregate witness-item caps: those scripts are program bodies, not data fields. Segwit v0 witness scripts can still be up to 10,000 bytes. Dead pushes inside a P2WSH script are therefore a remaining dedicated channel if only Tapleaf bodies are analyzed.
 
-Rules 12 and 13 close that channel. Rule 12 applies the Rule 10 unreferenced-push analysis to the last witness stack item on a P2WSH spend. Rule 13 applies the Rule 11 aggregate push-constant cap via `max_witness_script_push_bytes`. BIP16 redeemScripts are not given this treatment: P2SH script-path dumps remain a leftover by scope. RedeemScript pushes remain excepted from the 256-byte item cap in Rule 2. P2SH is not the high-bandwidth inscription channel; P2WSH was.
+Rules 12 and 13 close that channel. Rule 12 applies the Rule 10 unreferenced-push analysis to the last witness stack item on a P2WSH spend. Rule 13 applies the Rule 11 aggregate push-constant cap via `max_witness_script_push_bytes`. BIP16 redeemScripts are not given this treatment: P2SH script-path dumps remain a leftover by scope, not a recommended embedding path. RedeemScript pushes remain excepted from the 256-byte item cap in Rule 2. P2SH is not the high-bandwidth inscription channel; P2WSH was. A later BIP could close P2SH without changing this one.
 
 ### Interaction With the Per-Output Fee BIPs
 
-The [Static Per-Output Miner Fee](/bips/static-per-output-miner-fee) and [Dynamic Escalation](/bips/dynamic-escalation-per-output-fee) BIPs price UTXO creation. This BIP closes the data channels. The three proposals are complementary and are intended to be considered for coordinated activation. Separate activation is possible and each BIP functions independently, but the combined anti-spam effect is stronger when all three are active. Without this BIP, an attacker facing only the fee BIPs can minimize UTXO count and pack data into witness fields through fragmentation, paying little in fees. Without the fee BIPs, an attacker facing only this BIP can spread data across many cheap transactions. The three proposals close those routes together.
+The [Static Per-Output Miner Fee](/bips/static-per-output-miner-fee) and [Dynamic Escalation](/bips/dynamic-escalation-per-output-fee) BIPs price UTXO creation. This BIP closes the data channels. The data-channel BIP and the static fee BIP have no consensus dependency on each other. Dynamic escalation still requires the static fee BIP. Coordinated activation is stronger: without this BIP, an attacker facing only the fee BIPs can minimize UTXO count and pack data into witness fields; without the fee BIPs, an attacker facing only this BIP can spread data across many cheap transactions.
 
 ---
 
@@ -4835,6 +4835,7 @@ Detailed test vectors, integer arithmetic requirements, precise witness item cla
 - Confirm reorg behavior at `activation_height`: blocks below the activation height are never subject to any rule in this BIP regardless of reorg depth.
 - Confirm that the witness item classification algorithm is reproducible from block data alone without mempool history.
 - Confirm implementations match the Appendix A grids bit-for-bit for both `WITNESS_V0` and `TAPSCRIPT`.
+- Confirm Rule 12 does not invalidate standard P2WSH `OP_2 <keys> OP_3 OP_CHECKMULTISIG`: consecutive pushes are not unreferenced.
 
 ### E. Wallet and Exchange Validation
 
@@ -4943,7 +4944,7 @@ Values below are for `WITNESS_V0`. Tapscript differs only on `0xae`, `0xaf`, and
 | `0xb2` | `OP_CHECKSEQUENCEVERIFY` | 1 | Same |
 | `0xba` | `OP_CHECKSIGADD` | 0 | Tapscript: 3 |
 
-Worked cases: `PUSH jpeg / OP_DROP` is referenced. `PUSH jpeg / OP_NOP`, `PUSH jpeg / OP_DEPTH`, and `PUSH jpeg / OP_FROMALTSTACK` are unreferenced.
+Worked cases: `PUSH jpeg / OP_ENDIF` and `PUSH jpeg / OP_NOP` are unreferenced. `PUSH jpeg / OP_DROP` is referenced (Rule 11/13 cap the dump). `OP_2 <k1> <k2> OP_3 OP_CHECKMULTISIG` is not unreferenced: consecutive key pushes are not classified as dead, and `OP_3` is followed by `OP_CHECKMULTISIG`.
 
 ### Complete grids (byte `0xRF` at row `R`, column `F`)
 

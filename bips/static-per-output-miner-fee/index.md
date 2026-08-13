@@ -280,7 +280,7 @@ Large miners who earn significant revenue from inscription-style activity may op
 
 ### Interaction with Permanent Data Channel Closure
 
-The [Permanent Data Channel Closure](/bips/permanent-data-channel-closure) pre-proposal targets dedicated high-bandwidth data channels: `OP_RETURN`, Taproot envelopes, witness fragmentation, and related embedding surfaces. This BIP targets UTXO creation economics and charges all outputs, including `OP_RETURN`. The two proposals address different surfaces and reinforce each other when activated together. Coordinated activation of all three pre-proposals closes the full documented surface at once. For the channel taxonomy, see *[The Achievable Floor](/articles/the-achievable-floor)* and *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*.
+The [Permanent Data Channel Closure](/bips/permanent-data-channel-closure) pre-proposal targets dedicated high-bandwidth data channels: `OP_RETURN`, Taproot envelopes, witness fragmentation, and related embedding surfaces. This BIP targets UTXO creation economics and charges all outputs, including `OP_RETURN`. The two proposals address different surfaces and reinforce each other when activated together. Coordinated activation of all three pre-proposals closes dedicated embedding channels and prices UTXO creation. Hash, amount, `nSequence`, and ordering fields remain open because payments require them; see *[The Achievable Floor](/articles/the-achievable-floor)* and *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*.
 
 ### Activation Game Theory
 

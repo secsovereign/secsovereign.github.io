@@ -161,7 +161,7 @@
 rate  = floor(tx_fee * 1000 / vsize)   # milli-sat per vB
 </code></pre>
 <p><code>tx_fee</code> is <code>sum(input_values) - sum(output_values)</code> as in the static fee BIP. Exclude coinbase transactions. Exclude transactions with <code>tx_fee = 0</code>. Rate uses that transaction's own fee and weight only: no package or CPFP attribution.</p>
-<p>Compute the 25th percentile of the resulting integer set. Sort ascending. For <code>N</code> samples, the 25th percentile is the element at index <code>floor((N − 1) × 25 / 100)</code> (0-based). No interpolation on even <code>N</code>. If the set has fewer than <code>min_tx_count</code> fee-paying transactions, <strong>do not update</strong> <code>p25_ema_previous</code> or <code>dynamic_fee_previous</code> (hold). Do not set them to zero. A thin sample must not collapse or freeze-from-zero the dynamic component.</p>
+<p>Compute the 25th percentile of the resulting integer set. Sort ascending. For <code>N</code> samples, the 25th percentile is the element at index <code>floor((N − 1) × 25 / 100)</code> (0-based). No interpolation on even <code>N</code>. If the set has fewer than <code>min_tx_count</code> fee-paying transactions, <strong>do not update</strong> <code>p25_ema_previous</code> or <code>dynamic_fee_previous</code> (hold). Do not set them to zero. A thin sample must not collapse or freeze-from-zero the dynamic component. The period still advances: set <code>active_fee_previous = active_fee_current</code> so the grace window tracks the held fee. <code>active_fee_current</code> stays unchanged.</p>
 <h4>Step 2: Apply the exponential moving average</h4>
 <p>All EMA math is integer, toward zero:</p>
 <pre><code class="language-text">ALPHA_DEN = 1000
