@@ -165,7 +165,7 @@ The 16 to 20 sat band must still be checked against two tests: what floor deters
 
 ### Fee Rule
 
-This is a transaction-fee floor, not extra mint. Coinbase accounting is unchanged from existing consensus (`coinbase_value <= block_subsidy + sum(tx_fees)`). Adding the per-output amount to the coinbase above subsidy-plus-fees would be a hard fork and is not this BIP.
+This is a transaction-fee floor, not extra mint. Coinbase accounting is unchanged from existing consensus (`coinbase_value <= block_subsidy + sum(tx_fees)`). A block of transactions that each meet the per-output floor can still have a miscounted coinbase, so that existing check remains required in addition to the per-transaction floor. The floor is a consensus validity rule, not relay policy. Miner preference cannot override it. Adding the per-output amount to the coinbase above subsidy-plus-fees would be a hard fork and is not this BIP.
 
 For every non-coinbase transaction in a block at or above `activation_height`:
 
@@ -258,6 +258,10 @@ The per-output amount must be part of `tx_fee`. Minting it on top of subsidy-plu
 
 A minimum output value floor forces attackers to lock capital in each output. That capital returns when the output is spent, so the floor is a revolving cost. The per-output miner fee removes that path: those sats go to miners and do not return. Every spam run is permanently more expensive.
 
+### Why this differs from prior minimum fee proposals
+
+Prior minimum fee proposals were either relay policy, which miners can bypass, or minimum output value floors, which return locked capital when outputs are spent. This proposal is neither. The per-transaction consensus validity rule means a non-compliant transaction cannot appear in any valid block, regardless of miner preference or side arrangements. The fee is paid at confirmation and is not recoverable by the sender.
+
 ### Why a Single Global Rate With No Script-Type Differentiation
 
 A single constant per output is the simplest rule. Script-type differentiation would force the fee to track script classification across every output form, create edge cases at upgrade boundaries, and make the rule harder to specify cleanly. The externalized cost this fee prices is per UTXO slot, not per script type, so a uniform fee matches the cost model.
@@ -310,15 +314,22 @@ def tx_fee(tx):
     return sum(inp.value for inp in tx.inputs) - sum(out.value for out in tx.outputs)
 
 def is_valid_transaction(tx, block_height):
+    # Transaction validation, before block assembly.
+    # Per-transaction floor: no tx can free-ride on another tx's fees in the same block.
     if block_height < ACTIVATION_HEIGHT or tx.is_coinbase:
         return True
     return tx_fee(tx) >= STATIC_FEE * len(tx.outputs)
 
 def is_valid_block(block):
-    return all(is_valid_transaction(tx, block.height) for tx in block.transactions)
+    # First guard: every transaction must already meet the per-output floor.
+    if not all(is_valid_transaction(tx, block.height) for tx in block.transactions):
+        return False
+    # Second independent guard: existing coinbase accounting.
+    fees = sum(tx_fee(tx) for tx in block.transactions if not tx.is_coinbase)
+    return coinbase_value(block) <= block_subsidy(block.height) + fees
 ```
 
-Coinbase value is not part of this check. Existing subsidy-plus-fee rules still apply.
+The per-transaction function does not check coinbase value. `is_valid_block` applies existing subsidy-plus-fee rules as a second independent guard.
 
 Detailed test vectors, integer arithmetic precision requirements, and treatment of edge cases (zero-output transactions, reorgs at activation height, IBD validation) will be provided in a future numbered BIP submission.
 
@@ -382,7 +393,13 @@ Calibration is a hard gate. The static fee value is provisional until this check
 
 **Clean activation boundary.** The rule takes effect at `activation_height` with no grace window. The one-year minimum signaling window is enough for wallets and services to update before the rule applies. Transactions broadcast before `activation_height` that remain unconfirmed at that height must meet the floor to confirm. Wallets should watch approaching activation and rebroadcast or bump fees as needed.
 
-**Private mempool arrangements.** Miners accepting non-compliant transactions through private arrangements produce blocks rejected by enforcing nodes. Orphan risk limits sustained defection.
+**Residual incentive surfaces.** A transaction that misses the per-output floor is consensus-invalid. Including it does not produce an orphan; it produces a block that cannot exist. No side payment can make that transaction valid.
+
+A miner can still accept the full fee and rebate part of it to the spammer after confirmation. That requires a sustained operational arrangement. The miner absorbs the rebate as a direct cost to coinbase revenue. Publicly broadcast transactions can be mined by anyone, so the spammer's effective throughput is limited by that miner's hashrate share.
+
+A vertically integrated spammer-miner faces the same hashrate-share cap on self-inclusion and pays full fees when submitting publicly.
+
+These are known residual vectors. The [dynamic escalation BIP](/bips/dynamic-escalation-per-output-fee) and [Permanent Data Channel Closure](/bips/permanent-data-channel-closure) address surfaces this proposal does not close. The three pre-proposals are complementary, not redundant.
 
 **Static fee decay over time.** A fixed satoshi amount becomes economically trivial as BTC price and fee levels rise over decades. That is the known limit of the static-only design and the reason for the companion [dynamic escalation BIP](/bips/dynamic-escalation-per-output-fee). The static fee is not meant as a permanent final answer; it is the first layer the dynamic BIP builds on.
 

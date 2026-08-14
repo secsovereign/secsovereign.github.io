@@ -7,6 +7,7 @@ const { execFileSync } = require('child_process');
 const { marked } = require('marked');
 const cheerio = require('cheerio');
 const { writePdfs } = require('./render-pdf');
+const { renderOpcodeAtlasBlocks } = require('./opcode-atlas-html');
 
 const ROOT = path.join(__dirname, '..');
 const SITE = 'https://secsov.com';
@@ -366,6 +367,25 @@ function articleShareBarHtml({ url, title, text }) {
     </div>`;
 }
 
+function wrapOpcodeCopyoutTables(html) {
+  const $ = cheerio.load(html, null, false);
+  const start = $('h3').filter((_, el) => $(el).text().indexOf('Named opcodes') === 0).first();
+  if (!start.length) return html;
+  const nodes = [start.get(0)];
+  let cur = start.next();
+  while (cur.length && !cur.is('h2')) {
+    nodes.push(cur.get(0));
+    cur = cur.next();
+  }
+  const details = $('<details class="opcode-normative-tables"></details>');
+  details.append('<summary>Normative copy-out tables</summary>');
+  start.before(details);
+  nodes.forEach((node) => {
+    details.append(node);
+  });
+  return $.html();
+}
+
 function wrapBipToc(bodyHtml) {
   const $ = cheerio.load(bodyHtml, null, false);
   const heading = $('#contents');
@@ -533,7 +553,7 @@ function renderPage({
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/article.css" rel="stylesheet">
     <link href="/share.css" rel="stylesheet">
-</head>
+    ${bodyHtml.includes('opcode-atlas') ? '<link href="/opcode-atlas.css" rel="stylesheet">\n    ' : ''}</head>
 <body>
     <nav class="site-nav">
         <a href="/">← Home</a>
@@ -548,7 +568,7 @@ function renderPage({
         ${articleShareBarHtml(shareCtx)}
     </div>
     <script src="/share.js"></script>
-</body>
+    ${bodyHtml.includes('opcode-atlas') ? '<script src="/opcode-atlas.js" defer></script>\n    ' : ''}</body>
 </html>
 `;
 }
@@ -1056,7 +1076,7 @@ async function main() {
     const md = fs.readFileSync(mdPath, 'utf8');
     const description = article.description || extractDescription(md, article.title);
     article.description = description;
-    let bodyHtml = marked.parse(renderMermaidBlocks(md));
+    let bodyHtml = marked.parse(renderMermaidBlocks(renderOpcodeAtlasBlocks(md)));
     bodyHtml = addHeadingIds(bodyHtml);
     const publishedMeta = article.published
       ? `\n    <meta property="article:published_time" content="${escapeHtml(article.published)}">`
@@ -1122,9 +1142,10 @@ async function main() {
     const md = fs.readFileSync(mdPath, 'utf8');
     const description = bip.description || extractDescription(md, bip.title);
     bip.description = description;
-    let bodyHtml = marked.parse(renderMermaidBlocks(md));
+    let bodyHtml = marked.parse(renderMermaidBlocks(renderOpcodeAtlasBlocks(md)));
     bodyHtml = addHeadingIds(bodyHtml);
     bodyHtml = wrapBipToc(bodyHtml);
+    bodyHtml = wrapOpcodeCopyoutTables(bodyHtml);
     const bipDocTitle = `${bip.title} (BIP Pre-Proposal)`;
     const publishedMeta = bip.created
       ? `\n    <meta property="article:published_time" content="${escapeHtml(bip.created)}">`

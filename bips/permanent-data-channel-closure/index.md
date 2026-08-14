@@ -398,6 +398,13 @@ Unexecuted `OP_IF` / `OP_NOTIF` do not pop in `EvalScript`. This analysis is sta
 5. If opcode is a push (`0x00`–`0x4e`, `OP_1NEGATE`, `OP_1`–`OP_16`): return `0`.
 6. Otherwise use the named table below. Bytes with no named row, including `OP_RESERVED`, `OP_VER`, `OP_VERIF`, `OP_VERNOTIF`, `OP_NOP1`/`OP_NOP4`–`OP_NOP10`, and `0xff`, return `0`.
 
+### Opcode atlas
+
+The live map is the 256-byte `stack_items_read` table: row `R`, column `F` is byte `0xRF`. Copy-out tables are under the atlas.
+
+```opcode-atlas
+```
+
 ### Named opcodes (`stack_items_read >= 1`, plus zeros that are easy to get wrong)
 
 Values below are for `WITNESS_V0`. Tapscript differs only on `0xae`, `0xaf`, and `0xba` (steps 1–3).

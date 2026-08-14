@@ -39,6 +39,7 @@ function wrapKeepWithNext(html) {
       const next = heading.next();
       if (!next.length) return;
       if (next.is('h1, h2')) return;
+      if (next.hasClass('opcode-atlas')) return;
       heading.add(next).wrapAll('<div class="keep-with-next"></div>');
     });
   });
@@ -56,6 +57,8 @@ function absolutizeHrefs(html) {
 function renderPdfHtml(job) {
   const articleCss = fs.readFileSync(path.join(ROOT, 'article.css'), 'utf8');
   const pdfCss = fs.readFileSync(path.join(__dirname, 'pdf.css'), 'utf8');
+  const atlasCssPath = path.join(ROOT, 'opcode-atlas.css');
+  const atlasCss = fs.existsSync(atlasCssPath) ? fs.readFileSync(atlasCssPath, 'utf8') : '';
   let body = stripLeadingH1(job.bodyHtml);
   body = wrapKeepWithNext(body);
   body = absolutizeHrefs(body);
@@ -72,7 +75,7 @@ function renderPdfHtml(job) {
 <head>
   <meta charset="UTF-8">
   <title>${escapeHtml(job.title)}</title>
-  <style>${articleCss}\n${pdfCss}</style>
+  <style>${articleCss}\n${atlasCss}\n${pdfCss}</style>
 </head>
 <body>
   <div class="pdf-page">
