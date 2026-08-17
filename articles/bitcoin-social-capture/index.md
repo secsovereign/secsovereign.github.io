@@ -173,7 +173,7 @@ The argument and the proof are the same artifact. If the permissionless mytholog
 
 Implementation diversity with formal specification is not an attack on Bitcoin. **It is the completion of what Bitcoin's design actually requires.** A network that runs one implementation governed by a captured social layer is not decentralized where decentralization matters.
 
-The consensus rules are sound. The development infrastructure built around them is fragile in ways that the cryptography cannot fix, because **the fragility is social rather than mathematical.** Visible rules, accountable decision-making, and genuine alternatives that can be built and proven without the incumbent's cooperation are what make the social enforcement of Bitcoin's properties durable, rather than dependent on the continued good behavior of a small number of institutions whose interests do not always align with the network's.
+The consensus rules are sound. The development infrastructure built around them is fragile in ways that the cryptography cannot fix, because **the fragility is social rather than mathematical.** Social enforcement stays durable when rules are visible, decisions are accountable, and alternatives can be built without the incumbent. It should not depend on the continued good behavior of a small number of institutions whose interests do not always align with the network's.
 
 **Bitcoin survived because it redistributed trust more robustly than anything that came before it.** The next step is applying the same logic to the layer that maintains it.
 

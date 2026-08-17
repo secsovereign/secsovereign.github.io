@@ -133,7 +133,7 @@ Once Phase 2 governance is activated, there is no self-merge. That means that ma
 
 ## The Proof
 
-The bottleneck was never engineering. The Dandelion papers are published. The UTXO commitment schemes are fully specified. Erlay has years of development behind it. Formal verification tooling exists and works. The objections raised against these proposals, when they exist at all, are strawmen that substitute stronger claims for the ones actually being made, descriptions of the status quo presented as arguments against changing it, or concessions that the research is sound and the problem is prioritization.
+The bottleneck was never engineering. The Dandelion papers are published. The UTXO commitment schemes are fully specified. Erlay has years of development behind it. Formal verification tooling exists and works. The objections raised against these proposals, when they exist at all, fall into three kinds. Some are strawmen that substitute stronger claims for the ones actually being made. Some describe the status quo as if that were an argument against changing it. Some concede the research is sound and say the problem is prioritization.
 
 What they share is a governance structure that cannot process improvements when the coordination cost exceeds the threshold the structure can clear, or when the improvement threatens the institutional position of the people whose funding depends on the status quo. A merge concentration of 0.851 across 16 years of commit data is not an accident. It is the predictable output of a system where access to merge authority is controlled by a small group with aligned institutional interests and no formal accountability to the node operators running the software.
 
