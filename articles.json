@@ -10,7 +10,7 @@
       "slug": "bitcoin-governance",
       "title": "Who Controls Bitcoin",
       "published": "2026-04-03",
-      "updated": "2026-08-13"
+      "updated": "2026-08-17"
     },
     {
       "slug": "bitcoin-governance-argument-map",
@@ -22,7 +22,7 @@
       "slug": "bitcoin-social-capture",
       "title": "The Social Layer Is the Attack Surface",
       "published": "2026-04-03",
-      "updated": "2026-08-05"
+      "updated": "2026-08-17"
     },
     {
       "slug": "governance-paralysis-was-the-victory",
@@ -45,7 +45,7 @@
       "title": "What Bitcoin's Stalled Proposals Tell You",
       "description": "Why Dandelion, UTXO commitments, Erlay, and a formal spec sit unmerged, and what shipping them looks like.",
       "published": "2026-06-04",
-      "updated": "2026-08-13",
+      "updated": "2026-08-17",
       "originalUrl": "https://btccommons.substack.com/p/what-bitcoins-stalled-proposals-tell"
     },
     {
