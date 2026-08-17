@@ -52,7 +52,7 @@
       "slug": "the-last-uncaptured-asset",
       "title": "The Last Uncaptured Asset",
       "published": "2026-04-03",
-      "updated": "2026-07-31"
+      "updated": "2026-08-17"
     },
     {
       "slug": "the-achievable-floor",
@@ -71,7 +71,7 @@
       "slug": "bitcoin-not-a-hard-drive",
       "title": "Bitcoin Is Not a Hard Drive",
       "published": "2026-07-31",
-      "updated": "2026-08-13"
+      "updated": "2026-08-17"
     },
     {
       "slug": "why-bitcoin-needs-a-specification",
@@ -95,6 +95,12 @@
       "description": "Coldcard's RNG defect, credentialed endorsement without seed-path audit, and the same verification gap in Bitcoin Core.",
       "published": "2026-08-02",
       "updated": "2026-08-05"
+    },
+    {
+      "slug": "why-shitcoins-are-shitcoins",
+      "title": "Why Shitcoins Are Shitcoins",
+      "description": "A research report on the structural failures of altcoins as monetary assets: security, decentralization, founder risk, and the smart contract rebuttal.",
+      "published": "2026-08-17"
     }
   ]
 }

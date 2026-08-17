@@ -16,6 +16,9 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="SecureSovereign — Bitcoin Consensus &amp; Security">
     <meta name="twitter:description" content="Bitcoin governance research, consensus engineering, blockspace policy, BIP pre-proposals, and full-node cost analysis.">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -113,6 +116,13 @@
             align-items: center;
             justify-content: center;
             line-height: 1;
+        }
+
+        .social-links > a:hover,
+        .social-links > a:focus-visible,
+        .social-links .share-trigger-icon:hover,
+        .social-links .share-trigger-icon:focus-visible {
+            color: var(--secondary);
         }
 
         /* Body uses Courier; keep Font Awesome’s icon fonts (exclude .fa-twitter — custom 𝕏 glyph) */
@@ -287,6 +297,77 @@
             color: var(--accent);
         }
 
+        .support-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.05rem 1.15rem;
+            background: var(--light-gray);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+
+        .support-kicker {
+            margin: 0;
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        .support-title {
+            margin: 0.25rem 0 0.35rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--secondary);
+        }
+
+        .support-copy {
+            margin: 0;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        .support-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+        }
+
+        .support-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            min-height: 2.6rem;
+            padding: 0.45rem 0.85rem;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .support-btn:hover,
+        .support-btn:focus-visible {
+            color: var(--secondary);
+            border-color: var(--primary);
+        }
+
+        .support-btn i {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .support-btn .fa-solid {
+            font-family: "Font Awesome 6 Free", sans-serif;
+            font-weight: 900;
+        }
+
         /* Media Queries */
         @media (max-width: 600px) {
             .profile-section {
@@ -307,6 +388,10 @@
             .writing-date {
                 text-align: left;
             }
+
+            .support-btn {
+                flex: 1 1 100%;
+            }
         }
     </style>
 </head>
@@ -314,7 +399,7 @@
     <div class="container">
         <header>
             <div class="profile-section">
-                <div class="profile-image" style="background-image: url('https://avatars.githubusercontent.com/u/184555205?s=400&u=8143175c14f11d40c1bf9f63629ff032941247dc&v=4');"></div>
+                <div class="profile-image" style="background-image: url('/profile.jpg');"></div>
                 <div style="text-align: center;">
                     <h1>Josh</h1>
                     <h2 style="margin-top: 5px; margin-bottom: 15px; font-size: 1.3rem; color: var(--accent);">"Secure Sovereign"</h2>
@@ -323,13 +408,16 @@
                         <a href="https://github.com/secsovereign" target="_blank" title="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
+                        <a href="https://github.com/sponsors/secsovereign" target="_blank" rel="noopener noreferrer" title="GitHub Sponsors">
+                            <i class="fa-solid fa-heart"></i>
+                        </a>
                         <a href="https://x.com/secsovereign" target="_blank" title="X">
                             <i class="fab fa-twitter"></i>
                         </a>
                         <a href="https://t.me/secsovereign" target="_blank" title="Telegram">
                             <i class="fab fa-telegram"></i>
                         </a>
-                        <a href="https://strike.me/secsovereign" target="_blank" title="Send a Tip">
+                        <a href="https://strike.me/secsovereign" target="_blank" rel="noopener noreferrer" title="Give directly">
                             <i class="fa-solid fa-hand-holding-heart"></i>
                         </a>
                         <div class="share-widget" data-share-url="https://secsov.com/" data-share-title="SecureSovereign — Bitcoin Consensus &amp; Security" data-share-text="Josh — Bitcoin Builder &amp; Governance Researcher | Certified Bitcoin Professional">
@@ -346,6 +434,27 @@
         <section>
             <h2>// About</h2>
             <p>Bitcoin holder since 2010. Founder of <a href="https://thebitcoincommons.org" target="_blank" rel="noopener noreferrer">The Bitcoin Commons</a>, a ground-up alternative Bitcoin node implementation written in Rust, built from a <a href="https://thebitcoincommons.org/spec.html" target="_blank" rel="noopener noreferrer">formal mathematical specification</a>. Author of <a href="https://github.com/secsovereign/bitcoin-governance-research" target="_blank" rel="noopener noreferrer">quantitative Bitcoin governance research</a> and <a href="/articles/bitcoin-demographics-breakdown">demographic analysis</a>. Based at <a href="https://strategy.com/hub" target="_blank" rel="noopener noreferrer">Strategy₿ Hub</a> in Tysons Corner, Virginia.</p>
+        </section>
+
+        <section>
+            <h2>// Support</h2>
+            <div class="support-card">
+                <div>
+                    <p class="support-kicker">Independent funding</p>
+                    <p class="support-title">Fund the spec, the node, and the research</p>
+                    <p class="support-copy">Independent of the institutional grant stack. If the protocol layer should be as decentralized as the network, this is how that work stays funded.</p>
+                </div>
+                <div class="support-actions">
+                    <a class="support-btn" href="https://github.com/sponsors/secsovereign" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                        GitHub Sponsors
+                    </a>
+                    <a class="support-btn" href="https://strike.me/secsovereign" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-hand-holding-heart" aria-hidden="true"></i>
+                        Give directly
+                    </a>
+                </div>
+            </div>
         </section>
 
         <div class="two-column">
@@ -432,6 +541,7 @@
                 <li class="writing-item"><a href="/articles/why-bitcoin-needs-a-specification" class="writing-link">Why Bitcoin Needs a Specification That Humans Can Read</a><time class="writing-date" datetime="2026-07-07">Jul 7, 2026</time></li>
                 <li class="writing-item"><a href="/articles/bitcoins-hidden-crisis" class="writing-link">Bitcoin's Hidden Crisis: When Technical Consensus Isn't Enough</a><time class="writing-date" datetime="2025-11-21">Nov 21, 2025</time></li>
                 <li class="writing-item"><a href="/articles/dont-trust-verify" class="writing-link">Don't Trust, Verify</a><time class="writing-date" datetime="2026-08-02">Aug 2, 2026</time></li>
+                <li class="writing-item"><a href="/articles/why-shitcoins-are-shitcoins" class="writing-link">Why Shitcoins Are Shitcoins</a><time class="writing-date" datetime="2026-08-17">Aug 17, 2026</time></li>
             </ul>
             <!-- writing-list:end -->
         </section>

@@ -45,7 +45,7 @@
   </url>
   <url>
     <loc>https://secsov.com/articles/the-last-uncaptured-asset</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-17</lastmod>
   </url>
   <url>
     <loc>https://secsov.com/articles/the-achievable-floor</loc>
@@ -57,7 +57,7 @@
   </url>
   <url>
     <loc>https://secsov.com/articles/bitcoin-not-a-hard-drive</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-17</lastmod>
   </url>
   <url>
     <loc>https://secsov.com/articles/why-bitcoin-needs-a-specification</loc>
@@ -72,6 +72,10 @@
     <lastmod>2026-08-05</lastmod>
   </url>
   <url>
+    <loc>https://secsov.com/articles/why-shitcoins-are-shitcoins</loc>
+    <lastmod>2026-08-17</lastmod>
+  </url>
+  <url>
     <loc>https://secsov.com/bips/static-per-output-miner-fee</loc>
     <lastmod>2026-07-23</lastmod>
   </url>
@@ -82,9 +86,5 @@
   <url>
     <loc>https://secsov.com/bips/permanent-data-channel-closure</loc>
     <lastmod>2026-08-12</lastmod>
-  </url>
-  <url>
-    <loc>https://secsov.com/presentation/plebly/</loc>
-    <lastmod>2026-08-13</lastmod>
   </url>
 </urlset>

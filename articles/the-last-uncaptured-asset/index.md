@@ -215,3 +215,5 @@ What would keep the window open is not primarily a technical question. **The cry
 These are not wishful abstractions. They are engineering problems, and engineering problems can be solved. **The question is whether they get solved before the window closes**, or after, when solving them becomes an act of resistance rather than an act of construction.
 
 The window is still open. What anyone does with that fact is up to them.
+
+*Companion to [Who Controls Bitcoin](/articles/bitcoin-governance), [The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture), and [Why Shitcoins Are Shitcoins](/articles/why-shitcoins-are-shitcoins) (structural case against altcoins as monetary assets).*

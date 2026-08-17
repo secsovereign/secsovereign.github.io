@@ -202,7 +202,7 @@ function cellButton(kind, byte) {
   const name = nameOf(byte);
   const note = NOTES[byte] || '';
   const label = `${hexByte(byte)} ${name}, reads ${n}`;
-  return `<button type="button" class="oa-cell ${cellClass(kind, byte)}" role="gridcell" data-byte="${byte}" data-name="${escapeAttr(name)}" data-v0="${V0[byte]}" data-tap="${tapCount(byte)}" data-note="${escapeAttr(note)}" data-region="${region(byte)}" title="${escapeAttr(label)}" aria-label="${escapeAttr(label)}">${n}</button>`;
+  return `<button type="button" class="oa-cell ${cellClass(kind, byte)}" role="gridcell" data-byte="${byte}" data-kind="${kind}" data-name="${escapeAttr(name)}" data-v0="${V0[byte]}" data-tap="${tapCount(byte)}" data-note="${escapeAttr(note)}" data-region="${region(byte)}" title="${escapeAttr(label)}" aria-label="${escapeAttr(label)}">${n}</button>`;
 }
 
 function renderMap(kind, label) {
@@ -213,9 +213,11 @@ function renderMap(kind, label) {
     for (let c = 0; c < 16; c++) cells.push(cellButton(kind, (r << 4) | c));
     rows.push(`<div class="oa-rowhead" aria-hidden="true">${HEX[r]}_</div>${cells.join('')}`);
   }
-  return `<div class="oa-map-wrap">
+  return `<div class="oa-map-wrap" data-kind="${kind}">
     <h4 class="oa-map-title">${label}</h4>
-    <div class="oa-map" role="grid" aria-label="${label} stack_items_read">${'<div class="oa-corner" aria-hidden="true"></div>'}${cols}${rows.join('')}</div>
+    <div class="oa-map-scroll">
+      <div class="oa-map" role="grid" aria-label="${label} stack_items_read">${'<div class="oa-corner" aria-hidden="true"></div>'}${cols}${rows.join('')}</div>
+    </div>
   </div>`;
 }
 
@@ -242,10 +244,14 @@ function familyBlock(fam) {
 
 function generateOpcodeAtlasHtml() {
   const slots = Array.from({ length: 6 }, (_, i) => `<span class="oa-slot" data-i="${5 - i}"></span>`).join('');
-  return `<figure class="opcode-atlas">
+  return `<figure class="opcode-atlas" data-kind="v0">
   <div class="oa-toolbar">
     <p class="oa-lede"><strong>Dark cell = 0.</strong> A push immediately before that opcode is unreferenced. <strong>Bright cell = n ≥ 1.</strong> The preceding push is consumed. Byte <code>0xRF</code> sits at row <code>R</code>, column <code>F</code>.</p>
-    <label class="oa-search-wrap"><span class="oa-search-label">Find</span><input type="search" class="oa-search" placeholder="OP_ENDIF, 0x68, drop…" autocomplete="off"></label>
+    <label class="oa-search-wrap"><span class="oa-search-label">Find</span><input type="search" class="oa-search" placeholder="OP_ENDIF, 0x68, drop…" autocomplete="off" enterkeyhint="search"></label>
+  </div>
+  <div class="oa-kind" role="tablist" aria-label="Script kind">
+    <button type="button" class="oa-kind-btn is-on" role="tab" aria-selected="true" data-kind="v0">WITNESS_V0</button>
+    <button type="button" class="oa-kind-btn" role="tab" aria-selected="false" data-kind="tap">TAPSCRIPT</button>
   </div>
   <div class="oa-legend" aria-hidden="true">
     <span class="oa-key oa-n0 oa-push">push</span>
@@ -258,18 +264,18 @@ function generateOpcodeAtlasHtml() {
     <span class="oa-key oa-success">SUCCESS</span>
     <span class="oa-key oa-diff">V0 ≠ Tap</span>
   </div>
-  <div class="oa-maps">
-    ${renderMap('v0', 'WITNESS_V0 · Rule 12')}
-    ${renderMap('tap', 'TAPSCRIPT · Rule 10')}
-  </div>
-  <div class="oa-inspect" id="oa-inspect">
+  <div class="oa-inspect">
     <div class="oa-inspect-head">
       <p class="oa-inspect-name">Select an opcode</p>
-      <p class="oa-inspect-byte">Click a map cell or a named chip.</p>
+      <p class="oa-inspect-byte">Tap a map cell or a named chip.</p>
     </div>
     <div class="oa-stack" aria-hidden="true">${slots}<span class="oa-stack-label">top</span></div>
     <p class="oa-inspect-rule">Color is the data-independent prefix <code>EvalScript</code> always requires from the top of the main stack.</p>
     <p class="oa-inspect-note" hidden></p>
+  </div>
+  <div class="oa-maps">
+    ${renderMap('v0', 'WITNESS_V0 · Rule 12')}
+    ${renderMap('tap', 'TAPSCRIPT · Rule 10')}
   </div>
   <div class="oa-traces">
     <h4 class="oa-traces-title">Worked next-opcode tests</h4>

@@ -6,6 +6,7 @@
     background: var(--light-gray);
     border: 1px solid var(--border);
     border-radius: 8px;
+    overflow-x: hidden;
 }
 
 .oa-lede,
@@ -42,6 +43,38 @@
     align-items: center;
     gap: 0.4rem;
     margin-left: auto;
+    width: min(100%, 16rem);
+}
+
+.oa-kind {
+    display: flex;
+    gap: 0.35rem;
+    margin: 0.65rem 0 0.15rem;
+}
+
+.oa-kind-btn {
+    flex: 1 1 0;
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+    min-height: 2.75rem;
+    padding: 0.45rem 0.65rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.oa-kind-btn.is-on {
+    color: var(--primary);
+    border-color: var(--primary);
 }
 
 .oa-search-label {
@@ -53,8 +86,9 @@
 }
 
 .oa-search {
-    width: 12.5rem;
-    padding: 0.32rem 0.5rem;
+    width: 100%;
+    min-width: 0;
+    padding: 0.45rem 0.55rem;
     font-family: 'Courier New', monospace;
     font-size: 0.78rem;
     color: var(--secondary);
@@ -93,9 +127,43 @@
     gap: 1.25rem;
 }
 
+.oa-map-scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    margin: 0 -0.25rem;
+    padding: 0.15rem 0.25rem 0.35rem;
+    scrollbar-width: thin;
+}
+
+@media (max-width: 819px) {
+    .oa-maps::before {
+        content: "Swipe the map sideways, then tap a cell.";
+        display: block;
+        font-family: 'Courier New', monospace;
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        margin: 0 0 0.45rem;
+    }
+
+    .oa-map-wrap {
+        display: none;
+    }
+
+    .opcode-atlas[data-kind="v0"] .oa-map-wrap[data-kind="v0"],
+    .opcode-atlas[data-kind="tap"] .oa-map-wrap[data-kind="tap"] {
+        display: block;
+    }
+}
+
 @media (min-width: 820px) {
     .oa-maps {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .oa-kind {
+        max-width: 22rem;
     }
 }
 
@@ -115,8 +183,9 @@
 
 .oa-map {
     display: grid;
-    grid-template-columns: 1.35rem repeat(16, minmax(0, 1fr));
-    gap: 2px;
+    grid-template-columns: 1.5rem repeat(16, minmax(1.65rem, 1fr));
+    gap: 3px;
+    min-width: 29rem;
     font-family: 'Courier New', monospace;
 }
 
@@ -137,11 +206,12 @@
 .oa-cell {
     appearance: none;
     -webkit-appearance: none;
+    position: relative;
     margin: 0;
     padding: 0;
     width: 100%;
     aspect-ratio: 1;
-    min-height: 1.35rem;
+    min-height: 1.65rem;
     border: 1px solid #1a1a1a;
     border-radius: 2px;
     font-family: 'Courier New', monospace;
@@ -150,15 +220,40 @@
     line-height: 1;
     cursor: pointer;
     color: #f5f5f5;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
-.oa-cell:hover,
+.oa-cell:focus {
+    outline: none;
+}
+
 .oa-cell:focus-visible,
-.oa-cell.is-active,
-.oa-chip.is-active {
-    outline: 2px solid var(--primary);
-    outline-offset: 0;
+.oa-cell.is-active {
+    box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--primary);
+    z-index: 2;
+}
+
+.oa-cell.is-peer {
+    box-shadow: 0 0 0 2px #3a5a6a;
     z-index: 1;
+}
+
+.oa-chip.is-active {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px var(--primary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .oa-cell:hover {
+        box-shadow: 0 0 0 2px #3a5a6a;
+        z-index: 1;
+    }
+
+    .oa-cell.is-active:hover {
+        box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--primary);
+    }
 }
 
 .oa-cell.is-dim {
@@ -210,20 +305,22 @@
 
 .oa-inspect {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.75rem 1.25rem;
-    margin: 1.15rem 0 0;
-    padding: 0.85rem 0.9rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 0.55rem 1rem;
+    margin: 0.85rem 0 1rem;
+    padding: 0.7rem 0.8rem;
     background: var(--background);
     border: 1px solid var(--border);
     border-radius: 6px;
+    position: sticky;
+    top: 0.5rem;
+    z-index: 3;
 }
 
-@media (min-width: 640px) {
-    .oa-inspect {
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: start;
-    }
+.oa-inspect-rule,
+.oa-inspect-note {
+    grid-column: 1 / -1;
 }
 
 .oa-inspect-name {
@@ -289,8 +386,15 @@
 
 .oa-trace-label {
     color: var(--text-muted);
-    min-width: 11.5rem;
+    min-width: min(100%, 11.5rem);
+    flex: 1 1 100%;
     letter-spacing: 0.02em;
+}
+
+@media (min-width: 640px) {
+    .oa-trace-label {
+        flex: 0 0 11.5rem;
+    }
 }
 
 .oa-tok {
@@ -348,7 +452,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.2rem 0.4rem 0.2rem 0.5rem;
+    min-height: 2.1rem;
+    padding: 0.28rem 0.5rem;
     font-family: 'Courier New', monospace;
     font-size: 0.72rem;
     color: var(--secondary);
@@ -356,10 +461,15 @@
     border: 1px solid var(--border);
     border-radius: 4px;
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
-.oa-chip:hover {
-    border-color: var(--primary);
+@media (hover: hover) and (pointer: fine) {
+    .oa-chip:hover {
+        border-color: var(--primary);
+    }
 }
 
 .oa-chip-count {
@@ -406,9 +516,58 @@
     color: #33adff;
 }
 
-@media print {
+@media (max-width: 600px) {
+    .opcode-atlas {
+        padding: 0.75rem 0.7rem 1rem;
+        margin-left: -0.15rem;
+        margin-right: -0.15rem;
+    }
+
+    .oa-toolbar {
+        flex-direction: column;
+    }
+
     .oa-search-wrap {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .oa-search {
+        font-size: 1rem;
+    }
+
+    .oa-lede {
+        font-size: 0.72rem;
+    }
+
+    .oa-slot {
+        height: 0.55rem;
+    }
+
+    .oa-inspect-name {
+        font-size: 0.82rem;
+    }
+}
+
+@media print {
+    .oa-search-wrap,
+    .oa-kind,
+    .oa-maps::before {
         display: none;
+    }
+
+    .oa-inspect {
+        position: static;
+    }
+
+    .oa-map-wrap {
+        display: block !important;
+    }
+
+    .oa-map {
+        min-width: 0;
+        grid-template-columns: 1.1rem repeat(16, minmax(0, 1fr));
+        gap: 2px;
     }
 
     .oa-cell,

@@ -12,6 +12,9 @@ const { renderOpcodeAtlasBlocks } = require('./opcode-atlas-html');
 const ROOT = path.join(__dirname, '..');
 const SITE = 'https://secsov.com';
 const MMDC = path.join(ROOT, 'node_modules', '.bin', 'mmdc');
+const FAVICON_LINKS = `<link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">`;
 
 marked.setOptions({ gfm: true, breaks: false });
 // Keep ~ for "approximately"; GFM strikethrough pairs tildes into <del>.
@@ -539,6 +542,7 @@ function renderPage({
     <meta name="description" content="${desc}">
     <meta name="robots" content="${escapeHtml(robots)}">
     <link rel="canonical" href="${url}">
+    ${FAVICON_LINKS}
     <meta property="og:type" content="article">
     <meta property="og:title" content="${escapeHtml(socialTitle)}">
     <meta property="og:description" content="${desc}">
@@ -594,6 +598,7 @@ function renderListIndex({ title, description, canonicalPath, intro, itemsHtml, 
     <meta name="description" content="${desc}">
     <meta name="robots" content="index,follow">
     <link rel="canonical" href="${url}">
+    ${FAVICON_LINKS}
     <meta property="og:type" content="website">
     <meta property="og:title" content="${fullTitle}">
     <meta property="og:description" content="${desc}">
@@ -703,6 +708,7 @@ const LLMS_ARTICLE_NOTES = {
   'what-bitcoins-stalled-proposals-tell-you': 'Dandelion, UTXO commitments, Erlay, wallet/node split, formal verification: stalled in Core vs shipped in Commons; OP_RETURN/Knots policy monoculture; 83-byte cap belongs at consensus (Permanent Data Channel Closure).',
   'why-bitcoin-needs-a-specification': 'Human-readable spec (Orange Paper) vs Lean/DSL; verification as governance; spec-lock with Z3; defense-in-depth stack. Related: Permanent Data Channel Closure.',
   'bitcoins-hidden-crisis': 'Social vs protocol consensus; coordination crises (blocksize, Taproot); Bitcoin Commons cryptographic coordination model.',
+  'why-shitcoins-are-shitcoins': 'Structural case against altcoins as monetary assets: security, decentralization, monetary policy credibility, founder risk, securities exposure, price record, Bitcoin dominance, Lindy effect, smart contract rebuttal.',
 };
 
 const LLMS_BIP_NOTES = {
@@ -746,7 +752,7 @@ const LLMS_SECTIONS = [
   },
   {
     title: 'Monetary sovereignty',
-    slugs: ['the-last-uncaptured-asset'],
+    slugs: ['the-last-uncaptured-asset', 'why-shitcoins-are-shitcoins'],
   },
   {
     title: 'Demographics and adoption',
@@ -932,6 +938,7 @@ function build404(articles) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Not Found | SecureSovereign</title>
+    ${FAVICON_LINKS}
     <link href="/article.css" rel="stylesheet">
     <script>
     (function () {
