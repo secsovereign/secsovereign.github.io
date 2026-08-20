@@ -335,6 +335,7 @@ Implementation diversity is the structural fix, not a personnel change at Core. 
 
 - *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)* — refutations of common monopoly defenses
 - *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory)* — blocksize war outcome and implementation diversity path
+- *[The Adversarial Default](/articles/the-adversarial-default)* — defense of toxic maximalism as immune system under intact capture conditions
 - *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)* — research-complete improvements that never shipped
 - *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)* — human-readable spec as governance infrastructure
 - *[Bitcoin's Hidden Crisis](/articles/bitcoins-hidden-crisis)* — social coordination vs technical consensus

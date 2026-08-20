@@ -100,7 +100,14 @@
       "slug": "why-shitcoins-are-shitcoins",
       "title": "Why Shitcoins Are Shitcoins",
       "description": "A research report on the structural failures of altcoins as monetary assets: security, decentralization, founder risk, and the smart contract rebuttal.",
-      "published": "2026-08-17"
+      "published": "2026-08-17",
+      "updated": "2026-08-18"
+    },
+    {
+      "slug": "the-adversarial-default",
+      "title": "The Adversarial Default",
+      "description": "A defense of toxic maximalism: the adversarial posture as immune system after collaborative capture, retail scam cover, irreversible stakes, and why a formal spec lowers the noise floor without softening the threat register.",
+      "published": "2026-08-20"
     }
   ]
 }

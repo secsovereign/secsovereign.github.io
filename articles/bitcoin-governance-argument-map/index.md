@@ -1,6 +1,6 @@
 # Bitcoin Governance: Argument Map
 
-Numbered arguments for debate and analysis. Narrative evidence, funding maps, and primary sources are in *[Who Controls Bitcoin](/articles/bitcoin-governance)*; structural logic in *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture)*. For refutations of the most common monopoly defenses in debate, see *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)*.
+Numbered arguments for debate and analysis. Narrative evidence, funding maps, and primary sources are in *[Who Controls Bitcoin](/articles/bitcoin-governance)*; structural logic in *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture)*. For why the adversarial culture is calibrated to that threat environment rather than a defect to be socialized away, see *[The Adversarial Default](/articles/the-adversarial-default)*. For refutations of the most common monopoly defenses in debate, see *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)*.
 
 **Each numbered point is a standalone claim.** Use the cross-links for evidence; use this document for the argument structure.
 

@@ -139,6 +139,8 @@ Bitcoin Core’s monopoly is not a law of nature. It is a historical accident, s
 
 Break the capture. Stay on Bitcoin.
 
+For why the adversarial culture that followed that trauma is still doing work, see *[The Adversarial Default](/articles/the-adversarial-default)*.
+
 ---
 
 ## Sources

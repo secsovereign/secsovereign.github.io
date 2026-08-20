@@ -21,7 +21,7 @@ The consensus rules that secure a multi-trillion-dollar network exist only as be
 
 This has worked so far because Bitcoin's growth in economic importance has outpaced the scrutiny that importance attracts. That is changing. When a court needs to understand whether a transaction was valid under the consensus rules at a given block height, there is no document to hand them. When a new implementation team wants to be sure they are building the same rules as Core, there is no specification to target. When an auditor wants to verify that a proposed soft fork does not break existing guarantees, there is no formal description of what those guarantees are.
 
-The absence of a specification is not a minor gap. **It is the foundational vulnerability that every other correctness problem in Bitcoin builds on.**
+The absence of a specification is not a minor gap. **It is the foundational vulnerability that every other correctness problem in Bitcoin builds on.** It also inflates social conflict: questions with technical answers stay in the social layer indefinitely, and the noise degrades the signal from genuine threat detection. For why that noise-floor problem is an argument for a formal spec without asking Bitcoin to soften its adversarial register, see *[The Adversarial Default, §IV](/articles/the-adversarial-default#iv-the-inflation-problem)*.
 
 ## Three Responses to the Same Problem
 

@@ -703,6 +703,7 @@ const LLMS_ARTICLE_NOTES = {
   'the-last-uncaptured-asset': 'Monetary sovereignty frame: state capture through ownership not destruction, access layer as asset, voluntary surveillance infrastructure, Bitcoin as last uncaptured asset.',
   'bitcoin-demographics-breakdown': 'Structured taxonomy of plausible Bitcoin appeal vectors by demographic slice; hypotheses for testing, not weighted statistics.',
   'dont-trust-verify': 'Coldcard RNG defect ($88M+ on-chain), credentialed endorsement without seed-path audit, HWI/tooling defaults, Ten31/Coinkite ties, parallel failures in Bitcoin Core review.',
+  'the-adversarial-default': 'Defense of toxic maximalism: collaborative culture failed (blocksize, OP_RETURN); retail scam warning system; irreversible stakes (wallet deletion, inflation bug); protocol ambiguity as noise inflation; adversarial default as immune system until structural conditions change.',
   'governance-paralysis-was-the-victory': 'Block size war as resource capture, MIT/DCI/Epstein funding context, CVE-2018-17144, good vs bad ossification, alternative implementations survey, Bitcoin Commons.',
   'bitcoin-core-the-biggest-fallacies': 'Eight rebuttals to Core monopoly defenses: contributor count, adoption, rough consensus, conservatism, reviewer pool. Companion to Argument Map.',
   'what-bitcoins-stalled-proposals-tell-you': 'Dandelion, UTXO commitments, Erlay, wallet/node split, formal verification: stalled in Core vs shipped in Commons; OP_RETURN/Knots policy monoculture; 83-byte cap belongs at consensus (Permanent Data Channel Closure).',
@@ -733,6 +734,7 @@ const LLMS_SECTIONS = [
       'bitcoin-governance',
       'bitcoin-governance-argument-map',
       'bitcoin-social-capture',
+      'the-adversarial-default',
       'governance-paralysis-was-the-victory',
       'bitcoin-core-the-biggest-fallacies',
       'what-bitcoins-stalled-proposals-tell-you',
@@ -820,7 +822,8 @@ function buildLlmsTxt(articles, bips) {
     '',
     '1. [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance)',
     '2. [The Social Layer Is the Attack Surface](https://secsov.com/articles/bitcoin-social-capture)',
-    '3. [Bitcoin Governance: Argument Map](https://secsov.com/articles/bitcoin-governance-argument-map)',
+    '3. [The Adversarial Default](https://secsov.com/articles/the-adversarial-default)',
+    '4. [Bitcoin Governance: Argument Map](https://secsov.com/articles/bitcoin-governance-argument-map)',
     '',
   ];
 

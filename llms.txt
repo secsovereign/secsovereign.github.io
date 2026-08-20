@@ -29,7 +29,8 @@ This site publishes **long-form reference articles** and **BIP pre-proposals**, 
 
 1. [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance)
 2. [The Social Layer Is the Attack Surface](https://secsov.com/articles/bitcoin-social-capture)
-3. [Bitcoin Governance: Argument Map](https://secsov.com/articles/bitcoin-governance-argument-map)
+3. [The Adversarial Default](https://secsov.com/articles/the-adversarial-default)
+4. [Bitcoin Governance: Argument Map](https://secsov.com/articles/bitcoin-governance-argument-map)
 
 ## Start here
 
@@ -43,6 +44,7 @@ This site publishes **long-form reference articles** and **BIP pre-proposals**, 
 - [Who Controls Bitcoin](https://secsov.com/articles/bitcoin-governance): Primary governance reference: funding map, maintainer merge authority, personnel revolving door, OP_RETURN arc (2023–2025), Brink/OpenSats/Chaincode ties, suppression patterns. Points to the three-BIP consensus stack. Start here for evidence.
 - [Bitcoin Governance: Argument Map](https://secsov.com/articles/bitcoin-governance-argument-map): 105 numbered arguments across 22 sections for debate; points to Who Controls Bitcoin for narrative and Social Layer for structure. Includes blockspace/relay-policy failure (Part XXII) and the three-BIP consensus stack.
 - [The Social Layer Is the Attack Surface](https://secsov.com/articles/bitcoin-social-capture): Structural logic of why Bitcoin governance produces capture outcomes without requiring conspiracy; permissionless protocol vs permissioned development; blocksize war and fork trap.
+- [The Adversarial Default](https://secsov.com/articles/the-adversarial-default): Defense of toxic maximalism: collaborative culture failed (blocksize, OP_RETURN); retail scam warning system; irreversible stakes (wallet deletion, inflation bug); protocol ambiguity as noise inflation; adversarial default as immune system until structural conditions change.
 - [Governance Paralysis Was The Victory](https://secsov.com/articles/governance-paralysis-was-the-victory): Block size war as resource capture, MIT/DCI/Epstein funding context, CVE-2018-17144, good vs bad ossification, alternative implementations survey, Bitcoin Commons.
 - [Bitcoin Core: The Biggest Fallacies](https://secsov.com/articles/bitcoin-core-the-biggest-fallacies): Eight rebuttals to Core monopoly defenses: contributor count, adoption, rough consensus, conservatism, reviewer pool. Companion to Argument Map.
 - [What Bitcoin's Stalled Proposals Tell You](https://secsov.com/articles/what-bitcoins-stalled-proposals-tell-you): Dandelion, UTXO commitments, Erlay, wallet/node split, formal verification: stalled in Core vs shipped in Commons; OP_RETURN/Knots policy monoculture; 83-byte cap belongs at consensus (Permanent Data Channel Closure).
@@ -110,6 +112,7 @@ This site publishes **long-form reference articles** and **BIP pre-proposals**, 
 - [Bitcoin's Hidden Crisis: When Technical Consensus Isn't Enough (Markdown source)](https://secsov.com/articles/bitcoins-hidden-crisis/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Don't Trust, Verify (Markdown source)](https://secsov.com/articles/dont-trust-verify/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Why Shitcoins Are Shitcoins (Markdown source)](https://secsov.com/articles/why-shitcoins-are-shitcoins/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [The Adversarial Default (Markdown source)](https://secsov.com/articles/the-adversarial-default/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Static Per-Output Miner Fee (Markdown source)](https://secsov.com/bips/static-per-output-miner-fee/index.md): BIP pre-proposal Markdown source; preferred for LLM ingestion over HTML.
 - [Dynamic Escalation of the Per-Output Miner Fee (Markdown source)](https://secsov.com/bips/dynamic-escalation-per-output-fee/index.md): BIP pre-proposal Markdown source; preferred for LLM ingestion over HTML.
 - [Permanent Data Channel Closure (Markdown source)](https://secsov.com/bips/permanent-data-channel-closure/index.md): BIP pre-proposal Markdown source; preferred for LLM ingestion over HTML.

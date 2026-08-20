@@ -149,6 +149,8 @@ This is why personnel changes at Core do not resolve the governance problem. The
 
 An ideology that makes structural critique feel like confusion rather than insight is more robust than one that makes it feel like heresy. Heresy can be argued with. Confusion just needs to be cleared up, and the people best positioned to clear it up are the ones whose authority the ideology protects.
 
+The same dynamic shows up when critics demand a softer Bitcoin culture. Asking the network to drop its adversarial register before the structural conditions change is another version of asking the immune system to stand down while the infection remains. For the case that the adversarial default is calibrated to the threat environment rather than a personality disorder, see *[The Adversarial Default](/articles/the-adversarial-default)*.
+
 ---
 
 ## IX. Structural Capture Does Not Require Bad Actors
@@ -179,4 +181,4 @@ The consensus rules are sound. The development infrastructure built around them 
 
 ---
 
-*Evidentiary basis: [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research); companion articles [Who Controls Bitcoin](/articles/bitcoin-governance), [Argument Map](/articles/bitcoin-governance-argument-map), [Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory), [Bitcoin's Hidden Crisis](/articles/bitcoins-hidden-crisis), and [The Last Uncaptured Asset](/articles/the-last-uncaptured-asset).*
+*Evidentiary basis: [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research); companion articles [Who Controls Bitcoin](/articles/bitcoin-governance), [Argument Map](/articles/bitcoin-governance-argument-map), [Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory), [The Adversarial Default](/articles/the-adversarial-default), [Bitcoin's Hidden Crisis](/articles/bitcoins-hidden-crisis), and [The Last Uncaptured Asset](/articles/the-last-uncaptured-asset).*
