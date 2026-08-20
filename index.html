@@ -168,19 +168,22 @@
             padding-left: 0;
         }
 
-        li {
+        /* Accent markers only for Expertise (not Writing/BIPs cards) */
+        .column ul li {
             margin: 10px 0;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            gap: 10px;
         }
 
-        li::before {
+        .column ul li::before {
             content: "";
-            display: inline-block;
+            display: block;
             width: 8px;
             height: 8px;
+            flex-shrink: 0;
+            margin-top: 0.45em;
             background-color: var(--accent);
-            margin-right: 10px;
         }
 
         /* Investment Cards */
@@ -240,7 +243,7 @@
             font-size: 0.9rem;
         }
 
-        /* Writing list */
+        /* Writing / BIPs list */
         .writing-list {
             list-style: none;
             padding: 0;
@@ -248,15 +251,20 @@
         }
 
         .writing-item {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 1.25rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: start;
+            column-gap: 0.85rem;
             background-color: var(--light-gray);
             padding: 0.85rem 1rem;
             border: 1px solid var(--border);
             border-radius: 5px;
-            margin-top: 12px;
+            margin: 12px 0 0;
+        }
+
+        .writing-item::before {
+            content: none;
+            display: none;
         }
 
         .writing-link {
@@ -264,8 +272,8 @@
             text-decoration: none;
             font-weight: 600;
             line-height: 1.35;
-            flex: 1;
             min-width: 0;
+            overflow-wrap: break-word;
         }
 
         .writing-link:hover,
@@ -276,12 +284,13 @@
         }
 
         .writing-date {
-            flex-shrink: 0;
             color: var(--text-muted);
             font-size: 0.78rem;
             letter-spacing: 0.02em;
+            line-height: 1.35;
             white-space: nowrap;
             text-align: right;
+            padding-top: 0.12em;
         }
 
         /* Project Cards (legacy) */
@@ -370,6 +379,10 @@
 
         /* Media Queries */
         @media (max-width: 600px) {
+            body {
+                padding: 14px;
+            }
+
             .profile-section {
                 flex-direction: column;
                 text-align: center;
@@ -380,13 +393,17 @@
             }
 
             .writing-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.35rem;
+                padding: 0.75rem 0.8rem;
+                column-gap: 0.65rem;
+            }
+
+            .writing-link {
+                font-size: 0.92rem;
             }
 
             .writing-date {
-                text-align: left;
+                font-size: 0.7rem;
+                text-align: right;
             }
 
             .support-btn {
