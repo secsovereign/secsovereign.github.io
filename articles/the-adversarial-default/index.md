@@ -13,7 +13,7 @@
 
 ---
 
-The criticism is familiar by now. Bitcoin culture is toxic. The maximalists are hostile, uncharitable, and reflexively adversarial toward anyone who asks a question they've already decided is stupid. Newcomers get bitten. Researchers get dismissed. Developers who wander in from other ecosystems leave with scars. The prescription that follows is always some version of the same thing: be more welcoming, engage more charitably, extend more good faith. Grow up.
+The criticism is familiar by now. Bitcoin culture is toxic. The maximalists are hostile, uncharitable, and reflexively adversarial toward anyone who asks questions they've already decided are stupid. Newcomers get bitten. Researchers get dismissed. Developers who wander in from other ecosystems leave with scars. The prescription that follows is always some version of the same thing: be more welcoming, engage more charitably, extend more good faith. Grow up.
 
 This article is a defense of the adversarial default. Not all of it, not the fraction that is pure noise, but the posture itself. **The hostility is correct.** It is calibrated to the actual threat environment. The people asking Bitcoin to soften it have not reckoned with what the hostility is actually defending against.
 
