@@ -91,8 +91,6 @@ None of the structural conditions that made the adversarial culture appropriate 
 
 ## Sources
 
-### External
-
 - [Liu, Makarov, and Schoar, "Anatomy of a Run: The Terra Luna Crash," MIT Sloan CFI](https://mitsloan.mit.edu/cfi/anatomy-a-run-terra-luna-crash) — Terra ecosystem collapse in three days, ~$50B valuation wiped
 - [Al Jazeera, "After Terra, Luna crashes, regulators count cost of crypto"](https://www.aljazeera.com/economy/2022/5/20/after-terra-crash-investors-and-regulators-count-cost-of-crypto), May 20, 2022 — ~$45B Terra/Luna erase; retail savings wiped
 - [Time, "What Terra's Crash Means For Crypto and Beyond"](https://time.com/6177567/terra-ust-crash-crypto/), May 2022 — retail losses; public forum reports of suicidal ideation after the crash
@@ -105,19 +103,3 @@ None of the structural conditions that made the adversarial culture appropriate 
 - [Bitcoin Core notice, CVE-2018-17144](https://bitcoincore.org/en/2018/09/20/notice/), September 20, 2018 — inflation bug disclosure
 - [Brink Engineering Impact Report 2025](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/), March 26, 2026 — 56% merge concentration
 - [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) — merge concentration, stalled proposals, conflict-resolution findings
-
-### On secsov.com
-
-- *[Who Controls Bitcoin](/articles/bitcoin-governance)* — funding map, maintainer evidence, OP_RETURN timeline (§V)
-- *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture)* — structural capture logic; blocksize war (§V); no-spec moat (§VI)
-- *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory)* — blocksize-war outcome and implementation-diversity path
-- *[Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map)* — numbered claims (Parts II, IX, XXII)
-- *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)* — monopoly-defense rebuttals
-- *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)* — research-complete work that did not ship
-- *[Don't Trust, Verify](/articles/dont-trust-verify)* — wallet deletion sequence; credentialed endorsement without verification
-- *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)* — readable spec as noise-floor fix
-- *[Bitcoin's Hidden Crisis](/articles/bitcoins-hidden-crisis)* — social vs protocol consensus; Commons path
-- *[The Achievable Floor](/articles/the-achievable-floor)* — what consensus can close on embedding channels
-- *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)* — design-purpose case against non-monetary embedding
-- *[The Last Uncaptured Asset](/articles/the-last-uncaptured-asset)* — Bitcoin vs adjacent crypto products
-- *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)* — operator-cost model behind blockspace externalities

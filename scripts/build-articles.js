@@ -196,6 +196,19 @@ function articlePath(slug) {
   return `/articles/${slug}`;
 }
 
+/** Newest published first; missing dates last; slug tiebreak for stability. */
+function sortArticlesByPublished(articles) {
+  return [...articles].sort((a, b) => {
+    const da = a.published || '';
+    const db = b.published || '';
+    if (!da && !db) return (a.slug || '').localeCompare(b.slug || '');
+    if (!da) return 1;
+    if (!db) return -1;
+    if (da !== db) return db.localeCompare(da);
+    return (a.slug || '').localeCompare(b.slug || '');
+  });
+}
+
 function articleUrl(slug) {
   return `${SITE}${articlePath(slug)}`;
 }
@@ -237,7 +250,7 @@ function formatArticleDateShort(isoDate) {
 }
 
 function renderHomepageWritingList(articles) {
-  const items = articles.map((a) => {
+  const items = sortArticlesByPublished(articles).map((a) => {
     const href = articlePath(a.slug);
     const title = escapeHtml(a.title);
     const dateIso = a.published || '';
@@ -631,7 +644,7 @@ function renderListIndex({ title, description, canonicalPath, intro, itemsHtml, 
 }
 
 function renderArticlesIndex(articles) {
-  const items = articles.map((a) => {
+  const items = sortArticlesByPublished(articles).map((a) => {
     const href = articlePath(a.slug);
     const title = escapeHtml(a.title);
     const desc = escapeHtml(a.description || '');
