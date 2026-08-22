@@ -326,7 +326,6 @@
             padding: 0.55rem 1rem;
             color: var(--primary);
             font-weight: 700;
-            letter-spacing: 0.06em;
             border-bottom: 1px solid var(--border);
             background: #1a1a1a;
         }
@@ -338,34 +337,20 @@
             padding: 0.85rem 1rem 1rem;
         }
 
-        .catalog-meta-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 0.35rem 1rem;
-            margin: 0 0 0.75rem;
-            color: var(--text-muted);
-            font-size: 0.82rem;
-        }
-
-        .catalog-meta-row p {
-            margin: 0;
-        }
-
-        .catalog-bip-list {
+        .catalog-item-list {
             list-style: none;
             padding: 0;
             margin: 0 0 0.85rem;
         }
 
-        .catalog-bip-list li {
+        .catalog-item-list li {
             display: grid;
             grid-template-columns: auto minmax(0, 1fr);
             column-gap: 0.55rem;
             margin: 0.4rem 0 0;
         }
 
-        .catalog-bip-list li:first-child {
+        .catalog-item-list li:first-child {
             margin-top: 0;
         }
 
@@ -652,28 +637,25 @@
             <!-- catalog-cards:start -->
             <div class="catalog-grid">
                 <div class="catalog-card">
-                    <p class="catalog-kicker">WRITING/</p>
+                    <p class="catalog-kicker">Writing</p>
                     <div class="catalog-body">
-                        <div class="catalog-meta-row">
-                            <p>17 files</p>
-                            <p>latest Aug 22, 2026</p>
-                        </div>
-                        <a class="catalog-more" href="/articles">$ cd articles/</a>
+                        <ul class="catalog-item-list">
+                        <li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="/articles/dont-trust-verify" class="writing-link">Don't Trust, Verify</a></li>
+                        <li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="/articles/bitcoin-not-a-hard-drive" class="writing-link">Bitcoin Is Not a Hard Drive</a></li>
+                        <li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="/articles/full-cost-of-running-a-bitcoin-node" class="writing-link">Full Cost of Running a Bitcoin Node</a></li>
+                    </ul>
+                        <a class="catalog-more" href="/articles">All writing</a>
                     </div>
                 </div>
                 <div class="catalog-card">
-                    <p class="catalog-kicker">BIPS/</p>
+                    <p class="catalog-kicker">BIPs</p>
                     <div class="catalog-body">
-                        <div class="catalog-meta-row">
-                            <p>3 files</p>
-                            <p>not numbered</p>
-                        </div>
-                        <ul class="catalog-bip-list">
+                        <ul class="catalog-item-list">
                         <li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="/bips/static-per-output-miner-fee" class="writing-link">Static Per-Output Miner Fee</a></li>
                         <li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="/bips/dynamic-escalation-per-output-fee" class="writing-link">Dynamic Escalation of the Per-Output Miner Fee</a></li>
                         <li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="/bips/permanent-data-channel-closure" class="writing-link">Permanent Data Channel Closure</a></li>
                     </ul>
-                        <a class="catalog-more" href="/bips">$ cd bips/</a>
+                        <a class="catalog-more" href="/bips">All BIPs</a>
                     </div>
                 </div>
             </div>

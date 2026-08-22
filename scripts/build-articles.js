@@ -265,42 +265,39 @@ function renderHomepageFeaturedList(articles) {
   return `<ul class="featured-list">\n                ${items}\n            </ul>`;
 }
 
+function renderCatalogTitleList(items) {
+  if (!items.length) return '';
+  const rows = items.map((item) => (
+    `<li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="${escapeHtml(item.href)}" class="writing-link">${escapeHtml(item.title)}</a></li>`
+  )).join('\n                        ');
+  return `<ul class="catalog-item-list">\n                        ${rows}\n                    </ul>`;
+}
+
 function renderHomepageCatalogCards(articles, bips) {
   const sorted = sortArticlesByPublished(articles);
-  const articleCount = sorted.length;
-  const articleLabel = articleCount === 1 ? '1 file' : `${articleCount} files`;
-  const latest = sorted.find((a) => a.published);
-  const latestHtml = latest
-    ? `<p>latest ${escapeHtml(formatArticleDateShort(latest.published))}</p>`
-    : '';
-  const bipCount = (bips || []).length;
-  const bipLabel = bipCount === 1 ? '1 file' : `${bipCount} files`;
-  const bipItems = (bips || []).map((b) => (
-    `<li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="${escapeHtml(bipPath(b.slug))}" class="writing-link">${escapeHtml(b.title)}</a></li>`
-  )).join('\n                        ');
-  const bipList = bipItems
-    ? `<ul class="catalog-bip-list">\n                        ${bipItems}\n                    </ul>`
-    : '';
+  const moreWriting = sorted.slice(3, 6).map((a) => ({
+    href: articlePath(a.slug),
+    title: a.title,
+  }));
+  const writingList = renderCatalogTitleList(moreWriting);
+  const bipEntries = (bips || []).map((b) => ({
+    href: bipPath(b.slug),
+    title: b.title,
+  }));
+  const bipList = renderCatalogTitleList(bipEntries);
   return `<div class="catalog-grid">
                 <div class="catalog-card">
-                    <p class="catalog-kicker">WRITING/</p>
+                    <p class="catalog-kicker">Writing</p>
                     <div class="catalog-body">
-                        <div class="catalog-meta-row">
-                            <p>${escapeHtml(articleLabel)}</p>
-                            ${latestHtml}
-                        </div>
-                        <a class="catalog-more" href="/articles">$ cd articles/</a>
+                        ${writingList}
+                        <a class="catalog-more" href="/articles">All writing</a>
                     </div>
                 </div>
                 <div class="catalog-card">
-                    <p class="catalog-kicker">BIPS/</p>
+                    <p class="catalog-kicker">BIPs</p>
                     <div class="catalog-body">
-                        <div class="catalog-meta-row">
-                            <p>${escapeHtml(bipLabel)}</p>
-                            <p>not numbered</p>
-                        </div>
                         ${bipList}
-                        <a class="catalog-more" href="/bips">$ cd bips/</a>
+                        <a class="catalog-more" href="/bips">All BIPs</a>
                     </div>
                 </div>
             </div>`;
