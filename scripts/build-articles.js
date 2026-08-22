@@ -249,8 +249,9 @@ function formatArticleDateShort(isoDate) {
   });
 }
 
-function renderHomepageWritingList(articles) {
-  const items = sortArticlesByPublished(articles).map((a) => {
+function renderHomepageFeaturedList(articles) {
+  const featured = sortArticlesByPublished(articles).slice(0, 3);
+  const items = featured.map((a) => {
     const href = articlePath(a.slug);
     const title = escapeHtml(a.title);
     const dateIso = a.published || '';
@@ -258,19 +259,51 @@ function renderHomepageWritingList(articles) {
     const dateHtml = dateIso
       ? `<time class="writing-date" datetime="${escapeHtml(dateIso)}">${escapeHtml(dateLabel)}</time>`
       : '';
-    return `<li class="writing-item"><a href="${href}" class="writing-link">${title}</a>${dateHtml}</li>`;
+    const desc = a.description ? `<p class="featured-desc">${escapeHtml(a.description)}</p>` : '';
+    return `<li class="featured-item"><div class="featured-head"><span class="featured-mark" aria-hidden="true">&gt;</span><a href="${href}" class="writing-link">${title}</a>${dateHtml}</div>${desc}</li>`;
   }).join('\n                ');
-  return `<ul class="writing-list">\n                ${items}\n            </ul>`;
+  return `<ul class="featured-list">\n                ${items}\n            </ul>`;
 }
 
-function renderHomepageBipList(bips) {
-  const items = bips.map((b) => {
-    const href = bipPath(b.slug);
-    const title = escapeHtml(b.title);
-    const status = escapeHtml(b.status || 'Pre-Proposal');
-    return `<li class="writing-item"><a href="${href}" class="writing-link">${title}</a><span class="writing-date">${status}</span></li>`;
-  }).join('\n                ');
-  return `<ul class="writing-list">\n                ${items}\n            </ul>`;
+function renderHomepageCatalogCards(articles, bips) {
+  const sorted = sortArticlesByPublished(articles);
+  const articleCount = sorted.length;
+  const articleLabel = articleCount === 1 ? '1 file' : `${articleCount} files`;
+  const latest = sorted.find((a) => a.published);
+  const latestHtml = latest
+    ? `<p>latest ${escapeHtml(formatArticleDateShort(latest.published))}</p>`
+    : '';
+  const bipCount = (bips || []).length;
+  const bipLabel = bipCount === 1 ? '1 file' : `${bipCount} files`;
+  const bipItems = (bips || []).map((b) => (
+    `<li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="${escapeHtml(bipPath(b.slug))}" class="writing-link">${escapeHtml(b.title)}</a></li>`
+  )).join('\n                        ');
+  const bipList = bipItems
+    ? `<ul class="catalog-bip-list">\n                        ${bipItems}\n                    </ul>`
+    : '';
+  return `<div class="catalog-grid">
+                <div class="catalog-card">
+                    <p class="catalog-kicker">WRITING/</p>
+                    <div class="catalog-body">
+                        <div class="catalog-meta-row">
+                            <p>${escapeHtml(articleLabel)}</p>
+                            ${latestHtml}
+                        </div>
+                        <a class="catalog-more" href="/articles">$ cd articles/</a>
+                    </div>
+                </div>
+                <div class="catalog-card">
+                    <p class="catalog-kicker">BIPS/</p>
+                    <div class="catalog-body">
+                        <div class="catalog-meta-row">
+                            <p>${escapeHtml(bipLabel)}</p>
+                            <p>not numbered</p>
+                        </div>
+                        ${bipList}
+                        <a class="catalog-more" href="/bips">$ cd bips/</a>
+                    </div>
+                </div>
+            </div>`;
 }
 
 function patchHomepageMarkedSection(start, end, contentHtml, label) {
@@ -291,21 +324,21 @@ function patchHomepageMarkedSection(start, end, contentHtml, label) {
   console.log(`Wrote index.html (${label})`);
 }
 
-function patchHomepageWriting(articles) {
+function patchHomepageFeatured(articles) {
   patchHomepageMarkedSection(
-    '<!-- writing-list:start -->',
-    '<!-- writing-list:end -->',
-    renderHomepageWritingList(articles),
-    'Writing section',
+    '<!-- featured-list:start -->',
+    '<!-- featured-list:end -->',
+    renderHomepageFeaturedList(articles),
+    'Featured section',
   );
 }
 
-function patchHomepageBips(bips) {
+function patchHomepageCatalog(articles, bips) {
   patchHomepageMarkedSection(
-    '<!-- bip-list:start -->',
-    '<!-- bip-list:end -->',
-    renderHomepageBipList(bips),
-    'BIPs section',
+    '<!-- catalog-cards:start -->',
+    '<!-- catalog-cards:end -->',
+    renderHomepageCatalogCards(articles, bips),
+    'Catalog section',
   );
 }
 
@@ -1230,8 +1263,8 @@ async function main() {
   fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), buildSitemap(articles, bips));
   console.log('Wrote sitemap.xml');
 
-  patchHomepageWriting(articles);
-  patchHomepageBips(bips);
+  patchHomepageFeatured(articles);
+  patchHomepageCatalog(articles, bips);
 
   const robots = `User-agent: *
 Disallow: /articles/*/index.md
