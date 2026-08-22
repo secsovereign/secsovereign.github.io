@@ -217,7 +217,7 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 33. **Spam filters do not resolve the structural problem.** Spam filters address only new spam. They do nothing about existing bloat. Every node operator today pays for all historical spam in bandwidth and storage. The only mechanism that would resolve this is UTXO commitments, which Core has not shipped.
 
-34. **Spam as extortion.** Threatening to unleash a coordinated spam attack on the network unless a governance proposal is withdrawn is not a principled stand for permissionlessness. It is extortion. The documented coordinated spam threat against BIP-110 in 2025 is the concrete example.
+34. **Spam as extortion.** Threatening to unleash a coordinated spam attack on the network unless a governance proposal is withdrawn is not a principled stand for permissionlessness. It is extortion.
 
 ---
 

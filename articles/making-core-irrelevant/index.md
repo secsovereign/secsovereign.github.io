@@ -6,7 +6,7 @@
 
 - [I. The Problem Statement](#i-the-problem-statement)
 - [II. The Actual Terrain](#ii-the-actual-terrain)
-- [III. Why Pure Signaling Strategies Fail](#iii-why-pure-signaling-strategies-fail)
+- [III. Why Miner-First Strategies Fail](#iii-why-miner-first-strategies-fail)
 - [IV. The Two Tracks and Why Both Are Required](#iv-the-two-tracks-and-why-both-are-required)
 - [V. The Scenario Map](#v-the-scenario-map)
 - [Key Uncertainties](#key-uncertainties)
@@ -48,13 +48,11 @@ DCG owns Foundry, the largest pool, and also owns Grayscale, the largest Bitcoin
 
 ---
 
-## III. Why Pure Signaling Strategies Fail
+## III. Why Miner-First Strategies Fail
 
-The cleanest recent test is the 2026 BIP-110 soft fork. It peaked at 2.53% of hashrate against a threshold that had already been lowered to 55%. Almost all of the signaling came from Ocean and a few aligned miners. No major pool joined. The minority chain drew about 0.15% of hashrate, produced two blocks, and stalled. Knots was on an estimated 7-15% of listening nodes during the campaign. No exchange enforced. No custodian moved.
+Miner campaigns without the entities that actually hold value are a demonstration, not a force. Protocol changes stick when the economic majority enforces them, because that is when refusing costs money. SegWit succeeded in 2017 not because miners wanted it but because economic nodes made non-compliance dangerous. A hashrate campaign that never gets that pressure fails even when the technical case is sound. People read those failures as hashrate problems. They are economic majority problems.
 
-People read that as a hashrate problem. It was not. It was an economic majority problem. Miner signaling without the entities that actually hold value is a demonstration, not a force. A soft fork works when the economic majority enforces it, because that is when refusing costs money. SegWit succeeded in 2017 not because miners wanted it but because economic nodes made non-compliance dangerous. The 2026 attempt had no equivalent pressure. Who opposed that proposal, and how that lined up with blockspace businesses, is in *[Who Controls Bitcoin](/articles/bitcoin-governance#conflicted-advocacy-on-blockspace-policy)*. The 2025 spam-threat against it is in *[Argument Map, Part VI](/articles/bitcoin-governance-argument-map#part-vi-forced-participation)*.
-
-Hashrate matters. Pool decentralization matters. Neither moves the protocol unless economically significant nodes adopt the change. Push miners first and you get BIP-110 again, no matter how sound the technical case is. Implementation diversity is the precondition. Everything else waits on it. Consensus is the small part of a node. Close to 90% is not consensus. Wallet, policy, networking, index, RPC, and mempool sit in that remainder. A Core fork can change what it forwards. It cannot rewrite that surface. A separately written client can, but only if it can prove it still enforces the same money rules. That proof is what the spec makes possible. That is why the moat dissolves when the spec exists.
+Hashrate matters. Pool decentralization matters. Neither moves the protocol unless economically significant nodes adopt the change. Push miners first and you get another demonstration. Implementation diversity is the precondition. Everything else waits on it. Consensus is the small part of a node. Close to 90% is not consensus. Wallet, policy, networking, index, RPC, and mempool sit in that remainder. A Core-derived client can change what it forwards. It cannot rewrite that surface. A separately written client can, but only if it can prove it still enforces the same money rules. That proof is what the spec makes possible. That is why the moat dissolves when the spec exists.
 
 ---
 
@@ -80,7 +78,7 @@ The successor needs the same product and a different organization. Reserve capit
 
 DMND offers V2-native job declaration in production. Braiins has run V2 with job declaration since before the working group existed. Neither fills Ocean's niche. DMND does not have the transparent pro-rata payout model. Braiins is not non-custodial. As of August 2026, nothing else combines non-custodial payouts, honest accounting, and miner template control.
 
-The two tracks only work together. A verified alternative gives exchanges and payment processors an answer when the board asks why they are not running Core. Without that answer, a more decentralized pool is an ideology that institutions will not touch. With it, economically significant nodes can run non-Core software, and miner signaling stops being a demonstration. Parallel work is what produces force that neither track produces alone.
+The two tracks only work together. A verified alternative gives exchanges and payment processors an answer when the board asks why they are not running Core. Without that answer, a more decentralized pool is an ideology that institutions will not touch. With it, economically significant nodes can run non-Core software, and miner campaigns stop being a demonstration. Parallel work is what produces force that neither track produces alone.
 
 ---
 
@@ -90,7 +88,7 @@ Three scenarios cover the next three to five years.
 
 **Floor.** Bitcoin Commons or a comparable formal-spec implementation is running on at least one economically significant node by 2029. A successor pool holds 3-5% of hashrate before the April 2028 halving. Stratum V2 Job Declaration reaches 10-15% of hashrate by the end of 2027, mostly because new ASIC firmware starts shipping it on. Core still dominates, but the claim that no credible alternative exists is gone. Making Core irrelevant is the destination. The floor is just the first proof that the alternative can be run.
 
-**Mid.** One or two exchanges or payment processors are running a formally verified alternative by 2029. A successor pool holds 8-12% of hashrate. Above 5% of hashrate, a pool can block lock-in at a 95% activation threshold across more than one signaling period. Above 10%, that veto holds. A lowered bar, like BIP-110's 55%, removes it. Implementation diversity then has real economic weight, pool decentralization has real signaling weight, and Core's hold on protocol decisions is constrained for the first time.
+**Mid.** One or two exchanges or payment processors are running a formally verified alternative by 2029. A successor pool holds 8-12% of hashrate. Implementation diversity then has real economic weight, pool share has real weight on what gets built into blocks, and Core's hold on protocol decisions is constrained for the first time.
 
 **Ceiling.** A genuine multi-implementation Bitcoin by 2030-2031. Several exchanges running formally verified alternatives. No single pool near 25% of hashrate. Stratum V2 Job Declaration the default on new ASIC firmware. That is a decade of work, not a three-to-five year one.
 
@@ -100,7 +98,7 @@ Three scenarios cover the next three to five years.
 
 Five open questions decide which scenario shows up, and when.
 
-**How fast institutions adopt.** A verified implementation that no exchange runs produces nothing. Selling node software into an exchange or payment processor takes quarters, not weeks. It needs an independent audit, legal review, insurance for a split, and board sign-off. The liability question lives inside that cycle. Formal verification lowers the odds of a split. It does not tell a board who pays if one happens. The software has to be ready before that cycle starts, and the cycle has to start well before anyone tries another soft fork.
+**How fast institutions adopt.** A verified implementation that no exchange runs produces nothing. Selling node software into an exchange or payment processor takes quarters, not weeks. It needs an independent audit, legal review, insurance for a split, and board sign-off. The liability question lives inside that cycle. Formal verification lowers the odds of a split. It does not tell a board who pays if one happens. The software has to be ready before that cycle starts, and the cycle has to start well before the next protocol fight.
 
 **Cash for unlucky streaks.** Most people understate what a successor pool needs in reserve. Ocean's $6.2 million seed covered launch, not running at scale after the halving when margins are thinner. Low-to-mid tens of millions is the realistic reserve for a pool that pays TIDES-style pro-rata and cannot default after a dry run of blocks.
 
@@ -140,11 +138,11 @@ On mining, the question is who can rebuild what Ocean built, with a better organ
 
 It can fail in four places.
 
-It fails on implementation if the verification stack exists and no economically significant node adopts the alternative before the next soft-fork fight. A clean implementation with no exchange running it has no weight. The governance critique can be right, the tests can be clean, and none of it matters if the economic majority never enforced anything.
+It fails on implementation if the verification stack exists and no economically significant node adopts the alternative before the next protocol fight. A clean implementation with no exchange running it has no weight. The governance critique can be right, the tests can be clean, and none of it matters if the economic majority never enforced anything.
 
 It fails on mining if the Ocean successor is not standing before the April 2028 halving. After the halving, large institutional pools with deep reserves take share. The window for a non-custodial pool to attract enough miners to matter is widest before the halving raises switching costs.
 
-It fails as an organization if the successor repeats Ocean. The first serious soft-fork fight the pool takes a side in will test whether reserve governance, operations, and advocacy are actually separate. If they are not, the pool splits at the moment it needs to hold.
+It fails as an organization if the successor repeats Ocean. The first serious protocol fight the pool takes a side in will test whether reserve governance, operations, and advocacy are actually separate. If they are not, the pool splits at the moment it needs to hold.
 
 It fails on the pitch if the campaign leads with ideology. The people who control economically significant nodes have boards, lawyers, and fiduciary duties. The argument that wins is risk management, with the verification stack and a direct answer on liability. Lead with Bitcoin philosophy and they will treat you as someone whose job they do not have.
 
@@ -156,7 +154,7 @@ The implementation monopoly is a solvable engineering problem. The Orange Paper 
 
 The mining problem has a product that already worked, a market that already showed up, and a hole where the Ocean successor should be. That hole will not stay open. The halving closes it from one side. Regulatory pressure on US-domiciled pools opens it from the other.
 
-The path is two tracks at once. Implementation diversity gives institutions an answer they can defend. Pools that do not hold keys and let miners build their own templates give miners a reason to move that is about money, not politics. When both exist, miner signaling on protocol questions has economic weight again for the first time since the blocksize war. The work is to get both in place before the next major protocol fight.
+The path is two tracks at once. Implementation diversity gives institutions an answer they can defend. Pools that do not hold keys and let miners build their own templates give miners a reason to move that is about money, not politics. When both exist, miner pressure on protocol questions has economic weight again for the first time since the blocksize war. The work is to get both in place before the next major protocol fight.
 
 ---
 
