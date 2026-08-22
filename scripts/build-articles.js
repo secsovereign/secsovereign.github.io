@@ -723,6 +723,7 @@ const LLMS_ARTICLE_NOTES = {
   'why-bitcoin-needs-a-specification': 'Human-readable spec (Orange Paper) vs Lean/DSL; verification as governance; spec-lock with Z3; defense-in-depth stack. Related: Permanent Data Channel Closure.',
   'bitcoins-hidden-crisis': 'Social vs protocol consensus; coordination crises (blocksize, Taproot); Bitcoin Commons cryptographic coordination model.',
   'why-shitcoins-are-shitcoins': 'Structural case against altcoins as monetary assets: security, decentralization, monetary policy credibility, founder risk, securities exposure, price record, Bitcoin dominance, Lindy effect, smart contract rebuttal.',
+  'making-core-irrelevant': 'What has to happen, and in what order: economic-majority vs miner signaling, formal-spec implementation plus successor-pool tracks, floor/mid/ceiling through the 2028 halving, and what failure looks like.',
 };
 
 const LLMS_BIP_NOTES = {
@@ -749,13 +750,14 @@ const LLMS_SECTIONS = [
       'bitcoin-social-capture',
       'the-adversarial-default',
       'governance-paralysis-was-the-victory',
+      'making-core-irrelevant',
       'bitcoin-core-the-biggest-fallacies',
       'what-bitcoins-stalled-proposals-tell-you',
     ],
   },
   {
     title: 'Implementation diversity and specification',
-    slugs: ['why-bitcoin-needs-a-specification', 'bitcoins-hidden-crisis'],
+    slugs: ['why-bitcoin-needs-a-specification', 'making-core-irrelevant', 'bitcoins-hidden-crisis'],
   },
   {
     title: 'Blockspace and consensus policy',
@@ -837,6 +839,7 @@ function buildLlmsTxt(articles, bips) {
     '2. [The Social Layer Is the Attack Surface](https://secsov.com/articles/bitcoin-social-capture)',
     '3. [The Adversarial Default](https://secsov.com/articles/the-adversarial-default)',
     '4. [Bitcoin Governance: Argument Map](https://secsov.com/articles/bitcoin-governance-argument-map)',
+    '5. [Making Core Irrelevant](https://secsov.com/articles/making-core-irrelevant)',
     '',
   ];
 

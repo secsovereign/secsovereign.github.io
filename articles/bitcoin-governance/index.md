@@ -338,6 +338,7 @@ Implementation diversity is the structural fix, not a personnel change at Core. 
 - *[The Adversarial Default](/articles/the-adversarial-default)* — defense of toxic maximalism as immune system under intact capture conditions
 - *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)* — research-complete improvements that never shipped
 - *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)* — human-readable spec as governance infrastructure
+- *[Making Core Irrelevant](/articles/making-core-irrelevant)* — sequencing, economic-majority vs miner signaling, floor/mid/ceiling through 2028
 - *[Bitcoin's Hidden Crisis](/articles/bitcoins-hidden-crisis)* — social coordination vs technical consensus
 
 ### External

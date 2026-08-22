@@ -107,7 +107,14 @@
       "slug": "the-adversarial-default",
       "title": "The Adversarial Default",
       "description": "A defense of toxic maximalism: collaborative capture and uncontested Taproot, retail warnings that got discounted, irreversible bugs, and why fraud-calling stays while internal fights need a spec and an unbundled stack.",
-      "published": "2026-08-20"
+      "published": "2026-08-20",
+      "updated": "2026-08-21"
+    },
+    {
+      "slug": "making-core-irrelevant",
+      "title": "Making Core Irrelevant",
+      "description": "What has to happen, and in what order: why miner signaling fails without economic nodes, why the spec track and the pool track have to run together, and what floor, mid, and ceiling look like through the 2028 halving.",
+      "published": "2026-08-22"
     }
   ]
 }
