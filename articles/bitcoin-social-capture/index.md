@@ -83,7 +83,7 @@ Permission in this context is not called permission. It is called legitimacy, or
 
 The conflation of network-layer permissionlessness with development-layer permissionlessness is the move that does the most political work in Bitcoin discourse. Once accepted, it makes structural critique impossible by framing it as a misunderstanding.
 
-"Anyone can fork it" sounds like a complete answer until you examine what forking actually requires: a consensus-compatible implementation without a formal specification to validate against. That means reverse-engineering undocumented behavior from the incumbent and staying architecturally dependent on the incumbent by definition. The exit right was theoretical for fifteen years because the conditions for exercising it safely did not exist. Pointing to the absence of anyone exercising it as proof that the freedom was real is circular.
+"Anyone can fork it" sounds like a complete answer until you examine what forking actually requires: a consensus-compatible implementation without a formal specification to validate against. That means reverse-engineering undocumented behavior from the incumbent and staying architecturally dependent on the incumbent by definition. The exit right was theoretical for seventeen years because the conditions for exercising it safely did not exist. Pointing to the absence of anyone exercising it as proof that the freedom was real is circular.
 
 ---
 
@@ -113,7 +113,7 @@ Whether that outcome was coordinated or emergent from the collision of financial
 
 ## VI. The No-Spec Moat as Predictable Output
 
-Bitcoin Core has never produced a formal mathematical specification of its consensus rules. Fifteen years of technically capable, well-funded developers working on software that secures trillions of dollars of economic value, and no formal specification exists.
+Bitcoin Core has never produced a formal mathematical specification of its consensus rules. Seventeen years of technically capable, well-funded developers working on software that secures trillions of dollars of economic value, and no formal specification exists.
 
 The usual explanation is that a specification would ossify the protocol, or that the code is the specification, or that the problem is harder than it looks. None of these explanations survive contact with the incentive structure underneath them.
 
@@ -121,7 +121,7 @@ A formal specification would make it possible for alternative implementations to
 
 The absence of a spec is not an oversight. **It is the most important structural element of the implementation monopoly**, and it is self-perpetuating. Any alternative serious enough to run on mainnet stays close to Core's codebase and inherits Core's governance vulnerabilities. The monopoly reproduces itself through the same mechanism that makes breaking it appear to require the monopoly's cooperation.
 
-A social environment shaped to treat the spec as perpetually not-quite-the-right-time does not need to issue that judgment explicitly. It just needs to make other work feel more urgent, more legitimate, more fundable. Over fifteen years, that is exactly what happened. The absence has a beneficiary, and the beneficiary is the existing structure.
+A social environment shaped to treat the spec as perpetually not-quite-the-right-time does not need to issue that judgment explicitly. It just needs to make other work feel more urgent, more legitimate, more fundable. Over seventeen years, that is exactly what happened. The absence has a beneficiary, and the beneficiary is the existing structure.
 
 ---
 
@@ -161,13 +161,13 @@ Acculturated judgment, funding dependency, and shaped incentive environments pro
 
 This is the serious version of the governance critique and it is more serious than the conspiracy version for a specific reason. **Conspiracies can be disrupted by exposing the coordination. Structural capture cannot be disrupted by exposing anything**, because there is no coordination to expose. The people involved are largely acting in good faith according to values they genuinely hold. Replacing them with different people who enter the same structural environment will produce the same outputs through the same mechanisms. **The capture is in the structure, not the personnel.** The fix has to be structural.
 
-This is also why the "show me the smoking gun" dismissal fails as a counter-argument. The absence of documented coordination is not evidence that the structure is healthy. It is evidence that the structure is working as designed, because structures that produce capture through incentives rather than instructions do not leave smoking guns. They leave funding maps, personnel histories, and fifteen years of a formal specification that never got written.
+This is also why the "show me the smoking gun" dismissal fails as a counter-argument. The absence of documented coordination is not evidence that the structure is healthy. It is evidence that the structure is working as designed, because structures that produce capture through incentives rather than instructions do not leave smoking guns. They leave funding maps, personnel histories, and seventeen years of a formal specification that never got written.
 
 ---
 
 ## X. What Proof Requires and What It Implies
 
-If the no-spec moat made genuine alternatives structurally impossible for fifteen years, the empirical answer is building one from a formal specification and proving consensus compatibility through differential testing against the full chain history. That is not a theoretical proposal. It is work that has been done.
+If the no-spec moat made genuine alternatives structurally impossible for seventeen years, the empirical answer is building one from a formal specification and proving consensus compatibility through differential testing against the full chain history. That is not a theoretical proposal. It is work that has been done.
 
 The Bitcoin Commons project is a ground-up Rust implementation built from the Orange Paper, a formal mathematical specification of Bitcoin's consensus rules. Consensus compatibility has been proven through differential testing across more than 900,000 blocks. The BLVM spec lock uses a Z3-based formal verification layer to lock the implementation against the mathematical specification, creating a verifiable chain from the spec to the code. This is what it looks like to break the no-spec moat rather than argue about it.
 

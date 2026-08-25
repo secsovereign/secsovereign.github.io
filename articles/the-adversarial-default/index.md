@@ -65,7 +65,7 @@ Pointing at frauds that trade on Bitcoin's credibility is a permanent job. There
 
 The fighting inside Bitcoin is the part that can shrink. A large share of it exists only because the tools that would end an argument do not.
 
-Bitcoin Core has never produced a clear mathematical write-up of the rules every node must enforce. Fifteen years of capable, well-funded developers on software that secures trillions of dollars, and still no formal specification. There is nothing solid to test an implementation against, and nothing to appeal to when people disagree about what the protocol permits. So fights about what Bitcoin is stay in arguments and reputation instead of settling in code.
+Bitcoin Core has never produced a clear mathematical write-up of the rules every node must enforce. Seventeen years of capable, well-funded developers on software that secures trillions of dollars, and still no formal specification. There is nothing solid to test an implementation against, and nothing to appeal to when people disagree about what the protocol permits. So fights about what Bitcoin is stay in arguments and reputation instead of settling in code.
 
 Everything also ships as one package. There is no clean way to accept part of a release and reject another part without forking the whole program. That is why a disagreement about any single change becomes a fight about the entire project. The wallet is bundled into the node for the same reason a policy dispute becomes a governance crisis. Separating wallet from node has been recognized as an improvement for over a decade and still sits undone.
 

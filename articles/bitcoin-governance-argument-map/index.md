@@ -78,7 +78,7 @@ Numbered arguments for debate and analysis. Narrative evidence, funding maps, an
 
 ## Part III. "You Can Run Whatever You Want" Is Victim-Blaming
 
-12. **The two actual paths and what each costs.** Option A: spend an inordinate amount of time and money reimplementing consensus that has never been formally specified in mathematics, and to date **no independent specification has been adopted as the operational standard the economy actually runs on**. Option B: fork Bitcoin Core and inherit 300,000 lines of monolithic code with 15 years of technical debt that Core itself is not funded enough to properly maintain. Remember the inflation bug. Remember the wallet deletion bug. Developing and maintaining production code is not free.
+12. **The two actual paths and what each costs.** Option A: spend an inordinate amount of time and money reimplementing consensus that has never been formally specified in mathematics, and to date **no independent specification has been adopted as the operational standard the economy actually runs on**. Option B: fork Bitcoin Core and inherit 300,000 lines of monolithic code with 17 years of technical debt that Core itself is not funded enough to properly maintain. Remember the inflation bug. Remember the wallet deletion bug. Developing and maintaining production code is not free.
 
 13. **Structural barriers are not philosophical.** The barrier to alternatives is real. The no-spec problem, the monolithic architecture, the maintenance burden, and the absence of funding for pure replication work combine into a structural wall. Pointing at it is not paranoia. Building an alternative proves it.
 
@@ -195,7 +195,7 @@ For the full stalled-proposals dossier and what shipping looks like from a forma
 
 25. **Wallet and node separation: 12 years, universal agreement, not done.** No opposition exists. The feature has broad consensus. It has not shipped. The bottleneck is structural, not technical.
 
-26. **UTXO set commitments: the compounding opportunity cost.** Research-complete since 2014. Would reduce initial blockchain download by approximately 98% forever rolling forward. Every new node that syncs today pays the full cost of 15 years of chain history including all spam, paying in bandwidth and storage for data that UTXO commitments would have made irrelevant a decade ago. That cost compounds with every new node, every year, permanently.
+26. **UTXO set commitments: the compounding opportunity cost.** Research-complete since 2014. Would reduce initial blockchain download by approximately 98% forever rolling forward. Every new node that syncs today pays the full cost of 17 years of chain history including all spam, paying in bandwidth and storage for data that UTXO commitments would have made irrelevant a decade ago. That cost compounds with every new node, every year, permanently.
 
 27. **Full node size is now 700GB and growing.** As of November 2025 a full node requires approximately 700GB of storage. This is not a stable cost. It increases with every block. UTXO commitments would have capped that burden for new participants. Not implementing them means each successive year of new node operators pays a cost that was solvable in 2014.
 
@@ -436,7 +436,7 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 95. **The absence of coercion is not the absence of governance.** Elinor Ostrom won the Nobel Prize in Economics for demonstrating that commons can be governed successfully through voluntary, self-organized institutions with no coercive authority whatsoever. Her work documented hundreds of cases. The question is not whether Bitcoin's governance uses coercion. The question is whether it has the properties Ostrom identified as necessary for commons governance to work: visible rules, visible decision-making, accountability to participants, and genuine alternatives. Bitcoin currently fails most of those tests.
 
-96. **Ostrom's failure modes describe Bitcoin's current situation closely.** Ostrom documented how commons fail: rules are invisible, decision-making is captured by a small group, participants cannot see who is making decisions on their behalf, and exit options are theoretical rather than practical. A small group controls what 77% of the network runs, banned critics for naming conflicts of interest, and blocked a formal spec for fifteen years. That is not friction. That is Ostrom's failure pattern.
+96. **Ostrom's failure modes describe Bitcoin's current situation closely.** Ostrom documented how commons fail: rules are invisible, decision-making is captured by a small group, participants cannot see who is making decisions on their behalf, and exit options are theoretical rather than practical. A small group controls what 77% of the network runs, banned critics for naming conflicts of interest, and blocked a formal spec for seventeen years. That is not friction. That is Ostrom's failure pattern.
 
 97. **Good governance and formalized government are not the same thing.** The goal is not foundations, steering committees, or stakeholder processes. Those are capture vectors. The goal is the same thing Ostrom's successful commons had: visible rules, visible decision-making, accountability to participants, and genuine alternatives so that exit is real rather than theoretical. That is compatible with everything Bitcoin's defenders claim to value. It is what they are not currently delivering.
 
@@ -461,7 +461,7 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 *These arguments address the endgame when sophisticated defenders concede all the material facts and argue only about the label.*
 
-98. **Conceding the facts and arguing the label is conceding the argument.** When a defender agrees that one dominant kitchen exists, that disproportionate influence is real, that critics were banned, that a formal spec was blocked for fifteen years, that switching costs are enormous, and then argues only that you should not call this governance, the substance of the argument is over. The word is now doing accountability work, not descriptive work.
+98. **Conceding the facts and arguing the label is conceding the argument.** When a defender agrees that one dominant kitchen exists, that disproportionate influence is real, that critics were banned, that a formal spec was blocked for seventeen years, that switching costs are enormous, and then argues only that you should not call this governance, the substance of the argument is over. The word is now doing accountability work, not descriptive work.
 
 99. **Unnamed influence framed as non-power.** A sophisticated defense characterizes the relevant influence as having "no name and no authority precisely so it can never become legitimate power." That is not a defense of decentralization. It is a defense of unaccountable influence: power that refuses identification refuses accountability. Unnamed power does not stay contestable. It stays invisible.
 
