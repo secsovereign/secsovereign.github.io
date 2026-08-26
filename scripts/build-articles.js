@@ -815,9 +815,12 @@ const LLMS_SECTIONS = [
       { title: 'Bitcoin Governance Research (GitHub)', url: 'https://github.com/secsovereign/bitcoin-governance-research', note: 'Quantitative PR-level analysis: merge concentration, bloc cohesion, stalled proposals (Erlay, Dandelion), conflict resolution, review access outcomes.' },
       { title: 'The Bitcoin Commons', url: 'https://thebitcoincommons.org', note: 'Alternative Bitcoin node in Rust from formal mathematical specification (BLVM).' },
       { title: 'Bitcoin Commons consensus spec', url: 'https://thebitcoincommons.org/spec.html', note: 'Formal consensus specification referenced in The Achievable Floor.' },
+      { title: 'Commons Pool', url: 'https://commonspool.org', note: 'Operatorless Bitcoin mining pool built on Bitcoin Commons (disclosed affiliation).' },
       { title: 'BitVault', url: 'https://bitvault.sv', note: 'Bitcoin custody project (disclosed affiliation).' },
-      { title: 'NovaSapien', url: 'https://novasapien.com', note: 'Bitcoin services (disclosed affiliation).' },
       { title: 'Plebly', url: 'https://plebly.fund', note: 'Open Bitcoin work funding platform (disclosed affiliation).' },
+      { title: 'Bitcoin District Podcast', url: 'https://btcdcpodcast.com', note: 'Bitcoin podcast on protocol, politics, and people in DC (disclosed affiliation).' },
+      { title: 'NovaSapien', url: 'https://novasapien.com', note: 'Bitcoin services (disclosed affiliation).' },
+      { title: 'BitDevs DMV', url: 'https://bitdevsdmv.com', note: 'Socratic seminars on Bitcoin protocol research across DC, Maryland, and Virginia (disclosed affiliation).' },
     ],
   },
 ];

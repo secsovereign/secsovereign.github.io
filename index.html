@@ -207,8 +207,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
+            flex-shrink: 0;
             color: white;
             font-weight: bold;
+        }
+
+        .card-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .blue-bg {
@@ -217,6 +226,11 @@
 
         .red-bg {
             background-color: var(--accent);
+        }
+
+        .card-icon.red-bg i {
+            font-size: 32px;
+            line-height: 1;
         }
 
         .card-content p {
@@ -584,31 +598,52 @@
             <p>For transparency, I disclose the following affiliations and holdings:</p>
             <div class="cards">
                 <div class="custom-card card-half">
-                    <div class="card-icon blue-bg">TBC</div>
+                    <div class="card-icon"><img src="/affiliations/bitcoin-commons.png" alt=""></div>
                     <div class="card-content">
                         <p class="card-title"><a href="https://thebitcoincommons.org">Bitcoin Commons / BLVM</a></p>
                         <p class="card-subtitle">Bitcoin Node</p>
                     </div>
                 </div>
                 <div class="custom-card card-half">
-                    <div class="card-icon blue-bg">BV</div>
+                    <div class="card-icon"><img src="/affiliations/commons-pool.png" alt=""></div>
+                    <div class="card-content">
+                        <p class="card-title"><a href="https://commonspool.org">Commons Pool</a></p>
+                        <p class="card-subtitle">Bitcoin Mining Pool</p>
+                    </div>
+                </div>
+                <div class="custom-card card-half">
+                    <div class="card-icon"><img src="/affiliations/bitvault.png" alt=""></div>
                     <div class="card-content">
                         <p class="card-title"><a href="https://bitvault.sv">BitVault</a></p>
                         <p class="card-subtitle">Bitcoin Custody Solution</p>
                     </div>
                 </div>
                 <div class="custom-card card-half">
-                    <div class="card-icon blue-bg">NS</div>
+                    <div class="card-icon"><img src="/affiliations/plebly.png" alt=""></div>
+                    <div class="card-content">
+                        <p class="card-title"><a href="https://plebly.fund">Plebly</a></p>
+                        <p class="card-subtitle">Open Bitcoin Work Funding</p>
+                    </div>
+                </div>
+                <div class="custom-card card-half">
+                    <div class="card-icon"><img src="/affiliations/btcdc-podcast.png" alt=""></div>
+                    <div class="card-content">
+                        <p class="card-title"><a href="https://btcdcpodcast.com">Bitcoin District Podcast</a></p>
+                        <p class="card-subtitle">Bitcoin Podcast</p>
+                    </div>
+                </div>
+                <div class="custom-card card-half">
+                    <div class="card-icon"><img src="/affiliations/novasapien.png" alt=""></div>
                     <div class="card-content">
                         <p class="card-title"><a href="https://novasapien.com">NovaSapien</a></p>
                         <p class="card-subtitle">Bitcoin Services</p>
                     </div>
                 </div>
                 <div class="custom-card card-half">
-                    <div class="card-icon blue-bg">PF</div>
+                    <div class="card-icon"><img src="/affiliations/bitdevs-dmv.png" alt=""></div>
                     <div class="card-content">
-                        <p class="card-title"><a href="https://plebly.fund">Plebly</a></p>
-                        <p class="card-subtitle">Open Bitcoin Work Funding</p>
+                        <p class="card-title"><a href="https://bitdevsdmv.com">BitDevs DMV</a></p>
+                        <p class="card-subtitle">Socratic Seminars</p>
                     </div>
                 </div>
                 <div class="custom-card card-full">
