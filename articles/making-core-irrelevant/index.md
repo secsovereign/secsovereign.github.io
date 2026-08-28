@@ -164,7 +164,7 @@ The path is two tracks at once. Implementation diversity gives institutions an a
 
 ---
 
-*Related: [Who Controls Bitcoin](/articles/bitcoin-governance), [Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification), [Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory).*
+*Related: [Who Controls Bitcoin](/articles/bitcoin-governance), [The Vertical Layer Problem](/articles/the-vertical-layer-problem), [Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification), [Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory).*
 
 ---
 

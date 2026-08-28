@@ -21,15 +21,15 @@
   </url>
   <url>
     <loc>https://secsov.com/articles/bitcoin-governance</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-08-27</lastmod>
   </url>
   <url>
     <loc>https://secsov.com/articles/bitcoin-governance-argument-map</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-08-24</lastmod>
   </url>
   <url>
     <loc>https://secsov.com/articles/bitcoin-social-capture</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-27</lastmod>
   </url>
   <url>
     <loc>https://secsov.com/articles/governance-paralysis-was-the-victory</loc>
@@ -41,7 +41,7 @@
   </url>
   <url>
     <loc>https://secsov.com/articles/what-bitcoins-stalled-proposals-tell-you</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-08-24</lastmod>
   </url>
   <url>
     <loc>https://secsov.com/articles/the-last-uncaptured-asset</loc>
@@ -61,7 +61,7 @@
   </url>
   <url>
     <loc>https://secsov.com/articles/why-bitcoin-needs-a-specification</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-08-27</lastmod>
   </url>
   <url>
     <loc>https://secsov.com/articles/bitcoins-hidden-crisis</loc>
@@ -77,11 +77,15 @@
   </url>
   <url>
     <loc>https://secsov.com/articles/the-adversarial-default</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-08-24</lastmod>
   </url>
   <url>
     <loc>https://secsov.com/articles/making-core-irrelevant</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-08-27</lastmod>
+  </url>
+  <url>
+    <loc>https://secsov.com/articles/the-vertical-layer-problem</loc>
+    <lastmod>2026-08-27</lastmod>
   </url>
   <url>
     <loc>https://secsov.com/bips/static-per-output-miner-fee</loc>

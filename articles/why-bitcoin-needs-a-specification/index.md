@@ -92,4 +92,4 @@ That is what implementation diversity actually requires. **Not a better single i
 - [Orange Paper / Bitcoin Commons consensus spec](https://thebitcoincommons.org/spec.html)
 - [Bitcoin Core repository](https://github.com/bitcoin/bitcoin)
 
-*Related: [Who Controls Bitcoin](/articles/bitcoin-governance), [Making Core Irrelevant](/articles/making-core-irrelevant), [The Achievable Floor](/articles/the-achievable-floor), [Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map), [Permanent Data Channel Closure](/bips/permanent-data-channel-closure).*
+*Related: [Who Controls Bitcoin](/articles/bitcoin-governance), [The Vertical Layer Problem](/articles/the-vertical-layer-problem), [Making Core Irrelevant](/articles/making-core-irrelevant), [The Achievable Floor](/articles/the-achievable-floor), [Bitcoin Governance: Argument Map](/articles/bitcoin-governance-argument-map), [Permanent Data Channel Closure](/bips/permanent-data-channel-closure).*
