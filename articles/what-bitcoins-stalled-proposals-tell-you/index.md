@@ -51,7 +51,11 @@ and more…
 
 Dandelion has been research-complete since 2017. The mechanism is a two-phase propagation model: transactions travel a random path through the network in the stem phase before diffusing outward, making it significantly harder for a passive observer to determine which node originated a transaction. It was never merged.
 
-The close comment on the Core implementation PR ([#13947](https://github.com/bitcoin/bitcoin/pull/13947), opened 2018-08-12 by maflcko, closed unmerged 2019-07-11) is not a vote and not a “false sense of privacy” dismissal. The author closed it on RBF and CPFP interaction plus DoS grounds, and pointed at a thinner “Dandelion Light” first step. Thirty reviews, no NACKs in the review-state field. BIP 156 status is Closed. That is a bundled wallet-and-node problem, not a privacy-philosophy problem. Dandelion still reduces leakage to passive network observers. The stall the record supports is that nobody picked it up in the seven years since. See [`findings/ARCHIVE_GEMS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/ARCHIVE_GEMS.md).
+The close comment on the Core implementation PR ([#13947](https://github.com/bitcoin/bitcoin/pull/13947), opened 2018-08-12 by maflcko, closed unmerged 2019-07-11) is author-close, not an external veto. The author, a maintainer, cited RBF and CPFP interaction plus DoS vectors, and pointed at a thinner “Dandelion Light” first step. Thirty reviews, no NACKs in the review-state field. BIP 156 status is Closed.
+
+The stated grounds do not hold. Stempool DoS is manageable with rate limiting and size constraints. The RBF and CPFP interaction was an engineering problem, not an impossibility. Monero has run Dandelion++ in production since 2020. The strongest honest objection was never DoS. It was propagation latency, one to one and a half minutes versus seconds, which the closure folded into the DoS framing rather than stating directly. That latency is load-bearing for the privacy guarantee, not a defect.
+
+Tor became the ambient fallback without Core formally endorsing it or subjecting it to comparable scrutiny, despite documented DoS and Sybil exposure of its own. Seven years later nobody has picked Dandelion back up. That is a priority decision dressed as a technical one. See [`findings/ARCHIVE_GEMS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/ARCHIVE_GEMS.md).
 
 What eventually landed in Core was private broadcast, merged years after Dandelion was first proposed. Private broadcast protects your IP from the specific peer you connect to. That is a narrower threat model. Both are useful. They are not substitutes, and private broadcast landing does not close the Dandelion argument.
 
@@ -139,11 +143,15 @@ Cryptographic merge authorization is designed and stays off until security revie
 
 ## The Proof
 
-The bottleneck was never engineering. The Dandelion papers are published. The UTXO commitment schemes are fully specified. Erlay has years of development behind it. Formal verification tooling exists and works. Dandelion's DoS and RBF interaction and Erlay's measurement dispute are real technical objections, not strawmen. The structure has no mechanism to resolve a measurement dispute, so the proposal dies. Seven years for Dandelion. Five for Erlay. That is a structural claim, not a claim about the quality of the opposition.
+The bottleneck was never engineering. The Dandelion papers are published. The UTXO commitment schemes are fully specified. Erlay has years of development behind it. Formal verification tooling exists and works.
+
+Erlay's measurement dispute is a real technical objection. The structure has no mechanism to resolve it, so the bandwidth protocol dies. Five years later it is still unmerged.
+
+Dandelion's close cited DoS and RBF. Those grounds do not hold. Seven years of nobody picking it up is a priority decision dressed as a technical one.
 
 The stalled list shares a governance structure that cannot process improvements when the coordination cost exceeds the threshold the structure can clear, or when the improvement threatens the institutional position of the people whose funding depends on the status quo. An authorship Gini of 0.851 across 17 years of commit data is not an accident. It is the predictable output of a system where access to merge authority is controlled by a small group with aligned institutional interests and no formal accountability to the node operators running the software.
 
-The conservative governance argument has merit for consensus changes. It has no application to a P2P privacy proposal sitting unmerged for years after its own author closed it on technical grounds, with nobody picking it up. At some point the distinction between intentional conservatism and structural paralysis requires evidence, and the evidence is the list.
+The conservative governance argument has merit for consensus changes. It has no application to a P2P privacy proposal sitting unmerged for seven years after a priority decision dressed as a technical close. At some point the distinction between intentional conservatism and structural paralysis requires evidence, and the evidence is the list.
 
 Bitcoin is the only monetary network in history not ultimately controlled by a state. That property is fragile. It depends on the network remaining genuinely decentralized at every layer, including the software layer. A network where one development team controls the only production-grade node implementation, where that team’s funding flows from a handful of grant organizations, and where the protocol definition exists only as the emergent behavior of that team’s codebase is not decentralized at the software layer. It is a single point of failure dressed in the language of decentralization.
 
