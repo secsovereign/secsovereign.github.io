@@ -22,7 +22,9 @@ In March 2014 Gavin Andresen stood at Princeton and named both layers. Technical
 
 Protocol consensus is the set of validation rules every node enforces: subsidy, proof of work, script, block structure. No maintainer can change those rules by merging a pull request. The network either takes a new rule or it does not. Shipping a release is not rewriting those rules. The people who write the default still govern what new operators download.
 
-Social coordination is who may merge, who may stall, and how a fight about the software is settled. Consensus-adjacent work sits between those layers. It does not rewrite the money rules, and it still requires coordinated adoption across developers, miners, and economic nodes. A security patch that operators must take is in that middle. A wallet fight that ships in the default node is in that middle. Treating those fights as if they were changes to the 21 million cap is how they become governance crises.
+Social coordination is who may merge, who may stall, and how a fight about the software is settled. Consensus-adjacent work sits between those layers. It does not rewrite the money rules, and it still requires coordinated adoption across developers, miners, and economic nodes. A security patch that operators must take is in that middle.
+
+A wallet fight that ships in the default node is in that middle because the money rules and the extras share a binary. Treating that fight as a change to the 21 million cap is the miss.
 
 Core is one implementation. Bitcoin is the protocol. A second client that validates the same rules, talks to the same peers, and accepts the same blocks is still Bitcoin. Age does not decide that. Compatibility does. The longer write-up of why the social layer can be taken over without rewriting consensus is *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture)*.
 

@@ -54,7 +54,9 @@ DCG owns Foundry, the largest pool, and also owns Grayscale, the largest Bitcoin
 
 Miner campaigns without the entities that actually hold value show preference. They do not move the protocol. Protocol changes stick when the economic majority enforces them, because that is when refusing costs money. SegWit succeeded in 2017 not because miners wanted it but because economic nodes made non-compliance dangerous. A hashrate campaign that never gets that pressure fails even when the technical case is sound. People read those failures as hashrate problems. They are economic majority problems.
 
-Hashrate matters. Pool decentralization matters. Neither moves the protocol unless economically significant nodes adopt the change. Push miners first and you get a preference poll, not a rule change. Implementation diversity is the precondition. Everything else waits on it. Consensus is the small part of a node. Close to 90% is not consensus. Wallet, policy, networking, index, RPC, and mempool sit in that remainder. A Core-derived client can change what it forwards. Knots did. It does not rewrite wallet, networking, and the rest of that surface as a separately designed program. A separately written client can, but only if it can prove it still enforces the same money rules. That proof is what the spec makes possible. That is why the moat dissolves when the spec exists.
+Hashrate matters. Pool decentralization matters. Neither moves the protocol unless economically significant nodes adopt the change. Push miners first and you get a preference poll, not a rule change.
+
+Implementation diversity is the precondition. Everything else waits on it. Consensus is the small part of a node. Close to 90% is not consensus. Wallet, policy, networking, index, RPC, and mempool sit in that remainder. A Core-derived client can change what it forwards. Knots did. It does not rewrite wallet, networking, and the rest of that surface as a separately designed program. A separately written client can, but only if it can prove it still enforces the same money rules. That proof is what the spec makes possible. That is why the moat dissolves when the spec exists.
 
 ---
 

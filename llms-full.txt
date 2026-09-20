@@ -28,7 +28,11 @@
 
 This is a **structured taxonomy**: for many demographic slices, it lists **plausible reasons** Bitcoin might resonate. It is **not** a weighted statistical study. There is no claim here that each bullet is true for a majority of that group, or that the sections are equally important in the real economy.
 
-**Why that matters.** Real adoption is skewed by access, regulation, culture, wealth, and self-selection. Surveys that ask about “cryptocurrency” often **mix Bitcoin with altcoins**; on-the-ground usage (P2P, remittance, savings) may not show up cleanly in household surveys. Treat the lists below as **hypotheses and narratives** worth testing against data, not as established facts per segment. This document maps plausible appeal vectors. It does not measure them. When a slice lists 401k or index integration as the appeal, that is a real entry vector. It is not Stage One monetary sovereignty. The 401k remains inside the extraction accounting in [The_SP500_Sleight_of_Hand.md](../../03-analytical/capture-apparatus/The_SP500_Sleight_of_Hand.md).
+**Why that matters.** Treat the lists below as **hypotheses and narratives** worth testing against data, not as established facts per segment. This document maps plausible appeal vectors. It does not measure them.
+
+Surveys that ask about “cryptocurrency” often **mix Bitcoin with altcoins**. On-the-ground usage (P2P, remittance, savings) may not show up cleanly in household surveys. Real adoption is also skewed by access, regulation, culture, wealth, and self-selection.
+
+When a slice lists 401k or index integration as the appeal, that is a real entry vector. It is not Stage One monetary sovereignty. The 401k remains inside the extraction accounting in [The_SP500_Sleight_of_Hand.md](../../03-analytical/capture-apparatus/The_SP500_Sleight_of_Hand.md).
 
 ## Introduction
 
@@ -942,7 +946,9 @@ The funding map creates layered conflicts of interest that are rarely disclosed 
 
 When these conflicts are named in public forums, critics are moderated off. That is not incidental but the behavior of a power structure defending itself. The combination of undisclosed conflicts, concentrated authority, and active suppression of critics is what a capturable architecture looks like in use.
 
-The consequence is paralysis and, when paralysis fails to protect institutional interests, directed action. When the governance structure cannot process improvements that threaten the interests of the institutions funding it, those improvements die in review. [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) documents the pattern in named dossiers: Erlay's full-protocol implementation set shows **0/7** matched PRs merged (scaffolding merges are not delivery; the open thread is a measurement fight, not silence); Dandelion's Core implementation PR closed unmerged after roughly eleven months because stem routing collided with the wallet's own RBF/CPFP and DOS surface ([`findings/STALLED_PROPOSALS_REPORT.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/STALLED_PROPOSALS_REPORT.md), [`findings/ARCHIVE_GEMS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/ARCHIVE_GEMS.md)). When the governance structure can be moved to serve those interests (as in the OP_RETURN uncap, commissioned without disclosure by a Chaincode engineer and merged by a Chaincode employee over 21 Concept NACKs) it moves in weeks. **The same structure that stalled a qualified contributor's maintainer nomination for five months through undisclosed private consultations merged the OP_RETURN uncap in 38 days from mailing list post to merge.** The 56% merge concentration is no longer an estimate. It is published by Brink in its own Engineering Impact Report. Stagnation on throughput, node cost, and payment-layer competitiveness created space centralized alternatives were happy to fill. Stablecoin transaction volume now exceeds Visa annually. Those are use cases Bitcoin should own. The governance structure left Bitcoin effectively unable to compete for them.
+The consequence is paralysis and, when paralysis fails to protect institutional interests, directed action. When the governance structure cannot process improvements that threaten the interests of the institutions funding it, those improvements die in review. [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) documents the pattern in named dossiers: Erlay's full-protocol implementation set shows **0/7** matched PRs merged (scaffolding merges are not delivery; the open thread is a measurement fight, not silence); Dandelion's Core implementation PR closed unmerged after roughly eleven months because stem routing collided with the wallet's own RBF/CPFP and DOS surface ([`findings/STALLED_PROPOSALS_REPORT.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/STALLED_PROPOSALS_REPORT.md), [`findings/ARCHIVE_GEMS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/ARCHIVE_GEMS.md)). When the governance structure can be moved to serve those interests (as in the OP_RETURN uncap, commissioned without disclosure by a Chaincode engineer and merged by a Chaincode employee over 21 Concept NACKs) it moves in weeks. **The same structure that stalled a qualified contributor's maintainer nomination for five months through undisclosed private consultations merged the OP_RETURN uncap in 38 days from mailing list post to merge.** The 56% merge concentration is no longer an estimate. It is published by Brink in its own Engineering Impact Report.
+
+Stagnation on throughput, node cost, and payment-layer competitiveness created space centralized alternatives were happy to fill. Stablecoin transaction volume now exceeds Visa annually. Those are use cases Bitcoin should own. The governance structure left Bitcoin effectively unable to compete for them.
 
 Implementation diversity is the structural fix, not a personnel change at Core. **Swapping one small maintainer cohort for another** without changing the monopoly implementation reproduces the same capture vector. For why that shape reconstructs itself from professional habit rather than from who occupies the seats, see *[The Vertical Layer Problem](/articles/the-vertical-layer-problem)*. The fix requires multiple independent implementations with proven consensus compatibility and different governance models, built from formal specifications that make the no-spec moat obsolete. That is not a small ask but exactly as hard as the governance problem predicts it would be.
 
@@ -2050,7 +2056,7 @@ The Missing Specification. Bitcoin Core has never produced an independent mathem
 
 This is not an accident that nobody got around to fixing but a condition that has been actively maintained. The response to calls for a formal specification has been consistent. The code is the spec. Bitcoin is too complex to specify formally. Any written spec would inevitably diverge from the implementation. Each of these objections has the same practical effect, which is keeping the no-spec condition in place, keeping Core as the sole authority on what the rules actually are, and making it structurally impossible for any independent implementation to prove consensus compatibility without deferring to Core.
 
-Without a specification, any alternative implementation must reverse-engineer undocumented behavior from Core itself. Core stays the thing you check against, even when the other program is built differently. When a consensus-critical behavior changes in Core, an independently written client that wasn’t tracking that specific change becomes a chain split risk. Following Core closely is the safe path, which is why most serious attempts stay Core forks. Independently written clients exist, and they fail as a check for other reasons. This is why the “just fork it” response to governance criticism is a non-answer. A Core fork inherits the same undocumented behavior, the same 300,000 lines of technical debt, and the same capture vectors. The governance problem follows the code.
+Without a specification, any alternative implementation must reverse-engineer undocumented behavior from Core itself. Core stays the thing you check against, even when the other program is built differently. When a consensus-critical behavior changes in Core, an independently written client that wasn’t tracking that specific change becomes a chain split risk. Following Core closely is the safe path, which is why most serious attempts stay Core forks. Independently written clients exist. btcd keeps diverging. libbitcoin exists and the ecosystem cannot use it without being rebuilt. This is why the “just fork it” response to governance criticism is a non-answer. A Core fork inherits the same undocumented behavior, the same 300,000 lines of technical debt, and the same capture vectors. The governance problem follows the code.
 
 This is why no independently written client has been a real check for 17 years, not because writing one is impossible but because the no-spec condition makes proving consensus compatibility structurally impossible without deferring to Core. The moat protecting Core’s position is not technical excellence. It is the absence of a document. libbitcoinkernel, the project intended to extract Core’s consensus logic into a reusable library, confirms rather than refutes this. The proposed solution to implementation monoculture is having every other implementation run Core’s code. That is not diversity. That is a franchise.
 
@@ -2062,7 +2068,9 @@ Wallet and Node Separation has had universal conceptual agreement since GitHub i
 
 When one implementation sets policy defaults for the entire network, every policy disagreement becomes an all-or-nothing fight for control of what that implementation ships. The OP_RETURN debate was not about 80 bytes. The mempool policy fights, the dust limit arguments, the RBF debates are structurally identical, civil wars over a throne that exists only because there is one throne to capture.
 
-The OP_RETURN debate is worth dwelling on because it illustrates the mechanism precisely. Bitcoin Core merged a change in 2025 raising the default OP_RETURN data limit, a relay policy decision with no consensus implications. Operators who disagreed had no meaningful recourse inside the Core process. For many, the only way to enforce a different policy was to run different software. That is what they did. In 2025 Knots, a Core fork with stricter defaults, went from under 2% to roughly 20% of the reachable network in the months following the merge. That was a policy switch on Bitcoin, still Core's code. A five-fold move in reachable nodes driven by a relay policy disagreement. Policy does not bind miners who bypass relay. The 83-byte cap belongs at consensus; that is *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*.
+The OP_RETURN debate is worth dwelling on because it illustrates the mechanism precisely. Bitcoin Core merged a change in 2025 raising the default OP_RETURN data limit, a relay policy decision with no consensus implications. Operators who disagreed had no meaningful recourse inside the Core process. For many, the only way to enforce a different policy was to run different software. That is what they did. In 2025 Knots, a Core fork with stricter defaults, went from under 2% to roughly 20% of the reachable network in the months following the merge. That was a policy switch on Bitcoin, still Core's code. A five-fold move in reachable nodes driven by a relay policy disagreement.
+
+Policy does not bind miners who bypass relay. The 83-byte cap belongs at consensus; that is *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*.
 
 The demand for policy plurality was always there. The monoculture was suppressing it. When a conservative alternative presented itself, a significant fraction of the network moved to it immediately.
 
@@ -2246,6 +2254,8 @@ The playbook runs in this order because each step is more politically costly tha
 
 
 
+
+
 ---
 
 ## IV. Why Hard Assets Were Always the Refuge, and Always Failed
@@ -2283,6 +2293,8 @@ Every hard asset, without exception, has a physical location or a jurisdictional
 
 
 
+
+
 ---
 
 ## V. The Property That Changes Everything
@@ -2299,7 +2311,7 @@ Most importantly, it is potentially self-custodied. A private key is a number. A
 
 These three properties together describe something that has never existed before in monetary history: **a scarce asset that can be held without a physical location, transferred without a financial intermediary, and potentially kept beyond the reach of any state actor.** Whether that theoretical potential survives contact with the actual systems humans have built around Bitcoin is a different question. The asset can still be uncaptured while the access layer is not.
 
-Sound money and privacy are layers of one stack, not two projects. Bearer settlement at the base means a payment can complete without identity, without a trusted middleman, and without a reversible record the issuer can unwind. Self-custody is that layer. It does not make the transaction graph private. Chain analysis can reconstruct who paid whom from the ledger even when the legal name behind a key is still unknown. Transaction-graph privacy is the next layer. Coin control, collaborative transactions, and off-chain payments shift cost. They do not finish the job. Communications, identity compartment, and the physical last mile sit above that. A missing layer leaks the ones above it. Perfect encrypted chat still hands the adversary a map the moment a payment is traceable to you. Self-custody on a fully identified on-ramp still hands them the access layer described in §IX. Vocabulary for disclosure, secrecy, and anonymity is in [Privacy_Disclosure_Control.md](Privacy_Disclosure_Control.md).
+Sound money and privacy are layers of one stack, not two projects. Self-custody is bearer settlement at the base. It does not make the transaction graph private. Chain analysis can reconstruct who paid whom from the ledger even when the legal name behind a key is still unknown. Vocabulary for disclosure, secrecy, and anonymity is in [Privacy_Disclosure_Control.md](Privacy_Disclosure_Control.md).
 
 ---
 
@@ -2309,7 +2321,9 @@ The rules that define Bitcoin are not the same thing as the system that implemen
 
 Mining is the process by which transactions are confirmed and new blocks are added to the chain. Miners are not abstract participants. They are companies running data centers, consuming electricity purchased from utilities in specific jurisdictions, operating hardware manufactured in a handful of facilities globally. The geographic distribution of mining hashrate has shifted over time, but significant concentrations exist in western jurisdictions including the United States. **A dominant mining pool within reach of a sufficiently determined government is not a theoretical vulnerability. It is an operational one.**
 
-Software development is more concentrated still. Bitcoin Core, the dominant implementation of the Bitcoin protocol, is maintained by a small number of developers who are identifiable, located primarily in western jurisdictions, and reachable through ordinary legal process. The repository lives on GitHub, an American company subject to American law. The communication channels where development decisions are made are monitored and archived. **There is no anonymity in the Bitcoin Core developer community worth speaking of.** If those people fold under legal or personal pressure, the software layer folds regardless of what the cryptography says. Cheap governance exit on the same chain is what makes that pressure fail. That is the Vertical Layer problem, not a claim that more implementors will automatically resist.
+Software development is more concentrated still. Bitcoin Core, the dominant implementation of the Bitcoin protocol, is maintained by a small number of developers who are identifiable, located primarily in western jurisdictions, and reachable through ordinary legal process. The repository lives on GitHub, an American company subject to American law. The communication channels where development decisions are made are monitored and archived. **There is no anonymity in the Bitcoin Core developer community worth speaking of.** If those people fold under legal or personal pressure, the software layer folds regardless of what the cryptography says.
+
+Cheap governance exit on the same chain is what makes that pressure fail. That is *[The Vertical Layer Problem](/articles/the-vertical-layer-problem)*, not a claim that more implementors will automatically resist.
 
 Node operators are the network's validators, the participants who enforce the rules and reject blocks that violate them. Running a node is the deepest form of participation in the network's consensus. But node operators are also individuals running software on hardware connected to the internet in physical locations. The jurisdictional reach problem applies to them as directly as it applies to miners.
 
@@ -2410,11 +2424,14 @@ The fight is usually about consensus capture, forking risk, and who decides whic
 
 Set politics aside. If consensus could change freely, how much non-monetary data could rules actually eliminate, and where is the hard floor?
 
-Spam has a workable definition. A spam transaction does not settle money, and it imposes lasting costs on every validating node. Lightning channel opens and closes settle money. Timelocked outputs and multisig setups settle money. A JPEG stuffed into a Taproot envelope does not. That follows from how Bitcoin works: every validating node must process the full chain history to know current balances. Using the payment layer as a cheap bulk data store pushes costs onto a network built for transfers, not file hosting. For the full case against non-monetary embedding, see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*. Demanding a definition that can never be met is not a technical objection.
+Spam has a workable definition. A spam transaction does not settle money, and it imposes lasting costs on every validating node. Lightning channel opens and closes settle money. Timelocked outputs and multisig setups settle money. A JPEG stuffed into a Taproot envelope does not. That follows from how Bitcoin works: every validating node must process the full chain history to know current balances. Using the payment layer as a cheap bulk data store pushes costs onto a network built for transfers, not file hosting. For the full case against non-monetary embedding, see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*.
+
+Demanding a definition that can never be met is not a technical objection.
 
 ## II. Taxonomy of Channels by Cost
 
 Non-monetary data can enter blocks through several different fields and transaction shapes. Those paths are not equally cheap. The ladder below ranks them by what it costs the person embedding the data.
+
 
 <figure class="article-chart chart-flowchart" role="img" aria-label="Channel cost ladder from free to dedicated embedding channels">
 <div class="flowchart-ladder" aria-hidden="true">
@@ -2429,6 +2446,10 @@ Non-monetary data can enter blocks through several different fields and transact
   <span class="flow-node">Dedicated</span>
 </div>
 </figure>
+
+
+
+
 
 *Figure: Channel cost ladder. Consensus can close dedicated and unenforced paths without breaking normal payments.*
 
@@ -2457,6 +2478,29 @@ Undefined witness versions and OP_SUCCESS opcodes are upgrade hooks. Consensus t
 **Dedicated channels** exist to carry data, or hold large script blobs with no payment meaning.
 
 `OP_RETURN` is an output that cannot be spent. Core v30 relay policy allows up to 100,000 bytes of `OP_RETURN` data per transaction, across multiple outputs. Consensus itself places no byte limit. In June 2023, PR #27832 narrowed the documented meaning of `-datacarriersize` so it covered only `scriptPubKey` outputs, not witness or inscription fields. Core v30 then removed the relay cap entirely in 2025. Separately, the Taproot envelope hides data inside an `OP_FALSE OP_IF` branch that never runs. SegWit's witness discount and Taproot's removal of the old 10,000 byte script ceiling made large envelope payloads practical.
+
+
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Consensus measure</th><th>Channel closed</th><th>Independent soft fork?</th></tr>
+</thead>
+<tbody>
+<tr class="close-yes"><td>OP_RETURN hard byte cap</td><td>Dedicated (OP_RETURN outputs)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Taproot envelope push cap</td><td>Dedicated (OP_FALSE OP_IF branches)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Witness version restriction</td><td>Unenforced (OP_SUCCESS hooks)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Annex disallow or cap</td><td>Unenforced (Taproot annex)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Control block size cap</td><td>Unenforced (deep Merkle path hiding)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Per-output miner fee</td><td>Low-value UTXO spam (output count)</td><td>Yes</td></tr>
+<tr class="close-partial"><td>UTXO set commitments</td><td>Permanent storage burden for data already on chain (§V)</td><td>Parallel; not required for §III caps</td></tr>
+</tbody>
+</table>
+<figcaption>Closable measures. First five rows: <a href="/bips/permanent-data-channel-closure">Permanent Data Channel Closure</a>. Per-output fee: <a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a> plus optional <a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation</a>. Commitments remain a parallel track (§V). §IV fields omitted because monetary design requires them.</figcaption>
+</figure>
+
+
+
+
 
 <figure class="article-chart">
 <table class="chart-matrix">
@@ -2490,23 +2534,11 @@ A consensus per-output miner fee makes creating many outputs expensive. Unlike a
 
 The rows below close dedicated and unenforced embedding channels. **§V addresses data already on chain** through UTXO set commitments (less UTXO state to store). That layer is independent of the caps here. Initial block download still carries the full history; AssumeValid does not remove that cost.
 
-<figure class="article-chart">
-<table class="chart-matrix">
-<thead>
-<tr><th>Consensus measure</th><th>Channel closed</th><th>Independent soft fork?</th></tr>
-</thead>
-<tbody>
-<tr class="close-yes"><td>OP_RETURN hard byte cap</td><td>Dedicated (OP_RETURN outputs)</td><td>Yes</td></tr>
-<tr class="close-yes"><td>Taproot envelope push cap</td><td>Dedicated (OP_FALSE OP_IF branches)</td><td>Yes</td></tr>
-<tr class="close-yes"><td>Witness version restriction</td><td>Unenforced (OP_SUCCESS hooks)</td><td>Yes</td></tr>
-<tr class="close-yes"><td>Annex disallow or cap</td><td>Unenforced (Taproot annex)</td><td>Yes</td></tr>
-<tr class="close-yes"><td>Control block size cap</td><td>Unenforced (deep Merkle path hiding)</td><td>Yes</td></tr>
-<tr class="close-yes"><td>Per-output miner fee</td><td>Low-value UTXO spam (output count)</td><td>Yes</td></tr>
-<tr class="close-partial"><td>UTXO set commitments</td><td>Permanent storage burden for data already on chain (§V)</td><td>Parallel; not required for §III caps</td></tr>
-</tbody>
-</table>
-<figcaption>Closable measures. First five rows: <a href="/bips/permanent-data-channel-closure">Permanent Data Channel Closure</a>. Per-output fee: <a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a> plus optional <a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation</a>. Commitments remain a parallel track (§V). §IV fields omitted because monetary design requires them.</figcaption>
-</figure>
+
+*Closable measures. First five rows: Permanent Data Channel Closure. Per-output fee: Static Per-Output Miner Fee plus optional Dynamic Escalation. Commitments remain a parallel track (§V). §IV fields omitted because monetary design requires them.*
+
+
+
 
 <figure class="article-chart chart-flowchart" role="img" aria-label="Consensus-closable channels versus the irreducible embedding floor">
 <div class="flowchart-layers" aria-hidden="true">
@@ -2523,6 +2555,10 @@ The rows below close dedicated and unenforced embedding channels. **§V addresse
   </div>
 </div>
 </figure>
+
+
+
+
 
 *Figure: §III closes OP_RETURN, envelope, annex, control block, and per-output fee. §IV fields cannot.*
 
@@ -2576,6 +2612,7 @@ That is a per-block validation rate limit, not a verdict on what the capacity is
 
 The same ceiling is the monetary settlement budget. Blocks at 91 to 97% full with a large non-financial share are non-monetary demand competing for scarce payment capacity, not harm already contained. BIP141 makes the bound asymmetric: witness bytes cost one weight unit and non-witness bytes cost four, so envelope payloads buy more raw data per weight unit than base-transaction payment data. Weight also rate-limits new outputs per block without forcing never-spent spam UTXOs out of the set afterward. The inscription-related UTXO share above is bounded rate with unbounded accumulation of the wrong state.
 
+
 <figure class="article-chart">
 <table class="chart-matrix">
 <thead>
@@ -2591,6 +2628,10 @@ The same ceiling is the monetary settlement budget. Blocks at 91 to 97% full wit
 <figcaption>Block weight is a DoS bound on one block, not a verdict that filling it with non-monetary data is acceptable.</figcaption>
 </figure>
 
+
+
+
+
 The weight limit answers whether one block can overwhelm a node. The spam problem asks who permanently pays bandwidth, disk, and UTXO set for non-monetary state. Those are different threats. For the same point as a justification failure, see *[Bitcoin Is Not a Hard Drive, §VI](/articles/bitcoin-not-a-hard-drive#vi-the-justifications-and-their-failures)*.
 
 **Cost per embedded byte.** The figures below are structural arithmetic from §II channel sizes, BIP141 weight rules, and Core v30 relay defaults. They are not a measurement of the live chain.
@@ -2602,6 +2643,11 @@ The weight limit answers whether one block can overwhelm a node. The spam proble
 **Bytes used.** An `OP_RETURN` with a 1,024-byte push is 1,039 vbytes (8-byte value, 3-byte varint, 1,028-byte script). P2WPKH with a 20-byte fake hash is 31 vbytes. P2TR with a 32-byte fake pubkey is 43 vbytes. Envelope at 1,024 witness payload bytes is 43 vbytes of output plus 256 vbytes of witness (wrapper and spend overhead omitted; full minimal spend ≈377 vbytes).
 
 **After closing dedicated channels.** Dust defaults at 3 sat/vbyte (`DUST_RELAY_TX_FEE = 3000` sat/kvB) are 294 sat for P2WPKH-shaped outputs and 330 sat for P2TR-shaped. `OP_RETURN` outputs are zero-value and omitted. Dedicated rows show fee cost only; hash and pubkey rows add the dust floor because embedding creates spendable-looking outputs.
+
+
+*BIP141 accounting, Core v30 `-datacarriersize` (100k), dust at 3 sat/vB. Fee columns: (vbytes × rate + dust where applicable) ÷ payload bytes.*
+
+
 
 <figure class="article-chart">
 <table class="chart-matrix">
@@ -3153,7 +3199,9 @@ The consensus rules that secure a multi-trillion-dollar network exist only as be
 
 This has worked so far because Bitcoin's growth in economic importance has outpaced the scrutiny that importance attracts. That is changing. When a court needs to understand whether a transaction was valid under the consensus rules at a given block height, there is no document to hand them. When a new implementation team wants to be sure they are building the same rules as Core, there is no specification to target. When an auditor wants to verify that a proposed soft fork does not break existing guarantees, there is no formal description of what those guarantees are.
 
-The absence of a specification is not a minor gap. **It is the foundational vulnerability that every other correctness problem in Bitcoin builds on.** It also inflates social conflict: questions with technical answers stay in the social layer indefinitely, and the noise degrades the signal from genuine threat detection. For why that noise-floor problem is an argument for a formal spec without asking Bitcoin to soften its adversarial register, see *[The Adversarial Default, §IV](/articles/the-adversarial-default#iv-the-inflation-problem)*.
+The absence of a specification is not a minor gap. **It is the foundational vulnerability that every other correctness problem in Bitcoin builds on.**
+
+The missing spec also keeps technical questions in the social layer indefinitely, and the noise degrades the signal from genuine threat detection. For why that noise-floor problem is an argument for a formal spec without asking Bitcoin to soften its adversarial register, see *[The Adversarial Default, §IV](/articles/the-adversarial-default#iv-the-inflation-problem)*.
 
 ## Three Responses to the Same Problem
 
@@ -3252,7 +3300,9 @@ In March 2014 Gavin Andresen stood at Princeton and named both layers. Technical
 
 Protocol consensus is the set of validation rules every node enforces: subsidy, proof of work, script, block structure. No maintainer can change those rules by merging a pull request. The network either takes a new rule or it does not. Shipping a release is not rewriting those rules. The people who write the default still govern what new operators download.
 
-Social coordination is who may merge, who may stall, and how a fight about the software is settled. Consensus-adjacent work sits between those layers. It does not rewrite the money rules, and it still requires coordinated adoption across developers, miners, and economic nodes. A security patch that operators must take is in that middle. A wallet fight that ships in the default node is in that middle. Treating those fights as if they were changes to the 21 million cap is how they become governance crises.
+Social coordination is who may merge, who may stall, and how a fight about the software is settled. Consensus-adjacent work sits between those layers. It does not rewrite the money rules, and it still requires coordinated adoption across developers, miners, and economic nodes. A security patch that operators must take is in that middle.
+
+A wallet fight that ships in the default node is in that middle because the money rules and the extras share a binary. Treating that fight as a change to the 21 million cap is the miss.
 
 Core is one implementation. Bitcoin is the protocol. A second client that validates the same rules, talks to the same peers, and accepts the same blocks is still Bitcoin. Age does not decide that. Compatibility does. The longer write-up of why the social layer can be taken over without rewriting consensus is *[The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture)*.
 
@@ -3672,7 +3722,9 @@ Bitcoin maximalists call scams early and loudly, in exactly the tone critics say
 
 [MIT Sloan](https://mitsloan.mit.edu/cfi/anatomy-a-run-terra-luna-crash) estimates the Terra ecosystem collapsed in three days in May 2022 and wiped out about $50 billion in value. Reporting at the time put the Terra/Luna wipe near $45 billion overnight. FTX took customer deposits trusted to an exchange whose founder [Fortune had put on its cover](https://fortune.com/2022/08/01/ftx-crypto-sam-bankman-fried-interview/) as a possible "next Warren Buffett," then went bankrupt in November 2022. The [SEC](https://www.sec.gov/news/press-release/2022-219) later charged that customer funds had been diverted to Alameda without disclosure. Celsius, Voyager, and BlockFi followed the same pattern at smaller scales. The [Chicago Fed](https://www.chicagofed.org/publications/chicago-fed-letter/2023/479) documents withdrawal freezes and bankruptcies across those platforms, with hundreds of thousands of customers owed in each filing.
 
-**The hard stance is a warning system.** When it is loud and consistent, it is harder to run a project that borrows Bitcoin's credibility. When it softens, the warning gets weaker, and ordinary investors pay. Destroyed savings and retirement funds are not abstract. After Terra, reporting documented people describing total loss and mental-health crisis, including thoughts of suicide on public forums ([Time](https://time.com/6177567/terra-ust-crash-crypto/); [Al Jazeera](https://www.aljazeera.com/economy/2022/5/20/after-terra-crash-investors-and-regulators-count-cost-of-crypto)). Those costs fall on people who never asked for a friendlier culture. The same pattern shows up when famous names replace checking the work: reputation becomes cover.
+**The hard stance is a warning system.** When it is loud and consistent, it is harder to run a project that borrows Bitcoin's credibility. When it softens, the warning gets weaker, and ordinary investors pay. Destroyed savings and retirement funds are not abstract. After Terra, reporting documented people describing total loss and mental-health crisis, including thoughts of suicide on public forums ([Time](https://time.com/6177567/terra-ust-crash-crypto/); [Al Jazeera](https://www.aljazeera.com/economy/2022/5/20/after-terra-crash-investors-and-regulators-count-cost-of-crypto)). Those costs fall on people who never asked for a friendlier culture.
+
+The same pattern shows up when famous names replace checking the work. That is *[Don't Trust, Verify](/articles/dont-trust-verify)*.
 
 ---
 
@@ -3799,7 +3851,9 @@ DCG owns Foundry, the largest pool, and also owns Grayscale, the largest Bitcoin
 
 Miner campaigns without the entities that actually hold value show preference. They do not move the protocol. Protocol changes stick when the economic majority enforces them, because that is when refusing costs money. SegWit succeeded in 2017 not because miners wanted it but because economic nodes made non-compliance dangerous. A hashrate campaign that never gets that pressure fails even when the technical case is sound. People read those failures as hashrate problems. They are economic majority problems.
 
-Hashrate matters. Pool decentralization matters. Neither moves the protocol unless economically significant nodes adopt the change. Push miners first and you get a preference poll, not a rule change. Implementation diversity is the precondition. Everything else waits on it. Consensus is the small part of a node. Close to 90% is not consensus. Wallet, policy, networking, index, RPC, and mempool sit in that remainder. A Core-derived client can change what it forwards. Knots did. It does not rewrite wallet, networking, and the rest of that surface as a separately designed program. A separately written client can, but only if it can prove it still enforces the same money rules. That proof is what the spec makes possible. That is why the moat dissolves when the spec exists.
+Hashrate matters. Pool decentralization matters. Neither moves the protocol unless economically significant nodes adopt the change. Push miners first and you get a preference poll, not a rule change.
+
+Implementation diversity is the precondition. Everything else waits on it. Consensus is the small part of a node. Close to 90% is not consensus. Wallet, policy, networking, index, RPC, and mempool sit in that remainder. A Core-derived client can change what it forwards. Knots did. It does not rewrite wallet, networking, and the rest of that surface as a separately designed program. A separately written client can, but only if it can prove it still enforces the same money rules. That proof is what the spec makes possible. That is why the moat dissolves when the spec exists.
 
 ---
 
@@ -3954,13 +4008,17 @@ The path is two tracks at once. Implementation diversity gives institutions an a
 
 Bitcoin cannot be governed like Linux. A dictator is a good way to ship a kernel, and a bad way to write Bitcoin's node software, even when the people who write it are competent and the code is good.
 
-Bitcoin's consensus layer is horizontal. Every node checks blocks on its own, and no node can force another to take a bad one. The software that implements those rules is written by a hierarchy, and replacing the people who can merge, or making those people more accountable, leaves the hierarchy in place. A title cannot be what lets someone merge.
+Bitcoin's consensus layer is horizontal. Every node checks blocks on its own, and no node can force another to take a bad one. The software that implements those rules is written by a hierarchy, and replacing the people who can merge, or making those people more accountable, leaves the hierarchy in place.
 
 Bitcoin Core already posts ACKs on GitHub, which is not the same as the decision forming there. An ACK is a comment on a pull request. Which pull requests are going to merge is decided off GitHub, on IRC, in closed CoreDev sessions, and in Signal groups. Merge is a permission held by about five accounts on bitcoin/bitcoin. Reviewers do not have it, and one of those five ships the code.
 
-A fight about the default client should not mean leaving the chain. A Core-derived fork can leave Core's defaults and stay on Bitcoin, and it is still mostly Core's code. An independently written client, checked against a written specification rather than Core's undocumented behavior, is the missing exit.
+A fight about the default client should not mean leaving the chain.
 
-People leave the chain by changing the money rules. That has happened many times, and each time it is a new coin. Nodes stay equal even though the people who write the code never will, and that still does not entitle those people to a throne.
+A Core-derived fork can leave Core's defaults and stay on Bitcoin, and it is still mostly Core's code. An independently written client, checked against a written specification rather than Core's undocumented behavior, is the missing exit.
+
+People leave the chain by changing the money rules. That has happened many times, and each time it is a new coin.
+
+Nodes stay equal even though the people who write the code never will, and that still does not entitle those people to a throne.
 
 ---
 
@@ -3992,7 +4050,9 @@ Replacing the current contributors accomplishes nothing on its own. A different 
 
 If paid engineers really import the hierarchy, a project staffed from different backgrounds and funded differently should not reconcentrate merge authority the same way. If it still does, the workplace-habit story is wrong, and hierarchy is coming from something more basic about coordinating software.
 
-Not all of Core's structure is imported habit. Some of it was chosen on purpose. Merge access tightened after the inflation bug for stated reasons. Review culture hardened after the blocksize war as a considered response to what that conflict cost. Reluctance to touch consensus lightly is a position people hold out loud. They also decide which changes count as consensus changes, which is how a proposal gets labeled too dangerous to merge. If that label is doing real work, it should show up in what shipped and what sat. That record is *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)*. Attributing all of it to unexamined corporate reflex would be too clean. Habit set the default, and deliberate choice then reinforced it.
+Not all of Core's structure is imported habit. Some of it was chosen on purpose. Merge access tightened after the inflation bug for stated reasons. Review culture hardened after the blocksize war as a considered response to what that conflict cost. Reluctance to touch consensus lightly is a position people hold out loud. Attributing all of it to unexamined corporate reflex would be too clean. Habit set the default, and deliberate choice then reinforced it.
+
+They also decide which changes count as consensus changes, which is how a proposal gets labeled too dangerous to merge. If that label is doing real work, it should show up in what shipped and what sat. That record is *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)*.
 
 ---
 
@@ -4002,17 +4062,23 @@ Bitcoin's coordination problem is agreement among peers who do not trust each ot
 
 That check is only as good as the program doing it. The program is written by a small group. The [Commons white paper](https://thebitcoincommons.org/whitepaper.html) puts the set of people who can do consensus-critical Bitcoin work in the dozens to a few hundred worldwide. Miners and node operators are not in that set. They download a release, confirm it talks to their peers, and run it. They are trusting the maintainers and developers to have done the review they will not do themselves.
 
-"Don't trust, verify" describes what a node does with a block, not what anyone does with a release. Your node checks every block against the rules. Almost nobody checks the software that holds those rules. Other clients exist. A Core-derived fork inherits the bugs it still copies, and a separately written client has no written specification that would make a disagreement pass or fail. The trustless layer sits on a trusted one. The same gap, applied to Bitcoin Core, is *[Don't Trust, Verify](/articles/dont-trust-verify#vi-the-same-system-applied-to-bitcoin-core)*.
+"Don't trust, verify" describes what a node does with a block, not what anyone does with a release. Your node checks every block against the rules. Almost nobody checks the software that holds those rules.
+
+Other clients exist. A Core-derived fork inherits the bugs it still copies, and a separately written client has no written specification that would make a disagreement pass or fail.
+
+The trustless layer sits on a trusted one. The same gap, applied to Bitcoin Core, is *[Don't Trust, Verify](/articles/dont-trust-verify#vi-the-same-system-applied-to-bitcoin-core)*.
 
 The people who write that software are identifiable, and identifiable people can be pressured. If they fold, the software layer folds, whatever the cryptography says. A second client does not answer that by adding more people willing to say no. It answers it by giving operators somewhere to go. Refusing a release is only a refusal when there is other software to run, and without that software it is a delay.
 
-Writing the code will never be as widely spread as checking blocks. Most people who run a node will never read it. That gap is what gives the authors more power than the operators, and it is why "the operators will catch it" is not a check. The gap is real and is not going away, and it still does not explain why merge authority sits with about five accounts.
+Writing the code will never be as widely spread as checking blocks. Most people who run a node will never read it. That gap is what gives the authors more power than the operators, and it is why "the operators will catch it" is not a check. The gap is real and is not going away.
 
 ---
 
 ## The contradiction
 
-A node can refuse a release, and in practice there is nowhere to go. btcd exists and keeps diverging. libbitcoin exists and the ecosystem cannot use it without being rebuilt. A Core-derived fork that stays on Bitcoin is still mostly Core's code, so it is not a destination. You can pin an old Core version for a while, and you cannot pin it forever. Unmaintained node software rots. Bugs pile up, the network moves, and eventually you take the next download or you fall behind. Shipping code and changing the money are still not the same act. The people who write the default still govern, because refusal only delays the next download.
+A node can refuse a release. Other clients exist. btcd keeps diverging. libbitcoin exists and the ecosystem cannot use it without being rebuilt. A Core-derived fork that stays on Bitcoin is still mostly Core's code, so it is not a destination.
+
+You can pin an old Core version for a while, and you cannot pin it forever. Unmaintained node software rots. Bugs pile up, the network moves, and eventually you take the next download or you fall behind. The people who write the default still govern, because refusal only delays the next download.
 
 After the OP_RETURN relay change merged, Bitcoin Knots went from about 4.7% of reachable nodes at the end of April 2025 to a peak of 25.45% on September 14, 2025, and stayed above 19% through that stretch, according to [Coin Dance](https://coin.dance/). That was a policy protest on the same codebase, still one client. It did not give anyone a place to stay. Luke's Knots later left Bitcoin on a BLAKE2b proof-of-work hard fork. *[Making Core Irrelevant](/articles/making-core-irrelevant)* treats the reachable-node split as demand for a policy alternative, not as a break in the implementation monoculture.
 
@@ -4028,9 +4094,13 @@ Concentration of merge rights on its own still proves nothing. Any mature projec
 
 Review activity Gini sits near 0.92, while merge-authority Gini is lower because the merger set is tiny, not because power is spread. The [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) dataset, seventeen years of Core history, counts comments, ACKs, and review submissions on GitHub. It does not count hours spent checking consensus-critical code or how deep each review went, so this is about who shows up in the record, not who understood the code best in any given week. Review is spread out relative to merges, and merge authority is not. Authorship Gini sits near 0.85. Brink's [2025 Engineering Impact Report](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/) published that in one recent year more than half of all merges flowed through a single individual funded by one grant organization. The research dataset's 2022+ window is 50.2% top-1 and 82.2% top-3. Self-merge among maintainer-authored merges is 25.5%, meaning the same people proposing changes were approving them on a quarter of those landings.
 
-The bug usually cited with these numbers is CVE-2018-17144, the inflation bug that sat in Core for eighteen months. People use it to prove Core is incompetent, which it does not prove. It sat in production, was never exploited, and was patched quickly after disclosure. Patching it fast after disclosure is not the same as catching it. It propagated to Knots, ABC, and Unlimited, because those clients descend from Core's codebase. Listing those clients as independent checks is a mistake when they share a lineage. The case study is *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory#cve-2018-17144-the-bug-that-proved-gavin-right)*. What the CVE does show is that implementations copied from a common codebase inherit that codebase's blind spots, which is the argument for building from a specification instead of observed behavior. An implementation written against a stated standard does not inherit those bugs by copying Core's source. It can still ship its own, and a spec that matches mainnet has to describe the historical behavior the network already accepted.
+The bug usually cited with these numbers is CVE-2018-17144, the inflation bug that sat in Core for eighteen months. People use it to prove Core is incompetent, which it does not prove. It sat in production, was never exploited, and was patched quickly after disclosure. Patching it fast after disclosure is not the same as catching it.
 
-Three things that are fine for ordinary software are a problem in the process that writes Bitcoin's defaults. Decisions about what ships cannot be reversed except by whoever made them. Authority lives in a person, so when that person leaves you do not have a procedure, you have a crisis. There is nothing to transfer except the habit of people listening to you, and that habit does not transfer. Independence lasts exactly as long as one person's capacity to resist pressure. Legal, financial, regulatory, or personal leverage only needs one target.
+It propagated to Knots, ABC, and Unlimited, because those clients descend from Core's codebase. Listing those clients as independent checks is a mistake when they share a lineage. The case study is *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory#cve-2018-17144-the-bug-that-proved-gavin-right)*.
+
+What the CVE does show is that implementations copied from a common codebase inherit that codebase's blind spots, which is the argument for building from a specification instead of observed behavior. An implementation written against a stated standard does not inherit those bugs by copying Core's source. It can still ship its own, and a spec that matches mainnet has to describe the historical behavior the network already accepted.
+
+Three things that are fine for ordinary software are a problem in the process that writes Bitcoin's defaults. Decisions about what ships cannot be reversed except by whoever made them. Authority lives in the merge set without a procedure, so when that set leaves you have a crisis, and there is nothing to transfer except the habit of being listened to. Legal, financial, regulatory, or personal leverage only needs that handful.
 
 ---
 
@@ -4040,7 +4110,9 @@ Every vertical project eventually loses its founder. Python is the usual counter
 
 If Bitcoin's maintainers disappeared tomorrow, existing nodes would keep running. Python users can do the same thing. The difference is what cannot wait. CPython can sit unchanged while people design a council. Bitcoin still needs someone who can patch a bug that prints coins, and someone still picks what new operators download. You cannot put those jobs on hold until a new council exists.
 
-Bitcoin also does not have the shared purpose Python had. The blocksize war was the test of whether it could resolve a fundamental disagreement through social process under pressure, and it could not do so without years of conflict and permanent factional damage. Taproot is the usual reply, because that change did ship and activate, yet it is the wrong comparison. Taproot was not the lead maintainer disappearing, and it was not a fight on the scale of the blocksize war. That it shipped says Bitcoin can activate a change when the disagreement is smaller, not that the community can design a governance system after the people in charge are gone. A succession plan that needs the community to agree under pressure has already been tested here, and it failed, which is why Core still cannot process contested work.
+Bitcoin also does not have the shared purpose Python had. The blocksize war was the test of whether it could resolve a fundamental disagreement through social process under pressure, and it could not do so without years of conflict and permanent factional damage. A succession plan that needs the community to agree under pressure has already been tested here, and it failed, which is why Core still cannot process contested work.
+
+Taproot is the usual reply, because that change did ship and activate, yet it is the wrong comparison. Taproot was not the lead maintainer disappearing, and it was not a fight on the scale of the blocksize war. That it shipped says Bitcoin can activate a change when the disagreement is smaller, not that the community can design a governance system after the people in charge are gone.
 
 The war ended in a fork. Bitcoin Cash left, Bitcoin kept the ticker and the market. Some people say a fork is how this ecosystem keeps developers honest. The blocksize war was that fork. You cannot treat it as both the check working and proof that social process failed.
 
@@ -4092,11 +4164,13 @@ Exit has to be cheap enough to be credible. A formally specified implementation 
 
 ## The standard
 
-Bitcoin does not get a pass because some of the people writing the code are skilled or well-intentioned. Failed monetary institutions had skilled, well-intentioned people too. What matters is whether someone with merge authority still decides what Bitcoin nodes run on ordinary work, and whether an inflation bug can be patched without giving that person the power to merge whatever they want.
+Bitcoin does not get a pass because some of the people writing the code are skilled or well-intentioned. Failed monetary institutions had skilled, well-intentioned people too. What matters is whether the people with merge authority still decide what Bitcoin nodes run on ordinary work.
+
+It also matters whether an inflation bug can be patched without giving that merge set the power to merge whatever they want.
 
 Commons specifies the second as a three-class emergency system. Emergency keyholders declare a class. That declaration changes the merge rules until a clock expires. Network-threatening work gets the fastest path, including no review wait while the declaration is live. Less severe classes keep longer waits and higher bars. Declaring an emergency is a different act from tagging a pull request as emergency work. After the clock, a written post-mortem is required and ordinary rules return. Nobody keeps a low bar because they might need one later.
 
-The overnight patch then goes through a declared class and a clock. A governance system that works only while the right person is in charge was built for Linux, and it does not belong on Bitcoin's node software.
+The overnight patch then goes through a declared class and a clock. A governance system that works only while the current merge set holds the chairs was built for Linux, and it does not belong on Bitcoin's node software.
 
 ---
 
@@ -4156,6 +4230,7 @@ This BIP introduces a consensus fee floor scoped to UTXO creation: the surface w
 
 UTXO set spam runs on two vectors.
 
+
 <figure class="article-chart chart-compare">
 <div class="chart-heading">Two UTXO spam vectors, one permanent fee</div>
 <div class="compare-cols" role="img" aria-label="Value vector uses near-zero outputs; count vector uses high output volume">
@@ -4192,6 +4267,7 @@ A permanent per-output fee closes both at once. Any output costs the fee to crea
 The per-output fee is not a new tax on Bitcoin use. It prices a cost that already falls on node operators instead of the actors who create it.
 
 *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)* (v2.4, July 2026) estimates that burden:
+
 
 <figure class="article-chart chart-stackbar">
 <div class="chart-heading">UTXO set composition (May 2025, tip 892385)</div>
@@ -4235,6 +4311,7 @@ The 2023 to 2026 inscription and ordinals waves showed that determined spammers 
 
 A capital lockup does not change that math. An attacker facing only a minimum output value can mint outputs, lock capital, spend them back, and repeat. The per-output fee removes that path. Every spam run is permanently more expensive, with no revolving capital to fund the next one.
 
+
 <figure class="article-chart chart-compare">
 <div class="chart-heading">Minimum output value vs per-output miner fee</div>
 <div class="compare-cols" role="img" aria-label="Capital lockup is recoverable; per-output miner fee is permanent">
@@ -4274,7 +4351,7 @@ The right question is: what lifetime cost does one newly created non-monetary UT
 
 Summing those pieces and discounting over a reasonable UTXO lifetime at current BTC price yields a per-UTXO externalized lifetime cost around **16 to 20 sats per output**. That is a cost-derived provisional anchor for the **UTXO-slot** externality, not a conclusion, and not an inscription-killer. The 2023 to 2026 inscription waves already paid far more than 20 sats per output in weight fees. Those waves would have continued at this floor on fee grounds alone. Closing dedicated data channels is the job of *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*. This BIP prices output count.
 
-The 16 to 20 sat band must still be checked against two tests: what floor deters high-count UTXO spam at realistic attacker budgets, and what floor stays negligible relative to legitimate output values across historical fee regimes. If calibration shows 16 to 20 sats is too low to deter determined count-vector spam, the static fee will be raised and the change documented before the proposal moves forward.
+The 16 to 20 sat band must still be checked against two tests: what floor deters high-count UTXO spam at realistic attacker budgets, and what floor stays negligible relative to legitimate output values across historical fee regimes. If calibration shows 16 to 20 sats is too low to deter determined count-vector spam, the static fee will be raised and the change documented before the proposal moves forward. If the floor is not negligible for Lightning channel opens, CoinJoin outputs, and exchange batch withdrawals, the static fee will be lowered and the change documented the same way.
 
 ---
 
@@ -4330,6 +4407,10 @@ Both are deterministic from the soft fork activation parameters and need no ongo
 
 ### Parameters
 
+
+
+
+
 <figure class="article-chart">
 <table class="chart-matrix">
 <thead>
@@ -4356,6 +4437,11 @@ At the provisional band, count-vector cost scales linearly:
 </table>
 <figcaption>Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.</figcaption>
 </figure>
+
+
+*Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.*
+
+
 
 ### Activation
 
@@ -5043,7 +5129,9 @@ This BIP is designed to work in conjunction with the [Static Per-Output Miner Fe
 
 Bitcoin has no consensus rule preventing arbitrary data from being embedded in transactions. Policy filters and relay rules can be bypassed by routing through a miner who does not enforce them. That is why data embedding debates have continued without resolution. Policy binds willing participants. Consensus binds everyone.
 
-Starting with the inscription technique first exploited in 2022, a sustained trend has emerged around embedding arbitrary data into Bitcoin transactions. Ordinals, BRC-20 tokens, Runes, and similar protocols use Bitcoin as a data store rather than a monetary network. This creates significant and permanent burdens on node operators: storage, bandwidth, and RAM costs that fall on roughly 60,000 full nodes, none of whom were compensated for accepting that burden. Pruning can drop old blocks from disk. It does not skip the download at first sync. *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)* (v2.4, July 2026) estimates the aggregate non-monetary burden on the node network at approximately $4 million per year.
+Starting with the inscription technique first exploited in 2022, a sustained trend has emerged around embedding arbitrary data into Bitcoin transactions. Ordinals, BRC-20 tokens, Runes, and similar protocols use Bitcoin as a data store rather than a monetary network. This creates significant and permanent burdens on node operators: storage, bandwidth, and RAM costs that fall on roughly 60,000 full nodes, none of whom were compensated for accepting that burden.
+
+Pruning can drop old blocks from disk. It does not skip the download at first sync. *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)* (v2.4, July 2026) estimates the aggregate non-monetary burden on the node network at approximately $4 million per year.
 
 The core externality is structural. The actor embedding data pays a miner once. The burden of storing and serving that data falls on every node operator indefinitely. No market mechanism corrects this because node operators receive no part of the miner fee and have no mechanism to refuse specific content at the consensus layer.
 

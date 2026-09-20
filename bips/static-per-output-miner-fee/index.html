@@ -182,7 +182,7 @@
 <li><strong>IBD cost</strong> on every future node that syncs the chain: 85 to 140GB of inscription data downloaded once per new node, at about 9,000 to 12,000 new nodes per year.</li>
 </ol>
 <p>Summing those pieces and discounting over a reasonable UTXO lifetime at current BTC price yields a per-UTXO externalized lifetime cost around <strong>16 to 20 sats per output</strong>. That is a cost-derived provisional anchor for the <strong>UTXO-slot</strong> externality, not a conclusion, and not an inscription-killer. The 2023 to 2026 inscription waves already paid far more than 20 sats per output in weight fees. Those waves would have continued at this floor on fee grounds alone. Closing dedicated data channels is the job of <em><a href="/bips/permanent-data-channel-closure">Permanent Data Channel Closure</a></em>. This BIP prices output count.</p>
-<p>The 16 to 20 sat band must still be checked against two tests: what floor deters high-count UTXO spam at realistic attacker budgets, and what floor stays negligible relative to legitimate output values across historical fee regimes. If calibration shows 16 to 20 sats is too low to deter determined count-vector spam, the static fee will be raised and the change documented before the proposal moves forward.</p>
+<p>The 16 to 20 sat band must still be checked against two tests: what floor deters high-count UTXO spam at realistic attacker budgets, and what floor stays negligible relative to legitimate output values across historical fee regimes. If calibration shows 16 to 20 sats is too low to deter determined count-vector spam, the static fee will be raised and the change documented before the proposal moves forward. If the floor is not negligible for Lightning channel opens, CoinJoin outputs, and exchange batch withdrawals, the static fee will be lowered and the change documented the same way.</p>
 <hr>
 <h2 id="specification">Specification</h2>
 <h3 id="fee-rule">Fee Rule</h3>
@@ -243,6 +243,8 @@ tx_fee &gt;= active_fee × n_outputs
 <figcaption>Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.</figcaption>
 </figure>
 
+
+<p><em>Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.</em></p>
 <h3 id="activation">Activation</h3>
 <p>This BIP is meant to deploy via a soft fork using BIP-8 or BIP-9 style signaling, with a minimum activation window of one year and no mandatory lock-in fallback. Miners who do not signal are not penalized. If signaling does not reach the threshold within the window, the proposal does not activate and the process restarts with revised parameters or renewed community discussion.</p>
 <p>BIP-8/9 without lock-in-on-timeout is miner signaling. Node operators absorbing non-monetary burden are a political constituency for this rule; they are not the signaling threshold. If miners do not signal, this BIP does not activate under the specified mechanism. User-activated soft fork deployment is a separate choice and is not specified here.</p>

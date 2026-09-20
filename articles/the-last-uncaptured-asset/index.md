@@ -98,6 +98,8 @@ The playbook runs in this order because each step is more politically costly tha
 
 
 
+
+
 ---
 
 ## IV. Why Hard Assets Were Always the Refuge, and Always Failed
@@ -135,6 +137,8 @@ Every hard asset, without exception, has a physical location or a jurisdictional
 
 
 
+
+
 ---
 
 ## V. The Property That Changes Everything
@@ -151,7 +155,7 @@ Most importantly, it is potentially self-custodied. A private key is a number. A
 
 These three properties together describe something that has never existed before in monetary history: **a scarce asset that can be held without a physical location, transferred without a financial intermediary, and potentially kept beyond the reach of any state actor.** Whether that theoretical potential survives contact with the actual systems humans have built around Bitcoin is a different question. The asset can still be uncaptured while the access layer is not.
 
-Sound money and privacy are layers of one stack, not two projects. Bearer settlement at the base means a payment can complete without identity, without a trusted middleman, and without a reversible record the issuer can unwind. Self-custody is that layer. It does not make the transaction graph private. Chain analysis can reconstruct who paid whom from the ledger even when the legal name behind a key is still unknown. Transaction-graph privacy is the next layer. Coin control, collaborative transactions, and off-chain payments shift cost. They do not finish the job. Communications, identity compartment, and the physical last mile sit above that. A missing layer leaks the ones above it. Perfect encrypted chat still hands the adversary a map the moment a payment is traceable to you. Self-custody on a fully identified on-ramp still hands them the access layer described in §IX. Vocabulary for disclosure, secrecy, and anonymity is in [Privacy_Disclosure_Control.md](Privacy_Disclosure_Control.md).
+Sound money and privacy are layers of one stack, not two projects. Self-custody is bearer settlement at the base. It does not make the transaction graph private. Chain analysis can reconstruct who paid whom from the ledger even when the legal name behind a key is still unknown. Vocabulary for disclosure, secrecy, and anonymity is in [Privacy_Disclosure_Control.md](Privacy_Disclosure_Control.md).
 
 ---
 
@@ -161,7 +165,9 @@ The rules that define Bitcoin are not the same thing as the system that implemen
 
 Mining is the process by which transactions are confirmed and new blocks are added to the chain. Miners are not abstract participants. They are companies running data centers, consuming electricity purchased from utilities in specific jurisdictions, operating hardware manufactured in a handful of facilities globally. The geographic distribution of mining hashrate has shifted over time, but significant concentrations exist in western jurisdictions including the United States. **A dominant mining pool within reach of a sufficiently determined government is not a theoretical vulnerability. It is an operational one.**
 
-Software development is more concentrated still. Bitcoin Core, the dominant implementation of the Bitcoin protocol, is maintained by a small number of developers who are identifiable, located primarily in western jurisdictions, and reachable through ordinary legal process. The repository lives on GitHub, an American company subject to American law. The communication channels where development decisions are made are monitored and archived. **There is no anonymity in the Bitcoin Core developer community worth speaking of.** If those people fold under legal or personal pressure, the software layer folds regardless of what the cryptography says. Cheap governance exit on the same chain is what makes that pressure fail. That is the Vertical Layer problem, not a claim that more implementors will automatically resist.
+Software development is more concentrated still. Bitcoin Core, the dominant implementation of the Bitcoin protocol, is maintained by a small number of developers who are identifiable, located primarily in western jurisdictions, and reachable through ordinary legal process. The repository lives on GitHub, an American company subject to American law. The communication channels where development decisions are made are monitored and archived. **There is no anonymity in the Bitcoin Core developer community worth speaking of.** If those people fold under legal or personal pressure, the software layer folds regardless of what the cryptography says.
+
+Cheap governance exit on the same chain is what makes that pressure fail. That is *[The Vertical Layer Problem](/articles/the-vertical-layer-problem)*, not a claim that more implementors will automatically resist.
 
 Node operators are the network's validators, the participants who enforce the rules and reject blocks that violate them. Running a node is the deepest form of participation in the network's consensus. But node operators are also individuals running software on hardware connected to the internet in physical locations. The jurisdictional reach problem applies to them as directly as it applies to miners.
 

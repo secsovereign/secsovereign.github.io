@@ -25,11 +25,14 @@ The fight is usually about consensus capture, forking risk, and who decides whic
 
 Set politics aside. If consensus could change freely, how much non-monetary data could rules actually eliminate, and where is the hard floor?
 
-Spam has a workable definition. A spam transaction does not settle money, and it imposes lasting costs on every validating node. Lightning channel opens and closes settle money. Timelocked outputs and multisig setups settle money. A JPEG stuffed into a Taproot envelope does not. That follows from how Bitcoin works: every validating node must process the full chain history to know current balances. Using the payment layer as a cheap bulk data store pushes costs onto a network built for transfers, not file hosting. For the full case against non-monetary embedding, see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*. Demanding a definition that can never be met is not a technical objection.
+Spam has a workable definition. A spam transaction does not settle money, and it imposes lasting costs on every validating node. Lightning channel opens and closes settle money. Timelocked outputs and multisig setups settle money. A JPEG stuffed into a Taproot envelope does not. That follows from how Bitcoin works: every validating node must process the full chain history to know current balances. Using the payment layer as a cheap bulk data store pushes costs onto a network built for transfers, not file hosting. For the full case against non-monetary embedding, see *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)*.
+
+Demanding a definition that can never be met is not a technical objection.
 
 ## II. Taxonomy of Channels by Cost
 
 Non-monetary data can enter blocks through several different fields and transaction shapes. Those paths are not equally cheap. The ladder below ranks them by what it costs the person embedding the data.
+
 
 <figure class="article-chart chart-flowchart" role="img" aria-label="Channel cost ladder from free to dedicated embedding channels">
 <div class="flowchart-ladder" aria-hidden="true">
@@ -44,6 +47,10 @@ Non-monetary data can enter blocks through several different fields and transact
   <span class="flow-node">Dedicated</span>
 </div>
 </figure>
+
+
+
+
 
 *Figure: Channel cost ladder. Consensus can close dedicated and unenforced paths without breaking normal payments.*
 
@@ -72,6 +79,29 @@ Undefined witness versions and OP_SUCCESS opcodes are upgrade hooks. Consensus t
 **Dedicated channels** exist to carry data, or hold large script blobs with no payment meaning.
 
 `OP_RETURN` is an output that cannot be spent. Core v30 relay policy allows up to 100,000 bytes of `OP_RETURN` data per transaction, across multiple outputs. Consensus itself places no byte limit. In June 2023, PR #27832 narrowed the documented meaning of `-datacarriersize` so it covered only `scriptPubKey` outputs, not witness or inscription fields. Core v30 then removed the relay cap entirely in 2025. Separately, the Taproot envelope hides data inside an `OP_FALSE OP_IF` branch that never runs. SegWit's witness discount and Taproot's removal of the old 10,000 byte script ceiling made large envelope payloads practical.
+
+
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Consensus measure</th><th>Channel closed</th><th>Independent soft fork?</th></tr>
+</thead>
+<tbody>
+<tr class="close-yes"><td>OP_RETURN hard byte cap</td><td>Dedicated (OP_RETURN outputs)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Taproot envelope push cap</td><td>Dedicated (OP_FALSE OP_IF branches)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Witness version restriction</td><td>Unenforced (OP_SUCCESS hooks)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Annex disallow or cap</td><td>Unenforced (Taproot annex)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Control block size cap</td><td>Unenforced (deep Merkle path hiding)</td><td>Yes</td></tr>
+<tr class="close-yes"><td>Per-output miner fee</td><td>Low-value UTXO spam (output count)</td><td>Yes</td></tr>
+<tr class="close-partial"><td>UTXO set commitments</td><td>Permanent storage burden for data already on chain (§V)</td><td>Parallel; not required for §III caps</td></tr>
+</tbody>
+</table>
+<figcaption>Closable measures. First five rows: <a href="/bips/permanent-data-channel-closure">Permanent Data Channel Closure</a>. Per-output fee: <a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a> plus optional <a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation</a>. Commitments remain a parallel track (§V). §IV fields omitted because monetary design requires them.</figcaption>
+</figure>
+
+
+
+
 
 <figure class="article-chart">
 <table class="chart-matrix">
@@ -105,23 +135,11 @@ A consensus per-output miner fee makes creating many outputs expensive. Unlike a
 
 The rows below close dedicated and unenforced embedding channels. **§V addresses data already on chain** through UTXO set commitments (less UTXO state to store). That layer is independent of the caps here. Initial block download still carries the full history; AssumeValid does not remove that cost.
 
-<figure class="article-chart">
-<table class="chart-matrix">
-<thead>
-<tr><th>Consensus measure</th><th>Channel closed</th><th>Independent soft fork?</th></tr>
-</thead>
-<tbody>
-<tr class="close-yes"><td>OP_RETURN hard byte cap</td><td>Dedicated (OP_RETURN outputs)</td><td>Yes</td></tr>
-<tr class="close-yes"><td>Taproot envelope push cap</td><td>Dedicated (OP_FALSE OP_IF branches)</td><td>Yes</td></tr>
-<tr class="close-yes"><td>Witness version restriction</td><td>Unenforced (OP_SUCCESS hooks)</td><td>Yes</td></tr>
-<tr class="close-yes"><td>Annex disallow or cap</td><td>Unenforced (Taproot annex)</td><td>Yes</td></tr>
-<tr class="close-yes"><td>Control block size cap</td><td>Unenforced (deep Merkle path hiding)</td><td>Yes</td></tr>
-<tr class="close-yes"><td>Per-output miner fee</td><td>Low-value UTXO spam (output count)</td><td>Yes</td></tr>
-<tr class="close-partial"><td>UTXO set commitments</td><td>Permanent storage burden for data already on chain (§V)</td><td>Parallel; not required for §III caps</td></tr>
-</tbody>
-</table>
-<figcaption>Closable measures. First five rows: <a href="/bips/permanent-data-channel-closure">Permanent Data Channel Closure</a>. Per-output fee: <a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a> plus optional <a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation</a>. Commitments remain a parallel track (§V). §IV fields omitted because monetary design requires them.</figcaption>
-</figure>
+
+*Closable measures. First five rows: Permanent Data Channel Closure. Per-output fee: Static Per-Output Miner Fee plus optional Dynamic Escalation. Commitments remain a parallel track (§V). §IV fields omitted because monetary design requires them.*
+
+
+
 
 <figure class="article-chart chart-flowchart" role="img" aria-label="Consensus-closable channels versus the irreducible embedding floor">
 <div class="flowchart-layers" aria-hidden="true">
@@ -138,6 +156,10 @@ The rows below close dedicated and unenforced embedding channels. **§V addresse
   </div>
 </div>
 </figure>
+
+
+
+
 
 *Figure: §III closes OP_RETURN, envelope, annex, control block, and per-output fee. §IV fields cannot.*
 
@@ -191,6 +213,7 @@ That is a per-block validation rate limit, not a verdict on what the capacity is
 
 The same ceiling is the monetary settlement budget. Blocks at 91 to 97% full with a large non-financial share are non-monetary demand competing for scarce payment capacity, not harm already contained. BIP141 makes the bound asymmetric: witness bytes cost one weight unit and non-witness bytes cost four, so envelope payloads buy more raw data per weight unit than base-transaction payment data. Weight also rate-limits new outputs per block without forcing never-spent spam UTXOs out of the set afterward. The inscription-related UTXO share above is bounded rate with unbounded accumulation of the wrong state.
 
+
 <figure class="article-chart">
 <table class="chart-matrix">
 <thead>
@@ -206,6 +229,10 @@ The same ceiling is the monetary settlement budget. Blocks at 91 to 97% full wit
 <figcaption>Block weight is a DoS bound on one block, not a verdict that filling it with non-monetary data is acceptable.</figcaption>
 </figure>
 
+
+
+
+
 The weight limit answers whether one block can overwhelm a node. The spam problem asks who permanently pays bandwidth, disk, and UTXO set for non-monetary state. Those are different threats. For the same point as a justification failure, see *[Bitcoin Is Not a Hard Drive, §VI](/articles/bitcoin-not-a-hard-drive#vi-the-justifications-and-their-failures)*.
 
 **Cost per embedded byte.** The figures below are structural arithmetic from §II channel sizes, BIP141 weight rules, and Core v30 relay defaults. They are not a measurement of the live chain.
@@ -217,6 +244,11 @@ The weight limit answers whether one block can overwhelm a node. The spam proble
 **Bytes used.** An `OP_RETURN` with a 1,024-byte push is 1,039 vbytes (8-byte value, 3-byte varint, 1,028-byte script). P2WPKH with a 20-byte fake hash is 31 vbytes. P2TR with a 32-byte fake pubkey is 43 vbytes. Envelope at 1,024 witness payload bytes is 43 vbytes of output plus 256 vbytes of witness (wrapper and spend overhead omitted; full minimal spend ≈377 vbytes).
 
 **After closing dedicated channels.** Dust defaults at 3 sat/vbyte (`DUST_RELAY_TX_FEE = 3000` sat/kvB) are 294 sat for P2WPKH-shaped outputs and 330 sat for P2TR-shaped. `OP_RETURN` outputs are zero-value and omitted. Dedicated rows show fee cost only; hash and pubkey rows add the dust floor because embedding creates spendable-looking outputs.
+
+
+*BIP141 accounting, Core v30 `-datacarriersize` (100k), dust at 3 sat/vB. Fee columns: (vbytes × rate + dust where applicable) ÷ payload bytes.*
+
+
 
 <figure class="article-chart">
 <table class="chart-matrix">

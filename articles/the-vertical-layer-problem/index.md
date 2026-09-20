@@ -19,13 +19,17 @@
 
 Bitcoin cannot be governed like Linux. A dictator is a good way to ship a kernel, and a bad way to write Bitcoin's node software, even when the people who write it are competent and the code is good.
 
-Bitcoin's consensus layer is horizontal. Every node checks blocks on its own, and no node can force another to take a bad one. The software that implements those rules is written by a hierarchy, and replacing the people who can merge, or making those people more accountable, leaves the hierarchy in place. A title cannot be what lets someone merge.
+Bitcoin's consensus layer is horizontal. Every node checks blocks on its own, and no node can force another to take a bad one. The software that implements those rules is written by a hierarchy, and replacing the people who can merge, or making those people more accountable, leaves the hierarchy in place.
 
 Bitcoin Core already posts ACKs on GitHub, which is not the same as the decision forming there. An ACK is a comment on a pull request. Which pull requests are going to merge is decided off GitHub, on IRC, in closed CoreDev sessions, and in Signal groups. Merge is a permission held by about five accounts on bitcoin/bitcoin. Reviewers do not have it, and one of those five ships the code.
 
-A fight about the default client should not mean leaving the chain. A Core-derived fork can leave Core's defaults and stay on Bitcoin, and it is still mostly Core's code. An independently written client, checked against a written specification rather than Core's undocumented behavior, is the missing exit.
+A fight about the default client should not mean leaving the chain.
 
-People leave the chain by changing the money rules. That has happened many times, and each time it is a new coin. Nodes stay equal even though the people who write the code never will, and that still does not entitle those people to a throne.
+A Core-derived fork can leave Core's defaults and stay on Bitcoin, and it is still mostly Core's code. An independently written client, checked against a written specification rather than Core's undocumented behavior, is the missing exit.
+
+People leave the chain by changing the money rules. That has happened many times, and each time it is a new coin.
+
+Nodes stay equal even though the people who write the code never will, and that still does not entitle those people to a throne.
 
 ---
 
@@ -57,7 +61,9 @@ Replacing the current contributors accomplishes nothing on its own. A different 
 
 If paid engineers really import the hierarchy, a project staffed from different backgrounds and funded differently should not reconcentrate merge authority the same way. If it still does, the workplace-habit story is wrong, and hierarchy is coming from something more basic about coordinating software.
 
-Not all of Core's structure is imported habit. Some of it was chosen on purpose. Merge access tightened after the inflation bug for stated reasons. Review culture hardened after the blocksize war as a considered response to what that conflict cost. Reluctance to touch consensus lightly is a position people hold out loud. They also decide which changes count as consensus changes, which is how a proposal gets labeled too dangerous to merge. If that label is doing real work, it should show up in what shipped and what sat. That record is *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)*. Attributing all of it to unexamined corporate reflex would be too clean. Habit set the default, and deliberate choice then reinforced it.
+Not all of Core's structure is imported habit. Some of it was chosen on purpose. Merge access tightened after the inflation bug for stated reasons. Review culture hardened after the blocksize war as a considered response to what that conflict cost. Reluctance to touch consensus lightly is a position people hold out loud. Attributing all of it to unexamined corporate reflex would be too clean. Habit set the default, and deliberate choice then reinforced it.
+
+They also decide which changes count as consensus changes, which is how a proposal gets labeled too dangerous to merge. If that label is doing real work, it should show up in what shipped and what sat. That record is *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)*.
 
 ---
 
@@ -67,17 +73,23 @@ Bitcoin's coordination problem is agreement among peers who do not trust each ot
 
 That check is only as good as the program doing it. The program is written by a small group. The [Commons white paper](https://thebitcoincommons.org/whitepaper.html) puts the set of people who can do consensus-critical Bitcoin work in the dozens to a few hundred worldwide. Miners and node operators are not in that set. They download a release, confirm it talks to their peers, and run it. They are trusting the maintainers and developers to have done the review they will not do themselves.
 
-"Don't trust, verify" describes what a node does with a block, not what anyone does with a release. Your node checks every block against the rules. Almost nobody checks the software that holds those rules. Other clients exist. A Core-derived fork inherits the bugs it still copies, and a separately written client has no written specification that would make a disagreement pass or fail. The trustless layer sits on a trusted one. The same gap, applied to Bitcoin Core, is *[Don't Trust, Verify](/articles/dont-trust-verify#vi-the-same-system-applied-to-bitcoin-core)*.
+"Don't trust, verify" describes what a node does with a block, not what anyone does with a release. Your node checks every block against the rules. Almost nobody checks the software that holds those rules.
+
+Other clients exist. A Core-derived fork inherits the bugs it still copies, and a separately written client has no written specification that would make a disagreement pass or fail.
+
+The trustless layer sits on a trusted one. The same gap, applied to Bitcoin Core, is *[Don't Trust, Verify](/articles/dont-trust-verify#vi-the-same-system-applied-to-bitcoin-core)*.
 
 The people who write that software are identifiable, and identifiable people can be pressured. If they fold, the software layer folds, whatever the cryptography says. A second client does not answer that by adding more people willing to say no. It answers it by giving operators somewhere to go. Refusing a release is only a refusal when there is other software to run, and without that software it is a delay.
 
-Writing the code will never be as widely spread as checking blocks. Most people who run a node will never read it. That gap is what gives the authors more power than the operators, and it is why "the operators will catch it" is not a check. The gap is real and is not going away, and it still does not explain why merge authority sits with about five accounts.
+Writing the code will never be as widely spread as checking blocks. Most people who run a node will never read it. That gap is what gives the authors more power than the operators, and it is why "the operators will catch it" is not a check. The gap is real and is not going away.
 
 ---
 
 ## The contradiction
 
-A node can refuse a release, and in practice there is nowhere to go. btcd exists and keeps diverging. libbitcoin exists and the ecosystem cannot use it without being rebuilt. A Core-derived fork that stays on Bitcoin is still mostly Core's code, so it is not a destination. You can pin an old Core version for a while, and you cannot pin it forever. Unmaintained node software rots. Bugs pile up, the network moves, and eventually you take the next download or you fall behind. Shipping code and changing the money are still not the same act. The people who write the default still govern, because refusal only delays the next download.
+A node can refuse a release. Other clients exist. btcd keeps diverging. libbitcoin exists and the ecosystem cannot use it without being rebuilt. A Core-derived fork that stays on Bitcoin is still mostly Core's code, so it is not a destination.
+
+You can pin an old Core version for a while, and you cannot pin it forever. Unmaintained node software rots. Bugs pile up, the network moves, and eventually you take the next download or you fall behind. The people who write the default still govern, because refusal only delays the next download.
 
 After the OP_RETURN relay change merged, Bitcoin Knots went from about 4.7% of reachable nodes at the end of April 2025 to a peak of 25.45% on September 14, 2025, and stayed above 19% through that stretch, according to [Coin Dance](https://coin.dance/). That was a policy protest on the same codebase, still one client. It did not give anyone a place to stay. Luke's Knots later left Bitcoin on a BLAKE2b proof-of-work hard fork. *[Making Core Irrelevant](/articles/making-core-irrelevant)* treats the reachable-node split as demand for a policy alternative, not as a break in the implementation monoculture.
 
@@ -93,9 +105,13 @@ Concentration of merge rights on its own still proves nothing. Any mature projec
 
 Review activity Gini sits near 0.92, while merge-authority Gini is lower because the merger set is tiny, not because power is spread. The [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) dataset, seventeen years of Core history, counts comments, ACKs, and review submissions on GitHub. It does not count hours spent checking consensus-critical code or how deep each review went, so this is about who shows up in the record, not who understood the code best in any given week. Review is spread out relative to merges, and merge authority is not. Authorship Gini sits near 0.85. Brink's [2025 Engineering Impact Report](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/) published that in one recent year more than half of all merges flowed through a single individual funded by one grant organization. The research dataset's 2022+ window is 50.2% top-1 and 82.2% top-3. Self-merge among maintainer-authored merges is 25.5%, meaning the same people proposing changes were approving them on a quarter of those landings.
 
-The bug usually cited with these numbers is CVE-2018-17144, the inflation bug that sat in Core for eighteen months. People use it to prove Core is incompetent, which it does not prove. It sat in production, was never exploited, and was patched quickly after disclosure. Patching it fast after disclosure is not the same as catching it. It propagated to Knots, ABC, and Unlimited, because those clients descend from Core's codebase. Listing those clients as independent checks is a mistake when they share a lineage. The case study is *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory#cve-2018-17144-the-bug-that-proved-gavin-right)*. What the CVE does show is that implementations copied from a common codebase inherit that codebase's blind spots, which is the argument for building from a specification instead of observed behavior. An implementation written against a stated standard does not inherit those bugs by copying Core's source. It can still ship its own, and a spec that matches mainnet has to describe the historical behavior the network already accepted.
+The bug usually cited with these numbers is CVE-2018-17144, the inflation bug that sat in Core for eighteen months. People use it to prove Core is incompetent, which it does not prove. It sat in production, was never exploited, and was patched quickly after disclosure. Patching it fast after disclosure is not the same as catching it.
 
-Three things that are fine for ordinary software are a problem in the process that writes Bitcoin's defaults. Decisions about what ships cannot be reversed except by whoever made them. Authority lives in a person, so when that person leaves you do not have a procedure, you have a crisis. There is nothing to transfer except the habit of people listening to you, and that habit does not transfer. Independence lasts exactly as long as one person's capacity to resist pressure. Legal, financial, regulatory, or personal leverage only needs one target.
+It propagated to Knots, ABC, and Unlimited, because those clients descend from Core's codebase. Listing those clients as independent checks is a mistake when they share a lineage. The case study is *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory#cve-2018-17144-the-bug-that-proved-gavin-right)*.
+
+What the CVE does show is that implementations copied from a common codebase inherit that codebase's blind spots, which is the argument for building from a specification instead of observed behavior. An implementation written against a stated standard does not inherit those bugs by copying Core's source. It can still ship its own, and a spec that matches mainnet has to describe the historical behavior the network already accepted.
+
+Three things that are fine for ordinary software are a problem in the process that writes Bitcoin's defaults. Decisions about what ships cannot be reversed except by whoever made them. Authority lives in the merge set without a procedure, so when that set leaves you have a crisis, and there is nothing to transfer except the habit of being listened to. Legal, financial, regulatory, or personal leverage only needs that handful.
 
 ---
 
@@ -105,7 +121,9 @@ Every vertical project eventually loses its founder. Python is the usual counter
 
 If Bitcoin's maintainers disappeared tomorrow, existing nodes would keep running. Python users can do the same thing. The difference is what cannot wait. CPython can sit unchanged while people design a council. Bitcoin still needs someone who can patch a bug that prints coins, and someone still picks what new operators download. You cannot put those jobs on hold until a new council exists.
 
-Bitcoin also does not have the shared purpose Python had. The blocksize war was the test of whether it could resolve a fundamental disagreement through social process under pressure, and it could not do so without years of conflict and permanent factional damage. Taproot is the usual reply, because that change did ship and activate, yet it is the wrong comparison. Taproot was not the lead maintainer disappearing, and it was not a fight on the scale of the blocksize war. That it shipped says Bitcoin can activate a change when the disagreement is smaller, not that the community can design a governance system after the people in charge are gone. A succession plan that needs the community to agree under pressure has already been tested here, and it failed, which is why Core still cannot process contested work.
+Bitcoin also does not have the shared purpose Python had. The blocksize war was the test of whether it could resolve a fundamental disagreement through social process under pressure, and it could not do so without years of conflict and permanent factional damage. A succession plan that needs the community to agree under pressure has already been tested here, and it failed, which is why Core still cannot process contested work.
+
+Taproot is the usual reply, because that change did ship and activate, yet it is the wrong comparison. Taproot was not the lead maintainer disappearing, and it was not a fight on the scale of the blocksize war. That it shipped says Bitcoin can activate a change when the disagreement is smaller, not that the community can design a governance system after the people in charge are gone.
 
 The war ended in a fork. Bitcoin Cash left, Bitcoin kept the ticker and the market. Some people say a fork is how this ecosystem keeps developers honest. The blocksize war was that fork. You cannot treat it as both the check working and proof that social process failed.
 
@@ -157,11 +175,13 @@ Exit has to be cheap enough to be credible. A formally specified implementation 
 
 ## The standard
 
-Bitcoin does not get a pass because some of the people writing the code are skilled or well-intentioned. Failed monetary institutions had skilled, well-intentioned people too. What matters is whether someone with merge authority still decides what Bitcoin nodes run on ordinary work, and whether an inflation bug can be patched without giving that person the power to merge whatever they want.
+Bitcoin does not get a pass because some of the people writing the code are skilled or well-intentioned. Failed monetary institutions had skilled, well-intentioned people too. What matters is whether the people with merge authority still decide what Bitcoin nodes run on ordinary work.
+
+It also matters whether an inflation bug can be patched without giving that merge set the power to merge whatever they want.
 
 Commons specifies the second as a three-class emergency system. Emergency keyholders declare a class. That declaration changes the merge rules until a clock expires. Network-threatening work gets the fastest path, including no review wait while the declaration is live. Less severe classes keep longer waits and higher bars. Declaring an emergency is a different act from tagging a pull request as emergency work. After the clock, a written post-mortem is required and ordinary rules return. Nobody keeps a low bar because they might need one later.
 
-The overnight patch then goes through a declared class and a clock. A governance system that works only while the right person is in charge was built for Linux, and it does not belong on Bitcoin's node software.
+The overnight patch then goes through a declared class and a clock. A governance system that works only while the current merge set holds the chairs was built for Linux, and it does not belong on Bitcoin's node software.
 
 ---
 

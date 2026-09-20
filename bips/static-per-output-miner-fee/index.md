@@ -39,6 +39,7 @@ This BIP introduces a consensus fee floor scoped to UTXO creation: the surface w
 
 UTXO set spam runs on two vectors.
 
+
 <figure class="article-chart chart-compare">
 <div class="chart-heading">Two UTXO spam vectors, one permanent fee</div>
 <div class="compare-cols" role="img" aria-label="Value vector uses near-zero outputs; count vector uses high output volume">
@@ -75,6 +76,7 @@ A permanent per-output fee closes both at once. Any output costs the fee to crea
 The per-output fee is not a new tax on Bitcoin use. It prices a cost that already falls on node operators instead of the actors who create it.
 
 *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)* (v2.4, July 2026) estimates that burden:
+
 
 <figure class="article-chart chart-stackbar">
 <div class="chart-heading">UTXO set composition (May 2025, tip 892385)</div>
@@ -118,6 +120,7 @@ The 2023 to 2026 inscription and ordinals waves showed that determined spammers 
 
 A capital lockup does not change that math. An attacker facing only a minimum output value can mint outputs, lock capital, spend them back, and repeat. The per-output fee removes that path. Every spam run is permanently more expensive, with no revolving capital to fund the next one.
 
+
 <figure class="article-chart chart-compare">
 <div class="chart-heading">Minimum output value vs per-output miner fee</div>
 <div class="compare-cols" role="img" aria-label="Capital lockup is recoverable; per-output miner fee is permanent">
@@ -157,7 +160,7 @@ The right question is: what lifetime cost does one newly created non-monetary UT
 
 Summing those pieces and discounting over a reasonable UTXO lifetime at current BTC price yields a per-UTXO externalized lifetime cost around **16 to 20 sats per output**. That is a cost-derived provisional anchor for the **UTXO-slot** externality, not a conclusion, and not an inscription-killer. The 2023 to 2026 inscription waves already paid far more than 20 sats per output in weight fees. Those waves would have continued at this floor on fee grounds alone. Closing dedicated data channels is the job of *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*. This BIP prices output count.
 
-The 16 to 20 sat band must still be checked against two tests: what floor deters high-count UTXO spam at realistic attacker budgets, and what floor stays negligible relative to legitimate output values across historical fee regimes. If calibration shows 16 to 20 sats is too low to deter determined count-vector spam, the static fee will be raised and the change documented before the proposal moves forward.
+The 16 to 20 sat band must still be checked against two tests: what floor deters high-count UTXO spam at realistic attacker budgets, and what floor stays negligible relative to legitimate output values across historical fee regimes. If calibration shows 16 to 20 sats is too low to deter determined count-vector spam, the static fee will be raised and the change documented before the proposal moves forward. If the floor is not negligible for Lightning channel opens, CoinJoin outputs, and exchange batch withdrawals, the static fee will be lowered and the change documented the same way.
 
 ---
 
@@ -213,6 +216,10 @@ Both are deterministic from the soft fork activation parameters and need no ongo
 
 ### Parameters
 
+
+
+
+
 <figure class="article-chart">
 <table class="chart-matrix">
 <thead>
@@ -239,6 +246,11 @@ At the provisional band, count-vector cost scales linearly:
 </table>
 <figcaption>Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.</figcaption>
 </figure>
+
+
+*Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.*
+
+
 
 ### Activation
 
