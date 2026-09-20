@@ -48,7 +48,38 @@ Non-monetary data can enter blocks through several different fields and transact
 </div>
 </figure>
 
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Channel</th><th>Embedding cost</th><th>Closable at consensus?</th><th>Cost to close</th></tr>
+</thead>
+<tbody>
+<tr class="close-yes"><td>Dedicated</td><td>Fee-paid, large payloads</td><td>Yes</td><td>No hit to normal payments</td></tr>
+<tr class="close-yes"><td>Unenforced</td><td>Low; no validation yet</td><td>Yes</td><td>Tighten unused upgrade hooks</td></tr>
+<tr class="close-partial"><td>Expensive</td><td>Exponential with chosen bits</td><td>No</td><td>Cost is the only limit</td></tr>
+<tr class="close-partial"><td>Near-free</td><td>~2 trial attempts</td><td>Partial</td><td>Filters barely help</td></tr>
+<tr class="close-no"><td>Free</td><td>None beyond tx fee</td><td>No</td><td>Lose privacy, precision, or supply audit</td></tr>
+</tbody>
+</table>
+<figcaption>Closability by channel type</figcaption>
+</figure>
 
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Channel</th><th>Payload bytes (spec)</th><th>vbytes / embedded byte</th><th>sats / byte @ 10 sat/vB</th><th>@ 50 sat/vB</th><th>@ 100 sat/vB</th></tr>
+</thead>
+<tbody>
+<tr><td>OP_RETURN (dedicated)</td><td>1,024</td><td>1.01</td><td>10.1</td><td>50.7</td><td>101.5</td></tr>
+<tr><td>Taproot envelope (dedicated)</td><td>1,024</td><td>0.29</td><td>2.9</td><td>14.6</td><td>29.2</td></tr>
+<tr class="close-partial"><td>P2WPKH fake hash (free, after §III)</td><td>20</td><td>1.55</td><td>30.2</td><td>92.2</td><td>169.7</td></tr>
+<tr class="close-partial"><td>P2TR fake pubkey (near-free, after §III)</td><td>32</td><td>1.34</td><td>23.8</td><td>77.5</td><td>144.7</td></tr>
+</tbody>
+</table>
+<figcaption>BIP141 accounting, Core v30 `-datacarriersize` (100k), dust at 3 sat/vB. Fee columns: (vbytes × rate + dust where applicable) ÷ payload bytes.</figcaption>
+</figure>
+
+*Channel cost ladder from free to dedicated embedding channels*
 
 
 
@@ -78,7 +109,7 @@ Undefined witness versions and OP_SUCCESS opcodes are upgrade hooks. Consensus t
 
 **Dedicated channels** exist to carry data, or hold large script blobs with no payment meaning.
 
-`OP_RETURN` is an output that cannot be spent. Core v30 relay policy allows up to 100,000 bytes of `OP_RETURN` data per transaction, across multiple outputs. Consensus itself places no byte limit. In June 2023, PR #27832 narrowed the documented meaning of `-datacarriersize` so it covered only `scriptPubKey` outputs, not witness or inscription fields. Core v30 then removed the relay cap entirely in 2025. Separately, the Taproot envelope hides data inside an `OP_FALSE OP_IF` branch that never runs. SegWit's witness discount and Taproot's removal of the old 10,000 byte script ceiling made large envelope payloads practical.
+`OP_RETURN` is an output that cannot be spent. Core v30 relay policy allows up to 100,000 bytes of `OP_RETURN` data per transaction, across multiple outputs (`MAX_OP_RETURN_RELAY = MAX_STANDARD_TX_WEIGHT / WITNESS_SCALE_FACTOR`). Consensus itself places no byte limit. In June 2023, PR #27832 (maflcko, opened 2023-06-06, merged 2023-08-03) clarified that `-datacarriersize` measures serialized `scriptPubKey` size, with tests at `datacarriersize=0` rejecting even an empty `OP_RETURN`. The PR body does not mention inscriptions. Witness and inscription fields falling outside that knob is the effect. Core v30 then removed the relay cap entirely in 2025. Separately, the Taproot envelope hides data inside an `OP_FALSE OP_IF` branch that never runs. SegWit's witness discount and Taproot's removal of the old 10,000 byte script ceiling made large envelope payloads practical.
 
 
 <figure class="article-chart">
@@ -99,25 +130,9 @@ Undefined witness versions and OP_SUCCESS opcodes are upgrade hooks. Consensus t
 <figcaption>Closable measures. First five rows: <a href="/bips/permanent-data-channel-closure">Permanent Data Channel Closure</a>. Per-output fee: <a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a> plus optional <a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation</a>. Commitments remain a parallel track (§V). §IV fields omitted because monetary design requires them.</figcaption>
 </figure>
 
+*Closability by channel type*
 
 
-
-
-<figure class="article-chart">
-<table class="chart-matrix">
-<thead>
-<tr><th>Channel</th><th>Embedding cost</th><th>Closable at consensus?</th><th>Cost to close</th></tr>
-</thead>
-<tbody>
-<tr class="close-yes"><td>Dedicated</td><td>Fee-paid, large payloads</td><td>Yes</td><td>No hit to normal payments</td></tr>
-<tr class="close-yes"><td>Unenforced</td><td>Low; no validation yet</td><td>Yes</td><td>Tighten unused upgrade hooks</td></tr>
-<tr class="close-partial"><td>Expensive</td><td>Exponential with chosen bits</td><td>No</td><td>Cost is the only limit</td></tr>
-<tr class="close-partial"><td>Near-free</td><td>~2 trial attempts</td><td>Partial</td><td>Filters barely help</td></tr>
-<tr class="close-no"><td>Free</td><td>None beyond tx fee</td><td>No</td><td>Lose privacy, precision, or supply audit</td></tr>
-</tbody>
-</table>
-<figcaption>Closability by channel type</figcaption>
-</figure>
 
 ## III. What Consensus Can Actually Close
 
@@ -157,7 +172,7 @@ The rows below close dedicated and unenforced embedding channels. **§V addresse
 </div>
 </figure>
 
-
+*Consensus-closable channels versus the irreducible embedding floor*
 
 
 
@@ -229,7 +244,7 @@ The same ceiling is the monetary settlement budget. Blocks at 91 to 97% full wit
 <figcaption>Block weight is a DoS bound on one block, not a verdict that filling it with non-monetary data is acceptable.</figcaption>
 </figure>
 
-
+*Block weight is a DoS bound on one block, not a verdict that filling it with non-monetary data is acceptable.*
 
 
 
@@ -249,21 +264,6 @@ The weight limit answers whether one block can overwhelm a node. The spam proble
 *BIP141 accounting, Core v30 `-datacarriersize` (100k), dust at 3 sat/vB. Fee columns: (vbytes × rate + dust where applicable) ÷ payload bytes.*
 
 
-
-<figure class="article-chart">
-<table class="chart-matrix">
-<thead>
-<tr><th>Channel</th><th>Payload bytes (spec)</th><th>vbytes / embedded byte</th><th>sats / byte @ 10 sat/vB</th><th>@ 50 sat/vB</th><th>@ 100 sat/vB</th></tr>
-</thead>
-<tbody>
-<tr><td>OP_RETURN (dedicated)</td><td>1,024</td><td>1.01</td><td>10.1</td><td>50.7</td><td>101.5</td></tr>
-<tr><td>Taproot envelope (dedicated)</td><td>1,024</td><td>0.29</td><td>2.9</td><td>14.6</td><td>29.2</td></tr>
-<tr class="close-partial"><td>P2WPKH fake hash (free, after §III)</td><td>20</td><td>1.55</td><td>30.2</td><td>92.2</td><td>169.7</td></tr>
-<tr class="close-partial"><td>P2TR fake pubkey (near-free, after §III)</td><td>32</td><td>1.34</td><td>23.8</td><td>77.5</td><td>144.7</td></tr>
-</tbody>
-</table>
-<figcaption>BIP141 accounting, Core v30 `-datacarriersize` (100k), dust at 3 sat/vB. Fee columns: (vbytes × rate + dust where applicable) ÷ payload bytes.</figcaption>
-</figure>
 
 Closing dedicated channels does not make embedding cheaper. It removes witness-discounted envelopes and bulk `OP_RETURN`, and forces data into hash and pubkey outputs that each pay a dust floor. At every fee rate in the table, hash and pubkey rows cost more per byte than `OP_RETURN` at 1,024 bytes.
 

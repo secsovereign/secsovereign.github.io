@@ -19,6 +19,8 @@ Bitcoin has been extraordinarily successful without a formal specification. But 
 
 The consensus rules that secure a multi-trillion-dollar network exist only as behavior encoded in Bitcoin Core's C++ codebase. **"The code is the spec" is not a design principle but an admission that no one has written the spec.** Every alternative implementation, every audit, every attempt to verify correctness must reverse-engineer undocumented behavior from a codebase that was never designed to be read as a specification.
 
+Satoshi, after 0.1, said the core design was set in stone for the lifetime of the project. That stone is consensus design, not the 300,000-line application around it. Deploying the quote against P2P or privacy work is a category error on that reading. The case for a specification is the case for keeping the stone and the application apart.
+
 This has worked so far because Bitcoin's growth in economic importance has outpaced the scrutiny that importance attracts. That is changing. When a court needs to understand whether a transaction was valid under the consensus rules at a given block height, there is no document to hand them. When a new implementation team wants to be sure they are building the same rules as Core, there is no specification to target. When an auditor wants to verify that a proposed soft fork does not break existing guarantees, there is no formal description of what those guarantees are.
 
 The absence of a specification is not a minor gap. **It is the foundational vulnerability that every other correctness problem in Bitcoin builds on.**

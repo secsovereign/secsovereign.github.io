@@ -4,15 +4,17 @@
 
 ## Contents
 
-- [The model works](#the-model-works)
-- [The structure arrives on its own](#the-structure-arrives-on-its-own)
-- [Bitcoin's coordination problem is a different problem](#bitcoin-s-coordination-problem-is-a-different-problem)
-- [The contradiction](#the-contradiction)
-- [What Core actually looks like](#what-core-actually-looks-like)
-- [Succession](#succession)
+- [Benevolent dictatorship is right for ordinary software](#benevolent-dictatorship-is-right-for-ordinary-software)
+- [The hierarchy arrives as workplace habit](#the-hierarchy-arrives-as-workplace-habit)
+- [Bitcoin produces agreement, not a product](#bitcoin-produces-agreement-not-a-product)
+- [Refusing a release only delays the next download](#refusing-a-release-only-delays-the-next-download)
+- [Undeclared concentration in the merge log](#undeclared-concentration-in-the-merge-log)
+- [Succession needs agreement that does not exist here](#succession-needs-agreement-that-does-not-exist-here)
+- [Which thing gets forked](#which-thing-gets-forked)
 - [What a horizontal development layer looks like](#what-a-horizontal-development-layer-looks-like)
-- [Where it fails](#where-it-fails)
-- [The standard](#the-standard)
+- [The missing specification is doing the work](#the-missing-specification-is-doing-the-work)
+- [Where this design fails](#where-this-design-fails)
+- [The two questions that decide it](#the-two-questions-that-decide-it)
 - [Sources](#sources)
 
 ---
@@ -21,31 +23,27 @@ Bitcoin cannot be governed like Linux. A dictator is a good way to ship a kernel
 
 Bitcoin's consensus layer is horizontal. Every node checks blocks on its own, and no node can force another to take a bad one. The software that implements those rules is written by a hierarchy, and replacing the people who can merge, or making those people more accountable, leaves the hierarchy in place.
 
-Bitcoin Core already posts ACKs on GitHub, which is not the same as the decision forming there. An ACK is a comment on a pull request. Which pull requests are going to merge is decided off GitHub, on IRC, in closed CoreDev sessions, and in Signal groups. Merge is a permission held by about five accounts on bitcoin/bitcoin. Reviewers do not have it, and one of those five ships the code.
+Operators download what that hierarchy ships. The money rules sit in the same program as the defaults, so a fight about who writes the client, or about what it ships by default, gets treated as a fight about Bitcoin. The protest people already know is a chain fork. You leave the chain by changing the money rules, which has happened many times, and each time it is a new coin. You stay on it by running a different program that still implements those rules.
 
-A fight about the default client should not mean leaving the chain.
-
-A Core-derived fork can leave Core's defaults and stay on Bitcoin, and it is still mostly Core's code. An independently written client, checked against a written specification rather than Core's undocumented behavior, is the missing exit.
-
-People leave the chain by changing the money rules. That has happened many times, and each time it is a new coin.
+A fight about the default client should not mean leaving the chain. A Core-derived fork can leave Core's defaults and stay on Bitcoin, and it is still mostly Core's code. An independently written client, checked against a written specification rather than Core's undocumented behavior, is the missing exit.
 
 Nodes stay equal even though the people who write the code never will, and that still does not entitle those people to a throne.
 
 ---
 
-## The model works
+## Benevolent dictatorship is right for ordinary software
 
 Benevolent dictatorship produces good software. Linux runs most of the internet's infrastructure and was governed for decades by one person's judgment about what merged. Python, Django, and Rust all had stretches of single-authority governance, and the work held up.
 
 Concentrated authority makes architectural decisions faster than committees do. It keeps one design across a large codebase, and it ends fights that would otherwise eat years. Linux is a product, and a small group decides what goes in the kernel while everyone else downloads the result. Someone has to pick what ships, and a hierarchy is the right way to run that.
 
-Forking the kernel is allowed. Almost nobody does it. The fork is yesterday's code. The patches people want keep going into the original project. Bitcoin node operators do the same thing. They download Core and wait for the next release. Linux is one product. Core ships the money rules in the same program as the wallet and the relay, so a fight about those extras gets treated as a change to the money.
+Forking the kernel is allowed. Almost nobody does it. The fork is yesterday's code. The patches people want keep going into the original project. Bitcoin node operators do the same thing. They download Core and wait for the next release. The difference is that Linux is only a product, while a Core release carries the wallet, the relay, and the money rules together, which is why an argument about the first two arrives as an argument about the third.
 
 The pattern is right for ordinary software and wrong for money.
 
 ---
 
-## The structure arrives on its own
+## The hierarchy arrives as workplace habit
 
 The hierarchy also shows up because paid engineers bring their workplace with them.
 
@@ -63,19 +61,17 @@ If paid engineers really import the hierarchy, a project staffed from different 
 
 Not all of Core's structure is imported habit. Some of it was chosen on purpose. Merge access tightened after the inflation bug for stated reasons. Review culture hardened after the blocksize war as a considered response to what that conflict cost. Reluctance to touch consensus lightly is a position people hold out loud. Attributing all of it to unexamined corporate reflex would be too clean. Habit set the default, and deliberate choice then reinforced it.
 
-They also decide which changes count as consensus changes, which is how a proposal gets labeled too dangerous to merge. If that label is doing real work, it should show up in what shipped and what sat. That record is *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)*.
+The merge set also decides which changes count as consensus changes, which is how a proposal gets labeled too dangerous to merge. If that label is doing real work, it should show up in what shipped and what sat. That record is *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)*.
 
 ---
 
-## Bitcoin's coordination problem is a different problem
+## Bitcoin produces agreement, not a product
 
 Bitcoin's coordination problem is agreement among peers who do not trust each other. Satoshi solved that for the chain. A bad block dies at every node that checks it. Linux produces a kernel people download. Bitcoin produces agreement about which chain is valid.
 
 That check is only as good as the program doing it. The program is written by a small group. The [Commons white paper](https://thebitcoincommons.org/whitepaper.html) puts the set of people who can do consensus-critical Bitcoin work in the dozens to a few hundred worldwide. Miners and node operators are not in that set. They download a release, confirm it talks to their peers, and run it. They are trusting the maintainers and developers to have done the review they will not do themselves.
 
 "Don't trust, verify" describes what a node does with a block, not what anyone does with a release. Your node checks every block against the rules. Almost nobody checks the software that holds those rules.
-
-Other clients exist. A Core-derived fork inherits the bugs it still copies, and a separately written client has no written specification that would make a disagreement pass or fail.
 
 The trustless layer sits on a trusted one. The same gap, applied to Bitcoin Core, is *[Don't Trust, Verify](/articles/dont-trust-verify#vi-the-same-system-applied-to-bitcoin-core)*.
 
@@ -85,7 +81,7 @@ Writing the code will never be as widely spread as checking blocks. Most people 
 
 ---
 
-## The contradiction
+## Refusing a release only delays the next download
 
 A node can refuse a release. Other clients exist. btcd keeps diverging. libbitcoin exists and the ecosystem cannot use it without being rebuilt. A Core-derived fork that stays on Bitcoin is still mostly Core's code, so it is not a destination.
 
@@ -97,25 +93,29 @@ Running different defaults is cheap compared to risking a chain split. Miners ca
 
 ---
 
-## What Core actually looks like
+## Undeclared concentration in the merge log
 
 The stated model is rough consensus among a broad contributor base. In the merge log, a handful of accounts do most of the merges. Bitcoin Core is not formally a benevolent dictatorship and has never claimed to be, yet how it actually merges looks like a dictatorship with the name taken off, which is worse, because undeclared concentration is harder to see and harder to contest.
 
+Bitcoin Core already posts ACKs on GitHub, which is not the same as the decision forming there. An ACK is a comment on a pull request. Which pull requests are going to merge is decided off GitHub, on IRC, in closed CoreDev sessions, and in Signal groups. Merge is a permission held by about five accounts on bitcoin/bitcoin. Reviewers do not have it, and one of those five ships the code.
+
 Concentration of merge rights on its own still proves nothing. Any mature project restricts commit access, and Linux would look just as lopsided on the same measure. A high concentration of who may merge could just mean they are limiting who can push to a codebase where a bad merge could print coins. That would be a defense if the scarce mergers were also doing the review, and they are not.
 
-Review activity Gini sits near 0.92, while merge-authority Gini is lower because the merger set is tiny, not because power is spread. The [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) dataset, seventeen years of Core history, counts comments, ACKs, and review submissions on GitHub. It does not count hours spent checking consensus-critical code or how deep each review went, so this is about who shows up in the record, not who understood the code best in any given week. Review is spread out relative to merges, and merge authority is not. Authorship Gini sits near 0.85. Brink's [2025 Engineering Impact Report](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/) published that in one recent year more than half of all merges flowed through a single individual funded by one grant organization. The research dataset's 2022+ window is 50.2% top-1 and 82.2% top-3. Self-merge among maintainer-authored merges is 25.5%, meaning the same people proposing changes were approving them on a quarter of those landings.
+Review activity Gini sits near 0.92, while merge-authority Gini is lower because the merger set is tiny, not because power is spread. Review is spread out relative to merges, and merge authority is not. Authorship Gini sits near 0.85. Brink's [2025 Engineering Impact Report](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/) published that in calendar year 2025 more than half of all merges flowed through a single individual funded by one grant organization. The [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) dataset puts the 2022+ window at 50.2% top-1 and 82.2% top-3. Self-merge among maintainer-authored merges is 25.5%, meaning the same people proposing changes were approving them on a quarter of those landings.
+
+That dataset covers seventeen years of Core history and counts comments, ACKs, and review submissions on GitHub. It does not count hours spent checking consensus-critical code or how deep each review went, so these figures describe who shows up in the record, not who understood the code best in any given week.
 
 The bug usually cited with these numbers is CVE-2018-17144, the inflation bug that sat in Core for eighteen months. People use it to prove Core is incompetent, which it does not prove. It sat in production, was never exploited, and was patched quickly after disclosure. Patching it fast after disclosure is not the same as catching it.
 
 It propagated to Knots, ABC, and Unlimited, because those clients descend from Core's codebase. Listing those clients as independent checks is a mistake when they share a lineage. The case study is *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory#cve-2018-17144-the-bug-that-proved-gavin-right)*.
 
-What the CVE does show is that implementations copied from a common codebase inherit that codebase's blind spots, which is the argument for building from a specification instead of observed behavior. An implementation written against a stated standard does not inherit those bugs by copying Core's source. It can still ship its own, and a spec that matches mainnet has to describe the historical behavior the network already accepted.
+What the CVE does show is that implementations copied from a common codebase inherit that codebase's blind spots, which is the argument for building from a specification instead of observed behavior. An implementation written against a stated standard does not inherit those bugs by copying Core's source. It can still ship its own.
 
 Three things that are fine for ordinary software are a problem in the process that writes Bitcoin's defaults. Decisions about what ships cannot be reversed except by whoever made them. Authority lives in the merge set without a procedure, so when that set leaves you have a crisis, and there is nothing to transfer except the habit of being listened to. Legal, financial, regulatory, or personal leverage only needs that handful.
 
 ---
 
-## Succession
+## Succession needs agreement that does not exist here
 
 Every vertical project eventually loses its founder. Python is the usual counterexample. Guido stepped back, the community designed a steering council, and the language came through it intact, with no cryptographic governance, no formal specification, and no distributed signing authority. What carried it through was that people still wanted to work together, and that they had time. There was enough shared purpose to design a governance system after Guido left, and nothing catastrophic happened while they were designing it. Users just kept running the old interpreter and waited.
 
@@ -125,7 +125,11 @@ Bitcoin also does not have the shared purpose Python had. The blocksize war was 
 
 Taproot is the usual reply, because that change did ship and activate, yet it is the wrong comparison. Taproot was not the lead maintainer disappearing, and it was not a fight on the scale of the blocksize war. That it shipped says Bitcoin can activate a change when the disagreement is smaller, not that the community can design a governance system after the people in charge are gone.
 
-The war ended in a fork. Bitcoin Cash left, Bitcoin kept the ticker and the market. Some people say a fork is how this ecosystem keeps developers honest. The blocksize war was that fork. You cannot treat it as both the check working and proof that social process failed.
+---
+
+## Which thing gets forked
+
+The blocksize war ended in a fork. Bitcoin Cash left, Bitcoin kept the ticker and the market. Some people say a fork is how this ecosystem keeps developers honest. The blocksize war was that fork. You cannot treat it as both the check working and proof that social process failed.
 
 What matters is which thing gets forked. Bitcoin Cash forked the chain, which meant splitting the ledger, the hashrate, the economic network, and the community, permanently and by design. The cost of that exit was so high that it scares people off without keeping anyone honest. Nobody threatens it credibly, because the threat costs the threatener nearly everything they were trying to protect.
 
@@ -137,19 +141,35 @@ A governance fork is a different operation. Two implementations built against th
 
 Vote weight comes from work recorded in public, and a title does not confer it.
 
-The [Bitcoin Commons white paper](https://thebitcoincommons.org/whitepaper.html) does that with two questions at once. One is where the change lives, in the consensus specification, the protocol, the node, or an optional module. The other is what kind of change it is, a routine fix, a feature, something that touches consensus validation, an emergency patch, or a change to the governance rules themselves. When both apply, you take the higher signature count and the longer wait. A bug fix in the consensus layer still needs the consensus-layer bar, while a feature in an optional module does not.
+The [Bitcoin Commons white paper](https://thebitcoincommons.org/whitepaper.html) sets the bar for a merge with two questions at once. One is where the change lives, in the consensus specification, the protocol, the node, or an optional module. The other is what kind of change it is, a routine fix, a feature, something that touches consensus validation, an emergency patch, or a change to the governance rules themselves. When both apply, you take the higher signature count and the longer wait. A bug fix in the consensus layer still needs the consensus-layer bar, while a feature in an optional module does not.
 
 Routine maintenance clears on fewer signatures and a short wait. Consensus-adjacent changes need near-unanimity and a delay measured in months. Changes to the governance rules themselves need more than that. A contributor cannot approve their own merge, and even a repository administrator cannot bypass the signature check.
 
-Optional features load as process-isolated modules outside the money rules. Lightning, mining interfaces, and similar tools can compete without anyone treating them as a consensus change. The base node still validates blocks against the specification, so a feature fight does not become a throne fight.
+The patch that cannot wait runs through a declared emergency in three classes. Emergency keyholders declare a class, and that declaration changes the merge rules until a clock expires. Network-threatening work gets the fastest path, including no review wait while the declaration is live. Less severe classes keep longer waits and higher bars. Declaring an emergency is a different act from tagging a pull request as emergency work. After the clock, a written post-mortem is required and ordinary rules return. Nobody keeps a low bar because they might need one later.
+
+Optional features load as process-isolated modules outside the money rules. Lightning, mining interfaces, and similar tools can compete without anyone treating them as a consensus change. The base node still validates blocks against the specification, so a feature fight does not become a fight about the money.
 
 A further ladder, vote weight on the crates you have actually shipped, is specified as a complement to that merge policy, and it is not what is enforced today.
 
-Every action is cryptographically signed and publicly auditable. Power is visible because anyone can check the record, not because people are supposed to behave. The software layer cannot make every contributor equal the way every node is equal, and it can make the record checkable, which is what matters for who may change the code.
+Every action is cryptographically signed and publicly auditable once that authorization is switched on. Power is visible because anyone can check the record, not because people are supposed to behave. The software layer cannot make every contributor equal the way every node is equal, and it can make the record checkable, which is what matters for who may change the code.
 
 ---
 
-## Where it fails
+## The missing specification is doing the work
+
+None of that holds without a written specification. Fights still go to whoever has been around longest, because there is nothing independent to measure a judgment against, so authority reconcentrates no matter what a governance document says. Core cannot be repaired by redistributing merge rights, and the missing specification is what keeps the monopoly in place, because that missing document is doing work. The longer write-up is *[Who Controls Bitcoin](/articles/bitcoin-governance#vi-the-no-spec-moat-and-why-it-matters)*.
+
+A written specification gives contributors something to be right about that is not a person's opinion, and writing it is the hard part, because Bitcoin's live rules include serialization quirks, historical bugs the network accepted, and a policy and consensus boundary that is blurrier in practice than on paper. A specification that matches mainnet has to encode all of it, including the parts nobody would design on purpose, which makes it a large contested document that nobody writes in a week.
+
+With a specification, fights become what the document says. Formal verification and machine-checkable proofs shrink the room to argue about what the specification means.
+
+It is also what makes exit cheap enough to be credible. A formally specified implementation can be forked against the specification without reverse-engineering Core. A governance ruleset can be exported as a signed package and replaced without splitting the ledger, which is what makes a fork usable. Cheap exit keeps people honest in ways internal process cannot. The sequencing of that exit is *[Making Core Irrelevant](/articles/making-core-irrelevant)*.
+
+The governance system described is [Bitcoin Commons](https://thebitcoincommons.org), the specification is the [Orange Paper](/articles/why-bitcoin-needs-a-specification), and the implementation is [BLVM](https://docs.thebitcoincommons.org).
+
+---
+
+## Where this design fails
 
 The crate ladder, if it ever ships, can let a shallow contributor outvote the person who wrote the subsystem. A single merged pull request can put someone on questions they cannot evaluate. Someone who has shown they understand the architecture still has to gate who votes. That limit is real. Below it, more votes make worse decisions.
 
@@ -157,31 +177,19 @@ The merge policy specified today has a different failure, because the people who
 
 Distribution is slow when you need a same-day security patch. Ordinary merge rules should stay slow. The specified answer is a declared emergency with a clock, which is the substitute for a person who can merge anything.
 
-If one implementation still defines the rules everyone else must copy, distributed governance is theater. A specification plus full-chain tests is what turns "we match Core" from a claim into a pass/fail check, and that only works if the specification matches mainnet, including the ugly historical bugs.
+If one implementation still defines the rules everyone else must copy, distributed governance is theater. A specification plus full-chain tests is what turns "we match Core" from a claim into a pass/fail check.
 
 Commons has not run this merge policy at scale. Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. Gates and declared emergencies are rules on a public record, and a person constrained only by custom is what they replace. That should break differently under pressure, and it remains a prediction until someone runs it. The specification, the emergency path, and cheap exit have to exist because of those limits.
 
-The governance system described is [Bitcoin Commons](https://thebitcoincommons.org), the specification is the [Orange Paper](/articles/why-bitcoin-needs-a-specification), and the implementation is [BLVM](https://docs.thebitcoincommons.org).
-
-Without a written specification, fights still go to whoever has been around longest. There is nothing independent to measure a judgment against, so authority reconcentrates no matter what a governance document says. Core cannot be repaired by redistributing merge rights, and the missing specification is what keeps the monopoly in place, because that missing document is doing work. The longer write-up is *[Who Controls Bitcoin](/articles/bitcoin-governance#vi-the-no-spec-moat-and-why-it-matters)*.
-
-A written specification gives contributors something to be right about that is not a person's opinion, and writing it is the hard part, because Bitcoin's live rules include serialization quirks, historical bugs the network accepted, and a policy and consensus boundary that is blurrier in practice than on paper. A specification that matches mainnet has to encode all of it, including the parts nobody would design on purpose, which makes it a large contested document that nobody writes in a week.
-
-With a specification, fights become what the document says. Formal verification and machine-checkable proofs shrink the room to argue about what the specification means.
-
-Exit has to be cheap enough to be credible. A formally specified implementation can be forked against the specification without reverse-engineering Core. A governance ruleset can be exported as a signed package and replaced without splitting the ledger, which is what makes a fork usable. Cheap exit keeps people honest in ways internal process cannot. The sequencing of that exit is *[Making Core Irrelevant](/articles/making-core-irrelevant)*.
-
 ---
 
-## The standard
+## The two questions that decide it
 
 Bitcoin does not get a pass because some of the people writing the code are skilled or well-intentioned. Failed monetary institutions had skilled, well-intentioned people too. What matters is whether the people with merge authority still decide what Bitcoin nodes run on ordinary work.
 
-It also matters whether an inflation bug can be patched without giving that merge set the power to merge whatever they want.
+It also matters whether an inflation bug can be patched without giving that merge set the power to merge whatever they want. The declared class and the expiring clock are the answer to that second question, which is why the overnight patch does not require a throne.
 
-Commons specifies the second as a three-class emergency system. Emergency keyholders declare a class. That declaration changes the merge rules until a clock expires. Network-threatening work gets the fastest path, including no review wait while the declaration is live. Less severe classes keep longer waits and higher bars. Declaring an emergency is a different act from tagging a pull request as emergency work. After the clock, a written post-mortem is required and ordinary rules return. Nobody keeps a low bar because they might need one later.
-
-The overnight patch then goes through a declared class and a clock. A governance system that works only while the current merge set holds the chairs was built for Linux, and it does not belong on Bitcoin's node software.
+A governance system that works only while the current merge set holds the chairs was built for Linux, and it does not belong on Bitcoin's node software.
 
 ---
 
