@@ -37,6 +37,9 @@ Taxation runs into the one thing that capital does better than almost anything e
 
 These three exits are not offered in good faith. They are offered because **a government that acknowledges no exit exists cannot sustain the legitimacy it needs to continue operating.** The performance of trying the conventional options buys time and political cover while the actual resolution proceeds through other mechanisms entirely.
 
+The retail cover for staying inside is the index. Headline S&P 500 returns compared to official CPI are sold as the private exit from the same debasement. Sequential accounting of what that comparison leaves out is in [The_SP500_Sleight_of_Hand.md](../03-analytical/capture-apparatus/The_SP500_Sleight_of_Hand.md). That is not a fourth public exit. It is how the playbook in §III keeps looking like wealth creation.
+
+
 <figure class="article-chart chart-flowchart chart-exits">
 <div class="chart-heading">Public exits vs actual resolution</div>
 <div class="exits-compare" role="img" aria-label="Governments publicly offer growth, austerity, and taxation while debt resolves through inflation, financial repression, and seizure">
@@ -69,15 +72,17 @@ These three exits are not offered in good faith. They are offered because **a go
 
 The actual resolution of sovereign debt crises is not growth, austerity, or taxation. **It is inflation, financial repression, and seizure**, deployed in combination, usually while the government is publicly committed to one of the three exits above.
 
-Inflation is the oldest and most reliable mechanism. If the debt is denominated in a currency the government controls, printing enough money to repay it in nominal terms is always technically available, regardless of what it does to the real value of those repayments. Creditors are repaid in full in a currency that buys half of what it did when they lent it. The debt vanishes without a formal default. Germany inflated its World War I debt into oblivion between 1921 and 1923. The United States inflated away a substantial portion of its World War II burden through the sustained moderate inflation of the 1940s and 1950s. Every major fiat currency has lost the vast majority of its purchasing power over the past century, and most of that loss was a policy outcome, not an accident.
+Inflation is the oldest and most reliable mechanism. If the debt is denominated in a currency the government controls, printing enough money to repay it in nominal terms is always technically available, regardless of what it does to the real value of those repayments. Creditors are repaid in full in a currency that buys half of what it did when they lent it. The debt vanishes without a formal default. Germany inflated its World War I debt into oblivion between 1921 and 1923. The United States inflated away a substantial portion of its World War II burden through the sustained moderate inflation of the 1940s and 1950s. Every major fiat currency has lost the vast majority of its purchasing power over the past century, and most of that loss was a policy outcome, not an accident. Why monetary sovereignty is load-bearing for every other form of independence is in [Conditions_Of_Flourishing.md](../03-analytical/civilizational/Conditions_Of_Flourishing.md).
 
-Financial repression is inflation's quieter mechanism. Rather than printing money visibly, the government uses regulation to force captive pools of capital to hold government debt at below-market rates. Banks are required to hold Treasuries as tier-one capital. Pension funds are required to allocate minimum percentages to government bonds. Insurance companies are regulated into portfolios heavy with sovereign paper. The real return is negative after inflation, but the holders cannot exit because the regulations prohibit it. The wealth transfer is real and sustained, and it happens slowly enough that most people never identify the mechanism that is impoverishing them. The United States used financial repression extensively from 1945 through the early 1970s to bring its war debt ratio down from above 100 percent of GDP to manageable levels.
+Financial repression is inflation's quieter mechanism. Rather than printing money visibly, the government uses regulation to force captive pools of capital to hold government debt at below-market rates. Banks are required to hold Treasuries as tier-one capital. Pension funds are required to allocate minimum percentages to government bonds. Insurance companies are regulated into portfolios heavy with sovereign paper. The real return is negative after inflation, but the holders cannot exit because the regulations prohibit it. The wealth transfer is real and sustained, and it happens slowly enough that most people never identify the mechanism that is impoverishing them. The United States used financial repression extensively from 1945 through the early 1970s to bring its war debt ratio down from above 100 percent of GDP to manageable levels. The 401k equity sleeve is the retail form of the same captive pool. Pension and insurance mandates force government paper. The 401k forces a different capture, continuous retail inflow into the index, recruited by the headline return, with real purchasing power after tax, fees, and honest inflation far below the number used to justify the contribution. The accounting is in [The_SP500_Sleight_of_Hand.md](../03-analytical/capture-apparatus/The_SP500_Sleight_of_Hand.md).
 
 Seizure is the bluntest instrument and the most honest. When inflation and repression are insufficient, governments reach directly for the assets. Franklin Roosevelt's Executive Order 6102 in 1933 required American citizens to surrender their gold to the Federal Reserve at $20.67 per ounce. Once transferred, Roosevelt revalued it to $35 per ounce, capturing the appreciation for the state. The citizens who had held gold as a hedge against exactly this kind of monetary manipulation were paid a price that reflected none of the scarcity value they had correctly anticipated.
 
 The playbook runs in this order because each step is more politically costly than the last. Inflation is invisible until it isn't. Financial repression is bureaucratic and dull. Seizure is naked and remembered. But when the debt is large enough and the crisis acute enough, governments reach all the way to the end.
 
+
 <figure class="article-chart">
+<div class="chart-heading">Actual debt-resolution playbook</div>
 <table class="chart-matrix">
 <thead>
 <tr><th>Mechanism</th><th>How it works</th><th>Historical example</th><th>Political cost</th></tr>
@@ -90,6 +95,8 @@ The playbook runs in this order because each step is more politically costly tha
 </table>
 <figcaption>Actual debt-resolution playbook, usually deployed while public exits in §II are still debated.</figcaption>
 </figure>
+
+
 
 ---
 
@@ -109,7 +116,9 @@ Foreign accounts and foreign currency offered partial escape. Move assets into a
 
 Every hard asset, without exception, has a physical location or a jurisdictional address. **That location or address is the attack surface.** A sufficiently motivated government with adequate enforcement capacity can reach it.
 
+
 <figure class="article-chart">
+<div class="chart-heading">Hard assets and seizure surfaces</div>
 <table class="chart-matrix">
 <thead>
 <tr><th>Asset</th><th>Attack surface</th><th>Historical example</th><th>Why refuge failed</th></tr>
@@ -123,6 +132,8 @@ Every hard asset, without exception, has a physical location or a jurisdictional
 </table>
 <figcaption>Hard assets and seizure surfaces. Bitcoin's theoretical case rests on combining scarcity, jurisdictionlessness, and self-custody (§V).</figcaption>
 </figure>
+
+
 
 ---
 
@@ -138,7 +149,9 @@ It is jurisdictionless. Bitcoin transactions propagate across a global peer-to-p
 
 Most importantly, it is potentially self-custodied. A private key is a number. A number can be memorized. A memorized key controls Bitcoin that exists as entries in a distributed ledger maintained by thousands of computers globally. There is no physical object to confiscate, no vault to open, no safe deposit box to inventory. **If the key exists only in a person's memory and the coins have never touched a system that knows the owner's identity, the government's normal seizure toolkit does not engage.**
 
-These three properties together describe something that has never existed before in monetary history: **a scarce asset that can be held without a physical location, transferred without a financial intermediary, and potentially kept beyond the reach of any state actor.** Whether that theoretical potential survives contact with the actual systems humans have built around Bitcoin is a different question.
+These three properties together describe something that has never existed before in monetary history: **a scarce asset that can be held without a physical location, transferred without a financial intermediary, and potentially kept beyond the reach of any state actor.** Whether that theoretical potential survives contact with the actual systems humans have built around Bitcoin is a different question. The asset can still be uncaptured while the access layer is not.
+
+Sound money and privacy are layers of one stack, not two projects. Bearer settlement at the base means a payment can complete without identity, without a trusted middleman, and without a reversible record the issuer can unwind. Self-custody is that layer. It does not make the transaction graph private. Chain analysis can reconstruct who paid whom from the ledger even when the legal name behind a key is still unknown. Transaction-graph privacy is the next layer. Coin control, collaborative transactions, and off-chain payments shift cost. They do not finish the job. Communications, identity compartment, and the physical last mile sit above that. A missing layer leaks the ones above it. Perfect encrypted chat still hands the adversary a map the moment a payment is traceable to you. Self-custody on a fully identified on-ramp still hands them the access layer described in §IX. Vocabulary for disclosure, secrecy, and anonymity is in [Privacy_Disclosure_Control.md](Privacy_Disclosure_Control.md).
 
 ---
 
@@ -148,7 +161,7 @@ The rules that define Bitcoin are not the same thing as the system that implemen
 
 Mining is the process by which transactions are confirmed and new blocks are added to the chain. Miners are not abstract participants. They are companies running data centers, consuming electricity purchased from utilities in specific jurisdictions, operating hardware manufactured in a handful of facilities globally. The geographic distribution of mining hashrate has shifted over time, but significant concentrations exist in western jurisdictions including the United States. **A dominant mining pool within reach of a sufficiently determined government is not a theoretical vulnerability. It is an operational one.**
 
-Software development is more concentrated still. Bitcoin Core, the dominant implementation of the Bitcoin protocol, is maintained by a small number of developers who are identifiable, located primarily in western jurisdictions, and reachable through ordinary legal process. The repository lives on GitHub, an American company subject to American law. The communication channels where development decisions are made are monitored and archived. **There is no anonymity in the Bitcoin Core developer community worth speaking of.**
+Software development is more concentrated still. Bitcoin Core, the dominant implementation of the Bitcoin protocol, is maintained by a small number of developers who are identifiable, located primarily in western jurisdictions, and reachable through ordinary legal process. The repository lives on GitHub, an American company subject to American law. The communication channels where development decisions are made are monitored and archived. **There is no anonymity in the Bitcoin Core developer community worth speaking of.** If those people fold under legal or personal pressure, the software layer folds regardless of what the cryptography says. Cheap governance exit on the same chain is what makes that pressure fail. That is the Vertical Layer problem, not a claim that more implementors will automatically resist.
 
 Node operators are the network's validators, the participants who enforce the rules and reject blocks that violate them. Running a node is the deepest form of participation in the network's consensus. But node operators are also individuals running software on hardware connected to the internet in physical locations. The jurisdictional reach problem applies to them as directly as it applies to miners.
 
