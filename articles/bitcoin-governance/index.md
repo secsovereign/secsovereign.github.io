@@ -339,7 +339,7 @@ Implementation diversity is the structural fix, not a personnel change at Core. 
 
 ### On secsov.com
 
-- *[The Vertical Layer Problem](/articles/the-vertical-layer-problem)*: why Bitcoin cannot be governed like an open source project
+- *[The Vertical Layer Problem](/articles/the-vertical-layer-problem)*: the consensus layer is horizontal, the software that implements it is not
 - *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)*: refutations of common monopoly defenses
 - *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory)*: blocksize war outcome and implementation diversity path
 - *[The Adversarial Default](/articles/the-adversarial-default)*: defense of toxic maximalism as immune system under capturable architecture

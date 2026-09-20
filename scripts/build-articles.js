@@ -754,7 +754,7 @@ const LLMS_ARTICLE_NOTES = {
   'bitcoins-hidden-crisis': 'Bitcoin solved block consensus. Node software is still written by informal agreement. Coordination vs protocol consensus; blocksize, Taproot, OP_RETURN; Commons as one public attempt.',
   'why-shitcoins-are-shitcoins': 'Structural case against altcoins as monetary assets: security, decentralization, monetary policy credibility, founder risk, securities exposure, price record, Bitcoin dominance, Lindy effect, smart contract rebuttal.',
   'making-core-irrelevant': 'What has to happen, and in what order: economic-majority vs miner signaling, formal-spec implementation plus successor-pool tracks, floor/mid/ceiling through the 2028 halving, and what failure looks like.',
-  'the-vertical-layer-problem': 'Why Bitcoin cannot be governed like Linux. A dictator is a good way to ship a kernel and a bad way to write Bitcoin node software. Cheap governance exit against a spec, not a chain fork.',
+  'the-vertical-layer-problem': 'The consensus layer is horizontal. The software that implements it is not. A dictator is a good way to ship a kernel and a bad way to write Bitcoin node software. Cheap governance exit against a spec, not a chain fork.',
 };
 
 const LLMS_BIP_NOTES = {

@@ -1,6 +1,6 @@
 # The Vertical Layer Problem
 
-## Why Bitcoin cannot be governed like an open source project
+## The consensus layer is horizontal. The software that implements it is not.
 
 ## Contents
 
