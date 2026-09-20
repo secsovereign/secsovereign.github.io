@@ -34,7 +34,7 @@ Process improvements are real. Zero-review merges dropped from 30.3% to 3.3%. Fi
 
 ### Fallacy 1.2: "Maintainers are just janitors, not decision-makers"
 
-This framing appeared in mainstream Bitcoin commentary as early as 2018 and has been repeated since. The data does not support it. Maintainers self-merge **25.5%** of their own pull requests, and **45.1%** of those self-merges carry zero reviews (**11.6%** of all maintainer-merged PRs). One historical maintainer self-merged 77.1% of his own pull requests. Merge authority over the only implementation that 99% of economic nodes run **is not a janitorial function** by any honest definition of the term.
+This framing appeared in mainstream Bitcoin commentary as early as 2018 and has been repeated since. The data does not support it. Maintainers self-merge **25.5%** of their own pull requests, and **45.1%** of those self-merges carry zero reviews (**11.6%** of all maintainer-merged PRs). One historical maintainer self-merged 77.1% of his own pull requests. Merge authority over the lineage that almost all economic nodes run **is not a janitorial function** by any honest definition of the term.
 
 ---
 
@@ -64,7 +64,7 @@ Beyond Atack, 31 Bitcoin Core developers signed an open letter against the OP_RE
 
 Bitcoin Core is approximately 300,000 lines of C++ in which the wallet, networking layer, consensus engine, and RPC interface are entangled rather than independently composable. The fact that it has internal modules does not make it non-monolithic any more than the Linux kernel's loadable modules make it non-monolithic. Modularity and monolithism are independent properties and a codebase can be both simultaneously.
 
-The deeper issue is that no formal specification exists above what Bitcoin Core ships. When 99% of nodes run a single codebase, the reference client and the protocol become functionally identical regardless of what anyone claims about their separability. The absence of a specification is not a neutral technical choice. It protects the incumbent by ensuring that any alternative implementation must reverse-engineer undocumented behavior rather than implement against an independent mathematical standard.
+The deeper issue is that no formal specification exists above what Bitcoin Core ships. When almost all nodes run that lineage, the reference client and the protocol become functionally identical regardless of what anyone claims about their separability. The absence of a specification is not a neutral technical choice. It protects the incumbent by ensuring that any alternative implementation must reverse-engineer undocumented behavior rather than implement against an independent mathematical standard.
 
 ---
 

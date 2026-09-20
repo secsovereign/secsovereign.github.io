@@ -69,7 +69,7 @@ Numbered arguments for debate and analysis. Narrative evidence, funding maps, an
 
 ## Part II. The Specification Problem
 
-9. **The reference client is the protocol in practice.** There is no independent mathematical specification floating above what Core ships and the network runs. When 99% of economic nodes run one codebase, the reference client and the protocol are functionally identical.
+9. **The reference client is the protocol in practice.** Core has never produced an independent mathematical specification sitting above what it ships, and the network has not adopted one. When almost all economic nodes run that lineage, the reference client and the protocol are functionally identical.
 
 10. **The no-spec moat protects the incumbent structurally.** Without a formal specification, any alternative implementation must reverse-engineer undocumented behavior. This is not an accident. Unspecified behavior creates a structural barrier to competition that cannot be resolved without an independent mathematical specification.
 
@@ -448,7 +448,7 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 95. **The absence of coercion is not the absence of governance.** Elinor Ostrom won the Nobel Prize in Economics for demonstrating that commons can be governed successfully through voluntary, self-organized institutions with no coercive authority whatsoever. Her work documented hundreds of cases. The question is not whether Bitcoin's governance uses coercion. The question is whether it has the properties Ostrom identified as necessary for commons governance to work: visible rules, visible decision-making, accountability to participants, and genuine alternatives. Bitcoin currently fails most of those tests.
 
-96. **Ostrom's failure modes describe Bitcoin's current situation closely.** Ostrom documented how commons fail: rules are invisible, decision-making is captured by a small group, participants cannot see who is making decisions on their behalf, and exit options are theoretical rather than practical. A small group controls what 77% of the network ran in the 2025 to mid-2026 window, banned critics for naming conflicts of interest, and blocked a formal spec for seventeen years. That is not friction. That is Ostrom's failure pattern.
+96. **Ostrom's failure modes describe Bitcoin's current situation closely.** Ostrom documented how commons fail: rules are invisible, decision-making is captured by a small group, participants cannot see who is making decisions on their behalf, and exit options are theoretical rather than practical. A small group controls what 77% of the network ran in the 2025 to mid-2026 window, banned critics for naming conflicts of interest, and kept Core from adopting a formal spec for seventeen years. That is not friction. That is Ostrom's failure pattern.
 
 97. **Good governance and formalized government are not the same thing.** The goal is not foundations, steering committees, or stakeholder processes. Those are capture vectors. The goal is the same thing Ostrom's successful commons had: visible rules, visible decision-making, accountability to participants, and genuine alternatives so that exit is real rather than theoretical. That is compatible with everything Bitcoin's defenders claim to value. It is what they are not currently delivering.
 

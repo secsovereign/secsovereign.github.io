@@ -20,7 +20,7 @@ In March 2014 Gavin Andresen stood at Princeton and named both layers. Technical
 
 ## Two kinds of consensus
 
-Protocol consensus is the set of validation rules every node enforces: subsidy, proof of work, script, block structure. No maintainer can change those rules by merging a pull request. The network either takes a new rule or it does not.
+Protocol consensus is the set of validation rules every node enforces: subsidy, proof of work, script, block structure. No maintainer can change those rules by merging a pull request. The network either takes a new rule or it does not. Shipping a release is not rewriting those rules. The people who write the default still govern what new operators download.
 
 Social coordination is who may merge, who may stall, and how a fight about the software is settled. Consensus-adjacent work sits between those layers. It does not rewrite the money rules, and it still requires coordinated adoption across developers, miners, and economic nodes. A security patch that operators must take is in that middle. A wallet fight that ships in the default node is in that middle. Treating those fights as if they were changes to the 21 million cap is how they become governance crises.
 

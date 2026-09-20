@@ -114,7 +114,7 @@ Whether that outcome was coordinated or emergent from the collision of financial
 
 ## VI. The No-Spec Moat as Predictable Output
 
-Bitcoin Core has never produced a formal mathematical specification of its consensus rules. Seventeen years of technically capable, well-funded developers working on software that secures trillions of dollars of economic value, and no formal specification exists.
+Bitcoin Core has never produced a formal mathematical specification of its consensus rules. Seventeen years of technically capable, well-funded developers working on software that secures trillions of dollars of economic value, and the network has not adopted one.
 
 The usual explanation is that a specification would ossify the protocol, or that the code is the specification, or that the problem is harder than it looks. None of these explanations survive contact with the incentive structure underneath them.
 
