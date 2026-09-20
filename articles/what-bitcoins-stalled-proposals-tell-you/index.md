@@ -25,7 +25,7 @@ Caution is appropriate for consensus changes. **It is not an explanation for why
 
 When one implementation controls the defaults for the entire network, every improvement has to clear one gatekeeping process with a thin reviewer pool, a thin funding base, and institutional incentives that do not always align with node operators.
 
-Across 16 years of Core commit history, the Gini coefficient for merge activity is ~0.85, where 0 is perfectly equal and 1 means one person controls everything. The top contributors control over 80% of merges. In a single recent year, over half of all merges flowed through one Brink-funded individual, a figure Brink itself published. Bitcoin Core has never had more than a handful of active maintainers in its entire history. That concentration is not a distribution that ships a long backlog of improvements. **It is a distribution that produces exactly the list below.**
+Across 17 years of Core commit history, the authorship Gini is ~0.851 historical / ~0.834 recent, where 0 is perfectly equal and 1 means one person controls everything. The top three merger accounts control 81.1% of historical merges and 82.2% since 2022. In a single recent year, over half of all merges flowed through one Brink-funded individual, a figure Brink itself published. Bitcoin Core has never had more than a handful of active maintainers in its entire history. That concentration is not a distribution that ships a long backlog of improvements. **It is a distribution that produces exactly the list below.**
 
 ---
 
@@ -43,17 +43,21 @@ Wallet/Node Separation (2016): still bundled after a decade of universal agreeme
 
 Formal Verification: recommended by Quarkslab, not implemented
 
+Package relay / BIP331: designed on the list as policy, not consensus; implementation PRs spent years under `[NO MERGE]`
+
 and more…
 
 ## Privacy and Relay
 
 Dandelion has been research-complete since 2017. The mechanism is a two-phase propagation model: transactions travel a random path through the network in the stem phase before diffusing outward, making it significantly harder for a passive observer to determine which node originated a transaction. It was never merged.
 
-The objection is that it creates a false sense of privacy rather than real privacy, which is a stronger claim than was ever proposed. Dandelion doesn’t claim to solve all privacy problems. It reduces information leakage to passive network observers, one well-defined threat model it actually addresses. Arguing that an improvement is harmful because it doesn’t solve everything is not a technical objection. It is a dismissal that substitutes a stronger claim for the one actually being made.
+The close comment on the Core implementation PR ([#13947](https://github.com/bitcoin/bitcoin/pull/13947)) is not a vote and not a “false sense of privacy” dismissal. The author closed it because stem routing is non-trivial against the wallet’s own RBF and CPFP without opening DOS vectors, and pointed at a thinner “Dandelion Light” first step. That is a bundled wallet-and-node problem, not a privacy-philosophy problem. Dandelion still reduces leakage to passive network observers. The stall is that the monolith will not take a privacy hop that collides with policy it already shipped. See [`findings/ARCHIVE_GEMS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/ARCHIVE_GEMS.md).
 
 What eventually landed in Core was private broadcast, merged years after Dandelion was first proposed. Private broadcast protects your IP from the specific peer you connect to. That is a narrower threat model. Both are useful. They are not substitutes, and private broadcast landing does not close the Dandelion argument.
 
-Erlay would cut node bandwidth by 40 to 80% on transaction relay using set reconciliation rather than flooding. It has years of research behind it, no serious technical objection on record, and it still sits in the queue.
+Erlay would cut node bandwidth on transaction relay using set reconciliation rather than flooding. The author’s measurements on the full-protocol PR sit in the 20–50% range; a NACK in the same thread called the patch premature on efficiency grounds. Full-protocol Erlay is **0/7** merged. Scaffolding merges are not delivery. The stall is a measurement fight that never closed, not an empty objection docket. See [`findings/STALLED_PROPOSALS_REPORT.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/STALLED_PROPOSALS_REPORT.md).
+
+Package relay was announced on bitcoin-dev as mempool policy, “not consensus or P2P protocol changes.” The large implementation PR is titled `[NO MERGE]` until maintainers have rough consensus on approach ([#27742](https://github.com/bitcoin/bitcoin/pull/27742)). That is the 2022+ informal-before-PR flow of 0.002 in prose. The list still names the topic. GitHub refuses to treat the first large PR as a decision.
 
 ## Sync and Verification
 
@@ -67,7 +71,7 @@ Quarkslab explicitly recommended formal verification as the path forward. Not an
 
 The Missing Specification. Bitcoin’s consensus rules are not written down anywhere. Every mature protocol at the infrastructure level has a formal specification that exists independently of any single implementation: TCP/IP, HTTP, TLS, SMTP. The specification defines the protocol. Implementations conform to it. When an implementation diverges from the spec it is wrong, and you can say so precisely. When there is no spec, the dominant implementation is the spec by default, which means whoever controls the dominant implementation controls the protocol definition. Not through any explicit authority, but through the structural fact that there is nothing else to appeal to.
 
-This is not an accident that nobody got around to fixing. **It is a condition that has been actively maintained.** The response to calls for a formal specification has been consistent. The code is the spec. Bitcoin is too complex to specify formally. Any written spec would inevitably diverge from the implementation. Each of these objections has the same practical effect, which is keeping the no-spec condition in place, keeping Core as the sole authority on what the rules actually are, and making it structurally impossible for any independent implementation to prove consensus compatibility without deferring to Core.
+This is not an accident that nobody got around to fixing but a condition that has been actively maintained. The response to calls for a formal specification has been consistent. The code is the spec. Bitcoin is too complex to specify formally. Any written spec would inevitably diverge from the implementation. Each of these objections has the same practical effect, which is keeping the no-spec condition in place, keeping Core as the sole authority on what the rules actually are, and making it structurally impossible for any independent implementation to prove consensus compatibility without deferring to Core.
 
 Without a specification, any alternative implementation must reverse-engineer undocumented behavior from Core itself, staying architecturally dependent on Core. When a consensus-critical behavior changes in Core, an alternative implementation that wasn’t tracking that specific change becomes a chain split risk. The only way to stay safe is to follow Core closely, which means any serious alternative is not an independent implementation but a Core fork with different branding. This is why the “just fork it” response to governance criticism is a non-answer. A Core fork inherits the same undocumented behavior, the same 300,000 lines of technical debt, and the same capture vectors. The governance problem follows the code.
 
@@ -81,7 +85,7 @@ Wallet and Node Separation has had universal conceptual agreement since GitHub i
 
 When one implementation sets policy defaults for the entire network, every policy disagreement becomes an all-or-nothing fight for control of what that implementation ships. The OP_RETURN debate was not about 80 bytes. The mempool policy fights, the dust limit arguments, the RBF debates are structurally identical, civil wars over a throne that exists only because there is one throne to capture.
 
-The OP_RETURN debate is worth dwelling on because it illustrates the mechanism precisely. Bitcoin Core merged a change in 2025 raising the default OP_RETURN data limit, a relay policy decision with no consensus implications. Operators who disagreed had no meaningful recourse inside the Core process. For many, the only way to enforce a different policy was to run different software. That is what they did. Knots, a Bitcoin Core fork maintained by Luke Dashjr that applies stricter defaults, went from under 2% to roughly 20% of the reachable network in the months following the merge. A five-fold move in reachable nodes driven by a relay policy disagreement. Policy does not bind miners who bypass relay. The 83-byte cap belongs at consensus; that is *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*.
+The OP_RETURN debate is worth dwelling on because it illustrates the mechanism precisely. Bitcoin Core merged a change in 2025 raising the default OP_RETURN data limit, a relay policy decision with no consensus implications. Operators who disagreed had no meaningful recourse inside the Core process. For many, the only way to enforce a different policy was to run different software. That is what they did. Knots, then a Bitcoin Core fork maintained by Luke Dashjr that applies stricter defaults, went from under 2% to roughly 20% of the reachable network in the months following the merge. A five-fold move in reachable nodes driven by a relay policy disagreement. Policy does not bind miners who bypass relay. The 83-byte cap belongs at consensus; that is *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*.
 
 The demand for policy plurality was always there. The monoculture was suppressing it. When a conservative alternative presented itself, a significant fraction of the network moved to it immediately.
 
@@ -89,7 +93,7 @@ The demand for policy plurality was always there. The monoculture was suppressin
 
 ## What Better Looks Like
 
-Bitcoin Commons is a ground-up alternative Bitcoin node implementation written in Rust, built from a formal mathematical specification called the Orange Paper. It is not a Core fork or a thin wrapper around Core’s consensus logic, but an independent implementation built from a spec, verified against that spec, and governed by a structure designed to prevent the capture patterns that produced the list above.
+Bitcoin Commons is a from-scratch Rust client built from a human-readable mathematical specification called the Orange Paper. Same chain, same 21 million. It is not a Core fork or a thin wrapper around Core’s consensus logic. Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. The design is meant to make the merge path harder to capture than informal GitHub authority.
 
 ## The Orange Paper and the BLVM
 
@@ -97,13 +101,13 @@ The Orange Paper is a formal mathematical specification of Bitcoin’s consensus
 
 The spec is a public good that extends beyond Commons. Any implementation can verify against it. Consensus rule disputes can be resolved by appealing to a document rather than deferring to whoever controls the dominant codebase. The no-spec moat dissolves the moment the spec is published, for everyone.
 
-## The BLVM Spec Lock
+## The BLVM Specification Lock
 
-The BLVM spec lock is a Z3-based formal verification system tying the Commons implementation to the Orange Paper. Every critical consensus property is expressed as a formal proof. Those proofs run in CI against every merge. A change that breaks a consensus property does not get through, not because a reviewer caught it, not because a test happened to cover it, but because the proof fails.
+The BLVM Specification Lock uses Z3 to check annotated implementation paths against the Orange Paper. Coverage will expand. That is not a claim every consensus property is proven on every merge, or that every CI job has zero-divergence proof to tip. When a locked check fails, the merge fails because the contract failed, not because a reviewer happened to notice.
 
-That is exactly the step Quarkslab said was the necessary next step for Bitcoin consensus code. Commons built it.
+That is the direction Quarkslab named as the next step for Bitcoin consensus code. Commons is building it.
 
-The spec lock also changes who can safely contribute. The primary risk with AI-generated code is subtle behavioral changes that pass code review but alter consensus-critical behavior in ways that are hard to catch. The spec lock makes that tractable: any contribution, human or AI, can be verified against the mathematical specification before it ships. The barrier shifts from years of pipeline navigation to writing code that satisfies the formal proofs.
+The Specification Lock also changes who can safely contribute. The primary risk with AI-generated code is subtle behavioral changes that pass code review but alter consensus-critical behavior in ways that are hard to catch. A lock that actually covers the changed path makes that tractable. The barrier shifts from years of pipeline navigation toward writing code that satisfies the contracts.
 
 ## UTXO Commitments Without a Consensus Change
 
@@ -127,7 +131,7 @@ The BLVM’s secp256k1 implementation is pure Rust and benchmarks 10 to 22% fast
 
 ## Governance
 
-Once Phase 2 governance is activated, there is no self-merge. That means that maintainers cannot simultaneously propose and merge their own code. Crate-scoped voting weights contributions proportionally to the subsystem being changed, conflict of interest disclosure is a required part of the process, and the reviewer pool is not gated by years of pipeline navigation through fellowship programs that select for ideological alignment as much as technical capability. The barrier to safe contribution is writing code that satisfies the formal proofs, which is a technical bar, not a social one.
+Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. The design has no self-merge at protocol level. Maintainers cannot simultaneously propose and merge their own code. Crate-scoped voting weights contributions proportionally to the subsystem being changed, conflict of interest disclosure is a required part of the process, and the reviewer pool is not gated by years of pipeline navigation through fellowship programs that select for ideological alignment as much as technical capability. The barrier to safe contribution is writing code that satisfies the contracts, which is a technical bar, not a social one.
 
 ---
 
@@ -135,15 +139,15 @@ Once Phase 2 governance is activated, there is no self-merge. That means that ma
 
 The bottleneck was never engineering. The Dandelion papers are published. The UTXO commitment schemes are fully specified. Erlay has years of development behind it. Formal verification tooling exists and works. The objections raised against these proposals, when they exist at all, fall into three kinds. Some are strawmen that substitute stronger claims for the ones actually being made. Some describe the status quo as if that were an argument against changing it. Some concede the research is sound and say the problem is prioritization.
 
-What they share is a governance structure that cannot process improvements when the coordination cost exceeds the threshold the structure can clear, or when the improvement threatens the institutional position of the people whose funding depends on the status quo. A merge concentration of 0.851 across 16 years of commit data is not an accident. It is the predictable output of a system where access to merge authority is controlled by a small group with aligned institutional interests and no formal accountability to the node operators running the software.
+What they share is a governance structure that cannot process improvements when the coordination cost exceeds the threshold the structure can clear, or when the improvement threatens the institutional position of the people whose funding depends on the status quo. An authorship Gini of 0.851 across 17 years of commit data is not an accident. It is the predictable output of a system where access to merge authority is controlled by a small group with aligned institutional interests and no formal accountability to the node operators running the software.
 
-The conservative governance argument has merit for consensus changes. It has no application to a P2P privacy proposal sitting unmerged for years with no serious technical objection on record. At some point the distinction between intentional conservatism and structural paralysis requires evidence, and the evidence is the list.
+The conservative governance argument has merit for consensus changes. It has no application to a P2P privacy proposal sitting unmerged for years because it collided with wallet policy the same tree already shipped. At some point the distinction between intentional conservatism and structural paralysis requires evidence, and the evidence is the list.
 
 Bitcoin is the only monetary network in history not ultimately controlled by a state. That property is fragile. It depends on the network remaining genuinely decentralized at every layer, including the software layer. A network where one development team controls the only production-grade node implementation, where that team’s funding flows from a handful of grant organizations, and where the protocol definition exists only as the emergent behavior of that team’s codebase is not decentralized at the software layer. It is a single point of failure dressed in the language of decentralization.
 
-Commons demonstrates the technical problem is solvable. The Orange Paper exists. The spec lock is running. The UTXO commitment system works without touching consensus. Dandelion++ is shipping. The features that sat unmerged for years are in the build, built by a small team working from a formal specification rather than reverse-engineering undocumented behavior from a 300,000-line monolith.
+Commons demonstrates the technical problem is solvable as a program, not as a finished certificate. The Orange Paper exists. The Specification Lock checks annotated paths. Full-chain differential replay against Core is the scale test, operator-driven, and not a CI-to-tip claim. UTXO commitments and Dandelion++ are in the Commons build as engineering answers to the stalled list. That is not a claim the money already runs on those tools. The features that sat unmerged for years can be built from a specification rather than reverse-engineered from a 300,000-line monolith.
 
-**The proof is the implementation and the implementation is the argument.**
+The argument is the artifact: a spec, a second client, and a differential program, not a speech about Core.
 
 ---
 
@@ -151,12 +155,12 @@ Commons demonstrates the technical problem is solvable. The Orange Paper exists.
 
 - [Fanti, G. et al., "Dandelion: Redesigning the Bitcoin Network for Anonymity"](https://arxiv.org/abs/1701.04439), arXiv:1701.04439, 2017
 - [BIP 156: Dandelion, Privacy Enhancing Routing](https://github.com/bitcoin/bips/blob/master/bip-0156.mediawiki)
-- [BIP 330: Transaction Announcements Reconciliation](https://github.com/bitcoin/bips/blob/master/bip-0330.mediawiki) — Naumenko, G. and Wuille, P., created 2019-09-25
+- [BIP 330: Transaction Announcements Reconciliation](https://github.com/bitcoin/bips/blob/master/bip-0330.mediawiki): Naumenko, G. and Wuille, P., created 2019-09-25
 - [Bitcoin Optech: Erlay](https://bitcoinops.org/en/topics/erlay/)
 - [Bitcoin Core Issue #7525: Separate Node and Wallet Functions](https://github.com/bitcoin/bitcoin/issues/7525), filed February 12, 2016
-- [Rusty Russell, "Pettycoin Revisited Part I: UTXO Commitments"](https://rustyrussell.github.io/pettycoin/2014/11/29/Pettycoin-Revisted-Part-I:-UTXO-Commitments.html) — Friedenbach, M., Todd, P., Miller, A. et al., 2014
-- [Quarkslab, "Bitcoin Core Security Audit"](https://blog.quarkslab.com/bitcoin-core-audit.html), November 2025 — [full report](https://github.com/quarkslab/public-reports)
-- [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) — 16-year commit history / merge concentration
+- [Rusty Russell, "Pettycoin Revisited Part I: UTXO Commitments"](https://rustyrussell.github.io/pettycoin/2014/11/29/Pettycoin-Revisted-Part-I:-UTXO-Commitments.html): Friedenbach, M., Todd, P., Miller, A. et al., 2014
+- [Quarkslab, "Bitcoin Core Security Audit"](https://blog.quarkslab.com/bitcoin-core-audit.html), November 2025: [full report](https://github.com/quarkslab/public-reports)
+- [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research): 16-year commit history / merge concentration
 - [Brink Engineering Impact Report 2025](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/)
 - [Bitcoin Core PR #32359: Remove OP_RETURN size limits](https://github.com/bitcoin/bitcoin/pull/32359), 2025
-- [Bitnodes.io](https://bitnodes.io) — Bitcoin Knots node statistics
+- [Bitnodes.io](https://bitnodes.io): Bitcoin Knots node statistics

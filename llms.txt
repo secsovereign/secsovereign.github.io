@@ -55,10 +55,10 @@ This site publishes **long-form reference articles** and **BIP pre-proposals**, 
 
 ## Implementation diversity and specification
 
-- [Why Bitcoin Needs a Specification That Humans Can Read](https://secsov.com/articles/why-bitcoin-needs-a-specification): Human-readable spec (Orange Paper) vs Lean/DSL; verification as governance; spec-lock with Z3; defense-in-depth stack. Related: Permanent Data Channel Closure.
+- [Why Bitcoin Needs a Specification That Humans Can Read](https://secsov.com/articles/why-bitcoin-needs-a-specification): Human-readable spec (Orange Paper) vs Lean/DSL; verification as governance; Specification Lock with Z3; defense-in-depth stack. Related: Permanent Data Channel Closure.
 - [The Vertical Layer Problem](https://secsov.com/articles/the-vertical-layer-problem): Why Bitcoin cannot be governed like Linux. A dictator is a good way to ship a kernel and a bad way to write Bitcoin node software. Cheap governance exit against a spec, not a chain fork.
 - [Making Core Irrelevant](https://secsov.com/articles/making-core-irrelevant): What has to happen, and in what order: economic-majority vs miner signaling, formal-spec implementation plus successor-pool tracks, floor/mid/ceiling through the 2028 halving, and what failure looks like.
-- [Bitcoin's Hidden Crisis: When Technical Consensus Isn't Enough](https://secsov.com/articles/bitcoins-hidden-crisis): Social vs protocol consensus; coordination crises (blocksize, Taproot); Bitcoin Commons cryptographic coordination model.
+- [The Coordination Gap](https://secsov.com/articles/bitcoins-hidden-crisis): Bitcoin solved block consensus. Node software is still written by informal agreement. Coordination vs protocol consensus; blocksize, Taproot, OP_RETURN; Commons as one public attempt.
 
 ## Blockspace and consensus policy
 
@@ -119,7 +119,7 @@ This site publishes **long-form reference articles** and **BIP pre-proposals**, 
 - [Full Cost of Running a Bitcoin Node (Markdown source)](https://secsov.com/articles/full-cost-of-running-a-bitcoin-node/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Bitcoin Is Not a Hard Drive (Markdown source)](https://secsov.com/articles/bitcoin-not-a-hard-drive/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Why Bitcoin Needs a Specification That Humans Can Read (Markdown source)](https://secsov.com/articles/why-bitcoin-needs-a-specification/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
-- [Bitcoin's Hidden Crisis: When Technical Consensus Isn't Enough (Markdown source)](https://secsov.com/articles/bitcoins-hidden-crisis/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [The Coordination Gap (Markdown source)](https://secsov.com/articles/bitcoins-hidden-crisis/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Don't Trust, Verify (Markdown source)](https://secsov.com/articles/dont-trust-verify/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Why Shitcoins Are Shitcoins (Markdown source)](https://secsov.com/articles/why-shitcoins-are-shitcoins/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [The Adversarial Default (Markdown source)](https://secsov.com/articles/the-adversarial-default/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.

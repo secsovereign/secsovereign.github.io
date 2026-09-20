@@ -1,11 +1,12 @@
 # Governance Paralysis Was The Victory
 
-## Bitcoin is not captured. Bitcoin Core is.
+## Bitcoin is not captured. The implementation that writes the defaults is capturable.
 
 ## Contents
 
 - [The Block Size War](#the-block-size-war)
 - [CVE-2018-17144: The Bug That Proved Gavin Right](#cve-2018-17144-the-bug-that-proved-gavin-right)
+- [Who paid the seats](#who-paid-the-seats)
 - [The PTSD: Good Ossification vs. Bad Ossification](#the-ptsd-good-ossification-vs-bad-ossification)
 - [Lightning: A Partial Answer That Proves the Problem](#lightning-a-partial-answer-that-proves-the-problem)
 - [The Market Bitcoin Should Own](#the-market-bitcoin-should-own)
@@ -15,11 +16,11 @@
 
 ---
 
-Bitcoin is not captured. Bitcoin Core is.
+Bitcoin is not captured. The implementation that writes the defaults is capturable.
 
-Those are not the same thing. Bitcoin is a network, a set of consensus rules, and a fixed supply of 21 million coins secured by proof of work. Bitcoin Core is one software implementation, the only one anyone runs in meaningful volume, that enforces those rules. **Bitcoin Core's governance is broken, but Bitcoin's properties are not.**
+Those are not the same thing. Bitcoin is a network, a set of consensus rules, and a fixed supply of 21 million coins secured by proof of work. Bitcoin Core is one software implementation, the only one anyone runs in meaningful volume, that enforces those rules. **Bitcoin Core's merge process is informal, but Bitcoin's properties are not broken.**
 
-The problem is not Bitcoin. The problem is that Bitcoin runs on one dominant implementation, controlled by one group of maintainers, and that single point of failure is what's been exploited. The solution is not to leave Bitcoin. **The solution is to build a second implementation** that runs on Bitcoin's network, enforces Bitcoin's consensus rules, and proves mathematically that it is consensus-compatible. That is what implementation diversity on Bitcoin actually means. Everything else is abandoning the only asset that actually works. For the funding map, merge concentration, and adversarial cases, see *[Who Controls Bitcoin](/articles/bitcoin-governance)*. For why the block size war consumed the bandwidth that diversity required, see *[The Social Layer Is the Attack Surface, §V](/articles/bitcoin-social-capture#v-the-blocksize-war-as-case-study)*. For the stalled-proposals evidence list and common monopoly defenses, see *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)* and *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)*.
+The problem is not Bitcoin. The problem is that Bitcoin runs on one dominant implementation, written by a small merge roster, and that single point of failure is capturable. The solution is not to leave Bitcoin. **The solution is to build a second implementation** that runs on Bitcoin's network, enforces Bitcoin's consensus rules, and can be checked against a written specification. Same chain, same 21 million. That is what implementation diversity on Bitcoin actually means. Everything else is abandoning the only asset that actually works. For the funding map, merge concentration, and adversarial cases, see *[Who Controls Bitcoin](/articles/bitcoin-governance)*. For why the block size war consumed the bandwidth that diversity required, see *[The Social Layer Is the Attack Surface, §V](/articles/bitcoin-social-capture#v-the-blocksize-war-as-case-study)*. For the stalled-proposals evidence list and common monopoly defenses, see *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)* and *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)*.
 
 ---
 
@@ -27,33 +28,13 @@ The problem is not Bitcoin. The problem is that Bitcoin runs on one dominant imp
 
 In the early days of Bitcoin, Gavin Andresen, Satoshi’s handpicked successor, called for multiple independent implementations of the Bitcoin protocol. The reasoning was straightforward: if one implementation has a consensus bug, others catch it, so you don’t run a monetary network on a single codebase. Andresen set a threshold for when this work should be done, but that threshold was never met. The conversation moved on, and Bitcoin remained a single-implementation network, every node running variations of the same code and all sharing the same blind spots.
 
-At the time Bitcoin was a $6 billion asset and the engineering problem was solvable. But before the block size war even started, people were already mapping how to break it.
+At the time Bitcoin was a $6 billion asset and the engineering problem was solvable. The conversation moved on, and Bitcoin remained a single-implementation network.
 
-In July 2014, Peter Thiel emailed Jeffrey Epstein asking: “Do you think this is the first step in upping the anti-BTC pressure?” Epstein’s reply was a detailed analysis of Bitcoin’s internal contradictions. He identified the lack of agreement on what Bitcoin actually is, whether store of value, currency, property, or payment system, and mapped the tension between Bitcoin’s anonymity and its transparent public ledger. Thiel wasn’t asking casually. He was asking whether something specific was the beginning of coordinated pressure against Bitcoin, and Epstein responded by identifying the contradictions that could be used to fracture Bitcoin’s community. The block size war started the following year.
-
-By October 2016, in the middle of the war, Epstein was emailing associates about digital currency and stated that he had “spoken to some of the founders of bitcoin who are very excited.” He had direct access to Bitcoin’s development circle during the period when governance was most vulnerable.
-
-In 2015, the block size debate consumed Bitcoin’s governance. On one side: increase block size to allow more transactions per block, enabling Bitcoin to scale as a payment network. On the other: keep blocks small to preserve decentralization, the property that actually makes Bitcoin valuable. This framing made it feel like a technical disagreement, but it wasn't. **It was a resource war.**
+In 2015, the block size debate consumed Bitcoin’s governance. On one side, increase block size to allow more transactions per block, enabling Bitcoin to scale as a payment network. On the other, keep blocks small to preserve decentralization, the property that actually makes Bitcoin valuable. This framing made it feel like a technical disagreement, but it wasn't. **It was a resource war.**
 
 Exchanges needed throughput because every transaction on Bitcoin’s network drove trading volume and trading volume drove revenue. Brian Armstrong, co-founder and CEO of Coinbase, was one of the most vocal advocates for block size increases. He publicly experimented with BitcoinXT and framed scaling as an election: “What’s happening right now is an election in the bitcoin space.” He pushed Coinbase to actively support scaling proposals behind the scenes. Armstrong’s position didn’t prevail and the early idealists held, but the damage wasn’t in losing the block size argument. The damage was in what the argument consumed.
 
 It is worth acknowledging that the small-block position was not purely defensive. Greg Maxwell and others argued, correctly, that keeping blocks small preserved the decentralization that made Bitcoin’s security model work. Full nodes are the backbone of Bitcoin’s trustless verification, and every kilobyte added to block size raises the hardware and bandwidth requirements to run one. If running a node becomes expensive, verification concentrates in the hands of exchanges and institutions, the exact entities whose interests don’t align with Bitcoin’s original design. The small-block position protected something real. **The problem was not that it won. The problem was that the war to win it consumed everything else.**
-
-The block size war coincided with a period when Bitcoin’s core development was funded through MIT’s Digital Currency Initiative. On April 25, 2015, MIT Media Lab Director Joichi Ito emailed Jeffrey Epstein a primary source document later released by the House Oversight Committee. Ito forwarded his own internal message describing what had just happened:
-
-“The way that Bitcoin is organized currently is that there are five core developers and around a hundred contributors to the core code. The five core developers are like Linus Torvalds of Linux. They decide what changes are made to the core code.”
-
-“Gavin, Wladimir and Cory were being paid out of a non-profit organization called the Bitcoin Foundation. A few weeks ago, it blew up when one of the board members declared the foundation bankrupt. Many organizations scrambled to step into the vacuum created by the foundation and take control of the developers. We moved quickly talking to all of the various stakeholders and the three developers decided to join the Media Lab. This is a big win for us.”
-
-Then Ito’s note directly to Epstein: “Used gift funds to underwrite this which allowed us to move quickly and win this round. Thanks.”
-
-Epstein’s reply: “gavin is clever.”
-
-Between 2002 and 2017, Epstein donated $850,000 to MIT. A portion of this funded the DCI, which employed Bitcoin Core’s lead maintainer Wladimir van der Laan, Cory Fields, and Gavin Andresen. These were the three most important developers working on the protocol during the block size war, and they had no knowledge of the funding source. MIT deliberately concealed it, marking donations as anonymous to bypass vetting.
-
-The language in Ito's email is not charity. "Take control." "Win this round." **He is reporting to his funder that he has successfully captured Bitcoin's development during the foundation's collapse**, and the funder responds with an assessment of the key developer's value. Epstein’s investor network extended beyond MIT as well. He met with Brock Pierce, early Bitcoin investor and key figure behind Tether, and Larry Summers, former US Treasury Secretary, at his mansion to discuss Bitcoin before it became mainstream.
-
-The people funding Bitcoin’s development were connected, through documented financial relationships, to the same networks that stood to benefit from Bitcoin’s inability to adapt. The block size war consumed every available governance resource for two years, including the bandwidth needed to address the vulnerability Gavin had flagged, Bitcoin’s lack of multiple independent (consensus-compatible) implementations.
 
 Bitcoin Cash forked off in 2017, but it wasn’t a solution. Bitcoin Cash left Bitcoin’s network, left Bitcoin’s hash power, left Bitcoin’s adoption, and carried the exact same single-implementation structure into a smaller, less secure chain. Its block size increase didn’t fix governance. It just moved the same problem to a network that fewer people use and fewer miners secure.
 
@@ -71,13 +52,33 @@ Bitcoin Core developers chose to initially patch and release only the denial-of-
 
 ---
 
+## Who paid the seats
+
+The block size war coincided with a period when Bitcoin’s core development was funded through MIT’s Digital Currency Initiative. On April 25, 2015, MIT Media Lab Director Joichi Ito emailed Jeffrey Epstein a primary source document later released by the House Oversight Committee. Ito forwarded his own internal message describing what had just happened:
+
+“The way that Bitcoin is organized currently is that there are five core developers and around a hundred contributors to the core code. The five core developers are like Linus Torvalds of Linux. They decide what changes are made to the core code.”
+
+“Gavin, Wladimir and Cory were being paid out of a non-profit organization called the Bitcoin Foundation. A few weeks ago, it blew up when one of the board members declared the foundation bankrupt. Many organizations scrambled to step into the vacuum created by the foundation and take control of the developers. We moved quickly talking to all of the various stakeholders and the three developers decided to join the Media Lab. This is a big win for us.”
+
+Then Ito’s note directly to Epstein: “Used gift funds to underwrite this which allowed us to move quickly and win this round. Thanks.”
+
+The language in Ito's email is not charity. "Take control." "Win this round." He is reporting that he has placed Bitcoin Core development inside an institution during the foundation's collapse.
+
+Epstein’s reply was “gavin is clever.” Between 2002 and 2017, Epstein donated $850,000 to MIT. A portion of this funded the DCI, which employed Bitcoin Core’s lead maintainer Wladimir van der Laan, Cory Fields, and Gavin Andresen. These were the three most important developers working on the protocol during the block size war, and they had no knowledge of the funding source. MIT deliberately concealed it, marking donations as anonymous to bypass vetting.
+
+In July 2014, Peter Thiel emailed Epstein asking: “Do you think this is the first step in upping the anti-BTC pressure?” Epstein’s reply mapped Bitcoin’s internal contradictions, store of value versus currency versus property versus payment system, and the tension between anonymity and a transparent ledger. By October 2016, in the middle of the war, Epstein was emailing associates that he had “spoken to some of the founders of bitcoin who are very excited.” He met with Brock Pierce and Larry Summers to discuss Bitcoin before it became mainstream.
+
+Those are documented financial relationships, not a claim that the developers in the seats were conspirators. The war still consumed the bandwidth Gavin had said a second independently specified client required.
+
+---
+
 ## The PTSD: Good Ossification vs. Bad Ossification
 
 The block size war ended and Bitcoin Cash forked off. The community “won” in the sense that block size didn’t increase, but the war left a scar on how Bitcoin Core handles any change at all.
 
-Bitcoin Core developers argue this conservatism is deliberate and necessary. The consequences of a consensus bug in a trillion-dollar asset are devastating, and extreme caution on consensus rule changes is correct. But none of the blocked improvements touch consensus rules. Separating wallet functionality from node functionality has been a recognized improvement for over twelve years. There is no technical objection to it, and it would allow Bitcoin to be used by a wider range of software without requiring full node operation. It hasn’t happened, not because anyone disagrees, but because the governance system can no longer distinguish between “don’t change the consensus rules” and “don’t change anything.”
+Bitcoin Core developers argue this conservatism is deliberate and necessary. The consequences of a consensus bug in a trillion-dollar asset are devastating, and extreme caution on consensus rule changes is correct. But none of the blocked improvements touch consensus rules. Separating wallet functionality from node functionality has been a recognized improvement for over twelve years. There is no technical objection to it, and it would allow Bitcoin to be used by a wider range of software without requiring full node operation. It hasn’t happened, not because anyone disagrees, but because the informal merge process can no longer distinguish between “don’t change the consensus rules” and “don’t change anything.”
 
-The result is that good ossification, the properties that should never change like the 21 million cap and proof of work, looks the same as bad ossification, the improvements that everyone agrees on but that can’t get through. And while Bitcoin Core sits frozen on the changes it should be making, it is accumulating technical debt. Every improvement that can’t get merged forces workarounds, workarounds breed complexity, and complexity breeds bugs. The codebase gets worse over time precisely because the governance system that is supposed to protect it can no longer process anything at all.
+The result is that good ossification, the properties that should never change like the 21 million cap and proof of work, looks the same as bad ossification, the improvements that everyone agrees on but that can’t get through. And while Bitcoin Core sits frozen on the changes it should be making, it is accumulating technical debt. Every improvement that can’t get merged forces workarounds, workarounds breed complexity, and complexity breeds bugs. The codebase gets worse over time precisely because the process that is supposed to protect it can no longer process anything at all.
 
 Bitcoin the network is fine. **Bitcoin Core the implementation is locked, and it is rotting from the inside.**
 
@@ -85,7 +86,7 @@ Bitcoin the network is fine. **Bitcoin Core the implementation is locked, and it
 
 ## Lightning: A Partial Answer That Proves the Problem
 
-The Lightning Network is the most successful scaling solution Bitcoin has produced. By early 2026 it processes millions of transactions with sub-second settlement and near-zero fees. Major exchanges have integrated it, and wallets like Strike and Phoenix have made it genuinely usable for everyday payments at small values. Lightning is real, and it works within its design constraints. It is not the answer to this essay’s thesis.
+The Lightning Network is the most successful scaling solution Bitcoin has produced. By early 2026 it processes millions of transactions with sub-second settlement and near-zero fees. Major exchanges have integrated it, and wallets like Strike and Phoenix have made it genuinely usable for everyday payments at small values. Lightning is real and works within its design constraints, which does not answer this essay’s thesis.
 
 Lightning solves throughput for micropayments, but it does not solve the bigger jobs stablecoins are capturing: large-value cross-border transfers, corporate treasury management, remittance corridors. These require on-chain finality that Lightning cannot provide. More importantly, Lightning does not address the governance problem at all. It is a layer built on top of a frozen base layer. If Bitcoin Core cannot implement UTXO set commitments, wallet-node separation, or formal verification, none of which touch consensus rules, then Lightning inherits those limitations. A second layer on a frozen first layer is still a frozen system.
 
@@ -109,11 +110,11 @@ The answer is not a new chain. Ethereum runs multiple client implementations, in
 
 ## The Path: Implementation Diversity in 2026
 
-The call for implementation diversity is not new, and it is not theoretical. It is already happening, incompletely and with significant obstacles, but the movement exists.
+The call for implementation diversity is not new and not theoretical. The movement already exists, incompletely and with significant obstacles.
 
-Bitcoin Knots, maintained by Luke Dashjr, is the most visible example. It is a Bitcoin Core derivative with stricter transaction relay policies, filtering what it considers spam transactions including Ordinals and Runes data. In January 2024, Knots ran on fewer than 70 nodes, but by September 2025 it had surged to over 4,700, approximately 25% of all public Bitcoin nodes, driven by backlash to Bitcoin Core’s planned removal of OP_RETURN data limits in version 30. This is the largest shift in Bitcoin node software outside of a hard fork event, and no chain split occurred. Both Bitcoin Core and Bitcoin Knots enforce identical consensus rules and diverge only on relay policy. This is exactly how it is supposed to work: different software, same chain, same money.
+Bitcoin Knots, then maintained by Luke Dashjr, was the most visible example, a Bitcoin Core derivative with stricter transaction relay policies, filtering what it considers spam transactions including Ordinals and Runes data. In January 2024, Knots ran on fewer than 70 nodes, but by September 2025 it had surged to over 4,700, approximately 25% of all public Bitcoin nodes, driven by backlash to Bitcoin Core’s planned removal of OP_RETURN data limits in version 30. That was the largest shift in Bitcoin node software outside of a hard fork event, and no chain split occurred. Core and Knots enforced identical consensus rules and diverged only on relay policy. That is how a policy exit on Bitcoin is supposed to work.
 
-But Knots is still a Core derivative. It shares Core’s codebase, Core’s architectural assumptions, and by extension Core’s structural limitations. It is a policy fork, not an architectural alternative.
+Luke's Knots later followed a BLAKE2b proof-of-work hard fork and left Bitcoin. Knots Classic is the Bitcoin-staying continuation of that Core lineage. It is still a policy fork, not an architectural alternative. It shares Core’s codebase, Core’s architectural assumptions, and by extension Core’s structural limitations.
 
 btcd, written in Go, has been in production since 2013 and deliberately separates wallet functionality from the node. That is the exact architectural improvement Bitcoin Core has failed to implement for twelve years. But btcd has a problem that undermines its entire value proposition: it keeps getting the consensus rules wrong. In 2022, a developer intentionally crafted transactions that stalled btcd nodes twice in one month, first by exploiting a witness size parsing failure, then by triggering a script size limit that btcd still enforced after Taproot removed it. In 2024, two more consensus bugs were disclosed: a misimplementation of BIP 68 and BIP 112, and a FindAndDelete bug in legacy signature verification. Each one meant btcd would have accepted or rejected blocks differently from Core. The whole point of a second implementation is to catch exactly these divergences. btcd keeps being the thing that diverges.
 
@@ -121,9 +122,9 @@ libbitcoin, written in C++ and created by Amir Taaki, is now maintained by Eric 
 
 Bcoin, written in JavaScript and created by Christopher Jeffery, was built as backend infrastructure for Purse.io. Purse.io shut down in 2020. Bcoin has no known production deployment since then and commit activity has gone sparse. It is effectively orphaned.
 
-Knots is a derivative. btcd diverges. libbitcoin is incompatible. Bcoin is dead. Each fails for a different reason, but the failure is the same: none of them can prove they enforce the same consensus rules as every block Bitcoin has ever produced. Without that proof, a second implementation is just another codebase asking the network to trust it.
+Knots Classic is a derivative. btcd diverges. libbitcoin is incompatible. Bcoin is dead. Each fails for a different reason, but the failure is the same: none of them can prove they enforce the same consensus rules as every block Bitcoin has ever produced. Without that proof, a second implementation is just another codebase asking the network to trust it.
 
-Bitcoin Commons is the first attempt to solve that problem directly. It is a Rust-based Bitcoin implementation built around formal verification: mathematical proofs that lock directly to the code and demonstrate consensus compatibility across Bitcoin’s entire block history, not through a claim or a test suite, but through proof. Differential testing across 900,000+ blocks validates that it processes every block identically to Core. No previous alternative implementation has been able to do that.
+Bitcoin Commons is one public attempt to solve that problem on the same chain, a from-scratch Rust client built from the Orange Paper, a human-readable mathematical specification of Bitcoin's consensus rules. Full-chain differential replay against Core is the scale test. `blvm-bench` targets on the order of 900,000 blocks. Those runs are operator-driven and resource-heavy. That is not a claim every CI job has zero-divergence proof to tip. Methodology lives in the [differential testing guide](https://docs.thebitcoincommons.org/development/differential-testing.html). Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. No previous alternative shipped that mix of a readable spec, a Specification Lock, and a full-chain differential program.
 
 The 2025 OP_RETURN controversy proved something important: that migration is latent demand, not apathy. The Bitcoin community will move when Core’s direction conflicts with its values. It just needs somewhere worthy to move to.
 
@@ -133,11 +134,11 @@ The 2025 OP_RETURN controversy proved something important: that migration is lat
 
 Most people on both sides of the block size war believed what they were arguing. But the people who stood to benefit from Bitcoin's inability to adapt didn't need the argument to go their way. **They just needed it to consume enough time and energy to break coordination, and it did. Paralysis was the victory condition, and it was met.**
 
-But paralysis is not permanent because it is a governance failure, not a protocol failure. Bitcoin’s consensus rules are sound, its fixed supply can’t be changed, and its proof-of-work security is unmatched. What Bitcoin lacks is not better money, because it already is better money. What it lacks is a second implementation, written in different code, that mathematically proves it enforces the same rules.
+But paralysis is not permanent because it is a governance failure, not a protocol failure. Bitcoin’s consensus rules are sound, its fixed supply can’t be changed, and its proof-of-work security is unmatched. What Bitcoin lacks is a second implementation, written in different code, that can be checked against a specification rather than reverse-engineered from Core.
 
-Bitcoin Core’s monopoly is not a law of nature. It is a historical accident, sustained by governance trauma and the absence of a viable alternative, and that alternative is now buildable. The tools exist, the community has demonstrated it will migrate, and the only question is whether someone builds the thing that Gavin called for fifteen years ago and proves it works before the window closes.
+Bitcoin Core’s monopoly is not a law of nature but a historical accident, sustained by governance trauma and the absence of a viable alternative, and that alternative is now buildable. The tools exist, the community has demonstrated it will migrate, and the only question is whether someone builds the thing that Gavin called for fifteen years ago and proves it works before the window closes.
 
-Break the capture. Stay on Bitcoin.
+Stay on Bitcoin. Make the implementation layer cheaper to leave.
 
 For why the adversarial culture that followed that trauma is still doing work, see *[The Adversarial Default](/articles/the-adversarial-default)*. For what has to happen next, in what order, see *[Making Core Irrelevant](/articles/making-core-irrelevant)*.
 
@@ -145,19 +146,19 @@ For why the adversarial culture that followed that trauma is still doing work, s
 
 ## Sources
 
-- [Epstein files, DOJ document releases](https://www.justice.gov/epstein) — July 20–21, 2014 Epstein to Peter Thiel correspondence; October 13, 2016 Epstein to Alsabbagh/Alahmadi; Epstein-Pierce-Summers meeting (December 2025 release)
+- [Epstein files, DOJ document releases](https://www.justice.gov/epstein): July 20–21, 2014 Epstein to Peter Thiel correspondence; October 13, 2016 Epstein to Alsabbagh/Alahmadi; Epstein-Pierce-Summers meeting (December 2025 release)
 - [Brian Armstrong, "Scaling Bitcoin: The Great Block Size Debate," Coinbase Blog](https://www.coinbase.com/blog/scaling-bitcoin-the-great-block-size-debate), May 2016
-- [House Oversight Committee documents](https://oversight.house.gov/) — Epstein to MIT/DCI/Core developer funding chain; Joi Ito email to Epstein, April 25, 2015 (November 2025 release)
+- [House Oversight Committee documents](https://oversight.house.gov/): Epstein to MIT/DCI/Core developer funding chain; Joi Ito email to Epstein, April 25, 2015 (November 2025 release)
 - [Bitcoin Core notice, CVE-2018-17144](https://bitcoincore.org/en/2018/09/20/notice/), September 20, 2018
 - [Luke Dashjr inflation bug quote](https://cointelegraph.com/news/bitcoin-developer-luke-jr-says-inflation-bug-was-worse-than-reported), Cointelegraph, May 2019
-- [DefiLlama stablecoin market cap](https://defillama.com/stablecoins) — live data, February 2026
-- [CoinGecko](https://www.coingecko.com/) — stablecoin market cap cross-check (~$314B same date)
-- [DeFi Llama / Yahoo Finance year-end report](https://finance.yahoo.com/) — stablecoin growth $205B to $312B, December 30, 2025
-- [Bloomberg / Artemis Analytics; a16z State of Crypto 2025](https://a16zcrypto.com/posts/article/state-of-crypto-report-2025/) — stablecoin transaction volume ~$33T
-- [Yahoo Finance](https://finance.yahoo.com/) — GENIUS Act / stablecoin banking charters, December 30, 2025
-- [Atlantic Council CBDC Tracker](https://www.atlanticcouncil.org/cbdctracker/) — 137 countries / 98% GDP, July 2025
-- [People's Bank of China via gov.cn](https://www.gov.cn/); [BeInCrypto](https://beincrypto.com/) — e-CNY transactions, wallets, interest-bearing framework, December 29, 2025
-- [Bitbo](https://bitbo.io/); [BitcoinNews.com](https://bitcoinnews.com/); [Bitfinex blog](https://blog.bitfinex.com/) — Bitcoin Knots surge to ~25% of nodes, September 2025
-- [Bitfinex blog, September 5, 2025](https://blog.bitfinex.com/); [Coin Dance](https://coin.dance/) — Knots trajectory 69 to 4,713 nodes
-- [Yellow.com research](https://yellow.com/); [CryptoSlate, August 31, 2025](https://cryptoslate.com/) — Bitcoin Core v30 / OP_RETURN
+- [DefiLlama stablecoin market cap](https://defillama.com/stablecoins): live data, February 2026
+- [CoinGecko](https://www.coingecko.com/): stablecoin market cap cross-check (~$314B same date)
+- [DeFi Llama / Yahoo Finance year-end report](https://finance.yahoo.com/): stablecoin growth $205B to $312B, December 30, 2025
+- [Bloomberg / Artemis Analytics; a16z State of Crypto 2025](https://a16zcrypto.com/posts/article/state-of-crypto-report-2025/): stablecoin transaction volume ~$33T
+- [Yahoo Finance](https://finance.yahoo.com/): GENIUS Act / stablecoin banking charters, December 30, 2025
+- [Atlantic Council CBDC Tracker](https://www.atlanticcouncil.org/cbdctracker/): 137 countries / 98% GDP, July 2025
+- [People's Bank of China via gov.cn](https://www.gov.cn/); [BeInCrypto](https://beincrypto.com/): e-CNY transactions, wallets, interest-bearing framework, December 29, 2025
+- [Bitbo](https://bitbo.io/); [BitcoinNews.com](https://bitcoinnews.com/); [Bitfinex blog](https://blog.bitfinex.com/): Bitcoin Knots surge to ~25% of nodes, September 2025
+- [Bitfinex blog, September 5, 2025](https://blog.bitfinex.com/); [Coin Dance](https://coin.dance/): Knots trajectory 69 to 4,713 nodes
+- [Yellow.com research](https://yellow.com/); [CryptoSlate, August 31, 2025](https://cryptoslate.com/): Bitcoin Core v30 / OP_RETURN
 - [btcsuite/btcd on GitHub](https://github.com/btcsuite/btcd)

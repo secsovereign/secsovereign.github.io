@@ -1,6 +1,6 @@
 # Why Bitcoin Needs a Specification That Humans Can Read
 
-## Verification methodology is not just a technical question. It is a governance question that will shape Bitcoin's resilience for decades.
+## Verification methodology is not just a technical question but a governance question that will shape Bitcoin's resilience for decades.
 
 ## Contents
 
@@ -17,7 +17,7 @@
 
 Bitcoin has been extraordinarily successful without a formal specification. But success does not make the absence of one sustainable.
 
-The consensus rules that secure a multi-trillion-dollar network exist only as behavior encoded in Bitcoin Core's C++ codebase. **"The code is the spec" is not a design principle. It is an admission that no one has written the spec.** Every alternative implementation, every audit, every attempt to verify correctness must reverse-engineer undocumented behavior from a codebase that was never designed to be read as a specification.
+The consensus rules that secure a multi-trillion-dollar network exist only as behavior encoded in Bitcoin Core's C++ codebase. **"The code is the spec" is not a design principle but an admission that no one has written the spec.** Every alternative implementation, every audit, every attempt to verify correctness must reverse-engineer undocumented behavior from a codebase that was never designed to be read as a specification.
 
 This has worked so far because Bitcoin's growth in economic importance has outpaced the scrutiny that importance attracts. That is changing. When a court needs to understand whether a transaction was valid under the consensus rules at a given block height, there is no document to hand them. When a new implementation team wants to be sure they are building the same rules as Core, there is no specification to target. When an auditor wants to verify that a proposed soft fork does not break existing guarantees, there is no formal description of what those guarantees are.
 
@@ -45,7 +45,7 @@ Bitcoin Core's governance problem is well understood in this community. Merge au
 
 A verification approach that requires rare, specialized knowledge concentrates review authority in whoever holds that knowledge. If Bitcoin's correctness story depends on Lean proofs, its security model depends on a small population of people who can read and audit those proofs well enough to catch a subtle error in a consensus-critical theorem. That population is small, concentrated in academic communities, and not distributed across the independent institutions Bitcoin's long-term security requires. A custom DSL creates the same problem: the reviewer population is bounded by whoever understands the generator.
 
-Standard mathematical notation is different in kind, not just in degree. It is not a tool requiring training in a specific software ecosystem. It is a communication medium that has been the universal language of precise formal reasoning for five hundred years, predating every programming language, every proof assistant, and every computer. Any mathematician with Bitcoin domain knowledge can read the Orange Paper and evaluate whether the stated rules are correct. That population is orders of magnitude larger, and it is stable across generations in a way that expertise in any specific tool cannot be.
+Standard mathematical notation is different in kind, not just in degree. It is not a tool requiring training in a specific software ecosystem but a communication medium that has been the universal language of precise formal reasoning for five hundred years, predating every programming language, every proof assistant, and every computer. Any mathematician with Bitcoin domain knowledge can read the Orange Paper and evaluate whether the stated rules are correct. That population is orders of magnitude larger, and it is stable across generations in a way that expertise in any specific tool cannot be.
 
 **The choice of verification methodology is not just about which technique catches more bugs today.** It is about which approach maximizes the number of independent people who can meaningfully evaluate Bitcoin's rules over decades. Every verification layer that requires specialized tool knowledge narrows that population and concentrates authority. The Orange Paper widens it permanently.
 
@@ -55,13 +55,13 @@ Bitcoin Commons exists to dissolve implementation concentration. The same princi
 
 Framing this as a choice between human readability and formal rigor misses the point. The right answer is a stack.
 
-Bitcoin Commons's verification approach has four layers. The Orange Paper is the normative reference: human-readable, tool-agnostic, auditable by any mathematician, targetable by any implementation team. The spec-lock uses `Z3` to check on every merge that the Rust implementation still satisfies the mathematical contracts derived from the spec. Differential testing runs the implementation against Bitcoin Core across the full mainnet history. Machine-checked proof leaves, following btc-verified's methodology, strengthen the byte layer where formal methods are most tractable today and will expand upward as tools mature.
+Bitcoin Commons's verification approach has four layers. The Orange Paper is the normative reference: human-readable, tool-agnostic, auditable by any mathematician, targetable by any implementation team. The BLVM Specification Lock uses `Z3` to check on every merge that the Rust implementation still satisfies the mathematical contracts derived from the spec. Differential testing runs the implementation against Bitcoin Core across the full mainnet history. Those full-chain runs are operator-driven and resource-heavy. That is not a claim every CI job has zero-divergence proof to tip. Machine-checked proof leaves, following btc-verified's methodology, strengthen the byte layer where formal methods are most tractable today and will expand upward as tools mature.
 
-The spec-lock deserves particular attention because it solves the code generation problem without introducing one of its own.
+The Specification Lock deserves particular attention because it solves the code generation problem without introducing one of its own.
 
-In a code generation system, the generator is the authoritative artifact. The implementation is derived from it. When something is wrong in the generated code, the fix travels through the generator first. A change to the generator can produce unexpected effects anywhere in its output. Every DSL and proof extraction pipeline has encountered edge cases the generator does not handle. The resolution is always the same: fix the generator, regenerate, verify again. The debugging surface is not the code. It is the thing that made the code.
+In a code generation system, the generator is the authoritative artifact. The implementation is derived from it. When something is wrong in the generated code, the fix travels through the generator first. A change to the generator can produce unexpected effects anywhere in its output. Every DSL and proof extraction pipeline has encountered edge cases the generator does not handle. The resolution is always the same: fix the generator, regenerate, verify again. The debugging surface is not the code but the thing that made the code.
 
-The spec-lock inverts this. **The implementation is the authoritative artifact.** The spec-lock reads the implementation against the specification rather than producing the implementation from it. When a check fails, the developer fixes whichever side is wrong, directly, without touching a generator. Nothing is regenerated. The Orange Paper can be read without the implementation. The implementation can be audited without the Orange Paper. The spec-lock is the enforced relationship between them, not the thing that produces either one.
+The Specification Lock inverts this. **The implementation is the authoritative artifact.** The Specification Lock reads the implementation against the specification rather than producing the implementation from it. When a check fails, the developer fixes whichever side is wrong, directly, without touching a generator. Nothing is regenerated. The Orange Paper can be read without the implementation. The implementation can be audited without the Orange Paper. The Specification Lock is the enforced relationship between them, not the thing that produces either one.
 
 This is how every durable technical standard works. TCP/IP, TLS, POSIX, and the C standard are human-readable specifications implemented independently by teams who never needed to run the specification as code.
 
@@ -77,11 +77,9 @@ This is not an argument against formal methods. Machine-checked proofs provide g
 
 ## The Path We Are Taking
 
-Bitcoin Commons is not claiming to have solved this problem. The Orange Paper is a first formal specification of Bitcoin consensus, not the last word on it. The spec-lock coverage will expand. Formal proof leaves on the byte layer are being incorporated. The differential testing program will continue to grow.
+Bitcoin Commons is not claiming to have solved this problem. The Orange Paper is a first formal specification of Bitcoin consensus, not the last word on it. Specification Lock coverage will expand. Formal proof leaves on the byte layer are being incorporated. The differential testing program will continue to grow. Cryptographic merge authorization is designed and stays off until security review, key management, and community validation.
 
-What we are claiming is that the foundation matters, and that getting it right is the prerequisite for everything else.
-
-Imagine what Bitcoin looks like when this works. Multiple independent implementations, built by different teams in different languages, each developed against the same specification. Each auditable by the same population of mathematicians. Each contributing to a network that does not depend on any single team's continued existence or any single codebase's correctness. A Bitcoin where the rules are legible to every generation of engineers, regulators, and institutions that will need to understand them, without requiring specialist intermediaries.
+What we are claiming is that the foundation matters, and that getting it right is the prerequisite for everything else. Implementation diversity on the same chain means multiple independent implementations, built by different teams in different languages, each developed against the same specification, each auditable by the same population of mathematicians, none of them the sole source of the rules. The rules stay legible to the engineers, regulators, and institutions that will need them, without requiring specialist intermediaries.
 
 That is what implementation diversity actually requires. **Not a better single implementation, but a specification that outlives every implementation built against it.** Building that specification is what Bitcoin Commons is doing, and we think it is the most important work in Bitcoin right now.
 

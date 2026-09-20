@@ -10,26 +10,26 @@
       "slug": "bitcoin-governance",
       "title": "Who Controls Bitcoin",
       "published": "2026-04-03",
-      "updated": "2026-08-27"
+      "updated": "2026-09-20"
     },
     {
       "slug": "bitcoin-governance-argument-map",
       "title": "Bitcoin Governance: Argument Map",
       "published": "2026-04-03",
-      "updated": "2026-08-24"
+      "updated": "2026-09-20"
     },
     {
       "slug": "bitcoin-social-capture",
       "title": "The Social Layer Is the Attack Surface",
       "published": "2026-04-03",
-      "updated": "2026-08-27"
+      "updated": "2026-09-20"
     },
     {
       "slug": "governance-paralysis-was-the-victory",
       "title": "Governance Paralysis Was The Victory",
-      "description": "Bitcoin is not captured. Bitcoin Core is. Block size war, CVE-2018-17144, and the case for implementation diversity.",
+      "description": "Bitcoin is not captured. The implementation that writes the defaults is capturable. Block size war, CVE-2018-17144, and the case for implementation diversity.",
       "published": "2026-02-02",
-      "updated": "2026-08-22",
+      "updated": "2026-09-20",
       "originalUrl": "https://btccommons.substack.com/p/governance-paralysis-was-the-victory"
     },
     {
@@ -37,7 +37,7 @@
       "title": "Bitcoin Core: The Biggest Fallacies",
       "description": "Eight common defenses of Core's implementation monopoly and why they fail logical scrutiny.",
       "published": "2026-03-21",
-      "updated": "2026-08-20",
+      "updated": "2026-09-20",
       "originalUrl": "https://btccommons.substack.com/p/bitcoin-core-the-biggest-fallacies"
     },
     {
@@ -45,7 +45,7 @@
       "title": "What Bitcoin's Stalled Proposals Tell You",
       "description": "Why Dandelion, UTXO commitments, Erlay, and a formal spec sit unmerged, and what shipping them looks like.",
       "published": "2026-06-04",
-      "updated": "2026-08-24",
+      "updated": "2026-09-20",
       "originalUrl": "https://btccommons.substack.com/p/what-bitcoins-stalled-proposals-tell"
     },
     {
@@ -76,17 +76,17 @@
     {
       "slug": "why-bitcoin-needs-a-specification",
       "title": "Why Bitcoin Needs a Specification That Humans Can Read",
-      "description": "Verification methodology as a governance question: Orange Paper, spec-lock, and readable mathematical notation.",
+      "description": "Verification methodology as a governance question: Orange Paper, Specification Lock, and readable mathematical notation.",
       "published": "2026-07-07",
-      "updated": "2026-08-27",
+      "updated": "2026-09-20",
       "originalUrl": "https://btccommons.substack.com/p/why-bitcoin-needs-a-specification"
     },
     {
       "slug": "bitcoins-hidden-crisis",
-      "title": "Bitcoin's Hidden Crisis: When Technical Consensus Isn't Enough",
-      "description": "Coordination asymmetry, escalating governance crises, and cryptographic coordination as a path forward.",
+      "title": "The Coordination Gap",
+      "description": "Bitcoin solved block consensus. Node software is still written by informal agreement.",
       "published": "2025-11-21",
-      "updated": "2026-08-07",
+      "updated": "2026-09-20",
       "originalUrl": "https://btccommons.substack.com/p/bitcoins-hidden-crisis-when-technical"
     },
     {
@@ -108,20 +108,21 @@
       "title": "The Adversarial Default",
       "description": "A defense of toxic maximalism: collaborative capture and uncontested Taproot, retail warnings that got discounted, irreversible bugs, and why fraud-calling stays while internal fights need a spec and an unbundled stack.",
       "published": "2026-08-20",
-      "updated": "2026-08-24"
+      "updated": "2026-09-20"
     },
     {
       "slug": "making-core-irrelevant",
       "title": "Making Core Irrelevant",
       "description": "What has to happen, and in what order: why miner signaling fails without economic nodes, why the spec track and the pool track have to run together, and what floor, mid, and ceiling look like through the 2028 halving.",
       "published": "2026-08-22",
-      "updated": "2026-08-27"
+      "updated": "2026-09-20"
     },
     {
       "slug": "the-vertical-layer-problem",
       "title": "The Vertical Layer Problem",
       "description": "Why Bitcoin cannot be governed like an open source project. A dictator is a good way to ship a kernel. It is a bad way to write Bitcoin's node software.",
-      "published": "2026-08-27"
+      "published": "2026-08-27",
+      "updated": "2026-09-20"
     }
   ]
 }

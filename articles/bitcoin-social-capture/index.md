@@ -38,7 +38,7 @@ This is the paradox at the center of Bitcoin's governance problem. **The same so
 
 Start at the bottom of the stack.
 
-The 21 million cap is not a law of nature. It is a rule that every participant in the network agrees to enforce by running software that rejects blocks violating it. The proof-of-work difficulty adjustment, the block reward schedule, the UTXO model: none of these are written into the structure of the universe. They exist because people keep running software that enforces them, and because other people keep accepting outputs from that network as valuable on the basis that the enforcement is real.
+The 21 million cap is not a law of nature but a rule that every participant in the network agrees to enforce by running software that rejects blocks violating it. The proof-of-work difficulty adjustment, the block reward schedule, the UTXO model: none of these are written into the structure of the universe. They exist because people keep running software that enforces them, and because other people keep accepting outputs from that network as valuable on the basis that the enforcement is real.
 
 **The cryptography enforces the math. The social layer enforces the cryptography's relevance.** Strip the social agreement away and the cryptography becomes an elaborate puzzle with no monetary significance. Bitcoin is worth what it is worth because enough people agree that the rules are real, that they will continue to be enforced, and that no one can unilaterally change them. That agreement is social. It happens to be expressed through cryptographic coordination, but the coordination serves the agreement rather than replacing it.
 
@@ -56,7 +56,8 @@ The Bitcoin network is permissionless. Anyone can transact. Anyone can run a nod
 
 **The Bitcoin development process is not permissionless in any meaningful sense.** Getting a proposal taken seriously requires social legitimacy among the people who control the channels through which proposals move. Getting funded to build alternative implementations requires social legitimacy with funders who have decided, by and large, that Core's existing structure is not a problem worth solving. Getting criticism heard requires not being removed from the platforms where the criticism would matter. Getting code merged requires the approval of a small number of people whose judgments are shaped by the same funding relationships and social networks that shape everything else.
 
-Permission in this context is not called permission. It is called legitimacy, or rough consensus, or community acceptance. The word changes but the function is identical. **A social layer that determines whose contributions count, whose criticisms are heard, and whose proposals advance is a permissioned layer** regardless of what it calls itself.
+Permission in this context is not called permission but legitimacy, or rough consensus, or community acceptance. The word changes but the function is identical. **A social layer that determines whose contributions count, whose criticisms are heard, and whose proposals advance is a permissioned layer** regardless of what it calls itself.
+
 
 <figure class="article-chart chart-compare">
 <div class="chart-heading">Two layers, two permission models</div>
@@ -93,7 +94,7 @@ A developer community has identifiable nodes of disproportionate influence. It h
 
 The methodology is not novel. Academic institutions provide both credentialing authority and a plausible non-intelligence funding mechanism. When the right institution funds the right research program at the right moment, the effects propagate through the community through entirely ordinary social mechanisms. Researchers learn what gets funded. Developers learn what gets merged. Critics learn what gets them removed from venues where their criticism would matter. No handler required.
 
-The concentration that makes Bitcoin's governance structurally fragile also makes its social graph unusually easy to map and influence. Concentrated social graphs require fewer interventions to shift than distributed ones. That is not a coincidence that should be dismissed. The outputs look coordinated whether or not anyone coordinated them. For how developer coordination failure becomes an existential vulnerability at Bitcoin's current scale, see *[Bitcoin's Hidden Crisis](/articles/bitcoins-hidden-crisis)*.
+The concentration that makes Bitcoin's governance structurally fragile also makes its social graph unusually easy to map and influence. Concentrated social graphs require fewer interventions to shift than distributed ones. That is not a coincidence that should be dismissed. The outputs look coordinated whether or not anyone coordinated them. For how developer coordination failure becomes an existential vulnerability at Bitcoin's current scale, see *[The Coordination Gap](/articles/bitcoins-hidden-crisis)*.
 
 ---
 
@@ -167,13 +168,13 @@ This is also why the "show me the smoking gun" dismissal fails as a counter-argu
 
 ## X. What Proof Requires and What It Implies
 
-If the no-spec moat made genuine alternatives structurally impossible for seventeen years, the empirical answer is building one from a formal specification and proving consensus compatibility through differential testing against the full chain history. That is not a theoretical proposal. It is work that has been done.
+If the no-spec moat made genuine alternatives structurally impossible for seventeen years, the empirical answer is building one from a formal specification and checking consensus compatibility through differential testing against chain history. That is not a theoretical proposal. The test is underway.
 
-The Bitcoin Commons project is a ground-up Rust implementation built from the Orange Paper, a formal mathematical specification of Bitcoin's consensus rules. Consensus compatibility has been proven through differential testing across more than 900,000 blocks. The BLVM spec lock uses a Z3-based formal verification layer to lock the implementation against the mathematical specification, creating a verifiable chain from the spec to the code. This is what it looks like to break the no-spec moat rather than argue about it.
+The Bitcoin Commons project is a from-scratch Rust client built from the Orange Paper, a human-readable mathematical specification of Bitcoin's consensus rules. Same chain, same 21 million, not a new coin. Full-chain differential replay against Bitcoin Core is the scale test. `blvm-bench` targets on the order of 900,000 blocks. Those runs are operator-driven and resource-heavy. That is not a claim every CI job has zero-divergence proof to tip. Methodology lives in the [differential testing guide](https://docs.thebitcoincommons.org/development/differential-testing.html). The BLVM Specification Lock uses Z3 to check annotated implementation paths against the spec. Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. This is what it looks like to break the no-spec moat rather than argue about it.
 
-The argument and the proof are the same artifact. If the permissionless mythology were correct, this work would have been unnecessary because alternatives would have been easy to build and numerous. If the no-spec moat were an oversight rather than a structural feature, the response to this work would be welcome rather than hostile. The structural predictions the governance critique makes are testable, and the test is underway.
+If the permissionless mythology were correct, this work would have been unnecessary because alternatives would have been easy to build and numerous. If the no-spec moat were an oversight rather than a structural feature, the response to this work would be welcome rather than hostile. The structural predictions the governance critique makes are testable, and the test is underway.
 
-Implementation diversity with formal specification is not an attack on Bitcoin. **It is the completion of what Bitcoin's design actually requires.** A network that runs one implementation governed by a captured social layer is not decentralized where decentralization matters.
+Implementation diversity with a written specification is not an attack on Bitcoin. **It is the completion of what Bitcoin's design actually requires.** A network that runs one implementation governed by a capturable social layer is not decentralized where decentralization matters.
 
 The consensus rules are sound. The development infrastructure built around them is fragile in ways that the cryptography cannot fix, because **the fragility is social rather than mathematical.** Social enforcement stays durable when rules are visible, decisions are accountable, and alternatives can be built without the incumbent. It should not depend on the continued good behavior of a small number of institutions whose interests do not always align with the network's.
 
@@ -181,4 +182,4 @@ The consensus rules are sound. The development infrastructure built around them 
 
 ---
 
-*Evidentiary basis: [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research); companion articles [Who Controls Bitcoin](/articles/bitcoin-governance), [The Vertical Layer Problem](/articles/the-vertical-layer-problem), [Argument Map](/articles/bitcoin-governance-argument-map), [Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory), [The Adversarial Default](/articles/the-adversarial-default), [Bitcoin's Hidden Crisis](/articles/bitcoins-hidden-crisis), and [The Last Uncaptured Asset](/articles/the-last-uncaptured-asset).*
+*Evidentiary basis: [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research); companion articles [Who Controls Bitcoin](/articles/bitcoin-governance), [The Vertical Layer Problem](/articles/the-vertical-layer-problem), [Argument Map](/articles/bitcoin-governance-argument-map), [Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory), [The Adversarial Default](/articles/the-adversarial-default), [The Coordination Gap](/articles/bitcoins-hidden-crisis), and [The Last Uncaptured Asset](/articles/the-last-uncaptured-asset).*

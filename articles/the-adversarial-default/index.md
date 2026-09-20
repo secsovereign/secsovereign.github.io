@@ -23,7 +23,7 @@ This article defends the hostile stance, not every insult and not every pile-on.
 
 Constructive optimism was already tried. Years of good-faith work inside the process came before the blocksize war and before the OP_RETURN fight. In both cases, people working inside the process lost without ever losing the argument.
 
-The blocksize war did not start because maximalists woke up one morning and decided to be difficult. It followed years of engagement with a process that could be captured, and was. Developers who raised concerns about one dominant codebase, who pays the developers, and who gets to approve code changes were not rewarded for honesty. They were pushed to the margins. Their proposed changes were closed. Their concerns were reframed as attacks on the project.
+The blocksize war did not start because maximalists woke up one morning and decided to be difficult. It followed years of engagement with a process that was capturable, and that was used that way. Developers who raised concerns about one dominant codebase, who pays the developers, and who gets to approve code changes were not rewarded for honesty. They were pushed to the margins. Their proposed changes were closed. Their concerns were reframed as attacks on the project.
 
 Taproot sailed through on broad agreement. The fight was mostly about how to turn it on, not whether the rules themselves were a good idea. Soft review treated that as a win. Hard review of what the new surfaces could become was thin.
 
@@ -79,7 +79,7 @@ People asking Bitcoin to soften are implying the threat has passed: that governa
 
 None of that is true.
 
-Almost everyone still runs one line of software. Roughly 99% of economic nodes run Bitcoin Core or a program forked from Core, such as Knots. Knots showed that operators will switch over what transactions a node forwards. It is still a Core fork, not a separately written program that decides the money rules on its own. No separately written Bitcoin software, proven to follow the same money rules, has enough of the network running it to matter.
+Almost everyone still runs one line of software. Roughly 99% of economic nodes run Bitcoin Core or a program forked from Core. In 2025 Knots showed that operators will switch over what transactions a node forwards. Luke's Knots later followed a BLAKE2b proof-of-work hard fork and left Bitcoin. Knots Classic stays on Bitcoin. It is still a Core fork, not a separately written program that decides the money rules on its own. No separately written Bitcoin software, proven to follow the same money rules, has enough of the network running it to matter.
 
 Who pays for Core development is still concentrated. A small number of grant organizations, with documented ties to companies and funds that care about protocol outcomes, still pay most Bitcoin Core development. Who merges code is still concentrated too. Brink's [Engineering Impact Report 2025](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/) shows one person at one organization merged 56% of all changes to Bitcoin Core in 2025. [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) shows the same shape in the 2022+ window: about half of merges from the top account, about 83% from the top three. The right to merge into Bitcoin Core is still a small fixed set, currently five people on [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin). A subpoena, a regulatory order, or a quiet conversation with that set can still move a protocol change the rest of the network can do little about.
 
