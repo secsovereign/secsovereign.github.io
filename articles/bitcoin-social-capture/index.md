@@ -84,7 +84,7 @@ Permission in this context is not called permission but legitimacy, or rough con
 
 The conflation of network-layer permissionlessness with development-layer permissionlessness is the move that does the most political work in Bitcoin discourse. Once accepted, it makes structural critique impossible by framing it as a misunderstanding.
 
-"Anyone can fork it" sounds like a complete answer until you examine what forking actually requires: a consensus-compatible implementation without a formal specification to validate against. That means reverse-engineering undocumented behavior from the incumbent and staying architecturally dependent on the incumbent by definition. The exit right was theoretical for seventeen years because the conditions for exercising it safely did not exist. Pointing to the absence of anyone exercising it as proof that the freedom was real is circular.
+"Anyone can fork it" sounds like a complete answer until you examine what forking actually requires: a consensus-compatible implementation without a formal specification to validate against. That means reverse-engineering undocumented behavior from the incumbent and treating that incumbent as the definition of correct behavior, even if the new program is built differently. The exit right was theoretical for seventeen years because the conditions for exercising it safely did not exist. Pointing to the absence of anyone exercising it as proof that the freedom was real is circular.
 
 ---
 

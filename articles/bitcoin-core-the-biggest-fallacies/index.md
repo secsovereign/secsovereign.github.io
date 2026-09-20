@@ -42,7 +42,7 @@ This framing appeared in mainstream Bitcoin commentary as early as 2018 and has 
 
 This is a self-serving bias. It assumes that the mechanism of adoption was active preference rather than the absence of alternatives, and that assumption does not hold up.
 
-No credible alternative implementation exists. A Core-derived fork that stays on Bitcoin is still a Core fork. Btcd abandoned active development and is not positioned to confront Bitcoin Core. Libbitcoin has been slow to develop and remains unreleased. It abandoned the UTXO set and mempool, requiring ecosystem retooling and accepting isolation. Running Bitcoin Core is not a positive selection on merit but the predictable outcome of path dependency, exchange requirements, and wallet vendor defaults. Adoption through switching cost is not adoption through technical merit, and treating it as such is begging the question.
+Other clients exist. A Core-derived fork that stays on Bitcoin is still a Core fork. Btcd abandoned active development and is not positioned to confront Bitcoin Core. Libbitcoin abandoned the UTXO set and mempool, requiring ecosystem retooling and accepting isolation. Running Bitcoin Core is not a positive selection on merit but the predictable outcome of path dependency, exchange requirements, and wallet vendor defaults. Adoption through switching cost is not adoption through technical merit, and treating it as such is begging the question.
 
 ### Fallacy 2.1: "Alternative implementations exist, therefore there is no monopoly"
 
