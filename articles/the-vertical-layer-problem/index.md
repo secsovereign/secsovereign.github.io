@@ -17,9 +17,9 @@
 
 ---
 
-Bitcoin cannot be governed like Linux. A dictator is a good way to ship a kernel, and a bad way to write Bitcoin's node software, even when the dictator is competent and the code is good.
+Bitcoin cannot be governed like Linux. A dictator is a good way to ship a kernel, and a bad way to write Bitcoin's node software, even when the people who write it are competent and the code is good.
 
-Bitcoin's consensus layer is horizontal. Every node checks blocks on its own, and no node can force another to take a bad one. The software that implements those rules is written by a hierarchy, and replacing the person at the top, or making that person more accountable, leaves the hierarchy in place. A title cannot be what lets someone merge.
+Bitcoin's consensus layer is horizontal. Every node checks blocks on its own, and no node can force another to take a bad one. The software that implements those rules is written by a hierarchy, and replacing the people who can merge, or making those people more accountable, leaves the hierarchy in place. A title cannot be what lets someone merge.
 
 Bitcoin Core already posts ACKs on GitHub, which is not the same as the decision forming there. An ACK is a comment on a pull request. Which pull requests are going to merge is decided off GitHub, on IRC, in closed CoreDev sessions, and in Signal groups. Merge is a permission held by about five accounts on bitcoin/bitcoin. Reviewers do not have it, and one of those five ships the code.
 
