@@ -3970,7 +3970,7 @@ Benevolent dictatorship produces good software. Linux runs most of the internet'
 
 Concentrated authority makes architectural decisions faster than committees do. It keeps one design across a large codebase, and it ends fights that would otherwise eat years. Linux is a product, and a small group decides what goes in the kernel while everyone else downloads the result. Someone has to pick what ships, and a hierarchy is the right way to run that.
 
-Forking the kernel is allowed. Almost nobody does it. The fork is yesterday's code. The patches people want keep going into the original project. Bitcoin node operators do the same thing. They download Core and wait for the next release. Bitcoin's money rules and the extra services people want on top of them are not the same product. Treating a wallet fight or a relay fight as if it were a change to the money is how those fights become governance crises.
+Forking the kernel is allowed. Almost nobody does it. The fork is yesterday's code. The patches people want keep going into the original project. Bitcoin node operators do the same thing. They download Core and wait for the next release. Linux is one product. Core ships the money rules in the same program as the wallet and the relay, so a fight about those extras gets treated as a change to the money.
 
 The pattern is right for ordinary software and wrong for money.
 
