@@ -23,7 +23,7 @@ Bitcoin's consensus layer is horizontal. Every node checks blocks on its own, an
 
 Bitcoin Core already posts ACKs on GitHub, which is not the same as the decision forming there. An ACK is a comment on a pull request. What gets treated as a live patch is decided off GitHub, on IRC, in closed CoreDev sessions, and in Signal groups. Merge is a permission held by about five accounts on bitcoin/bitcoin. Reviewers do not have it, and one of those five ships the code.
 
-A fight about the default client should not mean leaving the chain. A Core-derived fork left Core's defaults and stayed on Bitcoin, and it is still Core's code. An independently written client, checked against a written specification rather than Core's undocumented behavior, is the missing exit.
+A fight about the default client should not mean leaving the chain. A Core-derived fork can leave Core's defaults and stay on Bitcoin, and it is still mostly Core's code. An independently written client, checked against a written specification rather than Core's undocumented behavior, is the missing exit.
 
 People leave the chain by changing the money rules. That has happened many times, and each time it is a new coin. Nodes stay equal even though the people who write the code never will, and that still does not entitle those people to a throne.
 
@@ -77,7 +77,7 @@ Writing the code will never be as widely spread as checking blocks. Most people 
 
 ## The contradiction
 
-A node can refuse a release, and in practice there is nowhere to go. btcd exists and keeps diverging. libbitcoin exists and the ecosystem cannot use it without being rebuilt. The Core-derived forks that stayed on Bitcoin remain Core forks, so they are not a destination. You can pin an old Core version for a while, and you cannot pin it forever. Unmaintained node software rots. Bugs pile up, the network moves, and eventually you take the next download or you fall behind. Shipping code and changing the money are still not the same act. The people who write the default still govern, because refusal only delays the next download.
+A node can refuse a release, and in practice there is nowhere to go. btcd exists and keeps diverging. libbitcoin exists and the ecosystem cannot use it without being rebuilt. A Core-derived fork that stays on Bitcoin is still mostly Core's code, so it is not a destination. You can pin an old Core version for a while, and you cannot pin it forever. Unmaintained node software rots. Bugs pile up, the network moves, and eventually you take the next download or you fall behind. Shipping code and changing the money are still not the same act. The people who write the default still govern, because refusal only delays the next download.
 
 After the OP_RETURN relay change merged, Bitcoin Knots went from about 4.7% of reachable nodes at the end of April 2025 to a peak of 25.45% on September 14, 2025, and stayed above 19% through that stretch, according to [Coin Dance](https://coin.dance/). That was a policy protest on the same codebase, still one client. It did not give anyone a place to stay. Luke's Knots later left Bitcoin on a BLAKE2b proof-of-work hard fork. *[Making Core Irrelevant](/articles/making-core-irrelevant)* treats the reachable-node split as demand for a policy alternative, not as a break in the implementation monoculture.
 
