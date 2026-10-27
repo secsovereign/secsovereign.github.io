@@ -1,7 +1,14 @@
 # Static Per-Output Miner Fee
 
+## Change log
+
+- 2026-10-27 — Validation: state that `n_outputs = 0` is only the arithmetic identity. Bitcoin Core `CheckTransaction` already rejects the transaction (`bad-txns-vout-empty`, confirmed on regtest, Core v28.1). Replaces the sentence that a zero-output transaction "meets the floor automatically" as if that were a usable exemption.
+- 2026-10-27 — Backwards Compatibility: a child transaction cannot fill a parent shortfall. BOLT 3 `zero_fee_commitments` and any anchor CPFP parent must carry `static_fee × n_outputs` on the parent itself. Extends the existing per-transaction floor; the formula is unchanged. Regtest accepted a 0-fee 3-output parent and a 20-sat 2-output parent under current consensus; the floor rejects both.
+- 2026-10-27 — Parameters: add the 100-output row (1,600 and 2,000 sats) and the regtest vsize of one 100-input 100-output P2WPKH transaction. The rate is `floor / vsize` for that construction. It does not change `static_fee`.
+
 ## Contents
 
+- [Change log](#change-log)
 - [Abstract](#abstract)
 - [Motivation](#motivation)
 - [Specification](#specification)
@@ -195,7 +202,7 @@ The coinbase transaction is the only exemption. Charging coinbase outputs would 
 ### Validation
 
 1. Skip the coinbase transaction.
-2. For each remaining transaction, compute `tx_fee` and `n_outputs` as above. A transaction with zero outputs has `n_outputs = 0` and meets the floor automatically.
+2. For each remaining transaction, compute `tx_fee` and `n_outputs` as above. The product `static_fee × 0` is 0, so an empty output list would meet the floor. It does not matter: existing consensus rejects a transaction with no outputs (`bad-txns-vout-empty` in Bitcoin Core `CheckTransaction`). This BIP does not make that transaction valid.
 3. If `tx_fee < static_fee × n_outputs`, the transaction is invalid and the block is invalid.
 4. Existing coinbase rules are unchanged. Miners receive the per-output amount because it is part of `sum(tx_fees)`.
 
@@ -239,6 +246,7 @@ At the provisional band, count-vector cost scales linearly:
 <tr><th>Outputs created</th><th>@ 16 sats</th><th>@ 20 sats</th></tr>
 </thead>
 <tbody>
+<tr><td>100</td><td>1,600 sats</td><td>2,000 sats</td></tr>
 <tr><td>1,000</td><td>16,000 sats</td><td>20,000 sats</td></tr>
 <tr><td>10,000</td><td>160,000 sats</td><td>200,000 sats</td></tr>
 <tr><td>100,000</td><td>1,600,000 sats</td><td>2,000,000 sats</td></tr>
@@ -247,10 +255,9 @@ At the provisional band, count-vector cost scales linearly:
 <figcaption>Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.</figcaption>
 </figure>
 
-
 *Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.*
 
-
+A regtest harness (Bitcoin Core v28.1.0, `decoderawtransaction`) measured one construction: 100 P2WPKH inputs and 100 P2WPKH outputs, signed with low-R ECDSA grinding. Two runs both reported **vsize 9,886**. Weight was 39,541 on the first run and 39,542 on the second; low-R DER length moved one witness byte, which did not cross a vbyte boundary (`ceil(weight / 4)` stayed 9,886). The provisional floor on that vsize is 1,600/9,886 sat/vB at 16 sats, or 2,000/9,886 sat/vB at 20 sats (about 0.162 and 0.202 sat/vB). A weight fee of 1 sat/vB on the same vsize is 9,886 sats, which already clears both floors. The floor rejects this shape only when `tx_fee` itself is below the product. Core accepted fees of 1,599, 1,600, and 2,000 sats; the floor accepts 1,600 only at the 16-sat endpoint and accepts 2,000 at both. This vsize is those measured transactions, not a chain statistic and not a new consensus constant.
 
 ### Activation
 
@@ -311,6 +318,8 @@ The most credible activation path is to deploy on signet and testnet, run the ru
 Existing UTXOs remain valid and spendable. Old nodes will see new blocks as valid under the soft fork. From the user's point of view there is one fee: wallets add the weight-based transaction fee and the per-output component internally and show a single total. Wallets that do not update will underestimate fees and produce transactions that enforcing nodes reject at and after the activation height. The one-year minimum signaling window gives the wallet ecosystem time to update. Updates should be complete before activation: unlike soft forks that affect only unusual transaction types, the per-output fee affects fee estimation for nearly every transaction that creates outputs. A wallet that is not updated by activation will start producing invalid transactions the moment the rule applies, with no warning to the user.
 
 Lightning channel opens, CoinJoin transactions, and exchange batch payouts will pay the per-output fee for each output created. Calibration must confirm the fee is negligible relative to typical output values across historical fee regimes. Exchanges should be engaged before signaling begins.
+
+The floor is per transaction. A child that spends a P2A or anchor output does not count toward the parent's `tx_fee`. Regtest Core v28.1 accepted a parent with `tx_fee = 20` and 2 outputs, and a second parent with `tx_fee = 0` and 3 outputs (one of them P2A, script `51024e73`), plus a high-fee child of the first parent. The floor rejects both parents at 16 and at 20 sats. BOLT 3 `zero_fee_commitments` and `option_anchors` CPFP, as specified today, put the mining fee on the child. After activation those commitment transactions are valid only if the commitment's own `tx_fee` is at least `static_fee × n_outputs`. The child still pays any extra weight fee. Wallets that leave the commitment at fee 0 will produce transactions enforcing nodes reject.
 
 ---
 
