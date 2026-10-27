@@ -1,7 +1,13 @@
 # Dynamic Escalation of the Per-Output Miner Fee
 
+## Change log
+
+- 2026-10-27 — Step 3 else-branch, and the same branch in the reference pseudocode. The published line `candidate_dynamic = dynamic_fee_previous` freezes the dynamic fee whenever persistence fails. A thick sample that falls below `persistence_threshold` never lowers it, which contradicts the rate-cap section ("decreases are uncapped") and the security claim that the fee falls once pressure stops. Harness case, fixtures not consensus constants: `static_fee = 20`, `k = 4`, `alpha_n = 1000`, `persistence_threshold = 5000` milli-sat/vB, `dynamic_fee_previous = 80`, then two windows of 1,000 rates at 1,000 milli-sat/vB. The old branch stays at 80. The replacement candidate is `min(dynamic_fee_previous, k × p25_ema / 1000)`, which is 4, and `active_fee` returns to `static_fee`. A raise still needs two consecutive windows above the threshold. The rate cap is unchanged. A sample shorter than `min_tx_count` still holds.
+- 2026-10-27 — Rationale for `k`: state the four products at the reference p25 band. No change to the provisional `k` range. At `k = 2` and 5 sat/vB the scaled value is 10 sats, which is below both provisional static endpoints, so `active_fee` stays on `static_fee`.
+
 ## Contents
 
+- [Change log](#change-log)
 - [Abstract](#abstract)
 - [Motivation](#motivation)
 - [Specification](#specification)
@@ -179,14 +185,15 @@ A slow `alpha_n` toward 100 tracks multi-year fee drift while ignoring short-ter
 #### Step 3: Apply multi-window persistence
 
 ```text
+raw = (k × p25_ema_current) / 1000
 if p25_ema_current > persistence_threshold
    and p25_ema_previous > persistence_threshold:
-    candidate_dynamic = (k × p25_ema_current) / 1000
+    candidate_dynamic = raw
 else:
-    candidate_dynamic = dynamic_fee_previous
+    candidate_dynamic = min(dynamic_fee_previous, raw)
 ```
 
-`persistence_threshold` is in milli-sat/vB, the same units as `p25_ema`. `k` is an integer vbyte scale that converts that EMA into a per-output satoshi fee. Truncation toward zero. `k` is **not** the serialized size of an output. It is a calibrated scale so that at a reference p25 (about 5 to 10 sat/vB) the dynamic component is the same order of magnitude as `static_fee`. A single `k`, rather than per-script-type values, matches the static fee's uniform-per-output design. A single elevated 288-block window (~2 days) does not move the dynamic fee. An attacker must sustain elevated fee conditions across at least two consecutive windows (~4 days) to produce any upward movement.
+`persistence_threshold` is in milli-sat/vB, the same units as `p25_ema`. `k` is an integer vbyte scale that converts that EMA into a per-output satoshi fee. Truncation toward zero. `k` is **not** the serialized size of an output. It is a calibrated scale so that at a reference p25 (about 5 to 10 sat/vB) the dynamic component is the same order of magnitude as `static_fee`. A single `k`, rather than per-script-type values, matches the static fee's uniform-per-output design. A single elevated 288-block window (~2 days) does not move the dynamic fee up. An attacker must sustain elevated fee conditions across at least two consecutive windows (~4 days) to produce any upward movement. The else-branch does not raise either: `raw` may be large, and `min` keeps the previous dynamic fee. It does allow a fall. A thick sample whose EMA is below the threshold produces a small `raw`, and the dynamic fee drops to that value instead of sticking at the old one. `active_fee` still cannot go below `static_fee`.
 
 #### Step 4: Apply the rate-of-change cap
 
@@ -290,7 +297,7 @@ Even with EMA smoothing and persistence, a sustained campaign could ratchet the 
 
 ### Why k Is a Scale, Not Output Size
 
-The p25 EMA is in milli-sat/vB. Multiplying by an integer `k` and dividing by 1000 produces sats per output. Dimensionally `k` has units of vbytes, but it is **not** set to the serialized size of a P2WPKH or P2TR output (31–43 vB). Using literal output vsize would make `dynamic_fee` track weight fees one-for-one and would overprice Lightning and CoinJoin during congestion. Calibration sets `k` so that at a reference p25 of about 5 to 10 sat/vB, `dynamic_fee` is the same order as `static_fee` (provisional `k` in 2–4). A single `k` matches the static fee's uniform-per-output model: the externalized cost being priced is per UTXO slot, not per script type.
+The p25 EMA is in milli-sat/vB. Multiplying by an integer `k` and dividing by 1000 produces sats per output. Dimensionally `k` has units of vbytes, but it is **not** set to the serialized size of a P2WPKH or P2TR output (31–43 vB). Using literal output vsize would make `dynamic_fee` track weight fees one-for-one and would overprice Lightning and CoinJoin during congestion. Calibration sets `k` so that at a reference p25 of about 5 to 10 sat/vB, `dynamic_fee` is the same order as `static_fee` (provisional `k` in 2–4). The products at the corners of that rectangle, before the rate cap and before `max(static_fee, ·)`, are 10 sats (`k = 2`, 5 sat/vB), 20 sats (`k = 4`, 5 sat/vB or `k = 2`, 10 sat/vB), and 40 sats (`k = 4`, 10 sat/vB). Ten sats is below both provisional static endpoints (16 and 20), so `active_fee` stays on `static_fee` there. Forty sats is above them, and step 4 then limits the first upward step. A single `k` matches the static fee's uniform-per-output model: the externalized cost being priced is per UTXO slot, not per script type.
 
 ### Interaction with Permanent Data Channel Closure
 
@@ -349,11 +356,12 @@ def compute_period_active_fee(last_288_blocks, state):
     p25_current = percentile_25(rates)
     p25_ema = (ALPHA_N * p25_current + (ALPHA_DEN - ALPHA_N) * state.p25_ema_previous) // ALPHA_DEN
 
+    raw = (K * p25_ema) // RATE_SCALE
     if (p25_ema > PERSISTENCE_THRESHOLD and
             state.p25_ema_previous > PERSISTENCE_THRESHOLD):
-        candidate = (K * p25_ema) // RATE_SCALE
+        candidate = raw
     else:
-        candidate = state.dynamic_fee_previous
+        candidate = min(state.dynamic_fee_previous, raw)
 
     cap_base = max(state.dynamic_fee_previous, STATIC_FEE)
     max_increase = cap_base + (cap_base * R_NUM) // R_DEN
@@ -430,7 +438,7 @@ This checklist is separate from and follows the static fee BIP's calibration. Th
 
 **Static fee as irreducible floor.** The dynamic fee can never push the active fee below the static fee. The static fee BIP's security properties are fully preserved regardless of what the dynamic layer does.
 
-**Low-activity window.** If the 288-block sample contains fewer than `min_tx_count` fee-paying transactions, EMA and `dynamic_fee` are held, not zeroed. Zeroing would re-introduce a from-zero rate-cap trap. The static fee still floors `active_fee`.
+**Low-activity window.** If the 288-block sample contains fewer than `min_tx_count` fee-paying transactions, EMA and `dynamic_fee` are held, not zeroed. Zeroing would re-introduce a from-zero rate-cap trap. The static fee still floors `active_fee`. A sample that meets `min_tx_count` but sits below `persistence_threshold` is not this case. Step 3 lowers `dynamic_fee` to the scaled EMA. Holding it there was the freeze the change log removes.
 
 **Period boundary floor.** The grace window keeps the required per-transaction floor unambiguous at every period boundary. The previous period's `active_fee` governs during the grace window; the new rate governs after. Coinbase value is not part of this BIP.
 
