@@ -6,7 +6,7 @@ commit b2c45888fde06429e86913fab5e7b7a075f091c3 (the commit the BIP cites).
 
 # First `stack.size() < N` check in EvalScript, before any data-dependent pop.
 # Opcodes that fail or push before touching the stack are 0.
-# OP_PICK and OP_ROLL are 2 here and 1 in Appendix A. See test_opcodes.
+# First `stack.size() < N` check. OP_PICK and OP_ROLL are 2, matching Appendix A.
 CORE_FIRST_DEPTH = {
     0x63: 1,  # OP_IF, only when executing
     0x64: 1,  # OP_NOTIF, only when executing
@@ -23,7 +23,7 @@ CORE_FIRST_DEPTH = {
     0x76: 1,
     0x77: 2,
     0x78: 2,
-    0x79: 2,  # Appendix A assigns 1. EvalScript rejects depth < 2 first.
+    0x79: 2,
     0x7A: 2,
     0x7B: 3,
     0x7C: 2,
@@ -58,20 +58,44 @@ CORE_FIRST_DEPTH = {
     0xAA: 1,
     0xAC: 2,
     0xAD: 2,
-    0xAE: 1,  # prefix only; keys, sigs, and the dummy are data-dependent
+    0xAE: 1,  # first check only; cms_pop_count is the tail
     0xAF: 1,
     0xB1: 1,  # flags on; the NOP2 fallback is not modeled
     0xB2: 1,
     0xBA: 3,  # tapscript. v0 fails before the check.
 }
 
-# Data-dependent pops after the prefix. The appendix states the prefix only.
-UNMODELED_TAIL = {
-    0x79: "OP_PICK reads the item n deep after popping n. First depth check is 2; the grid's 1 is the inspected prefix.",
-    0x7A: "OP_ROLL reads the item n deep after popping n. Same depth split as OP_PICK.",
-    0xAE: "OP_CHECKMULTISIG then pops nKeys keys, nSigs, that many signatures, and the dummy.",
-    0xAF: "OP_CHECKMULTISIGVERIFY has the same tail as OP_CHECKMULTISIG.",
-}
+# Tail formulas now live in pick_roll_rejects and cms_pop_count. Nothing is left unmodeled.
+UNMODELED_TAIL = {}
+
+MAX_PUBKEYS_PER_MULTISIG = 20
+
+
+def pick_roll_rejects(depth_before, n):
+    """True when EvalScript rejects OP_PICK / OP_ROLL.
+
+    interpreter.cpp around line 838: `stack.size() < 2` before the pop, then
+    `n < 0 || n >= stack.size()` after popping n. `depth_before` includes n.
+    """
+    if depth_before < 2:
+        return True
+    depth_after = depth_before - 1
+    return n < 0 or n >= depth_after
+
+
+def cms_pop_count(nkeys, nsigs):
+    """Items CHECKMULTISIG pops, or None when Core rejects the counts.
+
+    Final `i` in the interpreter is `3 + nKeys + nSigs`. The cleanup pops
+    `i - 1` argument items and then the dummy, which is `i` pops:
+    nKeys, the keys, nSigs, the signatures, and the dummy. Tapscript returns
+    before this. `nkeys` must be in 0..20 and `nsigs` in 0..nkeys.
+    """
+    if nkeys < 0 or nkeys > MAX_PUBKEYS_PER_MULTISIG:
+        return None
+    if nsigs < 0 or nsigs > nkeys:
+        return None
+    return 3 + nkeys + nsigs
 
 DISABLED_V0 = {
     0x7E, 0x7F, 0x80, 0x81,  # CAT SUBSTR LEFT RIGHT
@@ -84,7 +108,7 @@ DISABLED_V0 = {
 NAMED = {
     0x63: 1, 0x64: 1, 0x69: 1, 0x6B: 1, 0x6D: 2, 0x6E: 2, 0x6F: 3,
     0x70: 4, 0x71: 6, 0x72: 4, 0x73: 1, 0x75: 1, 0x76: 1, 0x77: 2,
-    0x78: 2, 0x79: 1, 0x7A: 1, 0x7B: 3, 0x7C: 2, 0x7D: 2, 0x82: 1,
+    0x78: 2, 0x79: 2, 0x7A: 2, 0x7B: 3, 0x7C: 2, 0x7D: 2, 0x82: 1,
     0x87: 2, 0x88: 2, 0x8B: 1, 0x8C: 1, 0x8F: 1, 0x90: 1, 0x91: 1,
     0x92: 1, 0x93: 2, 0x94: 2, 0x9A: 2, 0x9B: 2, 0x9C: 2, 0x9D: 2,
     0x9E: 2, 0x9F: 2, 0xA0: 2, 0xA1: 2, 0xA2: 2, 0xA3: 2, 0xA4: 2,

@@ -8,7 +8,9 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from harness.opcodes import (
     CORE_FIRST_DEPTH,
     UNMODELED_TAIL,
+    cms_pop_count,
     parse_grids,
+    pick_roll_rejects,
     stack_items_read,
 )
 
@@ -42,15 +44,23 @@ def main():
         if published != core:
             mismatches.append((opcode, published, core))
     print("grid matches stack_items_read for all 256 bytes, both kinds")
-    print("first-depth mismatches (appendix prefix vs EvalScript's first stack.size check):")
-    for opcode, published, core in mismatches:
-        print(f"  {opcode:#04x} appendix={published} evalscript_first_depth={core} {UNMODELED_TAIL.get(opcode, '')}")
-    assert [m[0] for m in mismatches] == [0x79, 0x7A]
-    print("unmodeled tails beyond the prefix:")
-    for opcode, note in sorted(UNMODELED_TAIL.items()):
-        print(f"  {opcode:#04x} {note}")
+    assert mismatches == [], mismatches
+    assert UNMODELED_TAIL == {}
+    # EvalScript OP_PICK / OP_ROLL: depth < 2 fails, then n < 0 or n >= depth after the pop.
+    assert pick_roll_rejects(1, 0) is True
+    assert pick_roll_rejects(2, 0) is False
+    assert pick_roll_rejects(2, 1) is True
+    assert pick_roll_rejects(3, 1) is False
+    assert pick_roll_rejects(3, -1) is True
+    # CHECKMULTISIG final i = 3 + nKeys + nSigs, and the cleanup pops i items.
+    assert cms_pop_count(2, 2) == 7
+    assert cms_pop_count(0, 0) == 3
+    assert cms_pop_count(20, 20) == 43
+    assert cms_pop_count(21, 1) is None
+    assert cms_pop_count(1, 2) is None
+    print("OP_PICK, OP_ROLL, OP_CHECKMULTISIG, OP_CHECKMULTISIGVERIFY: tails match EvalScript")
     print("OP_IF / OP_NOTIF: EvalScript pops only when fExec is true. Appendix assigns 1 on purpose.")
-    print("opcode diff: no other opcode lacks a prefix")
+    print("opcode diff: no unmodeled opcode")
 
 
 if __name__ == "__main__":

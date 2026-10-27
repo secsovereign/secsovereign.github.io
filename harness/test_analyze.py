@@ -1,4 +1,4 @@
-"""BOLT 3 scripts must survive path analysis and fail the old immediate-next test."""
+"""BOLT 3 scripts must survive path analysis and the branch-end next-opcode rule."""
 
 import os
 import sys
@@ -42,7 +42,7 @@ def main():
     pay = hash160(b"\x22" * 32)
     local = to_local(PUBS[0], 144, PUBS[1])
     path, immediate = check("to_local", local)
-    assert immediate, "immediate-next must false-positive to_local"
+    assert immediate == [], immediate
     check("funding", funding_2of2(PUBS[2], PUBS[3]))
     check("to_remote_csv", to_remote_csv(PUBS[4]))
     check("anchor", anchor_output(PUBS[5]))
@@ -74,7 +74,28 @@ def main():
     print("adjacent", adj)
     assert adj["unreferenced"]
 
-    print("analyze: bolt scripts pass path analysis")
+    # Key before OP_ELSE with no signature check stays invalid.
+    key = PUBS[0]
+    hanging = b"\x63" + push_data(key) + b"\x67\x51\x68"
+    hang_path, hang_immediate = check("hanging-key", hanging, expect_clean=False)
+    assert hang_path["unreferenced"], hang_path
+    assert hang_immediate, hang_immediate
+
+    # OP_PICK / OP_ROLL read the selected push. That is the OP_DROP bound, not a new reject.
+    blob = push_data(b"\x44" * 40)
+    picked = live_paths(blob + b"\x00\x79\x75\x75\x51", "witness_v0")
+    rolled = live_paths(blob + b"\x00\x7a\x75\x51", "witness_v0")
+    assert picked["unreferenced"] == [], picked
+    assert rolled["unreferenced"] == [], rolled
+    # n = 1 selects a slot below the script push. Do not call that push read.
+    missed = live_paths(blob + b"\x51\x79\x75\x51", "witness_v0")
+    assert missed["unreferenced"] == [], missed
+    buried = b"\x51\x79\x00\x63" + push_data(b"\xab" * 20) + b"\x68\x51"
+    assert live_paths(buried, "witness_v0")["unreferenced"]
+    extra = funding_2of2(PUBS[2], PUBS[3]) + push_data(b"\x99" * 30) + b"\x61"
+    assert live_paths(extra, "witness_v0")["unreferenced"]
+
+    print("analyze: bolt scripts pass; branch-end keys need a signature check")
 
 
 if __name__ == "__main__":

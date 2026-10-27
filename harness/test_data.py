@@ -142,16 +142,17 @@ def test_bolt_immediate_false_positive():
     script = to_local(pub_a, 1, pub_b)
     immediate = immediate_next(script, "witness_v0")
     path = live_paths(script, "witness_v0")
-    assert immediate, immediate
+    assert immediate == [], immediate
     assert path["unreferenced"] == []
     record(
         "immediate-next-to-local",
         True,
         [],
-        "FIXED",
-        f"immediate-next flags push indexes {immediate} in BOLT 3 to_local "
-        f"(pubkey before OP_ELSE / OP_ENDIF). Path analysis flags none. "
-        f"The published next-opcode test is not the rule.",
+        "PASS",
+        f"next-opcode flags {immediate} on BOLT 3 to_local. "
+        f"The revocation pubkey is followed by OP_ELSE and the delayed pubkey by OP_ENDIF. "
+        f"Both are script keys, and OP_CHECKSIG after OP_ENDIF consumes the one the branch executes. "
+        f"Path analysis flags {path['unreferenced']}.",
     )
 
 
@@ -280,13 +281,13 @@ def test_lightning_flow():
     reasons = spend_reasons("p2wsh", csv_spend.vin[0].witness.items, b"", WIDE)
     assert allowed, info
     assert reasons == []
-    assert immediate_next(local_script, "witness_v0")
+    assert immediate_next(local_script, "witness_v0") == []
     record(
         "lightning-to-local-csv",
         True,
         reasons,
         "PASS",
-        "BOLT 3 to_local CSV spend, delay 1, accepted. The old immediate-next test would reject the script.",
+        "BOLT 3 to_local CSV spend, delay 1, accepted. The branch-end next-opcode rule accepts the script.",
     )
 
 

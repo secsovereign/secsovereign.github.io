@@ -1,12 +1,26 @@
 # Findings
 
+## 2026-10-27 branch-end rule and the four opcodes
+
+The next-opcode rule accepts a P2WSH key (33 or 65 bytes) or key-hash (20 bytes) immediately followed by `OP_ELSE` or `OP_ENDIF` when every branch that executes that push ends in `OP_CHECKSIG`, `OP_CHECKSIGVERIFY`, `OP_CHECKSIGADD`, `OP_CHECKMULTISIG`, or `OP_CHECKMULTISIGVERIFY` and that opcode consumes the same push. BOLT 3 `to_local` is that shape. `immediate_next` on `to_local` is now `[]`. A pubkey before `OP_ELSE` with no signature check stays unreferenced. Regtest Core v28.1 still accepts the cooperative 2-of-2 close, the offered-HTLC preimage spend, and the delay-1 `to_local` CSV spend. The other BOLT scripts (`to_remote` with CSV, the anchor script, both HTLCs) still pass the path walk.
+
+`OP_PICK` and `OP_ROLL` are 2 in both Appendix A grids, the same as `EvalScript`'s first check `stack.size() < 2` (interpreter.cpp around line 838). The tail is: pop `n`; fail if `n < 0` or `n >= stack.size()`; read that slot; `OP_ROLL` removes it; both push it. `OP_CHECKMULTISIG` and `OP_CHECKMULTISIGVERIFY` stay 1 in v0 and 0 in tapscript. The v0 tail pops `3 + nKeys + nSigs` items when `nKeys` is in `0..20` and `nSigs` is in `0..nKeys` (final interpreter index `i`, and the cleanup pops `i` items). `UNMODELED_TAIL` is empty. `OP_IF` / `OP_NOTIF` remain 1 on purpose: Core pops them only while executing.
+
+New unit results, not a status change for any other channel:
+
+- `<data> OP_0 OP_PICK` and `OP_0 OP_ROLL` mark that push read. Rule 12 does not fire. The bytes stay under the TBD Rule 13 cap, the same bound as a live `OP_DROP`. The old prefix of 1 left this push unreferenced, which was a false positive against a script that does read it.
+- `OP_1 OP_PICK` under a single script push saturates. It does not call that push read. Core rejects the same `n` when the real stack is shorter than `n`.
+- An unread push beside `OP_2 <key> <key> OP_2 OP_CHECKMULTISIG` stays unreferenced.
+
+No other closed, priced, or bounded channel in the suite changed.
+
 Harness: Bitcoin Core v28.1 regtest (`bitcoind` 280100) plus the Python checkers in `harness/`. Consensus-discouraged scripts were mined with `generateblock` after `testmempoolaccept` rejected them. Old-valid means Core accepted the transaction under today's consensus. New-valid means `harness/data_rules.py` and `harness/static_fee.py` accept it. Aggregate caps, `persistence_threshold`, `min_tx_count`, `max_tapleaf_push_bytes`, and `max_witness_script_push_bytes` are still TBD in the BIPs. The fragmentation run uses a fixture cap of 250 bytes. That fixture is not a recommended consensus constant. Provisional `static_fee` endpoints 16 and 20, and provisional `k` in 2–4, are the BIPs' own labeled ranges.
 
 Article [§VI](/articles/the-achievable-floor#vi-the-actual-floor) was recomputed from the article's own inputs. Every cell matches (OP_RETURN 1,039/1,024 = 1.01; envelope (43+256)/1,024 = 0.29; P2WPKH dust 294 from `3000 × 98 / 1000`; P2TR dust 330 from `3000 × 110 / 1000`; fee columns at 10, 50, and 100 sat/vB). No article table was edited. The §III row label still says "Taproot envelope push cap". The mechanism in that section's prose, in §VII, and in the data BIP is Tapscript `OP_IF` / `OP_NOTIF` invalidation.
 
 ## False positives
 
-The published next-opcode test flags BOLT 3 `to_local` push indexes 0 and 2 (the revocation pubkey is followed by `OP_ELSE`, and the delayed pubkey by `OP_ENDIF`). The live-path walk flags none. Regtest accepted the delay-1 CSV spend. The data BIP now uses the path walk. That false positive is closed.
+BOLT 3 `to_local` puts the revocation pubkey before `OP_ELSE` and the delayed pubkey before `OP_ENDIF`. Both pushes are script keys, and `OP_CHECKSIG` consumes the one the branch executes. The branch-end rule accepts them. The path walk flags none. Regtest accepted the delay-1 CSV spend.
 
 Scripts the new rules accept, and Core accepts: 2-of-2 funding spend (cooperative close, fee 1,000, two outputs, static floor at 20 met), commitment with `to_local`, offered HTLC, and a P2WPKH remote output (fee 50,000 meets 20 × 3), offered-HTLC preimage spend, `to_remote` with CSV, anchor `OP_IFDUP`, received HTLC, 83-byte `OP_RETURN`, P2A creation (`51024e73`), and an empty-witness P2A spend. The harness builds these BOLT 3 scripts and spends them. It does not run a Lightning daemon, and it does not forward an HTLC across a second channel.
 
@@ -54,10 +68,4 @@ Coinbase `scriptSig` is out of scope. Coinbase outputs still face Rule 1. The st
 
 Source: Bitcoin Core commit `b2c45888`, the commit named in the data BIP. `stack_items_read` matches both published 256-byte grids. `test_opcodes.py` checks every byte.
 
-Unmodeled relative to a full pop count, grids left as published:
-
-- `OP_PICK` (`0x79`) and `OP_ROLL` (`0x7a`): appendix prefix 1. Core's first check is `stack.size() < 2`. The tail (`n` deep) is data-dependent.
-- `OP_CHECKMULTISIG` (`0xae`) and `OP_CHECKMULTISIGVERIFY` (`0xaf`): prefix 1 in v0, 0 in tapscript. The key, signature, and dummy tail is data-dependent. The path walk consumes it when the counts are script constants.
-- `OP_IF` / `OP_NOTIF`: Core pops only when `fExec` is set. The appendix assigns 1 on purpose. The path walk uses the condition.
-
-No other opcode lacks a prefix. Disabled v0 opcodes return 0 before the switch. `OP_CHECKSIGADD` is 3 in tapscript and 0 in v0. `0xff` is not an `OP_SUCCESS` byte.
+`OP_PICK`, `OP_ROLL`, `OP_CHECKMULTISIG`, and `OP_CHECKMULTISIGVERIFY` are modeled. See the entry at the top of this file. `OP_IF` / `OP_NOTIF` stay 1 on purpose: Core pops them only when `fExec` is set, and the path walk uses the condition. Disabled v0 opcodes return 0 before the switch. `OP_CHECKSIGADD` is 3 in tapscript and 0 in v0. `0xff` is not an `OP_SUCCESS` byte.

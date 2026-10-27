@@ -1,13 +1,10 @@
 """Unreferenced-push analysis.
 
-`immediate_next` is the test the BIP published before this harness: a push
-is dead when the next opcode has `stack_items_read == 0`. It rejects BOLT 3
-`to_local`, because the revocation pubkey is followed by `OP_ELSE`.
-
-`live_paths` is the replacement. A push is unreferenced when no live path
-executes it, or when a path that executes it never reads it and it is not
-the sole minimally-encoded true success value (payload at most 4 bytes,
-Core's CScriptNum input limit).
+A push is unreferenced when no live path executes it, or when a path that
+executes it never reads it and it is not the sole true success value of at
+most 4 bytes. A key or key-hash immediately followed by OP_ELSE or OP_ENDIF
+is referenced when every branch that executes it ends in a signature check
+that consumes that same push. BOLT 3 to_local is that shape.
 """
 
 from harness.opcodes import is_op_success, is_push, stack_items_read
@@ -37,6 +34,10 @@ class Path:
         self.referenced = set()
         self.failed = False
         self.saturated = False
+        self.sig_refs = set()
+        self.hash_refs = set()
+        self.stack_unknown = False
+        self.unknown_before = set()
 
     def clone(self):
         other = Path()
@@ -45,6 +46,10 @@ class Path:
         other.referenced = set(self.referenced)
         other.failed = self.failed
         other.saturated = self.saturated
+        other.sig_refs = set(self.sig_refs)
+        other.hash_refs = set(self.hash_refs)
+        other.stack_unknown = self.stack_unknown
+        other.unknown_before = set(self.unknown_before)
         return other
 
 
@@ -143,6 +148,35 @@ def push_item(path, op):
 
 def comp(num=None, truth=None):
     return Item(None, None, num, truth)
+
+
+def is_pubkey(payload, kind):
+    """Pubkey encoding the signature opcode can consume. v0 is 33 or 65; tapscript is 32."""
+    if payload is None:
+        return False
+    if kind == "tapscript":
+        return len(payload) == 32
+    return len(payload) in (33, 65)
+
+
+def is_branch_key(payload, kind):
+    """Key or key-hash that may sit immediately before OP_ELSE / OP_ENDIF."""
+    if payload is None:
+        return False
+    if kind == "tapscript":
+        return len(payload) in (20, 32)
+    return len(payload) in (20, 33, 65)
+
+
+def note_hash(path, item):
+    if item.origin is not None and item.payload is not None and len(item.payload) == 20:
+        path.hash_refs.add(item.origin)
+
+
+def note_sig(path, item, kind):
+    if item.origin is not None and is_pubkey(item.payload, kind):
+        path.sig_refs.add(item.origin)
+    path.sig_refs |= path.hash_refs
 
 
 def split_conditional(ops, start):
@@ -266,23 +300,63 @@ def apply(op, path, kind):
             truth = a.payload == b.payload
         elif a.num is not None and b.num is not None:
             truth = a.num == b.num
+        note_hash(path, a)
+        note_hash(path, b)
         if opcode == 0x88:
             if truth is False:
                 path.failed = True
             return [path]
         path.stack.append(comp(truth=truth))
         return [path]
-    if opcode in (0xAC, 0xAD):  # CHECKSIG, CHECKSIGVERIFY
-        pop_n(2)
+    if opcode in (0xAC, 0xAD):  # CHECKSIG, CHECKSIGVERIFY. Top is the pubkey.
+        pubkey = pop(path)
+        sig = pop(path)
+        mark(path, pubkey)
+        mark(path, sig)
+        note_sig(path, pubkey, kind)
         if opcode == 0xAD:
             return [path]
         path.stack.append(comp())
         return [path]
-    if opcode == 0xBA:
-        pop_n(3)
+    if opcode == 0xBA:  # CHECKSIGADD. Top is the pubkey.
+        pubkey = pop(path)
+        num = pop(path)
+        sig = pop(path)
+        mark(path, pubkey)
+        mark(path, num)
+        mark(path, sig)
+        note_sig(path, pubkey, kind)
         path.stack.append(comp())
         return [path]
+    if opcode in (0x79, 0x7A):  # PICK, ROLL. Depth check is 2, then n, then the slot.
+        def stack_lost():
+            # Keep walking later opcodes. Pushes already on the stack are not
+            # guessed; pushes after this point still count.
+            if not path.stack_unknown:
+                path.unknown_before = set(path.executed)
+                path.stack_unknown = True
+            path.stack = [comp()]
+            return [path]
+
+        if len(path.stack) < 2:
+            return stack_lost()
+        n_item = pop(path)
+        mark(path, n_item)
+        n = n_item.num
+        if n is not None and n < 0:
+            path.failed = True
+            return [path]
+        if n is None or n >= len(path.stack):
+            return stack_lost()
+        index = len(path.stack) - 1 - n
+        item = path.stack[index]
+        mark(path, item)
+        if opcode == 0x7A:
+            del path.stack[index]
+        path.stack.append(Item(item.origin, item.payload, item.num, item.truth))
+        return [path]
     if opcode in (0xAE, 0xAF):
+        # nKeys, that many keys, nSigs, that many sigs, then the dummy.
         nkeys_item = pop(path)
         mark(path, nkeys_item)
         nkeys = nkeys_item.num
@@ -290,7 +364,9 @@ def apply(op, path, kind):
             path.saturated = True
             return [path]
         for _ in range(nkeys):
-            mark(path, pop(path))
+            key = pop(path)
+            mark(path, key)
+            note_sig(path, key, kind)
         nsigs_item = pop(path)
         mark(path, nsigs_item)
         nsigs = nsigs_item.num
@@ -300,6 +376,7 @@ def apply(op, path, kind):
         for _ in range(nsigs):
             mark(path, pop(path))
         mark(path, pop(path))
+        path.sig_refs |= path.hash_refs
         if opcode == 0xAE:
             path.stack.append(comp(truth=True))
         return [path]
@@ -416,7 +493,10 @@ def live_paths(raw, kind):
         if state.saturated:
             continue
         _exempt_success(state)
-        bad |= state.executed - state.referenced
+        unread = state.executed - state.referenced
+        if state.stack_unknown:
+            unread -= state.unknown_before
+        bad |= unread
     for index in indexes:
         if index not in executed_somewhere:
             bad.add(index)
@@ -429,11 +509,35 @@ def live_paths(raw, kind):
     }
 
 
+def sig_qualified(raw, kind):
+    """Push indexes a signature opcode consumes on every live path that executes them."""
+    ops = parse_script(raw)
+    if ops is None:
+        return set()
+    states = run(ops, [Path()], kind)
+    live = [state for state in states if not state.failed]
+    indexes = [op.push_index for op in ops if op.push_index is not None]
+    good = set()
+    for index in indexes:
+        touched = [state for state in live if index in state.executed]
+        if touched and all((not state.saturated) and index in state.sig_refs for state in touched):
+            good.add(index)
+    return good
+
+
 def immediate_next(raw, kind):
-    """The pre-harness classification. Kept so the BOLT 3 false positive stays visible."""
+    """Next opcode, plus the branch-end exception for a consumed key or key-hash.
+
+    OP_ELSE and OP_ENDIF read nothing. A key or key-hash directly in front of
+    either one is still accepted when every branch that executes it ends in a
+    signature check against that same push. Any other unread next-opcode is
+    rejected, including a non-key before OP_ELSE and a key the signature
+    check never consumes.
+    """
     ops = parse_script(raw)
     if ops is None:
         return []
+    qualified = sig_qualified(raw, kind)
     bad = []
     for i, op in enumerate(ops):
         if op.push_index is None:
@@ -443,6 +547,8 @@ def immediate_next(raw, kind):
             continue
         nxt = ops[i + 1]
         if nxt.push_index is not None:
+            continue
+        if nxt.opcode in (OP_ELSE, OP_ENDIF) and is_branch_key(op.payload, kind) and op.push_index in qualified:
             continue
         if stack_items_read(nxt.opcode, kind) == 0:
             bad.append(op.push_index)
