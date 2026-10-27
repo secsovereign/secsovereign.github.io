@@ -365,6 +365,47 @@ def test_envelopes_and_items(key):
     )
 
 
+def test_nested_conditionals(dest):
+    """OP_IF / OP_NOTIF nested, executed, and unexecuted. P2WSH so Rule 7 does not apply."""
+    data = push_data(b"\x55" * 180)
+    # Outer IF taken. Inner OP_NOTIF condition is true, so its then-arm is not taken.
+    nested_dead = b"\x51\x63\x51\x64" + data + b"\x67\x51\x68\x68"
+    # OP_NOTIF executes the then-arm because the condition is false. DROP reads the push.
+    executed_notif = b"\x00\x64" + data + b"\x75\x51\x68"
+    # OP_NOTIF sits in an OP_IF arm the constant condition does not take.
+    notif_in_dead_if = b"\x00\x63" + data + b"\x64\x51\x68\x67\x51\x68"
+    cases = (
+        ("nested-unexecuted-notif", nested_dead, "CLOSED", "unreferenced-push"),
+        ("executed-notif-drop", executed_notif, "BOUNDED", None),
+        ("notif-inside-unexecuted-if", notif_in_dead_if, "CLOSED", "unreferenced-push"),
+    )
+    for name, script, classification, expect in cases:
+        info = live_paths(script, "witness_v0")
+        txid, vout, value = fund_spk(p2wsh(Script(script)), 80_000)
+        tx = p2wsh_tx((txid, vout), script, [], value, [(value - 500, dest)])
+        allowed, core = accept(tx)
+        reasons = spend_reasons("p2wsh", tx.vin[0].witness.items, b"", WIDE)
+        assert allowed, (name, core)
+        assert not info["old_invalid"], (name, info)
+        if expect is None:
+            assert reasons == [], (name, reasons, info)
+        else:
+            assert expect in reasons, (name, reasons, info)
+        record(
+            name,
+            True,
+            reasons,
+            classification,
+            f"core accepts. path unreferenced={info['unreferenced']} reasons={reasons}. "
+            + (
+                "The push is on a live path and OP_DROP reads it, so Rule 12 does not fire. "
+                "Rule 13 would bound the bytes; the cap is still TBD."
+                if expect is None
+                else "No live path executes the push."
+            ),
+        )
+
+
 def test_fragmentation():
     # Fixture caps, not the BIP's TBD parameters.
     fixture = dict(WIDE)
@@ -709,6 +750,7 @@ def main():
     dest = Script(b"\x00\x14" + hash160(dest_key.sec()))
     test_lightning_flow()
     test_envelopes_and_items(dest_key)
+    test_nested_conditionals(dest)
     test_fragmentation()
     test_p2sh(dest_key)
     test_taproot_and_annex(dest)
