@@ -17,11 +17,11 @@
     <meta property="og:site_name" content="SecureSovereign">
     <meta property="og:locale" content="en_US">
     <meta property="article:published_time" content="2026-07-07">
-    <meta property="article:modified_time" content="2026-09-20">
+    <meta property="article:modified_time" content="2026-10-30">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Why Bitcoin Needs a Specification That Humans Can Read">
     <meta name="twitter:description" content="Verification methodology as a governance question: Orange Paper, Specification Lock, and readable mathematical notation.">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Why Bitcoin Needs a Specification That Humans Can Read","description":"Verification methodology as a governance question: Orange Paper, Specification Lock, and readable mathematical notation.","url":"https://secsov.com/articles/why-bitcoin-needs-a-specification","mainEntityOfPage":{"@type":"WebPage","@id":"https://secsov.com/articles/why-bitcoin-needs-a-specification"},"author":{"@type":"Person","name":"Josh","alternateName":"Secure Sovereign","url":"https://secsov.com/"},"publisher":{"@type":"Organization","name":"SecureSovereign","url":"https://secsov.com/"},"isPartOf":{"@type":"WebSite","name":"SecureSovereign","url":"https://secsov.com/"},"datePublished":"2026-07-07","dateModified":"2026-09-20"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Why Bitcoin Needs a Specification That Humans Can Read","description":"Verification methodology as a governance question: Orange Paper, Specification Lock, and readable mathematical notation.","url":"https://secsov.com/articles/why-bitcoin-needs-a-specification","mainEntityOfPage":{"@type":"WebPage","@id":"https://secsov.com/articles/why-bitcoin-needs-a-specification"},"author":{"@type":"Person","name":"Josh","alternateName":"Secure Sovereign","url":"https://secsov.com/"},"publisher":{"@type":"Organization","name":"SecureSovereign","url":"https://secsov.com/"},"isPartOf":{"@type":"WebSite","name":"SecureSovereign","url":"https://secsov.com/"},"datePublished":"2026-07-07","dateModified":"2026-10-30"}</script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/article.css" rel="stylesheet">
@@ -42,7 +42,7 @@
     <div class="article-wrap">
         <header class="article-meta">
         <div class="article-meta-row">
-            <p class="article-dates"><time datetime="2026-07-07">Published July 7, 2026</time><span class="article-meta-sep" aria-hidden="true">·</span><time datetime="2026-09-20">Updated September 20, 2026</time></p>
+            <p class="article-dates"><time datetime="2026-07-07">Published July 7, 2026</time><span class="article-meta-sep" aria-hidden="true">·</span><time datetime="2026-10-30">Updated October 30, 2026</time></p>
             <p class="article-downloads">
         <a class="article-file-link" href="index.pdf" download="why-bitcoin-needs-a-specification.pdf">PDF</a>
         <a class="article-file-link" href="index.md" download="why-bitcoin-needs-a-specification.md">Markdown</a>
@@ -65,7 +65,7 @@
 <h2 id="the-problem-bitcoin-has-been-avoiding">The Problem Bitcoin Has Been Avoiding</h2>
 <p>Bitcoin has been extraordinarily successful without a formal specification. But success does not make the absence of one sustainable.</p>
 <p>The consensus rules that secure a multi-trillion-dollar network exist only as behavior encoded in Bitcoin Core's C++ codebase. <strong>"The code is the spec" is not a design principle but an admission that no one has written the spec.</strong> Every alternative implementation, every audit, every attempt to verify correctness must reverse-engineer undocumented behavior from a codebase that was never designed to be read as a specification.</p>
-<p>Satoshi, after 0.1, said the core design was set in stone for the lifetime of the project. That stone is consensus design, not the application around it. At the May 2026 tree the rules are 10,055 code lines and the rest of the implementation is 135,479. <em><a href="/articles/the-rules-are-7-percent">The Rules Are 7% of the Program</a></em> is the count. Deploying the quote against P2P or privacy work is a category error on that reading. The case for a specification is the case for keeping the stone and the application apart.</p>
+<p>Satoshi, after 0.1, said the core design was set in stone for the lifetime of the project. That stone is consensus design, not the application around it. In Bitcoin Core 32.1 the rules are 10,122 code lines and the rest of the implementation is 140,882. <em><a href="/articles/the-rules-are-7-percent">The Rules Are 7% of the Program</a></em> is the count. Deploying the quote against P2P or privacy work is a category error on that reading. The case for a specification is the case for keeping the stone and the application apart.</p>
 <p>This has worked so far because Bitcoin's growth in economic importance has outpaced the scrutiny that importance attracts. That is changing. When a court needs to understand whether a transaction was valid under the consensus rules at a given block height, there is no document to hand them. When a new implementation team wants to be sure they are building the same rules as Core, there is no specification to target. When an auditor wants to verify that a proposed soft fork does not break existing guarantees, there is no formal description of what those guarantees are.</p>
 <p>The absence of a specification is not a minor gap. <strong>It is the foundational vulnerability that every other correctness problem in Bitcoin builds on.</strong></p>
 <p>The missing spec also keeps technical questions in the social layer indefinitely, and the noise degrades the signal from genuine threat detection. For why that noise-floor problem is an argument for a formal spec without asking Bitcoin to soften its adversarial register, see <em><a href="/articles/the-adversarial-default#iv-the-inflation-problem">The Adversarial Default, §IV</a></em>.</p>

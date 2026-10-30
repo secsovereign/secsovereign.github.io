@@ -10,13 +10,13 @@
       "slug": "bitcoin-governance",
       "title": "Who Controls Bitcoin",
       "published": "2026-04-03",
-      "updated": "2026-09-20"
+      "updated": "2026-10-30"
     },
     {
       "slug": "bitcoin-governance-argument-map",
       "title": "Bitcoin Governance: Argument Map",
       "published": "2026-04-03",
-      "updated": "2026-09-20"
+      "updated": "2026-10-30"
     },
     {
       "slug": "bitcoin-social-capture",
@@ -37,7 +37,7 @@
       "title": "Bitcoin Core: The Biggest Fallacies",
       "description": "Eight common defenses of Core's implementation monopoly and why they fail logical scrutiny.",
       "published": "2026-03-21",
-      "updated": "2026-09-20",
+      "updated": "2026-10-30",
       "originalUrl": "https://btccommons.substack.com/p/bitcoin-core-the-biggest-fallacies"
     },
     {
@@ -45,7 +45,7 @@
       "title": "What Bitcoin's Stalled Proposals Tell You",
       "description": "Why Dandelion, UTXO commitments, Erlay, and a formal spec sit unmerged, and what shipping them looks like.",
       "published": "2026-06-04",
-      "updated": "2026-09-20",
+      "updated": "2026-10-30",
       "originalUrl": "https://btccommons.substack.com/p/what-bitcoins-stalled-proposals-tell"
     },
     {
@@ -78,7 +78,7 @@
       "title": "Why Bitcoin Needs a Specification That Humans Can Read",
       "description": "Verification methodology as a governance question: Orange Paper, Specification Lock, and readable mathematical notation.",
       "published": "2026-07-07",
-      "updated": "2026-09-20",
+      "updated": "2026-10-30",
       "originalUrl": "https://btccommons.substack.com/p/why-bitcoin-needs-a-specification"
     },
     {
@@ -94,7 +94,7 @@
       "title": "Don't Trust, Verify",
       "description": "Coldcard's RNG defect, credentialed endorsement without seed-path audit, and the same verification gap in Bitcoin Core.",
       "published": "2026-08-02",
-      "updated": "2026-08-20"
+      "updated": "2026-10-30"
     },
     {
       "slug": "why-shitcoins-are-shitcoins",
@@ -122,12 +122,12 @@
       "title": "The Vertical Layer Problem",
       "description": "Why Bitcoin cannot be governed like an open source project. A dictator is a good way to ship a kernel. It is a bad way to write Bitcoin's node software.",
       "published": "2026-08-27",
-      "updated": "2026-09-20"
+      "updated": "2026-10-30"
     },
     {
       "slug": "the-rules-are-7-percent",
       "title": "The Rules Are 7% of the Program",
-      "description": "A line count of Bitcoin Core at 11 May 2026. The consensus rules are 10,055 code lines, 7% of the implementation. Tests match that implementation. Most of what was added was later deleted.",
+      "description": "A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Tests match that implementation. Most of what was added was later deleted.",
       "published": "2026-10-30"
     }
   ]

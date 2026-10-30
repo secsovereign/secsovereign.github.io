@@ -17,11 +17,11 @@
     <meta property="og:site_name" content="SecureSovereign">
     <meta property="og:locale" content="en_US">
     <meta property="article:published_time" content="2026-08-27">
-    <meta property="article:modified_time" content="2026-09-20">
+    <meta property="article:modified_time" content="2026-10-30">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="The Vertical Layer Problem">
     <meta name="twitter:description" content="Why Bitcoin cannot be governed like an open source project. A dictator is a good way to ship a kernel. It is a bad way to write Bitcoin's node software.">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The Vertical Layer Problem","description":"Why Bitcoin cannot be governed like an open source project. A dictator is a good way to ship a kernel. It is a bad way to write Bitcoin's node software.","url":"https://secsov.com/articles/the-vertical-layer-problem","mainEntityOfPage":{"@type":"WebPage","@id":"https://secsov.com/articles/the-vertical-layer-problem"},"author":{"@type":"Person","name":"Josh","alternateName":"Secure Sovereign","url":"https://secsov.com/"},"publisher":{"@type":"Organization","name":"SecureSovereign","url":"https://secsov.com/"},"isPartOf":{"@type":"WebSite","name":"SecureSovereign","url":"https://secsov.com/"},"datePublished":"2026-08-27","dateModified":"2026-09-20"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The Vertical Layer Problem","description":"Why Bitcoin cannot be governed like an open source project. A dictator is a good way to ship a kernel. It is a bad way to write Bitcoin's node software.","url":"https://secsov.com/articles/the-vertical-layer-problem","mainEntityOfPage":{"@type":"WebPage","@id":"https://secsov.com/articles/the-vertical-layer-problem"},"author":{"@type":"Person","name":"Josh","alternateName":"Secure Sovereign","url":"https://secsov.com/"},"publisher":{"@type":"Organization","name":"SecureSovereign","url":"https://secsov.com/"},"isPartOf":{"@type":"WebSite","name":"SecureSovereign","url":"https://secsov.com/"},"datePublished":"2026-08-27","dateModified":"2026-10-30"}</script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/article.css" rel="stylesheet">
@@ -42,7 +42,7 @@
     <div class="article-wrap">
         <header class="article-meta">
         <div class="article-meta-row">
-            <p class="article-dates"><time datetime="2026-08-27">Published August 27, 2026</time><span class="article-meta-sep" aria-hidden="true">·</span><time datetime="2026-09-20">Updated September 20, 2026</time></p>
+            <p class="article-dates"><time datetime="2026-08-27">Published August 27, 2026</time><span class="article-meta-sep" aria-hidden="true">·</span><time datetime="2026-10-30">Updated October 30, 2026</time></p>
             <p class="article-downloads">
         <a class="article-file-link" href="index.pdf" download="the-vertical-layer-problem.pdf">PDF</a>
         <a class="article-file-link" href="index.md" download="the-vertical-layer-problem.md">Markdown</a>
@@ -93,7 +93,7 @@
 <hr>
 <h2 id="bitcoin-produces-agreement-not-a-product">Bitcoin produces agreement, not a product</h2>
 <p>Bitcoin's coordination problem is agreement among peers who do not trust each other. Satoshi solved that for the chain. A bad block dies at every node that checks it. Linux produces a kernel people download. Bitcoin produces agreement about which chain is valid.</p>
-<p>That check is only as good as the program doing it. The program is written by a small group. Inside that program the consensus rules are 10,055 code lines, 7% of the implementation, measured at the May 2026 tree in <em><a href="/articles/the-rules-are-7-percent">The Rules Are 7% of the Program</a></em>. The <a href="https://thebitcoincommons.org/whitepaper.html">Commons white paper</a> puts the set of people who can do consensus-critical Bitcoin work in the dozens to a few hundred worldwide. Miners and node operators are not in that set. They download a release, confirm it talks to their peers, and run it. They are trusting the maintainers and developers to have done the review they will not do themselves.</p>
+<p>That check is only as good as the program doing it. The program is written by a small group. Inside that program the consensus rules are 10,122 code lines, 7% of the implementation, measured on Bitcoin Core 32.1 in <em><a href="/articles/the-rules-are-7-percent">The Rules Are 7% of the Program</a></em>. The <a href="https://thebitcoincommons.org/whitepaper.html">Commons white paper</a> puts the set of people who can do consensus-critical Bitcoin work in the dozens to a few hundred worldwide. Miners and node operators are not in that set. They download a release, confirm it talks to their peers, and run it. They are trusting the maintainers and developers to have done the review they will not do themselves.</p>
 <p>"Don't trust, verify" describes what a node does with a block, not what anyone does with a release. Your node checks every block against the rules. Almost nobody checks the software that holds those rules.</p>
 <p>The trustless layer sits on a trusted one. The same gap, applied to Bitcoin Core, is <em><a href="/articles/dont-trust-verify#vi-the-same-system-applied-to-bitcoin-core">Don't Trust, Verify</a></em>.</p>
 <p>The people who write that software are identifiable, and identifiable people can be pressured. If they fold, the software layer folds, whatever the cryptography says. A second client does not answer that by adding more people willing to say no. It answers it by giving operators somewhere to go. Refusing a release is only a refusal when there is other software to run, and without that software it is a delay.</p>
@@ -158,7 +158,7 @@
 <h2 id="sources">Sources</h2>
 <ul>
 <li><a href="https://github.com/secsovereign/bitcoin-governance-research">Bitcoin Governance Research</a>. Merge/review concentration, Gini, self-merge</li>
-<li><em><a href="/articles/the-rules-are-7-percent">The Rules Are 7% of the Program</a></em>. Line count of the May 2026 tree: 10,055 rule lines inside 145,534 implementation lines</li>
+<li><em><a href="/articles/the-rules-are-7-percent">The Rules Are 7% of the Program</a></em>. Line count of Bitcoin Core 32.1: 10,122 rule lines inside 151,004 implementation lines</li>
 <li><a href="https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/">Brink, Engineering Impact Report 2025</a>. One-person merge share</li>
 <li><a href="https://coin.dance/">Coin Dance</a>. Knots reachable-node share</li>
 <li><a href="https://thebitcoincommons.org/whitepaper.html">Bitcoin Commons white paper</a>. Dual bars (where and what), optional modules, three-class emergency (declaration vs PR tag), governance-ruleset exit</li>
