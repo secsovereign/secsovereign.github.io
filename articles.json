@@ -123,6 +123,12 @@
       "description": "Why Bitcoin cannot be governed like an open source project. A dictator is a good way to ship a kernel. It is a bad way to write Bitcoin's node software.",
       "published": "2026-08-27",
       "updated": "2026-09-20"
+    },
+    {
+      "slug": "the-rules-are-7-percent",
+      "title": "The Rules Are 7% of the Program",
+      "description": "A line count of Bitcoin Core at 11 May 2026. The consensus rules are 10,055 code lines, 7% of the implementation. Tests match that implementation. Most of what was added was later deleted.",
+      "published": "2026-10-30"
     }
   ]
 }

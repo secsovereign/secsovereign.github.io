@@ -125,6 +125,7 @@ This site publishes **long-form reference articles** and **BIP pre-proposals**, 
 - [The Adversarial Default (Markdown source)](https://secsov.com/articles/the-adversarial-default/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Making Core Irrelevant (Markdown source)](https://secsov.com/articles/making-core-irrelevant/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [The Vertical Layer Problem (Markdown source)](https://secsov.com/articles/the-vertical-layer-problem/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
+- [The Rules Are 7% of the Program (Markdown source)](https://secsov.com/articles/the-rules-are-7-percent/index.md): Raw Markdown source file; preferred for LLM ingestion over HTML.
 - [Static Per-Output Miner Fee (Markdown source)](https://secsov.com/bips/static-per-output-miner-fee/index.md): BIP pre-proposal Markdown source; preferred for LLM ingestion over HTML.
 - [Dynamic Escalation of the Per-Output Miner Fee (Markdown source)](https://secsov.com/bips/dynamic-escalation-per-output-fee/index.md): BIP pre-proposal Markdown source; preferred for LLM ingestion over HTML.
 - [Permanent Data Channel Closure (Markdown source)](https://secsov.com/bips/permanent-data-channel-closure/index.md): BIP pre-proposal Markdown source; preferred for LLM ingestion over HTML.

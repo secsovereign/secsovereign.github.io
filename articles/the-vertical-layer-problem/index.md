@@ -69,7 +69,7 @@ The merge set also decides which changes count as consensus changes, which is ho
 
 Bitcoin's coordination problem is agreement among peers who do not trust each other. Satoshi solved that for the chain. A bad block dies at every node that checks it. Linux produces a kernel people download. Bitcoin produces agreement about which chain is valid.
 
-That check is only as good as the program doing it. The program is written by a small group. The [Commons white paper](https://thebitcoincommons.org/whitepaper.html) puts the set of people who can do consensus-critical Bitcoin work in the dozens to a few hundred worldwide. Miners and node operators are not in that set. They download a release, confirm it talks to their peers, and run it. They are trusting the maintainers and developers to have done the review they will not do themselves.
+That check is only as good as the program doing it. The program is written by a small group. Inside that program the consensus rules are 10,055 code lines, 7% of the implementation, measured at the May 2026 tree in *[The Rules Are 7% of the Program](/articles/the-rules-are-7-percent)*. The [Commons white paper](https://thebitcoincommons.org/whitepaper.html) puts the set of people who can do consensus-critical Bitcoin work in the dozens to a few hundred worldwide. Miners and node operators are not in that set. They download a release, confirm it talks to their peers, and run it. They are trusting the maintainers and developers to have done the review they will not do themselves.
 
 "Don't trust, verify" describes what a node does with a block, not what anyone does with a release. Your node checks every block against the rules. Almost nobody checks the software that holds those rules.
 
@@ -196,6 +196,7 @@ A governance system that works only while the current merge set holds the chairs
 ## Sources
 
 - [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research). Merge/review concentration, Gini, self-merge
+- *[The Rules Are 7% of the Program](/articles/the-rules-are-7-percent)*. Line count of the May 2026 tree: 10,055 rule lines inside 145,534 implementation lines
 - [Brink, Engineering Impact Report 2025](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/). One-person merge share
 - [Coin Dance](https://coin.dance/). Knots reachable-node share
 - [Bitcoin Commons white paper](https://thebitcoincommons.org/whitepaper.html). Dual bars (where and what), optional modules, three-class emergency (declaration vs PR tag), governance-ruleset exit
