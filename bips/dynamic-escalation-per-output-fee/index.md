@@ -455,10 +455,10 @@ This checklist is separate from and follows the static fee BIP's calibration. Th
 
 - *[BIP Pre-Proposal: Static Per-Output Miner Fee](/bips/static-per-output-miner-fee)*. This BIP depends on it.
 - *[BIP Pre-Proposal: Permanent Data Channel Closure](/bips/permanent-data-channel-closure)* (Josh / Secure Sovereign, August 2026).
-- *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*, v2.4, July 2026.
+- *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*, v2.4 (Josh / Secure Sovereign, July 2026).
 - Mempool Research UTXO Set Report, May 2025, tip 892385 ([research.mempool.space/utxo-set-report](https://research.mempool.space/utxo-set-report)).
-- *[The Achievable Floor](/articles/the-achievable-floor)* (2026).
-- *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)* (2026).
+- *[The Achievable Floor](/articles/the-achievable-floor)* (Josh / Secure Sovereign, 2026).
+- *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)* (Josh / Secure Sovereign, 2026).
 - Lopp, Jameson. "Goldiblocks: A Dynamic Block Size Limit." OP_NEXT 2025.
 - Various Delving Bitcoin and bitcoin-dev threads on UTXO bloat and spam mitigation (2023-2026)
 

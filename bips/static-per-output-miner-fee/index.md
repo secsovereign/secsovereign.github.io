@@ -441,10 +441,10 @@ These are known residual vectors. The [dynamic escalation BIP](/bips/dynamic-esc
 - *[BIP Pre-Proposal: Dynamic Escalation of the Per-Output Miner Fee](/bips/dynamic-escalation-per-output-fee)* (Josh / Secure Sovereign, July 2026). Optional companion.
 - *[BIP Pre-Proposal: Permanent Data Channel Closure](/bips/permanent-data-channel-closure)* (Josh / Secure Sovereign, August 2026).
 - Bitcoin Core dust limit implementation (`GetDustThreshold` / `-dustrelayfee`; Core PRs #2577, #10817, #22863)
-- *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*, v2.4, July 2026. Source of per-node non-monetary burden ($5.52-$5.54/month) and network aggregate ($4M/year) figures.
+- *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*, v2.4 (Josh / Secure Sovereign, July 2026). Source of per-node non-monetary burden ($5.52-$5.54/month) and network aggregate ($4M/year) figures.
 - Mempool Research UTXO Set Report, May 2025, tip 892385 ([research.mempool.space/utxo-set-report](https://research.mempool.space/utxo-set-report)). Source of 29.6% inscription UTXO share and 51,188,145 inscription UTXO count.
-- *[The Achievable Floor](/articles/the-achievable-floor)* (2026).
-- *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)* (2026).
+- *[The Achievable Floor](/articles/the-achievable-floor)* (Josh / Secure Sovereign, 2026).
+- *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)* (Josh / Secure Sovereign, 2026).
 - Lopp, Jameson. "Goldiblocks: A Dynamic Block Size Limit." OP_NEXT 2025.
 - Various Delving Bitcoin and bitcoin-dev threads on UTXO bloat and spam mitigation (2023-2026)
 

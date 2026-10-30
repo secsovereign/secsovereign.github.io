@@ -625,9 +625,9 @@ Same as V0 except `0xae` = 0, `0xaf` = 0, `0xba` = 3. SUCCESS bytes are already 
 - Bitcoin Core `src/script/interpreter.cpp` (`EvalScript`) and `src/script/script.cpp` (`IsOpSuccess`), commit [`b2c45888`](https://github.com/bitcoin/bitcoin/commit/b2c45888fde06429e86913fab5e7b7a075f091c3).
 - BIP 433: Pay-to-Anchor (P2A).
 - BIP 16: Pay to Script Hash.
-- *[The Achievable Floor](/articles/the-achievable-floor)* (secsov.com, 2026).
-- *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)* (secsov.com, 2026).
-- *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*, v2.4 (secsov.com, July 2026).
+- *[The Achievable Floor](/articles/the-achievable-floor)* (Josh / Secure Sovereign, 2026).
+- *[Bitcoin Is Not a Hard Drive](/articles/bitcoin-not-a-hard-drive)* (Josh / Secure Sovereign, 2026).
+- *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*, v2.4 (Josh / Secure Sovereign, July 2026).
 - Various Delving Bitcoin and bitcoin-dev threads on UTXO bloat and data embedding (2023–2026).
 
 ---
