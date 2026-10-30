@@ -657,15 +657,31 @@ Bitcoin Core has never produced a formal mathematical specification of its conse
 
 ### The Merge Authority Structure
 
-Seventeen years of Bitcoin Core governance data in [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) document a **PR-weighted contribution Gini coefficient of ~0.851** historical / **~0.834** recent (and similarly extreme concentration in reviews, Gini ~0.92), with the **top three merger roles accounting for 81.1% of historical merges** in the full-history rollup ([`findings/EXECUTIVE_SUMMARY.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/EXECUTIVE_SUMMARY.md), [`findings/GINI_COEFFICIENT_EXPLANATION.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GINI_COEFFICIENT_EXPLANATION.md)). **Merge and commit permissions on [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin) are authoritative;** the live roster is currently **five** merge holders. The structural point is unchanged: **a small, fixed-capacity set** of people can land code in the reference implementation, and **their institutional ties overlap the funding map**, including Chaincode employment, Brink grants, Spiral (Block’s Bitcoin arm), Localhost-style hosts, and similar channels. These are not anonymous volunteers in the aggregate; they are employees and grantees of a **small, identifiable** set of institutions, and those institutions have financial entanglements with commercial operations that benefit from specific protocol directions.
+Seventeen years of Bitcoin Core governance data in [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) document a **PR-weighted contribution Gini coefficient of ~0.851** historical / **~0.834** recent (and similarly extreme concentration in reviews, Gini ~0.92), with the **top three merger roles accounting for 81.1% of all-time historical merges** in the full-history rollup ([`findings/EXECUTIVE_SUMMARY.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/EXECUTIVE_SUMMARY.md), [`findings/GINI_COEFFICIENT_EXPLANATION.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GINI_COEFFICIENT_EXPLANATION.md)). **Merge and commit permissions on [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin) are authoritative;** the live roster is currently **five** merge holders. The structural point is unchanged: **a small, fixed-capacity set** of people can land code in the reference implementation, and **their institutional ties overlap the funding map**, including Chaincode employment, Brink grants, Spiral (Block’s Bitcoin arm), Localhost-style hosts, and similar channels. These are not anonymous volunteers in the aggregate; they are employees and grantees of a **small, identifiable** set of institutions, and those institutions have financial entanglements with commercial operations that benefit from specific protocol directions.
 
 The informal merge authority structure means there is no formal process, no published criteria, and no accountability mechanism for what gets merged and what does not. Core developers disclaim ownership and authority over Bitcoin while exercising exactly that authority through PR closure and moderation. When critics name conflicts of interest on GitHub, they get moderated off. **That is not the behavior of a commons with no governance. That is governance defending itself.** Section V traces one contested change end to end.
 
-Brink's own [Engineering Impact Report 2025](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/) documents that Michael Ford ("fanquake") merged 56% of all changes to Bitcoin Core in 2025 and led every major release from v28.1 through v30.0, published by the institution paying his salary as a funding success. The 2022+ merge window in [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) shows the same shape (**50.2%** top-1, **82.2%** top-3; [`findings/GOVERNANCE_FRAMES.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GOVERNANCE_FRAMES.md)). Fanquake also nominated Gloria Zhao for maintainership in June 2022, six months after Zhao had publicly endorsed expanding his GitHub owner permissions, including the ability to block accounts.
+Brink's own [Engineering Impact Report 2025](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/) documents that Michael Ford ("fanquake") merged **56% of changes in calendar year 2025** and led every major release from v28.1 through v30.0, published by the institution paying his salary as a funding success. The **2022+ window (5,747 merged PRs)** in [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) shows the same shape (**50.2%** top-1, **70.4%** top-two, **82.2%** top-3; [`findings/GOVERNANCE_FRAMES.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GOVERNANCE_FRAMES.md)). Those three percentages are not interchangeable. All-time top-three is 81.1%. 2022+ top-1 is 50.2%. Brink 2025 is 56%.
+
+Fanquake also nominated Gloria Zhao for maintainership in June 2022, six months after Zhao had publicly endorsed expanding his GitHub owner permissions, including the ability to block accounts.
+
+Since 2022 the named merger counts are fanquake 2,884, achow101 1,162, maflcko 676, glozow 313, sedited 262. Merge data keys on GitHub logins, which are unique.
+
+Share of each author's merged work, since 2022, that passed through fanquake: theuni 73.3%, hebasto 72.7%, fanquake (self) 68.3%, willcl-ark 62.7%, maflcko 62.6%, sedited 53.7%, achow101 52.3%, glozow 52.0%. These are observational counts. Nobody is an appointed deputy. The MAINTAINERS file is a roster. The merge graph is the org chart.
+
+Self-merge is **25.5%** of maintainer-authored merges. **45.1%** of those carry zero review, which is **11.6%** of all maintainer merges. Non-maintainers self-merge at 0%, being unable to. The spread is the argument. laanwj 77.1%, fanquake 50.4%, maflcko 35.0%. Five maintainers with over 1,200 merges between them have never self-merged. The "ordinary workflow" defense has to explain why most maintainers decline.
+
+Merge authority decides what enters the codebase. Signing authority decides what users install. Of 339 releases, 286 were signed and 53 were unsigned. The source report does not explain the 53. Signing data keys on free-text names rather than logins, so three UID strings for the same person have to be collapsed. On the 282 published signer rows, Wladimir van der Laan 146 (51.8%), fanquake 55 (19.5%), Gavin Andresen 53 (18.8%), collapsed top-3 90.1%, top-5 98.6%. Four signed releases are unaccounted for in those rows, so the shares use 282 as the denominator. A previously published signer Gini of 0.545 used the unjoined name strings and does not apply to these collapsed counts.
+
+First-PR outsider merge rate is about 29% all-time and about 16% since 2022. Established outsiders with five or more prior merges merge at about 69%. Median merge wait is 93.3 hours for maintainers and 145.4 hours for non-maintainers (1.41x). First review time is 12.3 hours versus 12.4 hours. Raw merge rates of about 80% maintainer against about 55% non-maintainer overstate the gap, because most of it is self-merge privilege rather than differential judgment. Peer-merge rates, excluding self-merges, are about 59% against 54% all-time, widening to about 63% against 51% since 2022.
 
 ### What the Quantitative Record Shows
 
-The same research finds extreme merge concentration (authorship Gini ~0.851 historical / ~0.834 recent), high contributor churn (**90.7%** of **7,827** contributors inactive in the last year of the dump), and a pattern of governance paralysis on major protocol improvements that would have reduced dependence on the current institutional infrastructure. Pair-level reviewer cohesion exists, but the joint-appearance counts are too small to treat as a voting machine ([`findings/CONFLICT_RESOLUTION_ANALYSIS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/CONFLICT_RESOLUTION_ANALYSIS.md), [`findings/EXECUTIVE_SUMMARY.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/EXECUTIVE_SUMMARY.md)). Informal channels put topics on the table and GitHub finalizes. That flow was ~0.55 in the SegWit and Taproot years and **0.002** after 2022 ([`findings/GOVERNANCE_FRAMES.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GOVERNANCE_FRAMES.md)). BIP-repo merge power is not Core merge power: **443** unique BIP mergers versus **23** on Core, and only **two** people sit in both top tens. For how paralysis became the durable outcome of the blocksize war, see *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory)*; for the stalled-proposals evidence list, see *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)*. Review activity Gini sits near **0.92**. Many people review; almost nobody merges. Contributor accounts in Section III describe how funding dependency and institutional geography further narrow who sustains engagement in that dataset.
+The same research finds extreme merge concentration (authorship Gini ~0.851 historical / ~0.834 recent), high contributor churn (**90.7%** of **7,827** contributors inactive in the last year of the dump), and a pattern of governance paralysis on major protocol improvements that would have reduced dependence on the current institutional infrastructure.
+
+That 90.7% is selection into a thin continuing core, not a dying project. Participants who never authored a PR exit at 95.3%, one-time contributors at 92.9%, PR authors at 81.6%, established authors at 58.1%, maintainers among the established set at 23.8%. High-merge-rate authors still exit at 83.0%, so quality does not retain.
+
+Pair-level reviewer cohesion exists, but the joint-appearance counts are too small to treat as a voting machine ([`findings/CONFLICT_RESOLUTION_ANALYSIS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/CONFLICT_RESOLUTION_ANALYSIS.md), [`findings/EXECUTIVE_SUMMARY.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/EXECUTIVE_SUMMARY.md)). Informal channels put topics on the table and GitHub finalizes. That flow was ~0.55 in the SegWit and Taproot years and **0.002** after 2022 ([`findings/GOVERNANCE_FRAMES.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GOVERNANCE_FRAMES.md)). BIP-repo merge power is not Core merge power: **443** unique BIP mergers versus **23** on Core, and only **two** people sit in both top tens. For how paralysis became the durable outcome of the blocksize war, see *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory)*; for the stalled-proposals evidence list, see *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)*. Review activity Gini sits near **0.92**. Many people review; almost nobody merges. Contributor accounts in Section III describe how funding dependency and institutional geography further narrow who sustains engagement in that dataset.
 
 
 <figure class="article-chart chart-stackbar">
@@ -888,7 +904,7 @@ The funding map in Section III is not a static diagram. When a protocol change w
 
 ### The OP_RETURN Arc
 
-**Documentation and framing (2023).** In June 2023, Marco Falke (newly funded by OKCoin and Paradigm) filed PR #27832, narrowing the documented scope of `-datacarriersize` from all data carrier transactions to `scriptPubKey` outputs only. Witness and script-path inscription fields were left outside the setting's documented scope. Falke filed it; AJ Towns and Greg Sanders ACKed; Gloria Zhao reviewed it; fanquake merged it over a NACK from Peter Todd. The change was not surfaced in Bitcoin Optech's recap podcast the week it merged, hosted by Brink's Executive Director. That same month, Zhao and Murch published an Optech series arguing that on-chain data publication cannot be prevented and should not live permanently in the UTXO set. The rhetorical frame deployed against Luke Dashjr's filter patch in 2024 was published before the patch existed.
+**Documentation and framing (2023).** In June 2023, Marco Falke (newly funded by OKCoin and Paradigm) filed PR #27832, clarifying that `-datacarriersize` measures serialized `scriptPubKey` size. The PR body does not mention inscriptions. Witness and script-path inscription fields falling outside the setting is the effect. Falke filed it; AJ Towns and Greg Sanders ACKed; Gloria Zhao reviewed it; fanquake merged it over a NACK from Peter Todd. The change was not surfaced in Bitcoin Optech's recap podcast the week it merged, hosted by Brink's Executive Director. That same month, Zhao and Murch published an Optech series arguing that on-chain data publication cannot be prevented and should not live permanently in the UTXO set. The rhetorical frame deployed against Luke Dashjr's filter patch in 2024 was published before the patch existed.
 
 **Filter patch and CVE (2023–2024).** Dashjr filed PR #28408 in September 2023 to extend `-datacarriersize` to witness and script-path data. He was not told the documentation had been narrowed four months earlier. The bypass was assigned [CVE-2023-50428](https://nvd.nist.gov/vuln/detail/CVE-2023-50428) in December 2023. When an external contributor filed a revert in January 2024, Towns, Falke, and Zhao closed it the same day. Zhao, Murch, and Towns then rejected Dashjr's filter patch using the post-amendment definition as baseline, without disclosing that the definition had changed. GitHub Issue #29187, Core's formal record of the CVE, remained open until October 2024, when Ava Chow closed it as "completed" without fixing the underlying code.
 
@@ -1111,7 +1127,7 @@ Numbered arguments for debate and analysis. Narrative evidence, funding maps, an
 <figcaption>Normalized comparison from §14–§17 definitions. See <a href="/articles/bitcoin-governance#what-the-quantitative-record-shows">Who Controls Bitcoin, quantitative record</a>.</figcaption>
 </figure>
 
-18. **Few merge gates vs enormous secured value.** [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) documents **extreme concentration** in who authors and merges (e.g. **authorship Gini ~0.851** historical / **~0.834** recent, **review Gini ~0.92**, **top three merger roles 81.1% of historical merges**, **2022+ top-1 50.2% / top-3 82.2%**; see [`findings/EXECUTIVE_SUMMARY.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/EXECUTIVE_SUMMARY.md) / [`findings/GINI_COEFFICIENT_EXPLANATION.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GINI_COEFFICIENT_EXPLANATION.md) / [`findings/GOVERNANCE_FRAMES.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GOVERNANCE_FRAMES.md)). Pair-level reviewer cohesion exists but **n is too small** to treat as a voting machine ([`findings/CONFLICT_RESOLUTION_ANALYSIS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/CONFLICT_RESOLUTION_ANALYSIS.md)). **Merge rights** on the reference repo are **always a small, fixed-capacity set** (currently **five** merge holders on [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin); confirm **live** permissions). Review labor is more spread than merge authority (review Gini ~0.92). Many people review; almost nobody merges. BIP-repo merge power is not portable to Core: **443** unique BIP mergers versus **23** on Core, **two** people in both top tens. Informal-before-PR flow was ~0.55 in 2015–21 and **0.002** after 2022. Separately, [`findings/CONTRIBUTOR_TIMELINE_ANALYSIS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/CONTRIBUTOR_TIMELINE_ANALYSIS.md) (dataset [`findings/data/contributor_timeline_analysis.json`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/data/contributor_timeline_analysis.json)) analyzes **301** contributors who meet **≥5 authored PRs** and **average quality score ≥0.3**; of those, **72** are classified **active** and **229 inactive** (definitions per that pipeline: **PR-based**, full-history, **not** “commits in 2023”). Large commercial organizations employ tens of thousands of engineers on systems with comparable economic footprint; Bitcoin’s **permissioned merge bottleneck** and **thin sustained PR bench** sit on a **handful of merge keys** and a **small active cohort**. That gap is a **governance risk**, not “conservative engineering” by itself.
+18. **Few merge gates vs enormous secured value.** [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) documents **extreme concentration** in who authors and merges (e.g. **authorship Gini ~0.851** historical / **~0.834** recent, **review Gini ~0.92**, **top three merger roles 81.1% of all-time historical merges**, **2022+ top-1 50.2% / top-3 82.2%**; see [`findings/EXECUTIVE_SUMMARY.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/EXECUTIVE_SUMMARY.md) / [`findings/GINI_COEFFICIENT_EXPLANATION.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GINI_COEFFICIENT_EXPLANATION.md) / [`findings/GOVERNANCE_FRAMES.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/GOVERNANCE_FRAMES.md)). Pair-level reviewer cohesion exists but **n is too small** to treat as a voting machine ([`findings/CONFLICT_RESOLUTION_ANALYSIS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/CONFLICT_RESOLUTION_ANALYSIS.md)). **Merge rights** on the reference repo are **always a small, fixed-capacity set** (currently **five** merge holders on [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin); confirm **live** permissions). Review labor is more spread than merge authority (review Gini ~0.92). Many people review; almost nobody merges. BIP-repo merge power is not portable to Core: **443** unique BIP mergers versus **23** on Core, **two** people in both top tens. Informal-before-PR flow was ~0.55 in 2015–21 and **0.002** after 2022. Separately, [`findings/CONTRIBUTOR_TIMELINE_ANALYSIS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/CONTRIBUTOR_TIMELINE_ANALYSIS.md) (dataset [`findings/data/contributor_timeline_analysis.json`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/data/contributor_timeline_analysis.json)) analyzes **301** contributors who meet **≥5 authored PRs** and **average quality score ≥0.3**; of those, **72** are classified **active** and **229 inactive** (definitions per that pipeline: **PR-based**, full-history, **not** “commits in 2023”). Large commercial organizations employ tens of thousands of engineers on systems with comparable economic footprint; Bitcoin’s **permissioned merge bottleneck** and **thin sustained PR bench** sit on a **handful of merge keys** and a **small active cohort**. That gap is a **governance risk**, not “conservative engineering” by itself.
 
 
 <figure class="article-chart chart-gini">
@@ -1419,7 +1435,7 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 89. **A Core-derived fork is the counterargument to Core's dominance. It is 95% Core. That is not a counterargument.** A Core-derived fork inherits Core's architecture, Core's codebase, and Core's technical debt. The only people who can maintain it are people who understand Core deeply enough to track its changes and merge them selectively. A bug that still lives in the shared code is a bug in the fork. Maintainers can patch after the fact. They cannot escape Core's architecture. If that architecture makes something impossible, the fork cannot do it either. Luke's Knots leaving Bitcoin on a BLAKE2b proof-of-work hard fork does not create a second Bitcoin implementation. That is not a free market in implementations. That is one implementation with a small permission slip to disagree on policy at the margins.
 
-90. **The Knots surge proves the governance problem, not refutes it.** Knots surged to 25%+ of public nodes as a direct response to the 2025 OP_RETURN decision. That was the largest coordinated user response in Bitcoin's recent history, triggered by one policy decision made by a handful of people with no accountability mechanism. Thousands of node operators had to mount a significant response just to push back against a change they didn't consent to. That is governance working badly, not the absence of governance.
+90. **The Knots surge proves the governance problem, not refutes it.** Knots peaked at 25.45% of reachable nodes on September 14, 2025, according to [Coin Dance](https://coin.dance/), as a direct response to the 2025 OP_RETURN decision. That was the largest coordinated user response in Bitcoin's recent history, triggered by one policy decision made by a handful of people with no accountability mechanism. Thousands of node operators had to mount a significant response just to push back against a change they didn't consent to. That is governance working badly, not the absence of governance.
 
 91. **The safety constraint reproduces Core's authority in every alternative.** Independent implementations are risky because a single validation bug can cause a chain split. So practical diversity stays close to Core's codebase. **Serious non-Core consensus clients are a negligible share of what operators actually run** on public node crawls, too small to behave like a competitive discipline, while the ecosystem still **implicitly treats Core as the reference**. That is not a free market in implementations **and** a separate safety story; the same structure produces both.
 
@@ -1770,7 +1786,7 @@ Those are documented financial relationships, not a claim that the developers in
 
 The block size war ended and Bitcoin Cash forked off. The community “won” in the sense that block size didn’t increase, but the war left a scar on how Bitcoin Core handles any change at all.
 
-Bitcoin Core developers argue this conservatism is deliberate and necessary. The consequences of a consensus bug in a trillion-dollar asset are devastating, and extreme caution on consensus rule changes is correct. But none of the blocked improvements touch consensus rules. Separating wallet functionality from node functionality has been a recognized improvement for over twelve years. There is no technical objection to it, and it would allow Bitcoin to be used by a wider range of software without requiring full node operation. It hasn’t happened, not because anyone disagrees, but because the informal merge process can no longer distinguish between “don’t change the consensus rules” and “don’t change anything.”
+Bitcoin Core developers argue this conservatism is deliberate and necessary. The consequences of a consensus bug in a trillion-dollar asset are devastating, and extreme caution on consensus rule changes is correct. But none of the blocked improvements touch consensus rules. Separating wallet functionality from node functionality has been a recognized improvement for over twelve years. It would allow Bitcoin to be used by a wider range of software without requiring full node operation. The multiprocess capnp objection on PR [#10102](https://github.com/bitcoin/bitcoin/pull/10102) is a sovereignty complaint about an outside-library approach, not a technical case against `-disablewallet`. It hasn’t happened because the informal merge process can no longer distinguish between “don’t change the consensus rules” and “don’t change anything.”
 
 The result is that good ossification, the properties that should never change like the 21 million cap and proof of work, looks the same as bad ossification, the improvements that everyone agrees on but that can’t get through. And while Bitcoin Core sits frozen on the changes it should be making, it is accumulating technical debt. Every improvement that can’t get merged forces workarounds, workarounds breed complexity, and complexity breeds bugs. The codebase gets worse over time precisely because the process that is supposed to protect it can no longer process anything at all.
 
@@ -1790,7 +1806,7 @@ Lightning solves throughput for micropayments, but it does not solve the bigger 
 
 Bitcoin educated hundreds of millions of people on what money could be. Then it didn’t do much with that knowledge.
 
-Stablecoins are filling the gap. As of February 2026, the total stablecoin market cap sits at $312 billion, up from $205 billion at the start of 2025, a 49% increase in twelve months. USDT dominates at roughly 60% market share, and total stablecoin transaction volume hit $33 trillion in 2025, surpassing Visa’s annual payment volume.
+Stablecoins are filling the gap. As of February 2026, the total stablecoin market cap sits at $312 billion, up from $205 billion at the start of 2025, a 49% increase in twelve months. USDT dominates at roughly 60% market share, and total on-chain stablecoin transaction volume hit $33 trillion in 2025, a headline often compared to Visa’s annual payment volume. Raw on-chain volume includes exchange internals, MEV, and bot churn. Visa’s figure is settled consumer payments. The comparison is not like for like. The payment use cases still moved.
 
 Every dollar moving through a stablecoin is a dollar moving through a system with a central issuer, a kill switch, and blacklist capability. Tether can freeze funds and Circle can comply with government seizure orders. These are the exact properties Bitcoin was designed to eliminate, and yet the use cases Bitcoin was designed to own, payments, remittances, and cross-border settlement, are being captured by systems that have them. Not because of technical impossibility, since the throughput problem is solvable and Lightning proves it at small scale, but because governance paralysis prevents the base-layer changes needed to compete at scale.
 
@@ -1806,7 +1822,7 @@ The answer is not a new chain. Ethereum runs multiple client implementations, in
 
 The call for implementation diversity is not new and not theoretical. The movement already exists, incompletely and with significant obstacles.
 
-Bitcoin Knots, then maintained by Luke Dashjr, was the most visible example, a Bitcoin Core derivative with stricter transaction relay policies, filtering what it considers spam transactions including Ordinals and Runes data. In January 2024, Knots ran on fewer than 70 nodes, but by September 2025 it had surged to over 4,700, approximately 25% of all public Bitcoin nodes, driven by backlash to Bitcoin Core’s planned removal of OP_RETURN data limits in version 30. That was the largest shift in Bitcoin node software outside of a hard fork event, and no chain split occurred. Core and Knots enforced identical consensus rules and diverged only on relay policy. That is how a policy exit on Bitcoin is supposed to work.
+Bitcoin Knots, then maintained by Luke Dashjr, was the most visible example, a Bitcoin Core derivative with stricter transaction relay policies, filtering what it considers spam transactions including Ordinals and Runes data. In January 2024, Knots ran on fewer than 70 nodes, but by September 14, 2025 it had peaked at 25.45% of reachable nodes according to [Coin Dance](https://coin.dance/), staying above 19% through that stretch, driven by backlash to Bitcoin Core’s planned removal of OP_RETURN data limits in version 30. That was the largest shift in Bitcoin node software outside of a hard fork event, and no chain split occurred. Core and Knots enforced identical consensus rules and diverged only on relay policy. That is how a policy exit on Bitcoin is supposed to work.
 
 Luke's Knots later followed a BLAKE2b proof-of-work hard fork and left Bitcoin. The Core-derived forks that stayed on Bitcoin are still that Core lineage. They are still policy forks, not an architectural alternative. They share Core’s codebase, Core’s architectural assumptions, and by extension Core’s structural limitations.
 
@@ -1852,8 +1868,8 @@ For why the adversarial culture that followed that trauma is still doing work, s
 - [Yahoo Finance](https://finance.yahoo.com/): GENIUS Act / stablecoin banking charters, December 30, 2025
 - [Atlantic Council CBDC Tracker](https://www.atlanticcouncil.org/cbdctracker/): 137 countries / 98% GDP, July 2025
 - [People's Bank of China via gov.cn](https://www.gov.cn/); [BeInCrypto](https://beincrypto.com/): e-CNY transactions, wallets, interest-bearing framework, December 29, 2025
-- [Bitbo](https://bitbo.io/); [BitcoinNews.com](https://bitcoinnews.com/); [Bitfinex blog](https://blog.bitfinex.com/): Bitcoin Knots surge to ~25% of nodes, September 2025
-- [Bitfinex blog, September 5, 2025](https://blog.bitfinex.com/); [Coin Dance](https://coin.dance/): Knots trajectory 69 to 4,713 nodes
+- [Bitbo](https://bitbo.io/); [BitcoinNews.com](https://bitcoinnews.com/); [Bitfinex blog](https://blog.bitfinex.com/): Bitcoin Knots surge, September 2025
+- [Coin Dance](https://coin.dance/): Knots peak 25.45% of reachable nodes, September 14, 2025; trajectory 69 to 4,713 nodes
 - [Yellow.com research](https://yellow.com/); [CryptoSlate, August 31, 2025](https://cryptoslate.com/): Bitcoin Core v30 / OP_RETURN
 - [btcsuite/btcd on GitHub](https://github.com/btcsuite/btcd)
 
@@ -1889,15 +1905,15 @@ Core's engineering record is not the dispute. Review culture, release engineerin
 
 This is a non sequitur. **Contributor count and merge authority are independent measurements**, and conflating them is either naive or deliberate misdirection. Hundreds of people have opened pull requests. A handful of accounts land them.
 
-Analysis of 25,122 pull requests, 430,613 IRC messages, and 17 years of data tells the merge-authority story. The top three merger accounts control 81.1% of all historical merges, with Wladimir J. van der Laan at 34.8%, Michael Ford at 25.8%, and Marco Falke at 20.5%. In the 2022+ window the top merger takes 50.2% and the top three take 82.2%. The authorship Gini is 0.851 historical / 0.834 recent. Power is not distributing over time. Top-10 authorship increased from 42.7% to 47.8%. Of 7,827 contributors across the project's history, 90.7% have exited with no activity in the past year of the dump. The contributor count is not the governance count, and one does not imply the other.
+Analysis of 25,122 pull requests, 430,613 IRC messages, and 17 years of data tells the merge-authority story. The top three merger accounts control 81.1% of all-time historical merges, with Wladimir J. van der Laan at 34.8%, Michael Ford at 25.8%, and Marco Falke at 20.5%. In the 2022+ window (5,747 merged PRs) the top merger takes 50.2%, the top two take 70.4%, and the top three take 82.2%. Those windows are not interchangeable with Brink's 56% for calendar year 2025. The authorship Gini is 0.851 historical / 0.834 recent. Power is not distributing over time. Top-10 authorship increased from 42.7% to 47.8%. Of 7,827 contributors across the project's history, 90.7% have exited with no activity in the past year of the dump. Named merger counts, author funnels, and release-signing shares live in *[Who Controls Bitcoin, §II](/articles/bitcoin-governance#ii-the-merge-authority-structure)*. The contributor count is not the governance count, and one does not imply the other.
 
 ### Fallacy 1.1: "The process has improved, therefore the structural problem is being addressed"
 
-Process improvements are real. Zero-review merges dropped from 30.3% to 3.3%. First-review clocks are nearly equal. These are genuine workflow gains. The self-merge rate, however, is **25.5%** of 9,793 maintainer-authored merges (95% CI 24.7–26.4). The review weight bias between maintainers and non-maintainers has held at 5.5 to 1. Top-10 authorship increased. The authorship Gini is essentially unchanged. Non-maintainers wait 1.41× longer to merge. The oligarchy got more efficient at processing pull requests and the concentration of authority did not move. **Those are two different things.**
+Process improvements are real. Zero-review merges dropped from 30.3% to 3.3%. First-review clocks are nearly equal (12.3 hours for maintainers, 12.4 for everyone else). These are genuine workflow gains. The self-merge rate, however, is **25.5%** of 9,793 maintainer-authored merges (95% CI 24.7–26.4). Raw maintainer versus non-maintainer merge rates of about 80% against 55% overstate the gap, because most of it is self-merge privilege. Peer-merge rates, excluding self-merges, are about 59% against 54% all-time, widening to about 63% against 51% since 2022. The review weight bias between maintainers and non-maintainers has held at 5.5 to 1. Top-10 authorship increased. The authorship Gini is essentially unchanged. Non-maintainers wait 1.41× longer to merge. The oligarchy got more efficient at processing pull requests and the concentration of authority did not move. **Those are two different things.**
 
 ### Fallacy 1.2: "Maintainers are just janitors, not decision-makers"
 
-This framing appeared in mainstream Bitcoin commentary as early as 2018 and has been repeated since. The data does not support it. Maintainers self-merge **25.5%** of their own pull requests, and **45.1%** of those self-merges carry zero reviews (**11.6%** of all maintainer-merged PRs). One historical maintainer self-merged 77.1% of his own pull requests. Merge authority over the lineage that almost all economic nodes run **is not a janitorial function** by any honest definition of the term.
+This framing appeared in mainstream Bitcoin commentary as early as 2018 and has been repeated since. The data does not support it. Maintainers self-merge **25.5%** of their own pull requests, and **45.1%** of those self-merges carry zero reviews (**11.6%** of all maintainer-merged PRs). One historical maintainer self-merged 77.1% of his own pull requests. Five maintainers with over 1,200 merges between them have never self-merged. The "it is ordinary workflow" defense has to explain why most maintainers decline. Merge authority over the lineage that almost all economic nodes run **is not a janitorial function** by any honest definition of the term.
 
 ---
 
@@ -1933,9 +1949,11 @@ The deeper issue is that no formal specification exists above what Bitcoin Core 
 
 ### Fallacy 5: "Rough consensus governs Bitcoin Core decisions"
 
-Rough consensus is defined and invoked by the same maintainers who close pull requests, which means there is no external arbiter, no defined threshold, and no appeal mechanism. Bitcoin Core's CONTRIBUTING.md states that the final arbiter of what constitutes sufficient consensus is the judgement of the maintainers. That is not a governance rule. That is unlimited discretion with a rule-shaped wrapper around it.
+Rough consensus is defined and invoked by the same maintainers who close pull requests, which means there is no external arbiter, no defined threshold, and no appeal mechanism. The same CONTRIBUTING.md file says there is "no particular concept of 'Bitcoin Core developers' in the sense of privileged people," and then requires consensus changes to have "widely perceived technical consensus... based on the judgement of the maintainers." The first sentence is process culture. The second is who closes the question.
 
-The stronger evidence is who can close the file. Pair-level reviewer cohesion exists, but the joint-appearance counts are too small to treat as a voting machine. What is not small is merge share: one account lands about half of 2022+ merges, three land 82.2%, and the implementation PR for package relay was titled `[NO MERGE]` until maintainers declared rough consensus on approach. If the people who define sufficient consensus are the same people who merge, invoking rough consensus as a legitimizing mechanism is circular. The outcome is not emerging from an external process. The process is ratifying a judgment the merge key already holds.
+Jon Atack argued on PR [#26868](https://github.com/bitcoin/bitcoin/pull/26868) (2023-01-13) that outsiders overestimate maintainers as gatekeepers rather than as people implementing the rough consensus of reviewers, and undervalue the reviewers who shape it. Long-term reviewers do shape what gets attention. That does not make the closing mechanism an external process. If the people who define sufficient consensus are the same people who merge, invoking rough consensus as a legitimizing mechanism is circular.
+
+The stronger evidence is who can close the file. Pair-level reviewer cohesion exists, but the joint-appearance counts are too small to treat as a voting machine. What is not small is merge share: one account lands 50.2% of 2022+ merges, three land 82.2%, and the implementation PR for package relay was titled `[NO MERGE]` until maintainers declared rough consensus on approach. The outcome is not emerging from an external process. The process is ratifying a judgment the merge key already holds.
 
 ---
 
@@ -2008,7 +2026,7 @@ Caution is appropriate for consensus changes. **It is not an explanation for why
 
 When one implementation controls the defaults for the entire network, every improvement has to clear one gatekeeping process with a thin reviewer pool, a thin funding base, and institutional incentives that do not always align with node operators.
 
-Across 17 years of Core commit history, the authorship Gini is ~0.851 historical / ~0.834 recent, where 0 is perfectly equal and 1 means one person controls everything. The top three merger accounts control 81.1% of historical merges and 82.2% since 2022. In a single recent year, over half of all merges flowed through one Brink-funded individual, a figure Brink itself published. Bitcoin Core has never had more than a handful of active maintainers in its entire history. That concentration is not a distribution that ships a long backlog of improvements. **It is a distribution that produces exactly the list below.**
+Across 17 years of Core commit history, the authorship Gini is ~0.851 historical / ~0.834 recent, where 0 is perfectly equal and 1 means one person controls everything. The top three merger accounts control 81.1% of all-time historical merges and 82.2% of merges since 2022. In calendar year 2025, over half of all merges flowed through one Brink-funded individual, a figure Brink itself published. Bitcoin Core has never had more than a handful of active maintainers in its entire history. That concentration is not a distribution that ships a long backlog of improvements. **It is a distribution that produces exactly the list below.**
 
 ---
 
@@ -2034,17 +2052,21 @@ and more…
 
 Dandelion has been research-complete since 2017. The mechanism is a two-phase propagation model: transactions travel a random path through the network in the stem phase before diffusing outward, making it significantly harder for a passive observer to determine which node originated a transaction. It was never merged.
 
-The close comment on the Core implementation PR ([#13947](https://github.com/bitcoin/bitcoin/pull/13947)) is not a vote and not a “false sense of privacy” dismissal. The author closed it because stem routing is non-trivial against the wallet’s own RBF and CPFP without opening DOS vectors, and pointed at a thinner “Dandelion Light” first step. That is a bundled wallet-and-node problem, not a privacy-philosophy problem. Dandelion still reduces leakage to passive network observers. The stall is that the monolith will not take a privacy hop that collides with policy it already shipped. See [`findings/ARCHIVE_GEMS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/ARCHIVE_GEMS.md).
+The close comment on the Core implementation PR ([#13947](https://github.com/bitcoin/bitcoin/pull/13947), opened 2018-08-12 by maflcko, closed unmerged 2019-07-11) is author-close, not an external veto. The author, a maintainer, cited RBF and CPFP interaction plus DoS vectors, and pointed at a thinner “Dandelion Light” first step. Thirty reviews, no NACKs in the review-state field. BIP 156 status is Closed.
+
+The stated grounds do not hold. Stempool DoS is manageable with rate limiting and size constraints. The RBF and CPFP interaction was an engineering problem, not an impossibility. Monero has run Dandelion++ in production since 2020. The strongest honest objection was never DoS. It was propagation latency, one to one and a half minutes versus seconds, which the closure folded into the DoS framing rather than stating directly. That latency is load-bearing for the privacy guarantee, not a defect.
+
+Tor became the ambient fallback without Core formally endorsing it or subjecting it to comparable scrutiny, despite documented DoS and Sybil exposure of its own. Seven years later nobody has picked Dandelion back up. That is a priority decision dressed as a technical one. See [`findings/ARCHIVE_GEMS.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/ARCHIVE_GEMS.md).
 
 What eventually landed in Core was private broadcast, merged years after Dandelion was first proposed. Private broadcast protects your IP from the specific peer you connect to. That is a narrower threat model. Both are useful. They are not substitutes, and private broadcast landing does not close the Dandelion argument.
 
-Erlay would cut node bandwidth on transaction relay using set reconciliation rather than flooding. The author’s measurements on the full-protocol PR sit in the 20–50% range; a NACK in the same thread called the patch premature on efficiency grounds. Full-protocol Erlay is **0/7** merged. Scaffolding merges are not delivery. The stall is a measurement fight that never closed, not an empty objection docket. See [`findings/STALLED_PROPOSALS_REPORT.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/STALLED_PROPOSALS_REPORT.md).
+Erlay would cut node bandwidth on transaction relay using set reconciliation rather than flooding. Scaffolding shipped. `SENDTXRCNCL` and `TxReconciliationTracker` are in the tree. The full bandwidth protocol is **0 of 7** merged. BIP 330, assigned 2019-09-25, is still Draft. PR [#21515](https://github.com/bitcoin/bitcoin/pull/21515) opened 2021-03-23 and closed unmerged 2024-06-21. PR [#35591](https://github.com/bitcoin/bitcoin/pull/35591) opened 2026-06-23, still open, still tagged `[DO NOT MERGE]`. The author’s measurements on the full-protocol PR sit in the 20–50% range; a reviewer in the same thread disputed the efficiency on accepted transactions. There was no numeric gate that would have resolved it. “Bitcoin has Erlay” is wrong. “Core did nothing on BIP 330” is also wrong. The handshake merged. The bandwidth protocol did not, five years after the BIP. See [`findings/STALLED_PROPOSALS_REPORT.md`](https://github.com/secsovereign/bitcoin-governance-research/blob/master/findings/STALLED_PROPOSALS_REPORT.md).
 
 Package relay was announced on bitcoin-dev as mempool policy, “not consensus or P2P protocol changes.” The large implementation PR is titled `[NO MERGE]` until maintainers have rough consensus on approach ([#27742](https://github.com/bitcoin/bitcoin/pull/27742)). That is the 2022+ informal-before-PR flow of 0.002 in prose. The list still names the topic. GitHub refuses to treat the first large PR as a decision.
 
 ## Sync and Verification
 
-UTXO commitments date to at least 2014. The idea is to commit the current state of all unspent outputs in a form a new node can verify against the proof-of-work chain, rather than replaying over a decade of transaction history from genesis. Initial block download currently takes days to weeks. A working commitment scheme could cut that to hours or less while keeping the trust anchor in the chain itself. The research has been complete for over a decade. **Core has not shipped it.** What that unrecovered IBD burden costs operators is modeled in *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*.
+UTXO commitments date to at least 2014. The idea is to commit the current state of all unspent outputs in a form a new node can verify against the proof-of-work chain, rather than replaying over a decade of transaction history from genesis. Initial block download currently takes days to weeks. A working commitment scheme could cut that to hours or less while keeping the trust anchor in the chain itself. Keyword PR counts on this topic are too noisy to use. What shipped is AssumeUTXO. James O'Beirne proposed it on bitcoin-dev on 2019-04-02 as an optimization in the spirit of assumevalid, with a snapshot hash hardcoded in the software. That is a weaker trust model than a verifiable commitment. What that unrecovered IBD burden costs operators is modeled in *[Full Cost of Running a Bitcoin Node](/articles/full-cost-of-running-a-bitcoin-node)*.
 
 Formal Verification. The Quarkslab audit, the first external professional security audit in Core’s history, was scoped primarily to the P2P networking layer over 100 man-days. Quarkslab states directly that existing harnesses “do not fully exercise the complete range of consensus checks” and that “most existing harnesses target narrow, well-scoped portions of the code in isolation.” Based on their documented scope and the gaps they identify, the audit covered an estimated 20 to 30% of consensus-critical code paths. Finding no critical issues against that baseline is a different claim from confirming the consensus code is secure.
 
@@ -2060,7 +2082,7 @@ Without a specification, any alternative implementation must reverse-engineer un
 
 This is why no independently written client has been a real check for 17 years, not because writing one is impossible but because the no-spec condition makes proving consensus compatibility structurally impossible without deferring to Core. The moat protecting Core’s position is not technical excellence. It is the absence of a document. libbitcoinkernel, the project intended to extract Core’s consensus logic into a reusable library, confirms rather than refutes this. The proposed solution to implementation monoculture is having every other implementation run Core’s code. That is not diversity. That is a franchise.
 
-Wallet and Node Separation has had universal conceptual agreement since GitHub issue 7525 in 2016. Running with -disablewallet is not separation. The wallet code is still present in the binary, still compiled, still part of the same release process. The governance problem follows the dependency regardless of which version of Core’s code you ship.
+Wallet and Node Separation has been a recognized improvement since GitHub issue 7525 in 2016. Running with -disablewallet is not separation. The wallet code is still present in the binary, still compiled, still part of the same release process. An objection on PR [#10102](https://github.com/bitcoin/bitcoin/pull/10102) (still open as draft) treats the outside-library multiprocess approach as a sovereignty problem. That is not an objection to `-disablewallet`. The governance problem follows the dependency regardless of which version of Core’s code you ship.
 
 ---
 
@@ -2068,7 +2090,7 @@ Wallet and Node Separation has had universal conceptual agreement since GitHub i
 
 When one implementation sets policy defaults for the entire network, every policy disagreement becomes an all-or-nothing fight for control of what that implementation ships. The OP_RETURN debate was not about 80 bytes. The mempool policy fights, the dust limit arguments, the RBF debates are structurally identical, civil wars over a throne that exists only because there is one throne to capture.
 
-The OP_RETURN debate is worth dwelling on because it illustrates the mechanism precisely. Bitcoin Core merged a change in 2025 raising the default OP_RETURN data limit, a relay policy decision with no consensus implications. Operators who disagreed had no meaningful recourse inside the Core process. For many, the only way to enforce a different policy was to run different software. That is what they did. In 2025 Knots, a Core fork with stricter defaults, went from under 2% to roughly 20% of the reachable network in the months following the merge. That was a policy switch on Bitcoin, still Core's code. A five-fold move in reachable nodes driven by a relay policy disagreement.
+The OP_RETURN debate is worth dwelling on because it illustrates the mechanism precisely. Bitcoin Core merged a change in 2025 raising the default OP_RETURN data limit, a relay policy decision with no consensus implications. Operators who disagreed had no meaningful recourse inside the Core process. For many, the only way to enforce a different policy was to run different software. That is what they did. In 2025 Knots, a Core fork with stricter defaults, went from under 2% to a Coin Dance peak of 25.45% of reachable nodes on September 14, 2025, and stayed above 19% through that stretch. That was a policy switch on Bitcoin, still Core's code. A move in reachable nodes driven by a relay policy disagreement.
 
 Policy does not bind miners who bypass relay. The 83-byte cap belongs at consensus; that is *[Permanent Data Channel Closure](/bips/permanent-data-channel-closure)*.
 
@@ -2122,11 +2144,15 @@ Cryptographic merge authorization is designed and stays off until security revie
 
 ## The Proof
 
-The bottleneck was never engineering. The Dandelion papers are published. The UTXO commitment schemes are fully specified. Erlay has years of development behind it. Formal verification tooling exists and works. The objections raised against these proposals, when they exist at all, fall into three kinds. Some are strawmen that substitute stronger claims for the ones actually being made. Some describe the status quo as if that were an argument against changing it. Some concede the research is sound and say the problem is prioritization.
+The bottleneck was never engineering. The Dandelion papers are published. The UTXO commitment schemes are fully specified. Erlay has years of development behind it. Formal verification tooling exists and works.
 
-What they share is a governance structure that cannot process improvements when the coordination cost exceeds the threshold the structure can clear, or when the improvement threatens the institutional position of the people whose funding depends on the status quo. An authorship Gini of 0.851 across 17 years of commit data is not an accident. It is the predictable output of a system where access to merge authority is controlled by a small group with aligned institutional interests and no formal accountability to the node operators running the software.
+Erlay's measurement dispute is a real technical objection. The structure has no mechanism to resolve it, so the bandwidth protocol dies. Five years later it is still unmerged.
 
-The conservative governance argument has merit for consensus changes. It has no application to a P2P privacy proposal sitting unmerged for years because it collided with wallet policy the same tree already shipped. At some point the distinction between intentional conservatism and structural paralysis requires evidence, and the evidence is the list.
+Dandelion's close cited DoS and RBF. Those grounds do not hold. Seven years of nobody picking it up is a priority decision dressed as a technical one.
+
+The stalled list shares a governance structure that cannot process improvements when the coordination cost exceeds the threshold the structure can clear, or when the improvement threatens the institutional position of the people whose funding depends on the status quo. An authorship Gini of 0.851 across 17 years of commit data is not an accident. It is the predictable output of a system where access to merge authority is controlled by a small group with aligned institutional interests and no formal accountability to the node operators running the software.
+
+The conservative governance argument has merit for consensus changes. It has no application to a P2P privacy proposal sitting unmerged for seven years after a priority decision dressed as a technical close. At some point the distinction between intentional conservatism and structural paralysis requires evidence, and the evidence is the list.
 
 Bitcoin is the only monetary network in history not ultimately controlled by a state. That property is fragile. It depends on the network remaining genuinely decentralized at every layer, including the software layer. A network where one development team controls the only production-grade node implementation, where that team’s funding flows from a handful of grant organizations, and where the protocol definition exists only as the emergent behavior of that team’s codebase is not decentralized at the software layer. It is a single point of failure dressed in the language of decentralization.
 
@@ -2447,7 +2473,38 @@ Non-monetary data can enter blocks through several different fields and transact
 </div>
 </figure>
 
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Channel</th><th>Embedding cost</th><th>Closable at consensus?</th><th>Cost to close</th></tr>
+</thead>
+<tbody>
+<tr class="close-yes"><td>Dedicated</td><td>Fee-paid, large payloads</td><td>Yes</td><td>No hit to normal payments</td></tr>
+<tr class="close-yes"><td>Unenforced</td><td>Low; no validation yet</td><td>Yes</td><td>Tighten unused upgrade hooks</td></tr>
+<tr class="close-partial"><td>Expensive</td><td>Exponential with chosen bits</td><td>No</td><td>Cost is the only limit</td></tr>
+<tr class="close-partial"><td>Near-free</td><td>~2 trial attempts</td><td>Partial</td><td>Filters barely help</td></tr>
+<tr class="close-no"><td>Free</td><td>None beyond tx fee</td><td>No</td><td>Lose privacy, precision, or supply audit</td></tr>
+</tbody>
+</table>
+<figcaption>Closability by channel type</figcaption>
+</figure>
 
+<figure class="article-chart">
+<table class="chart-matrix">
+<thead>
+<tr><th>Channel</th><th>Payload bytes (spec)</th><th>vbytes / embedded byte</th><th>sats / byte @ 10 sat/vB</th><th>@ 50 sat/vB</th><th>@ 100 sat/vB</th></tr>
+</thead>
+<tbody>
+<tr><td>OP_RETURN (dedicated)</td><td>1,024</td><td>1.01</td><td>10.1</td><td>50.7</td><td>101.5</td></tr>
+<tr><td>Taproot envelope (dedicated)</td><td>1,024</td><td>0.29</td><td>2.9</td><td>14.6</td><td>29.2</td></tr>
+<tr class="close-partial"><td>P2WPKH fake hash (free, after §III)</td><td>20</td><td>1.55</td><td>30.2</td><td>92.2</td><td>169.7</td></tr>
+<tr class="close-partial"><td>P2TR fake pubkey (near-free, after §III)</td><td>32</td><td>1.34</td><td>23.8</td><td>77.5</td><td>144.7</td></tr>
+</tbody>
+</table>
+<figcaption>BIP141 accounting, Core v30 `-datacarriersize` (100k), dust at 3 sat/vB. Fee columns: (vbytes × rate + dust where applicable) ÷ payload bytes.</figcaption>
+</figure>
+
+*Channel cost ladder from free to dedicated embedding channels*
 
 
 
@@ -2477,7 +2534,7 @@ Undefined witness versions and OP_SUCCESS opcodes are upgrade hooks. Consensus t
 
 **Dedicated channels** exist to carry data, or hold large script blobs with no payment meaning.
 
-`OP_RETURN` is an output that cannot be spent. Core v30 relay policy allows up to 100,000 bytes of `OP_RETURN` data per transaction, across multiple outputs. Consensus itself places no byte limit. In June 2023, PR #27832 narrowed the documented meaning of `-datacarriersize` so it covered only `scriptPubKey` outputs, not witness or inscription fields. Core v30 then removed the relay cap entirely in 2025. Separately, the Taproot envelope hides data inside an `OP_FALSE OP_IF` branch that never runs. SegWit's witness discount and Taproot's removal of the old 10,000 byte script ceiling made large envelope payloads practical.
+`OP_RETURN` is an output that cannot be spent. Core v30 relay policy allows up to 100,000 bytes of `OP_RETURN` data per transaction, across multiple outputs (`MAX_OP_RETURN_RELAY = MAX_STANDARD_TX_WEIGHT / WITNESS_SCALE_FACTOR`). Consensus itself places no byte limit. In June 2023, PR #27832 (maflcko, opened 2023-06-06, merged 2023-08-03) clarified that `-datacarriersize` measures serialized `scriptPubKey` size, with tests at `datacarriersize=0` rejecting even an empty `OP_RETURN`. The PR body does not mention inscriptions. Witness and inscription fields falling outside that knob is the effect. Core v30 then removed the relay cap entirely in 2025. Separately, the Taproot envelope hides data inside an `OP_FALSE OP_IF` branch that never runs. SegWit's witness discount and Taproot's removal of the old 10,000 byte script ceiling made large envelope payloads practical.
 
 
 <figure class="article-chart">
@@ -2498,25 +2555,9 @@ Undefined witness versions and OP_SUCCESS opcodes are upgrade hooks. Consensus t
 <figcaption>Closable measures. First five rows: <a href="/bips/permanent-data-channel-closure">Permanent Data Channel Closure</a>. Per-output fee: <a href="/bips/static-per-output-miner-fee">Static Per-Output Miner Fee</a> plus optional <a href="/bips/dynamic-escalation-per-output-fee">Dynamic Escalation</a>. Commitments remain a parallel track (§V). §IV fields omitted because monetary design requires them.</figcaption>
 </figure>
 
+*Closability by channel type*
 
 
-
-
-<figure class="article-chart">
-<table class="chart-matrix">
-<thead>
-<tr><th>Channel</th><th>Embedding cost</th><th>Closable at consensus?</th><th>Cost to close</th></tr>
-</thead>
-<tbody>
-<tr class="close-yes"><td>Dedicated</td><td>Fee-paid, large payloads</td><td>Yes</td><td>No hit to normal payments</td></tr>
-<tr class="close-yes"><td>Unenforced</td><td>Low; no validation yet</td><td>Yes</td><td>Tighten unused upgrade hooks</td></tr>
-<tr class="close-partial"><td>Expensive</td><td>Exponential with chosen bits</td><td>No</td><td>Cost is the only limit</td></tr>
-<tr class="close-partial"><td>Near-free</td><td>~2 trial attempts</td><td>Partial</td><td>Filters barely help</td></tr>
-<tr class="close-no"><td>Free</td><td>None beyond tx fee</td><td>No</td><td>Lose privacy, precision, or supply audit</td></tr>
-</tbody>
-</table>
-<figcaption>Closability by channel type</figcaption>
-</figure>
 
 ## III. What Consensus Can Actually Close
 
@@ -2556,7 +2597,7 @@ The rows below close dedicated and unenforced embedding channels. **§V addresse
 </div>
 </figure>
 
-
+*Consensus-closable channels versus the irreducible embedding floor*
 
 
 
@@ -2628,7 +2669,7 @@ The same ceiling is the monetary settlement budget. Blocks at 91 to 97% full wit
 <figcaption>Block weight is a DoS bound on one block, not a verdict that filling it with non-monetary data is acceptable.</figcaption>
 </figure>
 
-
+*Block weight is a DoS bound on one block, not a verdict that filling it with non-monetary data is acceptable.*
 
 
 
@@ -2648,21 +2689,6 @@ The weight limit answers whether one block can overwhelm a node. The spam proble
 *BIP141 accounting, Core v30 `-datacarriersize` (100k), dust at 3 sat/vB. Fee columns: (vbytes × rate + dust where applicable) ÷ payload bytes.*
 
 
-
-<figure class="article-chart">
-<table class="chart-matrix">
-<thead>
-<tr><th>Channel</th><th>Payload bytes (spec)</th><th>vbytes / embedded byte</th><th>sats / byte @ 10 sat/vB</th><th>@ 50 sat/vB</th><th>@ 100 sat/vB</th></tr>
-</thead>
-<tbody>
-<tr><td>OP_RETURN (dedicated)</td><td>1,024</td><td>1.01</td><td>10.1</td><td>50.7</td><td>101.5</td></tr>
-<tr><td>Taproot envelope (dedicated)</td><td>1,024</td><td>0.29</td><td>2.9</td><td>14.6</td><td>29.2</td></tr>
-<tr class="close-partial"><td>P2WPKH fake hash (free, after §III)</td><td>20</td><td>1.55</td><td>30.2</td><td>92.2</td><td>169.7</td></tr>
-<tr class="close-partial"><td>P2TR fake pubkey (near-free, after §III)</td><td>32</td><td>1.34</td><td>23.8</td><td>77.5</td><td>144.7</td></tr>
-</tbody>
-</table>
-<figcaption>BIP141 accounting, Core v30 `-datacarriersize` (100k), dust at 3 sat/vB. Fee columns: (vbytes × rate + dust where applicable) ÷ payload bytes.</figcaption>
-</figure>
 
 Closing dedicated channels does not make embedding cheaper. It removes witness-discounted envelopes and bulk `OP_RETURN`, and forces data into hash and pubkey outputs that each pay a dust floor. At every fee rate in the table, hash and pubkey rows cost more per byte than `OP_RETURN` at 1,024 bytes.
 
@@ -3050,7 +3076,9 @@ In software engineering, **type confusion** occurs when a value of one kind is p
 
 Bitcoin's transaction fields exist because payments require them. Hash fields exist for hash-then-reveal privacy, so a recipient can withhold a public key until spend time in case cryptographic assumptions weaken. Amount fields exist for satoshi precision. Sequence numbers and locktimes exist for transaction replacement and timelocked contracts. These fields are **not a general-purpose data bus with a monetary use case bolted on.** They are payment infrastructure that happens to be technically capable of carrying other things.
 
-`OP_RETURN` was introduced as a controlled exit valve for provably unspendable outputs, ones that cannot be mistaken for monetary UTXOs and do not need to be tracked as potential future spends. Its original size limit was not arbitrary. It was the friction that kept the channel aligned with its purpose, marking outputs as definitively unspendable without turning them into subsidized bulk storage.
+`OP_RETURN` was introduced as a controlled exit valve for provably unspendable outputs, ones that cannot be mistaken for monetary UTXOs and do not need to be tracked as potential future spends. Peter Todd proposed it on bitcoin-dev on 2013-02-12 as the honest unspendable marker. Jeff Garzik, on 2014-02-24, described the 0.9 change that made a small metadata output standard as damage control against MasterCoin-style unspendable outputs bloating the UTXO set. He rejected the reading that Core developers were endorsing data storage. Eighty bytes because hashes plus a tag. Luke Dashjr, on 2014-11-16, treated relay size as miner policy, not a Core development topic.
+
+Consensus never capped the field. The current default is `MAX_OP_RETURN_RELAY = MAX_STANDARD_TX_WEIGHT / WITNESS_SCALE_FACTOR`, which is 100,000 vbytes, with `DEFAULT_ACCEPT_DATACARRIER` true. The original relay limit was friction that kept the channel aligned with its purpose, marking outputs as definitively unspendable without turning them into subsidized bulk storage.
 
 The **Taproot envelope** is an `OP_FALSE OP_IF` branch that never executes. It was designed as an upgrade hook, not a data container. SegWit's witness discount exists because signature data, while necessary for validation, does not contribute to the UTXO set burden that every node must track indefinitely. Applying that discount to image files treats a targeted engineering accommodation as a general feature.
 
@@ -3196,6 +3224,8 @@ Monkey JPEGs are beside the point. The question is whether the people running th
 Bitcoin has been extraordinarily successful without a formal specification. But success does not make the absence of one sustainable.
 
 The consensus rules that secure a multi-trillion-dollar network exist only as behavior encoded in Bitcoin Core's C++ codebase. **"The code is the spec" is not a design principle but an admission that no one has written the spec.** Every alternative implementation, every audit, every attempt to verify correctness must reverse-engineer undocumented behavior from a codebase that was never designed to be read as a specification.
+
+Satoshi, after 0.1, said the core design was set in stone for the lifetime of the project. That stone is consensus design, not the 300,000-line application around it. Deploying the quote against P2P or privacy work is a category error on that reading. The case for a specification is the case for keeping the stone and the application apart.
 
 This has worked so far because Bitcoin's growth in economic importance has outpaced the scrutiny that importance attracts. That is changing. When a court needs to understand whether a transaction was valid under the consensus rules at a given block height, there is no document to hand them. When a new implementation team wants to be sure they are building the same rules as Core, there is no specification to target. When an auditor wants to verify that a proposed soft fork does not break existing guarantees, there is no formal description of what those guarantees are.
 
@@ -3764,7 +3794,7 @@ None of that is true.
 
 Almost everyone still runs one line of software. Economic nodes run Bitcoin Core or a Core-derived fork that stays on Bitcoin. In 2025 Knots showed that operators will switch over what transactions a node forwards. The Core-derived forks that stay are still that switch, not a separately written program that decides the money rules on its own. No separately written Bitcoin software, proven to follow the same money rules, has enough of the network running it to matter.
 
-Who pays for Core development is still concentrated. A small number of grant organizations, with documented ties to companies and funds that care about protocol outcomes, still pay most Bitcoin Core development. Who merges code is still concentrated too. Brink's [Engineering Impact Report 2025](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/) shows one person at one organization merged 56% of all changes to Bitcoin Core in 2025. [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) shows the same shape in the 2022+ window: about half of merges from the top account, about 83% from the top three. The right to merge into Bitcoin Core is still a small fixed set, currently five people on [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin). A subpoena, a regulatory order, or a quiet conversation with that set can still move a protocol change the rest of the network can do little about.
+Who pays for Core development is still concentrated. A small number of grant organizations, with documented ties to companies and funds that care about protocol outcomes, still pay most Bitcoin Core development. Who merges code is still concentrated too. Brink's [Engineering Impact Report 2025](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/) shows one person at one organization merged 56% of all changes to Bitcoin Core in calendar year 2025. [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) shows the same shape in the 2022+ window of 5,747 PRs: 50.2% of merges from the top account, 82.2% from the top three. The right to merge into Bitcoin Core is still a small fixed set, currently five people on [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin). A subpoena, a regulatory order, or a quiet conversation with that set can still move a protocol change the rest of the network can do little about.
 
 None of the conditions that made the hard culture appropriate have gone away. The trauma that produced it was real. The threat is ongoing. There is still no specification the network has adopted. There is still no separately written second Bitcoin client with meaningful node share. Forks of Core that only change what they forward do not close that gap.
 
@@ -3825,7 +3855,7 @@ The diagnosis of the implementation monopoly and the no-spec moat is in *[Who Co
 
 ## I. The Problem Statement
 
-The numbers are public. Seventeen years of Bitcoin Core git history show a PR-weighted authorship Gini of about 0.851 historical / 0.834 recent. The top three merger accounts have executed 81.1% of historical merges (50.2% / 82.2% top-1 / top-3 since 2022). In 2025 alone, 56% of all merges flowed through one person funded by Brink ([Engineering Impact Report](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/)). Five people still hold merge access. Core development drew $8.4 million in 2023 against a two trillion dollar market cap. The tables are in [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) and *[Who Controls Bitcoin](/articles/bitcoin-governance)*.
+The numbers are public. Seventeen years of Bitcoin Core git history show a PR-weighted authorship Gini of about 0.851 historical / 0.834 recent. The top three merger accounts have executed 81.1% of all-time historical merges (50.2% / 82.2% top-1 / top-3 in the 2022+ window of 5,747 PRs). In calendar year 2025, 56% of all merges flowed through one person funded by Brink ([Engineering Impact Report](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/)). Five people still hold merge access. Core development drew $8.4 million in 2023 against a two trillion dollar market cap. The tables are in [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) and *[Who Controls Bitcoin](/articles/bitcoin-governance)*.
 
 None of this requires a conspiracy. People fund what they understand, hire from networks they trust, and select for demonstrated alignment. The architecture is capturable. Concentration is structural, not a meeting. That makes it harder to argue against and harder to fix. You cannot swap out maintainers and solve the problem. The problem is the monoculture. What keeps the monoculture in place is the absence of a formal consensus specification. That mechanism is [the no-spec moat](/articles/bitcoin-governance#vi-the-no-spec-moat-and-why-it-matters).
 
@@ -3993,15 +4023,17 @@ The path is two tracks at once. Implementation diversity gives institutions an a
 
 ## Contents
 
-- [The model works](#the-model-works)
-- [The structure arrives on its own](#the-structure-arrives-on-its-own)
-- [Bitcoin's coordination problem is a different problem](#bitcoin-s-coordination-problem-is-a-different-problem)
-- [The contradiction](#the-contradiction)
-- [What Core actually looks like](#what-core-actually-looks-like)
-- [Succession](#succession)
+- [Benevolent dictatorship is right for ordinary software](#benevolent-dictatorship-is-right-for-ordinary-software)
+- [The hierarchy arrives as workplace habit](#the-hierarchy-arrives-as-workplace-habit)
+- [Bitcoin produces agreement, not a product](#bitcoin-produces-agreement-not-a-product)
+- [Refusing a release only delays the next download](#refusing-a-release-only-delays-the-next-download)
+- [Undeclared concentration in the merge log](#undeclared-concentration-in-the-merge-log)
+- [Succession needs agreement that does not exist here](#succession-needs-agreement-that-does-not-exist-here)
+- [Which thing gets forked](#which-thing-gets-forked)
 - [What a horizontal development layer looks like](#what-a-horizontal-development-layer-looks-like)
-- [Where it fails](#where-it-fails)
-- [The standard](#the-standard)
+- [The missing specification is doing the work](#the-missing-specification-is-doing-the-work)
+- [Where this design fails](#where-this-design-fails)
+- [The two questions that decide it](#the-two-questions-that-decide-it)
 - [Sources](#sources)
 
 ---
@@ -4010,31 +4042,27 @@ Bitcoin cannot be governed like Linux. A dictator is a good way to ship a kernel
 
 Bitcoin's consensus layer is horizontal. Every node checks blocks on its own, and no node can force another to take a bad one. The software that implements those rules is written by a hierarchy, and replacing the people who can merge, or making those people more accountable, leaves the hierarchy in place.
 
-Bitcoin Core already posts ACKs on GitHub, which is not the same as the decision forming there. An ACK is a comment on a pull request. Which pull requests are going to merge is decided off GitHub, on IRC, in closed CoreDev sessions, and in Signal groups. Merge is a permission held by about five accounts on bitcoin/bitcoin. Reviewers do not have it, and one of those five ships the code.
+Operators download what that hierarchy ships. The money rules sit in the same program as the defaults, so a fight about who writes the client, or about what it ships by default, gets treated as a fight about Bitcoin. The protest people already know is a chain fork. You leave the chain by changing the money rules, which has happened many times, and each time it is a new coin. You stay on it by running a different program that still implements those rules.
 
-A fight about the default client should not mean leaving the chain.
-
-A Core-derived fork can leave Core's defaults and stay on Bitcoin, and it is still mostly Core's code. An independently written client, checked against a written specification rather than Core's undocumented behavior, is the missing exit.
-
-People leave the chain by changing the money rules. That has happened many times, and each time it is a new coin.
+A fight about the default client should not mean leaving the chain. A Core-derived fork can leave Core's defaults and stay on Bitcoin, and it is still mostly Core's code. An independently written client, checked against a written specification rather than Core's undocumented behavior, is the missing exit.
 
 Nodes stay equal even though the people who write the code never will, and that still does not entitle those people to a throne.
 
 ---
 
-## The model works
+## Benevolent dictatorship is right for ordinary software
 
 Benevolent dictatorship produces good software. Linux runs most of the internet's infrastructure and was governed for decades by one person's judgment about what merged. Python, Django, and Rust all had stretches of single-authority governance, and the work held up.
 
 Concentrated authority makes architectural decisions faster than committees do. It keeps one design across a large codebase, and it ends fights that would otherwise eat years. Linux is a product, and a small group decides what goes in the kernel while everyone else downloads the result. Someone has to pick what ships, and a hierarchy is the right way to run that.
 
-Forking the kernel is allowed. Almost nobody does it. The fork is yesterday's code. The patches people want keep going into the original project. Bitcoin node operators do the same thing. They download Core and wait for the next release. Linux is one product. Core ships the money rules in the same program as the wallet and the relay, so a fight about those extras gets treated as a change to the money.
+Forking the kernel is allowed. Almost nobody does it. The fork is yesterday's code. The patches people want keep going into the original project. Bitcoin node operators do the same thing. They download Core and wait for the next release. The difference is that Linux is only a product, while a Core release carries the wallet, the relay, and the money rules together, which is why an argument about the first two arrives as an argument about the third.
 
 The pattern is right for ordinary software and wrong for money.
 
 ---
 
-## The structure arrives on its own
+## The hierarchy arrives as workplace habit
 
 The hierarchy also shows up because paid engineers bring their workplace with them.
 
@@ -4052,19 +4080,17 @@ If paid engineers really import the hierarchy, a project staffed from different 
 
 Not all of Core's structure is imported habit. Some of it was chosen on purpose. Merge access tightened after the inflation bug for stated reasons. Review culture hardened after the blocksize war as a considered response to what that conflict cost. Reluctance to touch consensus lightly is a position people hold out loud. Attributing all of it to unexamined corporate reflex would be too clean. Habit set the default, and deliberate choice then reinforced it.
 
-They also decide which changes count as consensus changes, which is how a proposal gets labeled too dangerous to merge. If that label is doing real work, it should show up in what shipped and what sat. That record is *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)*.
+The merge set also decides which changes count as consensus changes, which is how a proposal gets labeled too dangerous to merge. If that label is doing real work, it should show up in what shipped and what sat. That record is *[What Bitcoin's Stalled Proposals Tell You](/articles/what-bitcoins-stalled-proposals-tell-you)*.
 
 ---
 
-## Bitcoin's coordination problem is a different problem
+## Bitcoin produces agreement, not a product
 
 Bitcoin's coordination problem is agreement among peers who do not trust each other. Satoshi solved that for the chain. A bad block dies at every node that checks it. Linux produces a kernel people download. Bitcoin produces agreement about which chain is valid.
 
 That check is only as good as the program doing it. The program is written by a small group. The [Commons white paper](https://thebitcoincommons.org/whitepaper.html) puts the set of people who can do consensus-critical Bitcoin work in the dozens to a few hundred worldwide. Miners and node operators are not in that set. They download a release, confirm it talks to their peers, and run it. They are trusting the maintainers and developers to have done the review they will not do themselves.
 
 "Don't trust, verify" describes what a node does with a block, not what anyone does with a release. Your node checks every block against the rules. Almost nobody checks the software that holds those rules.
-
-Other clients exist. A Core-derived fork inherits the bugs it still copies, and a separately written client has no written specification that would make a disagreement pass or fail.
 
 The trustless layer sits on a trusted one. The same gap, applied to Bitcoin Core, is *[Don't Trust, Verify](/articles/dont-trust-verify#vi-the-same-system-applied-to-bitcoin-core)*.
 
@@ -4074,7 +4100,7 @@ Writing the code will never be as widely spread as checking blocks. Most people 
 
 ---
 
-## The contradiction
+## Refusing a release only delays the next download
 
 A node can refuse a release. Other clients exist. btcd keeps diverging. libbitcoin exists and the ecosystem cannot use it without being rebuilt. A Core-derived fork that stays on Bitcoin is still mostly Core's code, so it is not a destination.
 
@@ -4086,25 +4112,29 @@ Running different defaults is cheap compared to risking a chain split. Miners ca
 
 ---
 
-## What Core actually looks like
+## Undeclared concentration in the merge log
 
 The stated model is rough consensus among a broad contributor base. In the merge log, a handful of accounts do most of the merges. Bitcoin Core is not formally a benevolent dictatorship and has never claimed to be, yet how it actually merges looks like a dictatorship with the name taken off, which is worse, because undeclared concentration is harder to see and harder to contest.
 
+Bitcoin Core already posts ACKs on GitHub, which is not the same as the decision forming there. An ACK is a comment on a pull request. Which pull requests are going to merge is decided off GitHub, on IRC, in closed CoreDev sessions, and in Signal groups. Merge is a permission held by about five accounts on bitcoin/bitcoin. Reviewers do not have it, and one of those five ships the code.
+
 Concentration of merge rights on its own still proves nothing. Any mature project restricts commit access, and Linux would look just as lopsided on the same measure. A high concentration of who may merge could just mean they are limiting who can push to a codebase where a bad merge could print coins. That would be a defense if the scarce mergers were also doing the review, and they are not.
 
-Review activity Gini sits near 0.92, while merge-authority Gini is lower because the merger set is tiny, not because power is spread. The [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) dataset, seventeen years of Core history, counts comments, ACKs, and review submissions on GitHub. It does not count hours spent checking consensus-critical code or how deep each review went, so this is about who shows up in the record, not who understood the code best in any given week. Review is spread out relative to merges, and merge authority is not. Authorship Gini sits near 0.85. Brink's [2025 Engineering Impact Report](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/) published that in one recent year more than half of all merges flowed through a single individual funded by one grant organization. The research dataset's 2022+ window is 50.2% top-1 and 82.2% top-3. Self-merge among maintainer-authored merges is 25.5%, meaning the same people proposing changes were approving them on a quarter of those landings.
+Review activity Gini sits near 0.92, while merge-authority Gini is lower because the merger set is tiny, not because power is spread. Review is spread out relative to merges, and merge authority is not. Authorship Gini sits near 0.85. Brink's [2025 Engineering Impact Report](https://brink.dev/blog/2026/03/26/engineering-impact-report-2025/) published that in calendar year 2025 more than half of all merges flowed through a single individual funded by one grant organization. The [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) dataset puts the 2022+ window at 50.2% top-1 and 82.2% top-3. Self-merge among maintainer-authored merges is 25.5%, meaning the same people proposing changes were approving them on a quarter of those landings.
+
+That dataset covers seventeen years of Core history and counts comments, ACKs, and review submissions on GitHub. It does not count hours spent checking consensus-critical code or how deep each review went, so these figures describe who shows up in the record, not who understood the code best in any given week.
 
 The bug usually cited with these numbers is CVE-2018-17144, the inflation bug that sat in Core for eighteen months. People use it to prove Core is incompetent, which it does not prove. It sat in production, was never exploited, and was patched quickly after disclosure. Patching it fast after disclosure is not the same as catching it.
 
 It propagated to Knots, ABC, and Unlimited, because those clients descend from Core's codebase. Listing those clients as independent checks is a mistake when they share a lineage. The case study is *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory#cve-2018-17144-the-bug-that-proved-gavin-right)*.
 
-What the CVE does show is that implementations copied from a common codebase inherit that codebase's blind spots, which is the argument for building from a specification instead of observed behavior. An implementation written against a stated standard does not inherit those bugs by copying Core's source. It can still ship its own, and a spec that matches mainnet has to describe the historical behavior the network already accepted.
+What the CVE does show is that implementations copied from a common codebase inherit that codebase's blind spots, which is the argument for building from a specification instead of observed behavior. An implementation written against a stated standard does not inherit those bugs by copying Core's source. It can still ship its own.
 
 Three things that are fine for ordinary software are a problem in the process that writes Bitcoin's defaults. Decisions about what ships cannot be reversed except by whoever made them. Authority lives in the merge set without a procedure, so when that set leaves you have a crisis, and there is nothing to transfer except the habit of being listened to. Legal, financial, regulatory, or personal leverage only needs that handful.
 
 ---
 
-## Succession
+## Succession needs agreement that does not exist here
 
 Every vertical project eventually loses its founder. Python is the usual counterexample. Guido stepped back, the community designed a steering council, and the language came through it intact, with no cryptographic governance, no formal specification, and no distributed signing authority. What carried it through was that people still wanted to work together, and that they had time. There was enough shared purpose to design a governance system after Guido left, and nothing catastrophic happened while they were designing it. Users just kept running the old interpreter and waited.
 
@@ -4114,7 +4144,11 @@ Bitcoin also does not have the shared purpose Python had. The blocksize war was 
 
 Taproot is the usual reply, because that change did ship and activate, yet it is the wrong comparison. Taproot was not the lead maintainer disappearing, and it was not a fight on the scale of the blocksize war. That it shipped says Bitcoin can activate a change when the disagreement is smaller, not that the community can design a governance system after the people in charge are gone.
 
-The war ended in a fork. Bitcoin Cash left, Bitcoin kept the ticker and the market. Some people say a fork is how this ecosystem keeps developers honest. The blocksize war was that fork. You cannot treat it as both the check working and proof that social process failed.
+---
+
+## Which thing gets forked
+
+The blocksize war ended in a fork. Bitcoin Cash left, Bitcoin kept the ticker and the market. Some people say a fork is how this ecosystem keeps developers honest. The blocksize war was that fork. You cannot treat it as both the check working and proof that social process failed.
 
 What matters is which thing gets forked. Bitcoin Cash forked the chain, which meant splitting the ledger, the hashrate, the economic network, and the community, permanently and by design. The cost of that exit was so high that it scares people off without keeping anyone honest. Nobody threatens it credibly, because the threat costs the threatener nearly everything they were trying to protect.
 
@@ -4126,19 +4160,35 @@ A governance fork is a different operation. Two implementations built against th
 
 Vote weight comes from work recorded in public, and a title does not confer it.
 
-The [Bitcoin Commons white paper](https://thebitcoincommons.org/whitepaper.html) does that with two questions at once. One is where the change lives, in the consensus specification, the protocol, the node, or an optional module. The other is what kind of change it is, a routine fix, a feature, something that touches consensus validation, an emergency patch, or a change to the governance rules themselves. When both apply, you take the higher signature count and the longer wait. A bug fix in the consensus layer still needs the consensus-layer bar, while a feature in an optional module does not.
+The [Bitcoin Commons white paper](https://thebitcoincommons.org/whitepaper.html) sets the bar for a merge with two questions at once. One is where the change lives, in the consensus specification, the protocol, the node, or an optional module. The other is what kind of change it is, a routine fix, a feature, something that touches consensus validation, an emergency patch, or a change to the governance rules themselves. When both apply, you take the higher signature count and the longer wait. A bug fix in the consensus layer still needs the consensus-layer bar, while a feature in an optional module does not.
 
 Routine maintenance clears on fewer signatures and a short wait. Consensus-adjacent changes need near-unanimity and a delay measured in months. Changes to the governance rules themselves need more than that. A contributor cannot approve their own merge, and even a repository administrator cannot bypass the signature check.
 
-Optional features load as process-isolated modules outside the money rules. Lightning, mining interfaces, and similar tools can compete without anyone treating them as a consensus change. The base node still validates blocks against the specification, so a feature fight does not become a throne fight.
+The patch that cannot wait runs through a declared emergency in three classes. Emergency keyholders declare a class, and that declaration changes the merge rules until a clock expires. Network-threatening work gets the fastest path, including no review wait while the declaration is live. Less severe classes keep longer waits and higher bars. Declaring an emergency is a different act from tagging a pull request as emergency work. After the clock, a written post-mortem is required and ordinary rules return. Nobody keeps a low bar because they might need one later.
+
+Optional features load as process-isolated modules outside the money rules. Lightning, mining interfaces, and similar tools can compete without anyone treating them as a consensus change. The base node still validates blocks against the specification, so a feature fight does not become a fight about the money.
 
 A further ladder, vote weight on the crates you have actually shipped, is specified as a complement to that merge policy, and it is not what is enforced today.
 
-Every action is cryptographically signed and publicly auditable. Power is visible because anyone can check the record, not because people are supposed to behave. The software layer cannot make every contributor equal the way every node is equal, and it can make the record checkable, which is what matters for who may change the code.
+Every action is cryptographically signed and publicly auditable once that authorization is switched on. Power is visible because anyone can check the record, not because people are supposed to behave. The software layer cannot make every contributor equal the way every node is equal, and it can make the record checkable, which is what matters for who may change the code.
 
 ---
 
-## Where it fails
+## The missing specification is doing the work
+
+None of that holds without a written specification. Fights still go to whoever has been around longest, because there is nothing independent to measure a judgment against, so authority reconcentrates no matter what a governance document says. Core cannot be repaired by redistributing merge rights, and the missing specification is what keeps the monopoly in place, because that missing document is doing work. The longer write-up is *[Who Controls Bitcoin](/articles/bitcoin-governance#vi-the-no-spec-moat-and-why-it-matters)*.
+
+A written specification gives contributors something to be right about that is not a person's opinion, and writing it is the hard part, because Bitcoin's live rules include serialization quirks, historical bugs the network accepted, and a policy and consensus boundary that is blurrier in practice than on paper. A specification that matches mainnet has to encode all of it, including the parts nobody would design on purpose, which makes it a large contested document that nobody writes in a week.
+
+With a specification, fights become what the document says. Formal verification and machine-checkable proofs shrink the room to argue about what the specification means.
+
+It is also what makes exit cheap enough to be credible. A formally specified implementation can be forked against the specification without reverse-engineering Core. A governance ruleset can be exported as a signed package and replaced without splitting the ledger, which is what makes a fork usable. Cheap exit keeps people honest in ways internal process cannot. The sequencing of that exit is *[Making Core Irrelevant](/articles/making-core-irrelevant)*.
+
+The governance system described is [Bitcoin Commons](https://thebitcoincommons.org), the specification is the [Orange Paper](/articles/why-bitcoin-needs-a-specification), and the implementation is [BLVM](https://docs.thebitcoincommons.org).
+
+---
+
+## Where this design fails
 
 The crate ladder, if it ever ships, can let a shallow contributor outvote the person who wrote the subsystem. A single merged pull request can put someone on questions they cannot evaluate. Someone who has shown they understand the architecture still has to gate who votes. That limit is real. Below it, more votes make worse decisions.
 
@@ -4146,31 +4196,19 @@ The merge policy specified today has a different failure, because the people who
 
 Distribution is slow when you need a same-day security patch. Ordinary merge rules should stay slow. The specified answer is a declared emergency with a clock, which is the substitute for a person who can merge anything.
 
-If one implementation still defines the rules everyone else must copy, distributed governance is theater. A specification plus full-chain tests is what turns "we match Core" from a claim into a pass/fail check, and that only works if the specification matches mainnet, including the ugly historical bugs.
+If one implementation still defines the rules everyone else must copy, distributed governance is theater. A specification plus full-chain tests is what turns "we match Core" from a claim into a pass/fail check.
 
 Commons has not run this merge policy at scale. Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. Gates and declared emergencies are rules on a public record, and a person constrained only by custom is what they replace. That should break differently under pressure, and it remains a prediction until someone runs it. The specification, the emergency path, and cheap exit have to exist because of those limits.
 
-The governance system described is [Bitcoin Commons](https://thebitcoincommons.org), the specification is the [Orange Paper](/articles/why-bitcoin-needs-a-specification), and the implementation is [BLVM](https://docs.thebitcoincommons.org).
-
-Without a written specification, fights still go to whoever has been around longest. There is nothing independent to measure a judgment against, so authority reconcentrates no matter what a governance document says. Core cannot be repaired by redistributing merge rights, and the missing specification is what keeps the monopoly in place, because that missing document is doing work. The longer write-up is *[Who Controls Bitcoin](/articles/bitcoin-governance#vi-the-no-spec-moat-and-why-it-matters)*.
-
-A written specification gives contributors something to be right about that is not a person's opinion, and writing it is the hard part, because Bitcoin's live rules include serialization quirks, historical bugs the network accepted, and a policy and consensus boundary that is blurrier in practice than on paper. A specification that matches mainnet has to encode all of it, including the parts nobody would design on purpose, which makes it a large contested document that nobody writes in a week.
-
-With a specification, fights become what the document says. Formal verification and machine-checkable proofs shrink the room to argue about what the specification means.
-
-Exit has to be cheap enough to be credible. A formally specified implementation can be forked against the specification without reverse-engineering Core. A governance ruleset can be exported as a signed package and replaced without splitting the ledger, which is what makes a fork usable. Cheap exit keeps people honest in ways internal process cannot. The sequencing of that exit is *[Making Core Irrelevant](/articles/making-core-irrelevant)*.
-
 ---
 
-## The standard
+## The two questions that decide it
 
 Bitcoin does not get a pass because some of the people writing the code are skilled or well-intentioned. Failed monetary institutions had skilled, well-intentioned people too. What matters is whether the people with merge authority still decide what Bitcoin nodes run on ordinary work.
 
-It also matters whether an inflation bug can be patched without giving that merge set the power to merge whatever they want.
+It also matters whether an inflation bug can be patched without giving that merge set the power to merge whatever they want. The declared class and the expiring clock are the answer to that second question, which is why the overnight patch does not require a throne.
 
-Commons specifies the second as a three-class emergency system. Emergency keyholders declare a class. That declaration changes the merge rules until a clock expires. Network-threatening work gets the fastest path, including no review wait while the declaration is live. Less severe classes keep longer waits and higher bars. Declaring an emergency is a different act from tagging a pull request as emergency work. After the clock, a written post-mortem is required and ordinary rules return. Nobody keeps a low bar because they might need one later.
-
-The overnight patch then goes through a declared class and a clock. A governance system that works only while the current merge set holds the chairs was built for Linux, and it does not belong on Bitcoin's node software.
+A governance system that works only while the current merge set holds the chairs was built for Linux, and it does not belong on Bitcoin's node software.
 
 ---
 
@@ -4191,8 +4229,15 @@ The overnight patch then goes through a declared class and a clock. A governance
 
 # Static Per-Output Miner Fee
 
+## Change log
+
+- 2026-10-27 — Validation: state that `n_outputs = 0` is only the arithmetic identity. Bitcoin Core `CheckTransaction` already rejects the transaction (`bad-txns-vout-empty`, confirmed on regtest, Core v28.1). Replaces the sentence that a zero-output transaction "meets the floor automatically" as if that were a usable exemption.
+- 2026-10-27 — Backwards Compatibility: a child transaction cannot fill a parent shortfall. BOLT 3 `zero_fee_commitments` and any anchor CPFP parent must carry `static_fee × n_outputs` on the parent itself. Extends the existing per-transaction floor; the formula is unchanged. Regtest accepted a 0-fee 3-output parent and a 20-sat 2-output parent under current consensus; the floor rejects both.
+- 2026-10-27 — Parameters: add the 100-output row (1,600 and 2,000 sats) and the regtest vsize of one 100-input 100-output P2WPKH transaction. The rate is `floor / vsize` for that construction. It does not change `static_fee`.
+
 ## Contents
 
+- [Change log](#change-log)
 - [Abstract](#abstract)
 - [Motivation](#motivation)
 - [Specification](#specification)
@@ -4386,7 +4431,7 @@ The coinbase transaction is the only exemption. Charging coinbase outputs would 
 ### Validation
 
 1. Skip the coinbase transaction.
-2. For each remaining transaction, compute `tx_fee` and `n_outputs` as above. A transaction with zero outputs has `n_outputs = 0` and meets the floor automatically.
+2. For each remaining transaction, compute `tx_fee` and `n_outputs` as above. The product `static_fee × 0` is 0, so an empty output list would meet the floor. It does not matter: existing consensus rejects a transaction with no outputs (`bad-txns-vout-empty` in Bitcoin Core `CheckTransaction`). This BIP does not make that transaction valid.
 3. If `tx_fee < static_fee × n_outputs`, the transaction is invalid and the block is invalid.
 4. Existing coinbase rules are unchanged. Miners receive the per-output amount because it is part of `sum(tx_fees)`.
 
@@ -4430,6 +4475,7 @@ At the provisional band, count-vector cost scales linearly:
 <tr><th>Outputs created</th><th>@ 16 sats</th><th>@ 20 sats</th></tr>
 </thead>
 <tbody>
+<tr><td>100</td><td>1,600 sats</td><td>2,000 sats</td></tr>
 <tr><td>1,000</td><td>16,000 sats</td><td>20,000 sats</td></tr>
 <tr><td>10,000</td><td>160,000 sats</td><td>200,000 sats</td></tr>
 <tr><td>100,000</td><td>1,600,000 sats</td><td>2,000,000 sats</td></tr>
@@ -4438,10 +4484,9 @@ At the provisional band, count-vector cost scales linearly:
 <figcaption>Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.</figcaption>
 </figure>
 
-
 *Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.*
 
-
+A regtest harness (Bitcoin Core v28.1.0, `decoderawtransaction`) measured one construction: 100 P2WPKH inputs and 100 P2WPKH outputs, signed with low-R ECDSA grinding. Two runs both reported **vsize 9,886**. Weight was 39,541 on the first run and 39,542 on the second; low-R DER length moved one witness byte, which did not cross a vbyte boundary (`ceil(weight / 4)` stayed 9,886). The provisional floor on that vsize is 1,600/9,886 sat/vB at 16 sats, or 2,000/9,886 sat/vB at 20 sats (about 0.162 and 0.202 sat/vB). A weight fee of 1 sat/vB on the same vsize is 9,886 sats, which already clears both floors. The floor rejects this shape only when `tx_fee` itself is below the product. Core accepted fees of 1,599, 1,600, and 2,000 sats; the floor accepts 1,600 only at the 16-sat endpoint and accepts 2,000 at both. This vsize is those measured transactions, not a chain statistic and not a new consensus constant.
 
 ### Activation
 
@@ -4502,6 +4547,8 @@ The most credible activation path is to deploy on signet and testnet, run the ru
 Existing UTXOs remain valid and spendable. Old nodes will see new blocks as valid under the soft fork. From the user's point of view there is one fee: wallets add the weight-based transaction fee and the per-output component internally and show a single total. Wallets that do not update will underestimate fees and produce transactions that enforcing nodes reject at and after the activation height. The one-year minimum signaling window gives the wallet ecosystem time to update. Updates should be complete before activation: unlike soft forks that affect only unusual transaction types, the per-output fee affects fee estimation for nearly every transaction that creates outputs. A wallet that is not updated by activation will start producing invalid transactions the moment the rule applies, with no warning to the user.
 
 Lightning channel opens, CoinJoin transactions, and exchange batch payouts will pay the per-output fee for each output created. Calibration must confirm the fee is negligible relative to typical output values across historical fee regimes. Exchanges should be engaged before signaling begins.
+
+The floor is per transaction. A child that spends a P2A or anchor output does not count toward the parent's `tx_fee`. Regtest Core v28.1 accepted a parent with `tx_fee = 20` and 2 outputs, and a second parent with `tx_fee = 0` and 3 outputs (one of them P2A, script `51024e73`), plus a high-fee child of the first parent. The floor rejects both parents at 16 and at 20 sats. BOLT 3 `zero_fee_commitments` and `option_anchors` CPFP, as specified today, put the mining fee on the child. After activation those commitment transactions are valid only if the commitment's own `tx_fee` is at least `static_fee × n_outputs`. The child still pays any extra weight fee. Wallets that leave the commitment at fee 0 will produce transactions enforcing nodes reject.
 
 ---
 
@@ -4632,8 +4679,14 @@ This document is licensed under the BSD 2-Clause License.
 
 # Dynamic Escalation of the Per-Output Miner Fee
 
+## Change log
+
+- 2026-10-27 — Step 3 else-branch, and the same branch in the reference pseudocode. The published line `candidate_dynamic = dynamic_fee_previous` freezes the dynamic fee whenever persistence fails. A thick sample that falls below `persistence_threshold` never lowers it, which contradicts the rate-cap section ("decreases are uncapped") and the security claim that the fee falls once pressure stops. Harness case, fixtures not consensus constants: `static_fee = 20`, `k = 4`, `alpha_n = 1000`, `persistence_threshold = 5000` milli-sat/vB, `dynamic_fee_previous = 80`, then two windows of 1,000 rates at 1,000 milli-sat/vB. The old branch stays at 80. The replacement candidate is `min(dynamic_fee_previous, k × p25_ema / 1000)`, which is 4, and `active_fee` returns to `static_fee`. A raise still needs two consecutive windows above the threshold. The rate cap is unchanged. A sample shorter than `min_tx_count` still holds.
+- 2026-10-27 — Rationale for `k`: state the four products at the reference p25 band. No change to the provisional `k` range. At `k = 2` and 5 sat/vB the scaled value is 10 sats, which is below both provisional static endpoints, so `active_fee` stays on `static_fee`.
+
 ## Contents
 
+- [Change log](#change-log)
 - [Abstract](#abstract)
 - [Motivation](#motivation)
 - [Specification](#specification)
@@ -4811,14 +4864,15 @@ A slow `alpha_n` toward 100 tracks multi-year fee drift while ignoring short-ter
 #### Step 3: Apply multi-window persistence
 
 ```text
+raw = (k × p25_ema_current) / 1000
 if p25_ema_current > persistence_threshold
    and p25_ema_previous > persistence_threshold:
-    candidate_dynamic = (k × p25_ema_current) / 1000
+    candidate_dynamic = raw
 else:
-    candidate_dynamic = dynamic_fee_previous
+    candidate_dynamic = min(dynamic_fee_previous, raw)
 ```
 
-`persistence_threshold` is in milli-sat/vB, the same units as `p25_ema`. `k` is an integer vbyte scale that converts that EMA into a per-output satoshi fee. Truncation toward zero. `k` is **not** the serialized size of an output. It is a calibrated scale so that at a reference p25 (about 5 to 10 sat/vB) the dynamic component is the same order of magnitude as `static_fee`. A single `k`, rather than per-script-type values, matches the static fee's uniform-per-output design. A single elevated 288-block window (~2 days) does not move the dynamic fee. An attacker must sustain elevated fee conditions across at least two consecutive windows (~4 days) to produce any upward movement.
+`persistence_threshold` is in milli-sat/vB, the same units as `p25_ema`. `k` is an integer vbyte scale that converts that EMA into a per-output satoshi fee. Truncation toward zero. `k` is **not** the serialized size of an output. It is a calibrated scale so that at a reference p25 (about 5 to 10 sat/vB) the dynamic component is the same order of magnitude as `static_fee`. A single `k`, rather than per-script-type values, matches the static fee's uniform-per-output design. A single elevated 288-block window (~2 days) does not move the dynamic fee up. An attacker must sustain elevated fee conditions across at least two consecutive windows (~4 days) to produce any upward movement. The else-branch does not raise either: `raw` may be large, and `min` keeps the previous dynamic fee. It does allow a fall. A thick sample whose EMA is below the threshold produces a small `raw`, and the dynamic fee drops to that value instead of sticking at the old one. `active_fee` still cannot go below `static_fee`.
 
 #### Step 4: Apply the rate-of-change cap
 
@@ -4922,7 +4976,7 @@ Even with EMA smoothing and persistence, a sustained campaign could ratchet the 
 
 ### Why k Is a Scale, Not Output Size
 
-The p25 EMA is in milli-sat/vB. Multiplying by an integer `k` and dividing by 1000 produces sats per output. Dimensionally `k` has units of vbytes, but it is **not** set to the serialized size of a P2WPKH or P2TR output (31–43 vB). Using literal output vsize would make `dynamic_fee` track weight fees one-for-one and would overprice Lightning and CoinJoin during congestion. Calibration sets `k` so that at a reference p25 of about 5 to 10 sat/vB, `dynamic_fee` is the same order as `static_fee` (provisional `k` in 2–4). A single `k` matches the static fee's uniform-per-output model: the externalized cost being priced is per UTXO slot, not per script type.
+The p25 EMA is in milli-sat/vB. Multiplying by an integer `k` and dividing by 1000 produces sats per output. Dimensionally `k` has units of vbytes, but it is **not** set to the serialized size of a P2WPKH or P2TR output (31–43 vB). Using literal output vsize would make `dynamic_fee` track weight fees one-for-one and would overprice Lightning and CoinJoin during congestion. Calibration sets `k` so that at a reference p25 of about 5 to 10 sat/vB, `dynamic_fee` is the same order as `static_fee` (provisional `k` in 2–4). The products at the corners of that rectangle, before the rate cap and before `max(static_fee, ·)`, are 10 sats (`k = 2`, 5 sat/vB), 20 sats (`k = 4`, 5 sat/vB or `k = 2`, 10 sat/vB), and 40 sats (`k = 4`, 10 sat/vB). Ten sats is below both provisional static endpoints (16 and 20), so `active_fee` stays on `static_fee` there. Forty sats is above them, and step 4 then limits the first upward step. A single `k` matches the static fee's uniform-per-output model: the externalized cost being priced is per UTXO slot, not per script type.
 
 ### Interaction with Permanent Data Channel Closure
 
@@ -4981,11 +5035,12 @@ def compute_period_active_fee(last_288_blocks, state):
     p25_current = percentile_25(rates)
     p25_ema = (ALPHA_N * p25_current + (ALPHA_DEN - ALPHA_N) * state.p25_ema_previous) // ALPHA_DEN
 
+    raw = (K * p25_ema) // RATE_SCALE
     if (p25_ema > PERSISTENCE_THRESHOLD and
             state.p25_ema_previous > PERSISTENCE_THRESHOLD):
-        candidate = (K * p25_ema) // RATE_SCALE
+        candidate = raw
     else:
-        candidate = state.dynamic_fee_previous
+        candidate = min(state.dynamic_fee_previous, raw)
 
     cap_base = max(state.dynamic_fee_previous, STATIC_FEE)
     max_increase = cap_base + (cap_base * R_NUM) // R_DEN
@@ -5062,7 +5117,7 @@ This checklist is separate from and follows the static fee BIP's calibration. Th
 
 **Static fee as irreducible floor.** The dynamic fee can never push the active fee below the static fee. The static fee BIP's security properties are fully preserved regardless of what the dynamic layer does.
 
-**Low-activity window.** If the 288-block sample contains fewer than `min_tx_count` fee-paying transactions, EMA and `dynamic_fee` are held, not zeroed. Zeroing would re-introduce a from-zero rate-cap trap. The static fee still floors `active_fee`.
+**Low-activity window.** If the 288-block sample contains fewer than `min_tx_count` fee-paying transactions, EMA and `dynamic_fee` are held, not zeroed. Zeroing would re-introduce a from-zero rate-cap trap. The static fee still floors `active_fee`. A sample that meets `min_tx_count` but sits below `persistence_threshold` is not this case. Step 3 lowers `dynamic_fee` to the scaled EMA. Holding it there was the freeze the change log removes.
 
 **Period boundary floor.** The grace window keeps the required per-transaction floor unambiguous at every period boundary. The previous period's `active_fee` governs during the grace window; the new rate governs after. Coinbase value is not part of this BIP.
 
@@ -5095,8 +5150,16 @@ This document is licensed under the BSD 2-Clause License.
 
 # Permanent Data Channel Closure
 
+## Change log
+
+- 2026-10-27 — Rule 7 and Unreferenced push analysis: a key (33 or 65 bytes) or key-hash (20 bytes) immediately followed by `OP_ELSE` or `OP_ENDIF` is referenced when every reachable branch that executes it terminates in `OP_CHECKSIG`, `OP_CHECKSIGVERIFY`, `OP_CHECKSIGADD`, `OP_CHECKMULTISIG`, or `OP_CHECKMULTISIGVERIFY` and that opcode consumes the same push. This is the BOLT 3 `to_local` shape. A branch that does not terminate that way stays invalid. The tapscript `OP_IF` / `OP_NOTIF` ban is unchanged. Replaces the sentence that the next-opcode test is not used.
+- 2026-10-27 — Appendix A: `OP_PICK` and `OP_ROLL` are 2, matching `EvalScript`'s `stack.size() < 2` check. The tail (`n`, then the slot `n` down; `OP_ROLL` removes it) is normative. `OP_CHECKMULTISIG` / `OP_CHECKMULTISIGVERIFY` stay 1 in v0 and 0 in tapscript; the tail pops `3 + nKeys + nSigs` items when the counts are legal. Replaces the note that those four tails are unmodeled.
+- 2026-10-27 — Unreferenced push analysis: replace the next-opcode test with a live-path walk. The next-opcode test rejects BOLT 3 `to_local` (`<revocationpubkey>` is followed by `OP_ELSE`, `stack_items_read = 0`). Path analysis accepts `to_local`, the 2-of-2 funding script, `to_remote` with CSV, the anchor `OP_IFDUP` script, and the offered and received HTLC scripts. Regtest Core v28.1 accepted a cooperative 2-of-2 close, an offered-HTLC preimage spend, and a delay-1 `to_local` CSV spend. Replaces the four bullets under Unreferenced push analysis, the Rule 10 rationale sentence that says "immediate next non-push opcode", the Appendix A worked cases, and calibration item "consecutive pushes are not unreferenced".
+- 2026-10-27 — Appendix A: record the EvalScript diff. The grids are unchanged. `OP_PICK` and `OP_ROLL` are prefix 1; Core's first depth check is 2. The data-dependent tails of `OP_PICK`, `OP_ROLL`, `OP_CHECKMULTISIG`, and `OP_CHECKMULTISIGVERIFY` stay outside the integer and are consumed by the path walk when the count is a script constant. Unexecuted `OP_IF` / `OP_NOTIF` do not pop; the integer stays 1 because the walk uses the condition, not that integer.
+
 ## Contents
 
+- [Change log](#change-log)
 - [Abstract](#abstract)
 - [Motivation](#motivation)
 - [Specification](#specification)
@@ -5220,7 +5283,7 @@ Bare multisig and all other non-template forms are invalid.
 
 **Rule 6.** Tapscripts including OP_SUCCESS opcodes anywhere, even unexecuted, are invalid.
 
-**Rule 7.** Tapscripts containing OP_IF or OP_NOTIF anywhere, even unexecuted, are invalid.
+**Rule 7.** Tapscripts containing OP_IF or OP_NOTIF anywhere, even unexecuted, are invalid. Segwit v0 is not under that ban. On a P2WSH path, a key (33 or 65 bytes) or a key-hash (20 bytes) immediately followed by `OP_ELSE` or `OP_ENDIF` is referenced only when every reachable branch that executes that push terminates in `OP_CHECKSIG`, `OP_CHECKSIGVERIFY`, `OP_CHECKSIGADD`, `OP_CHECKMULTISIG`, or `OP_CHECKMULTISIGVERIFY` and that opcode consumes the same push. A key-hash counts as consumed when `OP_EQUAL` or `OP_EQUALVERIFY` reads it on a path that also reaches one of those signature opcodes. Any other push in front of `OP_ELSE` or `OP_ENDIF`, and any such key the signature check does not consume, is unreferenced. The walk is [Unreferenced push analysis](#unreferenced-push-analysis).
 
 **Rule 8.** The aggregate byte count of all script-argument witness items across **post-activation inputs only** in a single transaction must not exceed `max_witness_bytes_per_tx`. Grandfathered inputs are omitted. The same exclusions as Rule 2 apply. A transaction where that aggregate exceeds `max_witness_bytes_per_tx` is invalid.
 
@@ -5238,18 +5301,34 @@ Bare multisig and all other non-template forms are invalid.
 
 Used by Rules 10 and 12. Walk the script as a sequence of opcodes plus immediate payloads. A **push** is any of: `OP_0`, `OP_1NEGATE`, `OP_1` through `OP_16`, a direct push `0x01`–`0x4b`, `OP_PUSHDATA1`, `OP_PUSHDATA2`, or `OP_PUSHDATA4`.
 
-For each push, let `next` be the following opcode after that push and its payload.
+Classification walks every **live path**. The next opcode is consulted with one branch-end exception. `OP_ELSE` and `OP_ENDIF` have `stack_items_read = 0`. A push immediately in front of either one is referenced when all of the following hold:
 
-- If there is no `next` (the push is last), the push is unreferenced and the script is invalid.
-- If `next` is itself a push, this push is **not** classified by that fact. Consecutive pushes are how `OP_2 <key> <key> OP_3 OP_CHECKMULTISIG` and other multi-argument scripts work. Multi-chunk dumps are invalid because the last chunk is followed by a non-consuming opcode (`OP_ENDIF`, `OP_NOP`, …) or is last; Rule 11 and Rule 13 cap consume-and-ignore patterns (`OP_PUSH` / `OP_DROP`).
-- If `next` is not a push and `stack_items_read(next, kind) == 0`, the push is unreferenced and the script is invalid.
-- If `next` is not a push and `stack_items_read(next, kind) >= 1`, the push is referenced.
+- The push is a key or a key-hash. In `WITNESS_V0` a key is 33 or 65 bytes and a key-hash is 20 bytes. In `TAPSCRIPT` a key is 32 bytes and a key-hash is 20 bytes. Rule 7 still rejects every tapscript `OP_IF` / `OP_NOTIF`, so the tapscript lengths are not a way around that ban.
+- Every reachable branch that executes the push terminates in `OP_CHECKSIG`, `OP_CHECKSIGVERIFY`, `OP_CHECKSIGADD`, `OP_CHECKMULTISIG`, or `OP_CHECKMULTISIGVERIFY`.
+- That opcode consumes the same push. A pubkey argument consumes a key. `OP_EQUAL` / `OP_EQUALVERIFY` consumes a key-hash when the same path also reaches a signature opcode. `OP_CHECKMULTISIG` consumes each key it pops.
 
-`stack_items_read(opcode, kind)` is defined for every byte `0x00`–`0xFF` in [Appendix A](#appendix-a-stack_items_read). Rule 10 uses `kind = TAPSCRIPT`. Rule 12 uses `kind = WITNESS_V0`. The value is the data-independent prefix of main-stack items Bitcoin Core's `EvalScript` requires from the top: items the opcode always inspects or pops before any data-dependent extra pops. Replacement versus deletion does not matter. `OP_DUP`, `OP_DROP`, `OP_IF`, `OP_SIZE`, and `OP_CHECKLOCKTIMEVERIFY` are all `>= 1`. `OP_NOP`, `OP_DEPTH`, `OP_FROMALTSTACK`, `OP_ELSE`, `OP_CODESEPARATOR`, disabled opcodes, `OP_RETURN`, and unknown bytes are `0`.
+BOLT 3 `to_local` is this case: `<revocationpubkey>` is followed by `OP_ELSE`, `<delayedpubkey>` is followed by `OP_ENDIF`, and `OP_CHECKSIG` after `OP_ENDIF` consumes whichever key that branch pushed. Regtest Core v28.1 accepted a delay-1 `to_local` spend, a 2-of-2 funding spend, and an offered-HTLC preimage spend. The same walk accepts `to_remote` with CSV, the anchor `OP_IFDUP` script, and the received HTLC. A key in front of `OP_ELSE` with no signature check, and any non-key in front of `OP_ELSE` or `OP_ENDIF`, stays unreferenced.
 
-`OP_PUSH` followed by `OP_DROP` is referenced under this test. Rule 11 (Tapleaf) and Rule 13 (P2WSH) exist to cap that consume-and-ignore pattern by aggregate push-constant bytes. `OP_FALSE OP_IF <data> OP_ENDIF` is invalid because `<data>` is followed by `OP_ENDIF` (`stack_items_read = 0`). Standard P2WSH multisig remains valid because each key push is followed by another push or by `OP_CHECKMULTISIG`.
+A path is live when its `OP_IF` / `OP_NOTIF` condition is not a script constant, or when it is the arm `CastToBool` selects. `CastToBool` is Core's rule: empty and negative zero are false; any other byte is true. The arm a constant condition does not take is dead. A push that no live path executes is unreferenced. That is `OP_FALSE OP_IF <data> OP_ENDIF`, including `<data> OP_DROP` inside the dead arm.
 
-Tapscript `OP_SUCCESS` bytes have `stack_items_read = 0` and are independently invalid under Rule 6.
+On a live path, a push is referenced if an opcode on that path reads it. The read is `stack_items_read`, then the Appendix A tail when the count is a script constant:
+
+- `OP_CHECKMULTISIG` / `OP_CHECKMULTISIGVERIFY` in `WITNESS_V0` pop `3 + nKeys + nSigs` items: `nKeys`, the keys, `nSigs`, the signatures, and the dummy. Tapscript still fails these opcodes before the walk (Appendix A step 2).
+- `OP_PICK` / `OP_ROLL` require depth 2, pop `n`, and read the slot `n` down. `OP_ROLL` removes that item. Both push it.
+
+Witness items that are not pushes in this script are external. Popping one does not mark a script push.
+
+A script push still on the stack at the end of a live path, and not read, is unreferenced. Exception: the only stack item left has a payload of at most 4 bytes and `CastToBool` is true (the `CScriptNum` input limit in `interpreter.cpp`). That covers a witness script whose success value is `OP_1` or another small number. A 400-byte push left as the whole script is unreferenced. Core accepted that spend on regtest.
+
+`OP_PUSH` / `OP_DROP` on a live path is referenced. Rules 11 and 13 cap it. They do not apply to a dead arm; the dead arm is already invalid.
+
+`OP_2 <key> <key> OP_2 OP_CHECKMULTISIG` stays valid: every push is read. Consecutive pushes are not exempt as a class. A push is unreferenced when nothing reads it, including a push that sits beside one that is read (`<junk> <small> OP_DROP` leaves `<junk>`).
+
+If a live path exceeds 64 states, or a `CHECKMULTISIG` count or an `OP_PICK` / `OP_ROLL` `n` on that path is not a script constant, leftovers on that path are not flagged. A push that no live path executes is still unreferenced. Rules 6, 7, 11, and 13 still apply.
+
+`stack_items_read(opcode, kind)` is defined for every byte `0x00`–`0xFF` in [Appendix A](#appendix-a-stack_items_read). Rule 10 uses `kind = TAPSCRIPT`. Rule 12 uses `kind = WITNESS_V0`. The value is the opcode's first `stack.size()` check in `EvalScript`. The tails for `OP_PICK`, `OP_ROLL`, and the two multisig opcodes are in Appendix A. Replacement versus deletion does not matter. `OP_DUP`, `OP_DROP`, `OP_IF`, `OP_SIZE`, and `OP_CHECKLOCKTIMEVERIFY` are all `>= 1`. `OP_NOP`, `OP_DEPTH`, `OP_FROMALTSTACK`, `OP_ELSE`, `OP_CODESEPARATOR`, disabled opcodes, `OP_RETURN`, and unknown bytes are `0`.
+
+Tapscript `OP_SUCCESS` bytes have `stack_items_read = 0` and are independently invalid under Rule 6. Core returns success on the first such byte, before a later truncated push would be a parse error. Rule 6 uses that same order.
 
 ### Parameters
 
@@ -5331,7 +5410,7 @@ Bare multisig scriptPubKeys encode public keys directly in the output script. Th
 
 ### Why Tapleaf Scripts Are Analyzed for Unreferenced Push Data
 
-The exclusion of Tapleaf scripts from per-item witness caps in Rule 2 is correct for legitimate contract logic: push constants in a Tapleaf script serve as inputs to opcodes that consume them. The Taproot envelope embedding technique abuses this exemption by placing arbitrary data as push constants that are never consumed: typically `OP_FALSE OP_IF <data> OP_ENDIF`, where `<data>` is followed by `OP_ENDIF` (`stack_items_read = 0`). These dead pushes are present in the witness at spend time, visible to every node, and stored indefinitely. Rule 10 invalidates a script-body push whose immediate next non-push opcode consumes nothing, or a push that is last. Consecutive pushes are not, by themselves, unreferenced: that pattern is monetary (`OP_2 <keys> OP_3 OP_CHECKMULTISIG`). Rule 11 caps consume-and-ignore patterns such as `OP_PUSH` followed by `OP_DROP` that Rule 10 treats as referenced.
+The exclusion of Tapleaf scripts from per-item witness caps in Rule 2 is correct for legitimate contract logic: push constants in a Tapleaf script serve as inputs to opcodes that consume them. The Taproot envelope embedding technique abuses this exemption by placing arbitrary data as push constants that no live path executes: typically `OP_FALSE OP_IF <data> OP_ENDIF`. These dead pushes are present in the witness at spend time, visible to every node, and stored indefinitely. Rule 10 invalidates a script-body push that no live path reads. `OP_2 <keys> OP_3 OP_CHECKMULTISIG` stays valid because every push is read, not because consecutive pushes are a class exemption. Rule 11 caps consume-and-ignore patterns such as `OP_PUSH` followed by `OP_DROP` that Rule 10 treats as referenced when they sit on a live path.
 
 ### Why P2WSH Witness Scripts Get the Same Treatment
 
@@ -5349,7 +5428,7 @@ The [Static Per-Output Miner Fee](/bips/static-per-output-miner-fee) and [Dynami
 
 Existing coins are never frozen. A pre-activation UTXO can be spent under pre-activation spend rules, including one inscription reveal if that coin already committed an envelope. That spend does not create a new grandfathered inscription UTXO. New outputs created at or after `activation_height` must match Rule 1 even when funded entirely by pre-activation inputs, and their later spends are fully bound by Rules 2 through 13. Coinbase outputs created at or after activation must also be a defined template or a valid 83-byte OP_RETURN. Coinbase `scriptSig` is unchanged.
 
-Some wallet software, including certain Miniscript compilers, habitually creates Tapleaves containing OP_IF and may place required scripts deeper than 7 Taptree levels. Lightning taproot-channel designs that keep OP_IF in a Tapscript HTLC leaf must split those branches. Current P2WSH Lightning funding scripts are unaffected by Rule 7. The mitigations are: split OP_IF branches into separate Tapleaves and keep every required script-path leaf at depth 7 or less. Taproot control blocks are capped at 257 bytes, limiting Taptrees to 128 script leaves, which is sufficient for modern complex transactions but may constrain advanced off-chain contract schemes that rely on very large script trees.
+Some wallet software, including certain Miniscript compilers, habitually creates Tapleaves containing OP_IF and may place required scripts deeper than 7 Taptree levels. Lightning taproot-channel designs that keep OP_IF in a Tapscript HTLC leaf must split those branches. Current P2WSH Lightning funding scripts are unaffected by Rule 7. BOLT 3 `to_local`, `to_remote` with CSV, the anchor script, the 2-of-2 funding script, and the offered and received HTLCs pass the live-path walk and the branch-end rule: `to_local`'s pubkeys sit in front of `OP_ELSE` and `OP_ENDIF`, and `OP_CHECKSIG` consumes the one that branch executes. Regtest Core v28.1 accepted the 2-of-2 close, the offered-HTLC preimage spend, and the delay-1 `to_local` CSV spend. The mitigations for Taproot Miniscript are: split OP_IF branches into separate Tapleaves and keep every required script-path leaf at depth 7 or less. Taproot control blocks are capped at 257 bytes, limiting Taptrees to 128 script leaves, which is sufficient for modern complex transactions but may constrain advanced off-chain contract schemes that rely on very large script trees.
 
 Rules 8 and 9 require wallets and transaction construction libraries to track aggregate witness byte consumption per input and per transaction. Rules 12 and 13 require P2WSH constructors to avoid unreferenced pushes and to stay within `max_witness_script_push_bytes`. The calibration checklist must confirm that no legitimate high-witness-count use case (Lightning channel opens, complex multisig, CoinJoin, large P2WSH) is invalidated at correctly calibrated parameter values.
 
@@ -5452,7 +5531,7 @@ Detailed test vectors, integer arithmetic requirements, precise witness item cla
 - Confirm reorg behavior at `activation_height`: blocks below the activation height are never subject to any rule in this BIP regardless of reorg depth.
 - Confirm that the witness item classification algorithm is reproducible from block data alone without mempool history.
 - Confirm implementations match the Appendix A grids bit-for-bit for both `WITNESS_V0` and `TAPSCRIPT`.
-- Confirm Rule 12 does not invalidate standard P2WSH `OP_2 <keys> OP_3 OP_CHECKMULTISIG`: consecutive pushes are not unreferenced.
+- Confirm Rule 12 accepts standard P2WSH `OP_2 <keys> OP_2 OP_CHECKMULTISIG` and BOLT 3 `to_local`, `to_remote` with CSV, the anchor script, and offered and received HTLCs. `to_local`'s pubkeys are followed by `OP_ELSE` and `OP_ENDIF`; Rule 7's branch-end rule accepts them because `OP_CHECKSIG` consumes the executed key. Regtest Core v28.1 accepted the 2-of-2 close, the offered-HTLC preimage spend, and the delay-1 `to_local` CSV spend.
 
 ### E. Wallet and Exchange Validation
 
@@ -5480,7 +5559,27 @@ Source of the counts: Bitcoin Core `EvalScript` in `src/script/interpreter.cpp` 
 
 `kind` is `WITNESS_V0` (Rule 12) or `TAPSCRIPT` (Rule 10).
 
-The return value is how many main-stack items, counted from the top, the opcode **always** requires before any data-dependent extra pops. It is not the eventual total for `OP_PICK`, `OP_ROLL`, or `OP_CHECKMULTISIG`. Those opcodes always consume the top item first (`n` or `nKeys`), so a push immediately before them is referenced whenever the V0 count is `>= 1`.
+The return value is how many main-stack items, counted from the top, the opcode requires at its first `stack.size()` check. `OP_PICK`, `OP_ROLL`, `OP_CHECKMULTISIG`, and `OP_CHECKMULTISIGVERIFY` then follow the tails below. Those tails are part of this appendix.
+
+`OP_PICK` and `OP_ROLL` (`EvalScript`, the `stack.size() < 2` check, then `n`):
+
+- If the stack has fewer than 2 items, the opcode fails.
+- Pop `n` as a `CScriptNum`. If `n < 0` or `n >= stack.size()`, the opcode fails.
+- Read the item `n` down from the new top (`stacktop(-n-1)`). `OP_ROLL` erases that item. Both opcodes push it.
+
+`OP_CHECKMULTISIG` and `OP_CHECKMULTISIGVERIFY` in `WITNESS_V0`:
+
+- If the stack is empty, the opcode fails. Pop `nKeys`. If `nKeys` is outside `0..20`, the opcode fails.
+- Pop `nKeys` keys. Pop `nSigs`. If `nSigs` is outside `0..nKeys`, the opcode fails.
+- Pop `nSigs` signatures, then one dummy. The dummy is the historical extra argument. Under `NULLDUMMY` it must be empty; that flag is existing consensus, not a new rule.
+- The number of pops is `3 + nKeys + nSigs`. That is the interpreter's final index `i`, and the cleanup pops `i` items.
+- `OP_CHECKMULTISIG` pushes the result. `OP_CHECKMULTISIGVERIFY` pops that result on success and fails on false.
+
+Tapscript fails both multisig opcodes before any pop (Appendix A step 2). The grid value there is 0.
+
+When `n`, `nKeys`, or `nSigs` is not a script constant, or the selected `OP_PICK` / `OP_ROLL` slot lies under the script stack (a witness item), the path walk does not guess which script push was read.
+
+Diff against `EvalScript` at the commit above, every opcode byte. The grids match the assignment steps, including `OP_PICK` and `OP_ROLL` at 2. Unexecuted `OP_IF` / `OP_NOTIF` pop only when `fExec` is set; the integer is 1 on purpose. Disabled v0 opcodes return 0 before the switch. `OP_CHECKSIGADD` is 3 in tapscript and 0 in v0. No opcode's stack behavior is left unmodeled.
 
 Unexecuted `OP_IF` / `OP_NOTIF` do not pop in `EvalScript`. This analysis is static and does not track `vfExec`. Both opcodes are `1` in both kinds. Tapscript still invalidates them under Rule 7.
 
@@ -5526,8 +5625,8 @@ Values below are for `WITNESS_V0`. Tapscript differs only on `0xae`, `0xaf`, and
 | `0x76` | `OP_DUP` | 1 | |
 | `0x77` | `OP_NIP` | 2 | Erases second-to-top; top still required |
 | `0x78` | `OP_OVER` | 2 | |
-| `0x79` | `OP_PICK` | 1 | Prefix: pops `n`. Then `n+1` more. Min depth 2 |
-| `0x7a` | `OP_ROLL` | 1 | Same prefix as `OP_PICK` |
+| `0x79` | `OP_PICK` | 2 | First check `stack.size() < 2`. Then pop `n` and read the slot `n` down |
+| `0x7a` | `OP_ROLL` | 2 | Same as `OP_PICK`, and the read item is removed |
 | `0x7b` | `OP_ROT` | 3 | |
 | `0x7c` | `OP_SWAP` | 2 | |
 | `0x7d` | `OP_TUCK` | 2 | Not a SUCCESS byte |
@@ -5562,13 +5661,13 @@ Values below are for `WITNESS_V0`. Tapscript differs only on `0xae`, `0xaf`, and
 | `0xab` | `OP_CODESEPARATOR` | 0 | |
 | `0xac` | `OP_CHECKSIG` | 2 | |
 | `0xad` | `OP_CHECKSIGVERIFY` | 2 | |
-| `0xae` | `OP_CHECKMULTISIG` | 1 | Prefix: `nKeys`. Tapscript: 0 |
-| `0xaf` | `OP_CHECKMULTISIGVERIFY` | 1 | Same. Tapscript: 0 |
+| `0xae` | `OP_CHECKMULTISIG` | 1 | First check is one item (`nKeys`). Tail pops `3 + nKeys + nSigs`. Tapscript: 0 |
+| `0xaf` | `OP_CHECKMULTISIGVERIFY` | 1 | Same tail. Tapscript: 0 |
 | `0xb1` | `OP_CHECKLOCKTIMEVERIFY` | 1 | Inspects top; does not pop |
 | `0xb2` | `OP_CHECKSEQUENCEVERIFY` | 1 | Same |
 | `0xba` | `OP_CHECKSIGADD` | 0 | Tapscript: 3 |
 
-Worked cases: `PUSH jpeg / OP_ENDIF` and `PUSH jpeg / OP_NOP` are unreferenced. `PUSH jpeg / OP_DROP` is referenced (Rule 11/13 cap the dump). `OP_2 <k1> <k2> OP_3 OP_CHECKMULTISIG` is not unreferenced: consecutive key pushes are not classified as dead, and `OP_3` is followed by `OP_CHECKMULTISIG`.
+Worked cases: `OP_FALSE OP_IF <jpeg> OP_ENDIF` is unreferenced (dead arm), including `<jpeg> OP_DROP` inside that arm. `<jpeg> OP_DROP` on a live path is referenced (Rules 11 and 13). `<jpeg> OP_NOP` is unreferenced. `OP_2 <k1> <k2> OP_2 OP_CHECKMULTISIG` is referenced: the walk pops both keys, both signatures, and the dummy (`3 + 2 + 2 = 7`). BOLT 3 `to_local` is referenced: each branch's pubkey is followed by `OP_ELSE` or `OP_ENDIF`, and `OP_CHECKSIG` consumes that pubkey. A pubkey before `OP_ELSE` with no signature check is unreferenced.
 
 ### Complete grids (byte `0xRF` at row `R`, column `F`)
 
@@ -5583,7 +5682,7 @@ Worked cases: `PUSH jpeg / OP_ENDIF` and `PUSH jpeg / OP_NOP` are unreferenced. 
 | `4_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `5_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `6_` | 0 | 0 | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 2 | 2 | 3 |
-| `7_` | 4 | 6 | 4 | 1 | 0 | 1 | 1 | 2 | 2 | 1 | 1 | 3 | 2 | 2 | 0 | 0 |
+| `7_` | 4 | 6 | 4 | 1 | 0 | 1 | 1 | 2 | 2 | 2 | 2 | 3 | 2 | 2 | 0 | 0 |
 | `8_` | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 2 | 2 | 0 | 0 | 1 | 1 | 0 | 0 | 1 |
 | `9_` | 1 | 1 | 1 | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 2 | 2 | 2 | 2 | 2 | 2 |
 | `A_` | 2 | 2 | 2 | 2 | 2 | 3 | 1 | 1 | 1 | 1 | 1 | 0 | 2 | 2 | 1 | 1 |
@@ -5606,7 +5705,7 @@ Same as V0 except `0xae` = 0, `0xaf` = 0, `0xba` = 3. SUCCESS bytes are already 
 | `4_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `5_` | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `6_` | 0 | 0 | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 2 | 2 | 3 |
-| `7_` | 4 | 6 | 4 | 1 | 0 | 1 | 1 | 2 | 2 | 1 | 1 | 3 | 2 | 2 | 0 | 0 |
+| `7_` | 4 | 6 | 4 | 1 | 0 | 1 | 1 | 2 | 2 | 2 | 2 | 3 | 2 | 2 | 0 | 0 |
 | `8_` | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 2 | 2 | 0 | 0 | 1 | 1 | 0 | 0 | 1 |
 | `9_` | 1 | 1 | 1 | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 2 | 2 | 2 | 2 | 2 | 2 |
 | `A_` | 2 | 2 | 2 | 2 | 2 | 3 | 1 | 1 | 1 | 1 | 1 | 0 | 2 | 2 | 0 | 0 |

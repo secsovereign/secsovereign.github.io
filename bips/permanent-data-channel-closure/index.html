@@ -53,7 +53,15 @@
         <p class="article-origin">Bitcoin Improvement Pre-Proposal: not yet a numbered BIP.</p>
     </header>
         <article class="article-body"><h1>Permanent Data Channel Closure</h1>
+<h2 id="change-log">Change log</h2>
+<ul>
+<li>2026-10-27 — Rule 7 and Unreferenced push analysis: a key (33 or 65 bytes) or key-hash (20 bytes) immediately followed by <code>OP_ELSE</code> or <code>OP_ENDIF</code> is referenced when every reachable branch that executes it terminates in <code>OP_CHECKSIG</code>, <code>OP_CHECKSIGVERIFY</code>, <code>OP_CHECKSIGADD</code>, <code>OP_CHECKMULTISIG</code>, or <code>OP_CHECKMULTISIGVERIFY</code> and that opcode consumes the same push. This is the BOLT 3 <code>to_local</code> shape. A branch that does not terminate that way stays invalid. The tapscript <code>OP_IF</code> / <code>OP_NOTIF</code> ban is unchanged. Replaces the sentence that the next-opcode test is not used.</li>
+<li>2026-10-27 — Appendix A: <code>OP_PICK</code> and <code>OP_ROLL</code> are 2, matching <code>EvalScript</code>'s <code>stack.size() &lt; 2</code> check. The tail (<code>n</code>, then the slot <code>n</code> down; <code>OP_ROLL</code> removes it) is normative. <code>OP_CHECKMULTISIG</code> / <code>OP_CHECKMULTISIGVERIFY</code> stay 1 in v0 and 0 in tapscript; the tail pops <code>3 + nKeys + nSigs</code> items when the counts are legal. Replaces the note that those four tails are unmodeled.</li>
+<li>2026-10-27 — Unreferenced push analysis: replace the next-opcode test with a live-path walk. The next-opcode test rejects BOLT 3 <code>to_local</code> (<code>&lt;revocationpubkey&gt;</code> is followed by <code>OP_ELSE</code>, <code>stack_items_read = 0</code>). Path analysis accepts <code>to_local</code>, the 2-of-2 funding script, <code>to_remote</code> with CSV, the anchor <code>OP_IFDUP</code> script, and the offered and received HTLC scripts. Regtest Core v28.1 accepted a cooperative 2-of-2 close, an offered-HTLC preimage spend, and a delay-1 <code>to_local</code> CSV spend. Replaces the four bullets under Unreferenced push analysis, the Rule 10 rationale sentence that says "immediate next non-push opcode", the Appendix A worked cases, and calibration item "consecutive pushes are not unreferenced".</li>
+<li>2026-10-27 — Appendix A: record the EvalScript diff. The grids are unchanged. <code>OP_PICK</code> and <code>OP_ROLL</code> are prefix 1; Core's first depth check is 2. The data-dependent tails of <code>OP_PICK</code>, <code>OP_ROLL</code>, <code>OP_CHECKMULTISIG</code>, and <code>OP_CHECKMULTISIGVERIFY</code> stay outside the integer and are consumed by the path walk when the count is a script constant. Unexecuted <code>OP_IF</code> / <code>OP_NOTIF</code> do not pop; the integer stays 1 because the walk uses the condition, not that integer.</li>
+</ul>
 <nav class="bip-toc" aria-label="Contents"><h2 id="contents">Contents</h2><ul>
+<li><a href="#change-log">Change log</a></li>
 <li><a href="#abstract">Abstract</a></li>
 <li><a href="#motivation">Motivation</a></li>
 <li><a href="#specification">Specification</a></li>
@@ -158,7 +166,7 @@
 <p><strong>Rule 4.</strong> Witness stacks with a Taproot annex are invalid.</p>
 <p><strong>Rule 5.</strong> Taproot control blocks larger than 257 bytes are invalid.</p>
 <p><strong>Rule 6.</strong> Tapscripts including OP_SUCCESS opcodes anywhere, even unexecuted, are invalid.</p>
-<p><strong>Rule 7.</strong> Tapscripts containing OP_IF or OP_NOTIF anywhere, even unexecuted, are invalid.</p>
+<p><strong>Rule 7.</strong> Tapscripts containing OP_IF or OP_NOTIF anywhere, even unexecuted, are invalid. Segwit v0 is not under that ban. On a P2WSH path, a key (33 or 65 bytes) or a key-hash (20 bytes) immediately followed by <code>OP_ELSE</code> or <code>OP_ENDIF</code> is referenced only when every reachable branch that executes that push terminates in <code>OP_CHECKSIG</code>, <code>OP_CHECKSIGVERIFY</code>, <code>OP_CHECKSIGADD</code>, <code>OP_CHECKMULTISIG</code>, or <code>OP_CHECKMULTISIGVERIFY</code> and that opcode consumes the same push. A key-hash counts as consumed when <code>OP_EQUAL</code> or <code>OP_EQUALVERIFY</code> reads it on a path that also reaches one of those signature opcodes. Any other push in front of <code>OP_ELSE</code> or <code>OP_ENDIF</code>, and any such key the signature check does not consume, is unreferenced. The walk is <a href="#unreferenced-push-analysis">Unreferenced push analysis</a>.</p>
 <p><strong>Rule 8.</strong> The aggregate byte count of all script-argument witness items across <strong>post-activation inputs only</strong> in a single transaction must not exceed <code>max_witness_bytes_per_tx</code>. Grandfathered inputs are omitted. The same exclusions as Rule 2 apply. A transaction where that aggregate exceeds <code>max_witness_bytes_per_tx</code> is invalid.</p>
 <p><strong>Rule 9.</strong> The aggregate byte count of all script-argument witness items within a single <strong>post-activation</strong> input must not exceed <code>max_witness_bytes_per_input</code>. Grandfathered inputs are omitted. The same exclusions as Rule 2 apply. An input where the aggregate exceeds <code>max_witness_bytes_per_input</code> is invalid.</p>
 <p><strong>Rule 10.</strong> Tapleaf scripts containing unreferenced push data are invalid. The determination is static, without execution, using the algorithm in <a href="#unreferenced-push-analysis">Unreferenced push analysis</a> with <code>kind = TAPSCRIPT</code> (<a href="#appendix-a-stack_items_read">Appendix A</a>).</p>
@@ -167,16 +175,26 @@
 <p><strong>Rule 13.</strong> Segwit v0 witness scripts containing push constants whose aggregate byte count exceeds <code>max_witness_script_push_bytes</code> are invalid. This is the P2WSH counterpart to Rule 11. Witness scripts remain excluded from Rules 2, 8, and 9: those rules cap script-argument items, not script bodies.</p>
 <h3 id="unreferenced-push-analysis">Unreferenced push analysis</h3>
 <p>Used by Rules 10 and 12. Walk the script as a sequence of opcodes plus immediate payloads. A <strong>push</strong> is any of: <code>OP_0</code>, <code>OP_1NEGATE</code>, <code>OP_1</code> through <code>OP_16</code>, a direct push <code>0x01</code>–<code>0x4b</code>, <code>OP_PUSHDATA1</code>, <code>OP_PUSHDATA2</code>, or <code>OP_PUSHDATA4</code>.</p>
-<p>For each push, let <code>next</code> be the following opcode after that push and its payload.</p>
+<p>Classification walks every <strong>live path</strong>. The next opcode is consulted with one branch-end exception. <code>OP_ELSE</code> and <code>OP_ENDIF</code> have <code>stack_items_read = 0</code>. A push immediately in front of either one is referenced when all of the following hold:</p>
 <ul>
-<li>If there is no <code>next</code> (the push is last), the push is unreferenced and the script is invalid.</li>
-<li>If <code>next</code> is itself a push, this push is <strong>not</strong> classified by that fact. Consecutive pushes are how <code>OP_2 &lt;key&gt; &lt;key&gt; OP_3 OP_CHECKMULTISIG</code> and other multi-argument scripts work. Multi-chunk dumps are invalid because the last chunk is followed by a non-consuming opcode (<code>OP_ENDIF</code>, <code>OP_NOP</code>, …) or is last; Rule 11 and Rule 13 cap consume-and-ignore patterns (<code>OP_PUSH</code> / <code>OP_DROP</code>).</li>
-<li>If <code>next</code> is not a push and <code>stack_items_read(next, kind) == 0</code>, the push is unreferenced and the script is invalid.</li>
-<li>If <code>next</code> is not a push and <code>stack_items_read(next, kind) &gt;= 1</code>, the push is referenced.</li>
+<li>The push is a key or a key-hash. In <code>WITNESS_V0</code> a key is 33 or 65 bytes and a key-hash is 20 bytes. In <code>TAPSCRIPT</code> a key is 32 bytes and a key-hash is 20 bytes. Rule 7 still rejects every tapscript <code>OP_IF</code> / <code>OP_NOTIF</code>, so the tapscript lengths are not a way around that ban.</li>
+<li>Every reachable branch that executes the push terminates in <code>OP_CHECKSIG</code>, <code>OP_CHECKSIGVERIFY</code>, <code>OP_CHECKSIGADD</code>, <code>OP_CHECKMULTISIG</code>, or <code>OP_CHECKMULTISIGVERIFY</code>.</li>
+<li>That opcode consumes the same push. A pubkey argument consumes a key. <code>OP_EQUAL</code> / <code>OP_EQUALVERIFY</code> consumes a key-hash when the same path also reaches a signature opcode. <code>OP_CHECKMULTISIG</code> consumes each key it pops.</li>
 </ul>
-<p><code>stack_items_read(opcode, kind)</code> is defined for every byte <code>0x00</code>–<code>0xFF</code> in <a href="#appendix-a-stack_items_read">Appendix A</a>. Rule 10 uses <code>kind = TAPSCRIPT</code>. Rule 12 uses <code>kind = WITNESS_V0</code>. The value is the data-independent prefix of main-stack items Bitcoin Core's <code>EvalScript</code> requires from the top: items the opcode always inspects or pops before any data-dependent extra pops. Replacement versus deletion does not matter. <code>OP_DUP</code>, <code>OP_DROP</code>, <code>OP_IF</code>, <code>OP_SIZE</code>, and <code>OP_CHECKLOCKTIMEVERIFY</code> are all <code>&gt;= 1</code>. <code>OP_NOP</code>, <code>OP_DEPTH</code>, <code>OP_FROMALTSTACK</code>, <code>OP_ELSE</code>, <code>OP_CODESEPARATOR</code>, disabled opcodes, <code>OP_RETURN</code>, and unknown bytes are <code>0</code>.</p>
-<p><code>OP_PUSH</code> followed by <code>OP_DROP</code> is referenced under this test. Rule 11 (Tapleaf) and Rule 13 (P2WSH) exist to cap that consume-and-ignore pattern by aggregate push-constant bytes. <code>OP_FALSE OP_IF &lt;data&gt; OP_ENDIF</code> is invalid because <code>&lt;data&gt;</code> is followed by <code>OP_ENDIF</code> (<code>stack_items_read = 0</code>). Standard P2WSH multisig remains valid because each key push is followed by another push or by <code>OP_CHECKMULTISIG</code>.</p>
-<p>Tapscript <code>OP_SUCCESS</code> bytes have <code>stack_items_read = 0</code> and are independently invalid under Rule 6.</p>
+<p>BOLT 3 <code>to_local</code> is this case: <code>&lt;revocationpubkey&gt;</code> is followed by <code>OP_ELSE</code>, <code>&lt;delayedpubkey&gt;</code> is followed by <code>OP_ENDIF</code>, and <code>OP_CHECKSIG</code> after <code>OP_ENDIF</code> consumes whichever key that branch pushed. Regtest Core v28.1 accepted a delay-1 <code>to_local</code> spend, a 2-of-2 funding spend, and an offered-HTLC preimage spend. The same walk accepts <code>to_remote</code> with CSV, the anchor <code>OP_IFDUP</code> script, and the received HTLC. A key in front of <code>OP_ELSE</code> with no signature check, and any non-key in front of <code>OP_ELSE</code> or <code>OP_ENDIF</code>, stays unreferenced.</p>
+<p>A path is live when its <code>OP_IF</code> / <code>OP_NOTIF</code> condition is not a script constant, or when it is the arm <code>CastToBool</code> selects. <code>CastToBool</code> is Core's rule: empty and negative zero are false; any other byte is true. The arm a constant condition does not take is dead. A push that no live path executes is unreferenced. That is <code>OP_FALSE OP_IF &lt;data&gt; OP_ENDIF</code>, including <code>&lt;data&gt; OP_DROP</code> inside the dead arm.</p>
+<p>On a live path, a push is referenced if an opcode on that path reads it. The read is <code>stack_items_read</code>, then the Appendix A tail when the count is a script constant:</p>
+<ul>
+<li><code>OP_CHECKMULTISIG</code> / <code>OP_CHECKMULTISIGVERIFY</code> in <code>WITNESS_V0</code> pop <code>3 + nKeys + nSigs</code> items: <code>nKeys</code>, the keys, <code>nSigs</code>, the signatures, and the dummy. Tapscript still fails these opcodes before the walk (Appendix A step 2).</li>
+<li><code>OP_PICK</code> / <code>OP_ROLL</code> require depth 2, pop <code>n</code>, and read the slot <code>n</code> down. <code>OP_ROLL</code> removes that item. Both push it.</li>
+</ul>
+<p>Witness items that are not pushes in this script are external. Popping one does not mark a script push.</p>
+<p>A script push still on the stack at the end of a live path, and not read, is unreferenced. Exception: the only stack item left has a payload of at most 4 bytes and <code>CastToBool</code> is true (the <code>CScriptNum</code> input limit in <code>interpreter.cpp</code>). That covers a witness script whose success value is <code>OP_1</code> or another small number. A 400-byte push left as the whole script is unreferenced. Core accepted that spend on regtest.</p>
+<p><code>OP_PUSH</code> / <code>OP_DROP</code> on a live path is referenced. Rules 11 and 13 cap it. They do not apply to a dead arm; the dead arm is already invalid.</p>
+<p><code>OP_2 &lt;key&gt; &lt;key&gt; OP_2 OP_CHECKMULTISIG</code> stays valid: every push is read. Consecutive pushes are not exempt as a class. A push is unreferenced when nothing reads it, including a push that sits beside one that is read (<code>&lt;junk&gt; &lt;small&gt; OP_DROP</code> leaves <code>&lt;junk&gt;</code>).</p>
+<p>If a live path exceeds 64 states, or a <code>CHECKMULTISIG</code> count or an <code>OP_PICK</code> / <code>OP_ROLL</code> <code>n</code> on that path is not a script constant, leftovers on that path are not flagged. A push that no live path executes is still unreferenced. Rules 6, 7, 11, and 13 still apply.</p>
+<p><code>stack_items_read(opcode, kind)</code> is defined for every byte <code>0x00</code>–<code>0xFF</code> in <a href="#appendix-a-stack_items_read">Appendix A</a>. Rule 10 uses <code>kind = TAPSCRIPT</code>. Rule 12 uses <code>kind = WITNESS_V0</code>. The value is the opcode's first <code>stack.size()</code> check in <code>EvalScript</code>. The tails for <code>OP_PICK</code>, <code>OP_ROLL</code>, and the two multisig opcodes are in Appendix A. Replacement versus deletion does not matter. <code>OP_DUP</code>, <code>OP_DROP</code>, <code>OP_IF</code>, <code>OP_SIZE</code>, and <code>OP_CHECKLOCKTIMEVERIFY</code> are all <code>&gt;= 1</code>. <code>OP_NOP</code>, <code>OP_DEPTH</code>, <code>OP_FROMALTSTACK</code>, <code>OP_ELSE</code>, <code>OP_CODESEPARATOR</code>, disabled opcodes, <code>OP_RETURN</code>, and unknown bytes are <code>0</code>.</p>
+<p>Tapscript <code>OP_SUCCESS</code> bytes have <code>stack_items_read = 0</code> and are independently invalid under Rule 6. Core returns success on the first such byte, before a later truncated push would be a parse error. Rule 6 uses that same order.</p>
 <h3 id="parameters">Parameters</h3>
 <table>
 <thead>
@@ -254,7 +272,7 @@
 <h3 id="why-bare-multisig-is-closed-at-the-output-template-layer">Why Bare Multisig Is Closed at the Output Template Layer</h3>
 <p>Bare multisig scriptPubKeys encode public keys directly in the output script. The Stamps protocol exploits this by substituting arbitrary data for valid public key bytes. Because the output script is stored permanently in the UTXO set until spent, this creates indefinite node storage burden with no monetary justification. A length cap on scriptPubKeys does not cleanly close this channel because a three-of-three bare multisig output can be constructed within plausible byte limits while still carrying meaningful data payloads in its fake keys. The output template whitelist in Rule 1 closes the channel completely: bare multisig is not a defined template and is invalid at output creation, before any data reaches the UTXO set. Legitimate monetary use cases that historically relied on bare multisig are fully served by P2SH, P2WSH, and P2TR, all of which are on the whitelist.</p>
 <h3 id="why-tapleaf-scripts-are-analyzed-for-unreferenced-push-data">Why Tapleaf Scripts Are Analyzed for Unreferenced Push Data</h3>
-<p>The exclusion of Tapleaf scripts from per-item witness caps in Rule 2 is correct for legitimate contract logic: push constants in a Tapleaf script serve as inputs to opcodes that consume them. The Taproot envelope embedding technique abuses this exemption by placing arbitrary data as push constants that are never consumed: typically <code>OP_FALSE OP_IF &lt;data&gt; OP_ENDIF</code>, where <code>&lt;data&gt;</code> is followed by <code>OP_ENDIF</code> (<code>stack_items_read = 0</code>). These dead pushes are present in the witness at spend time, visible to every node, and stored indefinitely. Rule 10 invalidates a script-body push whose immediate next non-push opcode consumes nothing, or a push that is last. Consecutive pushes are not, by themselves, unreferenced: that pattern is monetary (<code>OP_2 &lt;keys&gt; OP_3 OP_CHECKMULTISIG</code>). Rule 11 caps consume-and-ignore patterns such as <code>OP_PUSH</code> followed by <code>OP_DROP</code> that Rule 10 treats as referenced.</p>
+<p>The exclusion of Tapleaf scripts from per-item witness caps in Rule 2 is correct for legitimate contract logic: push constants in a Tapleaf script serve as inputs to opcodes that consume them. The Taproot envelope embedding technique abuses this exemption by placing arbitrary data as push constants that no live path executes: typically <code>OP_FALSE OP_IF &lt;data&gt; OP_ENDIF</code>. These dead pushes are present in the witness at spend time, visible to every node, and stored indefinitely. Rule 10 invalidates a script-body push that no live path reads. <code>OP_2 &lt;keys&gt; OP_3 OP_CHECKMULTISIG</code> stays valid because every push is read, not because consecutive pushes are a class exemption. Rule 11 caps consume-and-ignore patterns such as <code>OP_PUSH</code> followed by <code>OP_DROP</code> that Rule 10 treats as referenced when they sit on a live path.</p>
 <h3 id="why-p2wsh-witness-scripts-get-the-same-treatment">Why P2WSH Witness Scripts Get the Same Treatment</h3>
 <p>Rules 2, 8, and 9 correctly exclude witness scripts from per-item and aggregate witness-item caps: those scripts are program bodies, not data fields. Segwit v0 witness scripts can still be up to 10,000 bytes. Dead pushes inside a P2WSH script are therefore a remaining dedicated channel if only Tapleaf bodies are analyzed.</p>
 <p>Rules 12 and 13 close that channel. Rule 12 applies the Rule 10 unreferenced-push analysis to the last witness stack item on a P2WSH spend. Rule 13 applies the Rule 11 aggregate push-constant cap via <code>max_witness_script_push_bytes</code>. BIP16 redeemScripts are not given this treatment: P2SH script-path dumps remain a leftover by scope, not a recommended embedding path. RedeemScript pushes remain excepted from the 256-byte item cap in Rule 2. P2SH is not the high-bandwidth inscription channel; P2WSH was. A later BIP could close P2SH without changing this one.</p>
@@ -263,7 +281,7 @@
 <hr>
 <h2 id="backwards-compatibility">Backwards Compatibility</h2>
 <p>Existing coins are never frozen. A pre-activation UTXO can be spent under pre-activation spend rules, including one inscription reveal if that coin already committed an envelope. That spend does not create a new grandfathered inscription UTXO. New outputs created at or after <code>activation_height</code> must match Rule 1 even when funded entirely by pre-activation inputs, and their later spends are fully bound by Rules 2 through 13. Coinbase outputs created at or after activation must also be a defined template or a valid 83-byte OP_RETURN. Coinbase <code>scriptSig</code> is unchanged.</p>
-<p>Some wallet software, including certain Miniscript compilers, habitually creates Tapleaves containing OP_IF and may place required scripts deeper than 7 Taptree levels. Lightning taproot-channel designs that keep OP_IF in a Tapscript HTLC leaf must split those branches. Current P2WSH Lightning funding scripts are unaffected by Rule 7. The mitigations are: split OP_IF branches into separate Tapleaves and keep every required script-path leaf at depth 7 or less. Taproot control blocks are capped at 257 bytes, limiting Taptrees to 128 script leaves, which is sufficient for modern complex transactions but may constrain advanced off-chain contract schemes that rely on very large script trees.</p>
+<p>Some wallet software, including certain Miniscript compilers, habitually creates Tapleaves containing OP_IF and may place required scripts deeper than 7 Taptree levels. Lightning taproot-channel designs that keep OP_IF in a Tapscript HTLC leaf must split those branches. Current P2WSH Lightning funding scripts are unaffected by Rule 7. BOLT 3 <code>to_local</code>, <code>to_remote</code> with CSV, the anchor script, the 2-of-2 funding script, and the offered and received HTLCs pass the live-path walk and the branch-end rule: <code>to_local</code>'s pubkeys sit in front of <code>OP_ELSE</code> and <code>OP_ENDIF</code>, and <code>OP_CHECKSIG</code> consumes the one that branch executes. Regtest Core v28.1 accepted the 2-of-2 close, the offered-HTLC preimage spend, and the delay-1 <code>to_local</code> CSV spend. The mitigations for Taproot Miniscript are: split OP_IF branches into separate Tapleaves and keep every required script-path leaf at depth 7 or less. Taproot control blocks are capped at 257 bytes, limiting Taptrees to 128 script leaves, which is sufficient for modern complex transactions but may constrain advanced off-chain contract schemes that rely on very large script trees.</p>
 <p>Rules 8 and 9 require wallets and transaction construction libraries to track aggregate witness byte consumption per input and per transaction. Rules 12 and 13 require P2WSH constructors to avoid unreferenced pushes and to stay within <code>max_witness_script_push_bytes</code>. The calibration checklist must confirm that no legitimate high-witness-count use case (Lightning channel opens, complex multisig, CoinJoin, large P2WSH) is invalidated at correctly calibrated parameter values.</p>
 <p>Wallets that do not update will produce transactions that enforcing nodes reject at and after <code>activation_height</code>. The minimum one-year signaling window provides time for updates. As with the per-output fee BIPs, updates should be complete before activation.</p>
 <hr>
@@ -355,7 +373,7 @@ def is_valid_transaction(tx, block_height):
 <li>Confirm reorg behavior at <code>activation_height</code>: blocks below the activation height are never subject to any rule in this BIP regardless of reorg depth.</li>
 <li>Confirm that the witness item classification algorithm is reproducible from block data alone without mempool history.</li>
 <li>Confirm implementations match the Appendix A grids bit-for-bit for both <code>WITNESS_V0</code> and <code>TAPSCRIPT</code>.</li>
-<li>Confirm Rule 12 does not invalidate standard P2WSH <code>OP_2 &lt;keys&gt; OP_3 OP_CHECKMULTISIG</code>: consecutive pushes are not unreferenced.</li>
+<li>Confirm Rule 12 accepts standard P2WSH <code>OP_2 &lt;keys&gt; OP_2 OP_CHECKMULTISIG</code> and BOLT 3 <code>to_local</code>, <code>to_remote</code> with CSV, the anchor script, and offered and received HTLCs. <code>to_local</code>'s pubkeys are followed by <code>OP_ELSE</code> and <code>OP_ENDIF</code>; Rule 7's branch-end rule accepts them because <code>OP_CHECKSIG</code> consumes the executed key. Regtest Core v28.1 accepted the 2-of-2 close, the offered-HTLC preimage spend, and the delay-1 <code>to_local</code> CSV spend.</li>
 </ul>
 <h3 id="e-wallet-and-exchange-validation">E. Wallet and Exchange Validation</h3>
 <ul>
@@ -376,7 +394,24 @@ def is_valid_transaction(tx, block_height):
 <h3 id="definition">Definition</h3>
 <p><code>stack_items_read(opcode, kind) -&gt; integer &gt;= 0</code></p>
 <p><code>kind</code> is <code>WITNESS_V0</code> (Rule 12) or <code>TAPSCRIPT</code> (Rule 10).</p>
-<p>The return value is how many main-stack items, counted from the top, the opcode <strong>always</strong> requires before any data-dependent extra pops. It is not the eventual total for <code>OP_PICK</code>, <code>OP_ROLL</code>, or <code>OP_CHECKMULTISIG</code>. Those opcodes always consume the top item first (<code>n</code> or <code>nKeys</code>), so a push immediately before them is referenced whenever the V0 count is <code>&gt;= 1</code>.</p>
+<p>The return value is how many main-stack items, counted from the top, the opcode requires at its first <code>stack.size()</code> check. <code>OP_PICK</code>, <code>OP_ROLL</code>, <code>OP_CHECKMULTISIG</code>, and <code>OP_CHECKMULTISIGVERIFY</code> then follow the tails below. Those tails are part of this appendix.</p>
+<p><code>OP_PICK</code> and <code>OP_ROLL</code> (<code>EvalScript</code>, the <code>stack.size() &lt; 2</code> check, then <code>n</code>):</p>
+<ul>
+<li>If the stack has fewer than 2 items, the opcode fails.</li>
+<li>Pop <code>n</code> as a <code>CScriptNum</code>. If <code>n &lt; 0</code> or <code>n &gt;= stack.size()</code>, the opcode fails.</li>
+<li>Read the item <code>n</code> down from the new top (<code>stacktop(-n-1)</code>). <code>OP_ROLL</code> erases that item. Both opcodes push it.</li>
+</ul>
+<p><code>OP_CHECKMULTISIG</code> and <code>OP_CHECKMULTISIGVERIFY</code> in <code>WITNESS_V0</code>:</p>
+<ul>
+<li>If the stack is empty, the opcode fails. Pop <code>nKeys</code>. If <code>nKeys</code> is outside <code>0..20</code>, the opcode fails.</li>
+<li>Pop <code>nKeys</code> keys. Pop <code>nSigs</code>. If <code>nSigs</code> is outside <code>0..nKeys</code>, the opcode fails.</li>
+<li>Pop <code>nSigs</code> signatures, then one dummy. The dummy is the historical extra argument. Under <code>NULLDUMMY</code> it must be empty; that flag is existing consensus, not a new rule.</li>
+<li>The number of pops is <code>3 + nKeys + nSigs</code>. That is the interpreter's final index <code>i</code>, and the cleanup pops <code>i</code> items.</li>
+<li><code>OP_CHECKMULTISIG</code> pushes the result. <code>OP_CHECKMULTISIGVERIFY</code> pops that result on success and fails on false.</li>
+</ul>
+<p>Tapscript fails both multisig opcodes before any pop (Appendix A step 2). The grid value there is 0.</p>
+<p>When <code>n</code>, <code>nKeys</code>, or <code>nSigs</code> is not a script constant, or the selected <code>OP_PICK</code> / <code>OP_ROLL</code> slot lies under the script stack (a witness item), the path walk does not guess which script push was read.</p>
+<p>Diff against <code>EvalScript</code> at the commit above, every opcode byte. The grids match the assignment steps, including <code>OP_PICK</code> and <code>OP_ROLL</code> at 2. Unexecuted <code>OP_IF</code> / <code>OP_NOTIF</code> pop only when <code>fExec</code> is set; the integer is 1 on purpose. Disabled v0 opcodes return 0 before the switch. <code>OP_CHECKSIGADD</code> is 3 in tapscript and 0 in v0. No opcode's stack behavior is left unmodeled.</p>
 <p>Unexecuted <code>OP_IF</code> / <code>OP_NOTIF</code> do not pop in <code>EvalScript</code>. This analysis is static and does not track <code>vfExec</code>. Both opcodes are <code>1</code> in both kinds. Tapscript still invalidates them under Rule 7.</p>
 <p><code>OP_CHECKLOCKTIMEVERIFY</code> and <code>OP_CHECKSEQUENCEVERIFY</code> inspect the top item and leave it in place. They are <code>1</code>. This BIP assumes the consensus flags that activate those opcodes; it does not model the historical NOP2/NOP3 fallback.</p>
 <h3 id="assignment-apply-in-order">Assignment (apply in order)</h3>
@@ -791,14 +826,14 @@ def is_valid_transaction(tx, block_height):
 <tr>
 <td><code>0x79</code></td>
 <td><code>OP_PICK</code></td>
-<td>1</td>
-<td>Prefix: pops <code>n</code>. Then <code>n+1</code> more. Min depth 2</td>
+<td>2</td>
+<td>First check <code>stack.size() &lt; 2</code>. Then pop <code>n</code> and read the slot <code>n</code> down</td>
 </tr>
 <tr>
 <td><code>0x7a</code></td>
 <td><code>OP_ROLL</code></td>
-<td>1</td>
-<td>Same prefix as <code>OP_PICK</code></td>
+<td>2</td>
+<td>Same as <code>OP_PICK</code>, and the read item is removed</td>
 </tr>
 <tr>
 <td><code>0x7b</code></td>
@@ -1008,13 +1043,13 @@ def is_valid_transaction(tx, block_height):
 <td><code>0xae</code></td>
 <td><code>OP_CHECKMULTISIG</code></td>
 <td>1</td>
-<td>Prefix: <code>nKeys</code>. Tapscript: 0</td>
+<td>First check is one item (<code>nKeys</code>). Tail pops <code>3 + nKeys + nSigs</code>. Tapscript: 0</td>
 </tr>
 <tr>
 <td><code>0xaf</code></td>
 <td><code>OP_CHECKMULTISIGVERIFY</code></td>
 <td>1</td>
-<td>Same. Tapscript: 0</td>
+<td>Same tail. Tapscript: 0</td>
 </tr>
 <tr>
 <td><code>0xb1</code></td>
@@ -1034,7 +1069,7 @@ def is_valid_transaction(tx, block_height):
 <td>0</td>
 <td>Tapscript: 3</td>
 </tr>
-</tbody></table><p>Worked cases: <code>PUSH jpeg / OP_ENDIF</code> and <code>PUSH jpeg / OP_NOP</code> are unreferenced. <code>PUSH jpeg / OP_DROP</code> is referenced (Rule 11/13 cap the dump). <code>OP_2 &lt;k1&gt; &lt;k2&gt; OP_3 OP_CHECKMULTISIG</code> is not unreferenced: consecutive key pushes are not classified as dead, and <code>OP_3</code> is followed by <code>OP_CHECKMULTISIG</code>.</p><h3 id="complete-grids-byte-0xrf-at-row-r-column-f">Complete grids (byte <code>0xRF</code> at row <code>R</code>, column <code>F</code>)</h3><p><strong><code>WITNESS_V0</code> (Rule 12)</strong></p><table>
+</tbody></table><p>Worked cases: <code>OP_FALSE OP_IF &lt;jpeg&gt; OP_ENDIF</code> is unreferenced (dead arm), including <code>&lt;jpeg&gt; OP_DROP</code> inside that arm. <code>&lt;jpeg&gt; OP_DROP</code> on a live path is referenced (Rules 11 and 13). <code>&lt;jpeg&gt; OP_NOP</code> is unreferenced. <code>OP_2 &lt;k1&gt; &lt;k2&gt; OP_2 OP_CHECKMULTISIG</code> is referenced: the walk pops both keys, both signatures, and the dummy (<code>3 + 2 + 2 = 7</code>). BOLT 3 <code>to_local</code> is referenced: each branch's pubkey is followed by <code>OP_ELSE</code> or <code>OP_ENDIF</code>, and <code>OP_CHECKSIG</code> consumes that pubkey. A pubkey before <code>OP_ELSE</code> with no signature check is unreferenced.</p><h3 id="complete-grids-byte-0xrf-at-row-r-column-f">Complete grids (byte <code>0xRF</code> at row <code>R</code>, column <code>F</code>)</h3><p><strong><code>WITNESS_V0</code> (Rule 12)</strong></p><table>
 <thead>
 <tr>
 <th></th>
@@ -1200,8 +1235,8 @@ def is_valid_transaction(tx, block_height):
 <td>1</td>
 <td>2</td>
 <td>2</td>
-<td>1</td>
-<td>1</td>
+<td>2</td>
+<td>2</td>
 <td>3</td>
 <td>2</td>
 <td>2</td>
@@ -1526,8 +1561,8 @@ def is_valid_transaction(tx, block_height):
 <td>1</td>
 <td>2</td>
 <td>2</td>
-<td>1</td>
-<td>1</td>
+<td>2</td>
+<td>2</td>
 <td>3</td>
 <td>2</td>
 <td>2</td>
