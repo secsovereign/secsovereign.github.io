@@ -52,14 +52,7 @@
         <p class="article-origin">Bitcoin Improvement Pre-Proposal: not yet a numbered BIP.</p>
     </header>
         <article class="article-body"><h1>Static Per-Output Miner Fee</h1>
-<h2 id="change-log">Change log</h2>
-<ul>
-<li>2026-10-27 — Validation: state that <code>n_outputs = 0</code> is only the arithmetic identity. Bitcoin Core <code>CheckTransaction</code> already rejects the transaction (<code>bad-txns-vout-empty</code>, confirmed on regtest, Core v28.1). Replaces the sentence that a zero-output transaction "meets the floor automatically" as if that were a usable exemption.</li>
-<li>2026-10-27 — Backwards Compatibility: a child transaction cannot fill a parent shortfall. BOLT 3 <code>zero_fee_commitments</code> and any anchor CPFP parent must carry <code>static_fee × n_outputs</code> on the parent itself. Extends the existing per-transaction floor; the formula is unchanged. Regtest accepted a 0-fee 3-output parent and a 20-sat 2-output parent under current consensus; the floor rejects both.</li>
-<li>2026-10-27 — Parameters: add the 100-output row (1,600 and 2,000 sats) and the regtest vsize of one 100-input 100-output P2WPKH transaction. The rate is <code>floor / vsize</code> for that construction. It does not change <code>static_fee</code>.</li>
-</ul>
 <nav class="bip-toc" aria-label="Contents"><h2 id="contents">Contents</h2><ul>
-<li><a href="#change-log">Change log</a></li>
 <li><a href="#abstract">Abstract</a></li>
 <li><a href="#motivation">Motivation</a></li>
 <li><a href="#specification">Specification</a></li>
@@ -68,6 +61,7 @@
 <li><a href="#reference-implementation">Reference Implementation</a></li>
 <li><a href="#calibration-checklist">Calibration Checklist</a></li>
 <li><a href="#security-considerations">Security Considerations</a></li>
+<li><a href="#revision-history">Revision history</a></li>
 <li><a href="#references">References</a></li>
 <li><a href="#copyright">Copyright</a></li>
 </ul></nav>
@@ -251,8 +245,41 @@ tx_fee &gt;= active_fee × n_outputs
 <figcaption>Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.</figcaption>
 </figure>
 
-<p><em>Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.</em></p>
-<p>A regtest harness (Bitcoin Core v28.1.0, <code>decoderawtransaction</code>) measured one construction: 100 P2WPKH inputs and 100 P2WPKH outputs, signed with low-R ECDSA grinding. Two runs both reported <strong>vsize 9,886</strong>. Weight was 39,541 on the first run and 39,542 on the second; low-R DER length moved one witness byte, which did not cross a vbyte boundary (<code>ceil(weight / 4)</code> stayed 9,886). The provisional floor on that vsize is 1,600/9,886 sat/vB at 16 sats, or 2,000/9,886 sat/vB at 20 sats (about 0.162 and 0.202 sat/vB). A weight fee of 1 sat/vB on the same vsize is 9,886 sats, which already clears both floors. The floor rejects this shape only when <code>tx_fee</code> itself is below the product. Core accepted fees of 1,599, 1,600, and 2,000 sats; the floor accepts 1,600 only at the 16-sat endpoint and accepts 2,000 at both. This vsize is those measured transactions, not a chain statistic and not a new consensus constant.</p>
+<p>One regtest measurement, Bitcoin Core v28.1, is not a consensus constant. A 100-input, 100-output P2WPKH transaction, signed with low-R ECDSA, had vsize 9,886 on two runs. Weight was 39,541, then 39,542; one witness byte did not change <code>ceil(weight / 4)</code>. Core accepted fees of 1,599, 1,600, and 2,000 sats. The 9,886 row is that vsize times 1 sat/vB. It was not a separate Core run.</p>
+<table>
+<thead>
+<tr>
+<th>Fee (sats)</th>
+<th>What it is</th>
+<th>Floor at 16</th>
+<th>Floor at 20</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1,599</td>
+<td>Below both products</td>
+<td>Reject</td>
+<td>Reject</td>
+</tr>
+<tr>
+<td>1,600</td>
+<td><code>16 × 100</code></td>
+<td>Accept</td>
+<td>Reject</td>
+</tr>
+<tr>
+<td>2,000</td>
+<td><code>20 × 100</code></td>
+<td>Accept</td>
+<td>Accept</td>
+</tr>
+<tr>
+<td>9,886</td>
+<td>1 sat/vB on this vsize</td>
+<td>Accept</td>
+<td>Accept</td>
+</tr>
+</tbody></table>
 <h3 id="activation">Activation</h3>
 <p>This BIP is meant to deploy via a soft fork using BIP-8 or BIP-9 style signaling, with a minimum activation window of one year and no mandatory lock-in fallback. Miners who do not signal are not penalized. If signaling does not reach the threshold within the window, the proposal does not activate and the process restarts with revised parameters or renewed community discussion.</p>
 <p>BIP-8/9 without lock-in-on-timeout is miner signaling. Node operators absorbing non-monetary burden are a political constituency for this rule; they are not the signaling threshold. If miners do not signal, this BIP does not activate under the specified mechanism. User-activated soft fork deployment is a separate choice and is not specified here.</p>
@@ -262,7 +289,7 @@ tx_fee &gt;= active_fee × n_outputs
 <p>The per-output amount must be part of <code>tx_fee</code>. Minting it on top of subsidy-plus-fees would raise <code>coinbase_value</code> above what pre-activation nodes allow, which is a hard fork. A floor on <code>tx_fee</code> is a soft fork: old nodes accept the transaction; new nodes reject a miss. Miners still receive the sats. The amount is still permanent and not recoverable by the sender.</p>
 <h3 id="why-a-permanent-fee-rather-than-a-capital-lockup">Why a Permanent Fee Rather Than a Capital Lockup</h3>
 <p>A minimum output value floor forces attackers to lock capital in each output. That capital returns when the output is spent, so the floor is a revolving cost. The per-output miner fee removes that path: those sats go to miners and do not return. Every spam run is permanently more expensive.</p>
-<h3 id="why-this-differs-from-prior-minimum-fee-proposals">Why this differs from prior minimum fee proposals</h3>
+<h3 id="why-this-differs-from-prior-minimum-fee-proposals">Why This Differs from Prior Minimum Fee Proposals</h3>
 <p>Prior minimum fee proposals were either relay policy, which miners can bypass, or minimum output value floors, which return locked capital when outputs are spent. This proposal is neither. The per-transaction consensus validity rule means a non-compliant transaction cannot appear in any valid block, regardless of miner preference or side arrangements. The fee is paid at confirmation and is not recoverable by the sender.</p>
 <h3 id="why-a-single-global-rate-with-no-script-type-differentiation">Why a Single Global Rate With No Script-Type Differentiation</h3>
 <p>A single constant per output is the simplest rule. Script-type differentiation would force the fee to track script classification across every output form, create edge cases at upgrade boundaries, and make the rule harder to specify cleanly. The externalized cost this fee prices is per UTXO slot, not per script type, so a uniform fee matches the cost model.</p>
@@ -283,7 +310,36 @@ tx_fee &gt;= active_fee × n_outputs
 <h2 id="backwards-compatibility">Backwards Compatibility</h2>
 <p>Existing UTXOs remain valid and spendable. Old nodes will see new blocks as valid under the soft fork. From the user's point of view there is one fee: wallets add the weight-based transaction fee and the per-output component internally and show a single total. Wallets that do not update will underestimate fees and produce transactions that enforcing nodes reject at and after the activation height. The one-year minimum signaling window gives the wallet ecosystem time to update. Updates should be complete before activation: unlike soft forks that affect only unusual transaction types, the per-output fee affects fee estimation for nearly every transaction that creates outputs. A wallet that is not updated by activation will start producing invalid transactions the moment the rule applies, with no warning to the user.</p>
 <p>Lightning channel opens, CoinJoin transactions, and exchange batch payouts will pay the per-output fee for each output created. Calibration must confirm the fee is negligible relative to typical output values across historical fee regimes. Exchanges should be engaged before signaling begins.</p>
-<p>The floor is per transaction. A child that spends a P2A or anchor output does not count toward the parent's <code>tx_fee</code>. Regtest Core v28.1 accepted a parent with <code>tx_fee = 20</code> and 2 outputs, and a second parent with <code>tx_fee = 0</code> and 3 outputs (one of them P2A, script <code>51024e73</code>), plus a high-fee child of the first parent. The floor rejects both parents at 16 and at 20 sats. BOLT 3 <code>zero_fee_commitments</code> and <code>option_anchors</code> CPFP, as specified today, put the mining fee on the child. After activation those commitment transactions are valid only if the commitment's own <code>tx_fee</code> is at least <code>static_fee × n_outputs</code>. The child still pays any extra weight fee. Wallets that leave the commitment at fee 0 will produce transactions enforcing nodes reject.</p>
+<p>The floor is per transaction. A child that spends a P2A or anchor output does not count toward the parent's <code>tx_fee</code>. Regtest Core v28.1 accepted both parents below, and a high-fee child of the first. The floor rejects both parents. The child is not a row: its fee is not added.</p>
+<table>
+<thead>
+<tr>
+<th>Parent</th>
+<th>Own <code>tx_fee</code></th>
+<th>Outputs</th>
+<th>Required at 16</th>
+<th>Required at 20</th>
+<th>Floor</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Two outputs</td>
+<td>20</td>
+<td>2</td>
+<td>32</td>
+<td>40</td>
+<td>Reject</td>
+</tr>
+<tr>
+<td>Three outputs, one P2A <code>51024e73</code></td>
+<td>0</td>
+<td>3</td>
+<td>48</td>
+<td>60</td>
+<td>Reject</td>
+</tr>
+</tbody></table>
+<p>BOLT 3 <code>zero_fee_commitments</code> and <code>option_anchors</code> CPFP, as specified today, put the mining fee on the child. After activation those commitment transactions are valid only if the commitment's own <code>tx_fee</code> is at least <code>static_fee × n_outputs</code>. The child still pays any extra weight fee. Wallets that leave the commitment at fee 0 will produce transactions enforcing nodes reject.</p>
 <hr>
 <h2 id="reference-implementation">Reference Implementation</h2>
 <p>High-level pseudocode:</p>
@@ -366,6 +422,13 @@ def is_valid_block(block):
 <p>A vertically integrated spammer-miner faces the same hashrate-share cap on self-inclusion and pays full fees when submitting publicly.</p>
 <p>These are known residual vectors. The <a href="/bips/dynamic-escalation-per-output-fee">dynamic escalation BIP</a> and <a href="/bips/permanent-data-channel-closure">Permanent Data Channel Closure</a> address surfaces this proposal does not close. The three pre-proposals are complementary, not redundant.</p>
 <p><strong>Static fee decay over time.</strong> A fixed satoshi amount becomes economically trivial as BTC price and fee levels rise over decades. That is the known limit of the static-only design and the reason for the companion <a href="/bips/dynamic-escalation-per-output-fee">dynamic escalation BIP</a>. The static fee is not meant as a permanent final answer; it is the first layer the dynamic BIP builds on.</p>
+<hr>
+<h2 id="revision-history">Revision history</h2>
+<ul>
+<li>2026-10-27. An empty output list meets <code>static_fee × 0</code> and is still invalid. Bitcoin Core <code>CheckTransaction</code> rejects it (<code>bad-txns-vout-empty</code>).</li>
+<li>2026-10-27. A child cannot fill a parent shortfall. The parent's own <code>tx_fee</code> must be at least <code>static_fee × n_outputs</code>.</li>
+<li>2026-10-27. The 100-output row is 1,600 sats at 16 and 2,000 sats at 20. The vsize note under Parameters is a measurement of one transaction shape, not a new constant.</li>
+</ul>
 <hr>
 <h2 id="references">References</h2>
 <ul>

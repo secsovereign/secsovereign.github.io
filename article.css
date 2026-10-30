@@ -876,6 +876,10 @@ body {
     white-space: nowrap;
 }
 
+.article-chart table.chart-matrix.chart-wrap td:first-child {
+    white-space: normal;
+}
+
 .article-chart table.chart-matrix tr.close-yes td:last-child {
     color: #5dca8a;
 }

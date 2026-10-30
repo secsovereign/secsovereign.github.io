@@ -1,13 +1,7 @@
 # Dynamic Escalation of the Per-Output Miner Fee
 
-## Change log
-
-- 2026-10-27 — Step 3 else-branch, and the same branch in the reference pseudocode. The published line `candidate_dynamic = dynamic_fee_previous` freezes the dynamic fee whenever persistence fails. A thick sample that falls below `persistence_threshold` never lowers it, which contradicts the rate-cap section ("decreases are uncapped") and the security claim that the fee falls once pressure stops. Harness case, fixtures not consensus constants: `static_fee = 20`, `k = 4`, `alpha_n = 1000`, `persistence_threshold = 5000` milli-sat/vB, `dynamic_fee_previous = 80`, then two windows of 1,000 rates at 1,000 milli-sat/vB. The old branch stays at 80. The replacement candidate is `min(dynamic_fee_previous, k × p25_ema / 1000)`, which is 4, and `active_fee` returns to `static_fee`. A raise still needs two consecutive windows above the threshold. The rate cap is unchanged. A sample shorter than `min_tx_count` still holds.
-- 2026-10-27 — Rationale for `k`: state the four products at the reference p25 band. No change to the provisional `k` range. At `k = 2` and 5 sat/vB the scaled value is 10 sats, which is below both provisional static endpoints, so `active_fee` stays on `static_fee`.
-
 ## Contents
 
-- [Change log](#change-log)
 - [Abstract](#abstract)
 - [Motivation](#motivation)
 - [Specification](#specification)
@@ -16,6 +10,7 @@
 - [Reference Implementation](#reference-implementation)
 - [Calibration Checklist](#calibration-checklist)
 - [Security Considerations](#security-considerations)
+- [Revision history](#revision-history)
 - [References](#references)
 - [Copyright](#copyright)
 
@@ -27,7 +22,7 @@ This BIP adds a dynamic escalation layer on top of the static per-output miner f
 
 The problem is long-run decay. A static satoshi amount fixed under today's conditions becomes trivial as Bitcoin's price and fee levels rise over decades. Without automatic adjustment, the static fee stops working as a real disincentive, and the only fix is another soft fork to raise the constant. Repeated soft forks to update a fixed number create a permanent dependency on governance processes that can be captured, delayed, or blocked.
 
-This BIP specifies a dynamic fee component derived from the 25th percentile fee rate sampled over 288-block windows, smoothed by an exponential moving average, confirmed by multi-window persistence, and bounded by an upward-only rate-of-change cap. The active per-output fee is the maximum of the static fee and the dynamic fee. In normal and high fee conditions the dynamic fee sits above the static fee and tracks economic conditions. In prolonged low-fee regimes the static fee governs and the dynamic component contributes nothing.
+This BIP specifies a dynamic fee component derived from the 25th percentile fee rate sampled over 288-block windows, smoothed by an exponential moving average, confirmed by multi-window persistence, and bounded by an upward-only rate-of-change cap. The active per-output fee is the maximum of the static fee and the dynamic fee. When the scaled EMA is above `static_fee`, the dynamic fee governs, subject to the rate cap. When it is not, including the low corner of the provisional `k` range, `active_fee` stays on `static_fee`.
 
 This BIP is an optional long-term upgrade to the static fee. The static fee BIP works fully without it. Dedicated embedding channels are closed by [Permanent Data Channel Closure](/bips/permanent-data-channel-closure), which does not depend on this BIP.
 
@@ -139,21 +134,13 @@ Persistence requires two consecutive windows above threshold, so the first compu
 
 The dynamic fee is computed at each 288-block boundary and cached for the following period. Computation happens only at boundaries, never per block.
 
-<figure class="article-chart chart-flowchart" role="img" aria-label="Dynamic fee pipeline from sample through floor">
-<div class="flowchart-ladder" aria-hidden="true">
-  <span class="flow-node">p25 sample</span>
-  <span class="flow-arrow" aria-hidden="true">→</span>
-  <span class="flow-node">EMA</span>
-  <span class="flow-arrow" aria-hidden="true">→</span>
-  <span class="flow-node">Persistence</span>
-  <span class="flow-arrow" aria-hidden="true">→</span>
-  <span class="flow-node">Rate cap ↑</span>
-  <span class="flow-arrow" aria-hidden="true">→</span>
-  <span class="flow-node">max(static, dyn)</span>
-</div>
-</figure>
+| Condition | Result |
+|---|---|
+| Fewer than `min_tx_count` fee-paying transactions | Hold the previous EMA and dynamic fee. Step 3 does not run |
+| Both the current and previous EMA are above `persistence_threshold` | `candidate_dynamic = raw`, then the rate cap of at most one quarter |
+| Otherwise, and the sample is thick | `candidate_dynamic = min(dynamic_fee_previous, raw)`. This cannot raise the fee. It can lower it |
 
-*Figure: Five-step pipeline. Each layer exists to track multi-decade drift without reacting to short-term fee noise or cheap manipulation.*
+Then `active_fee = max(static_fee, dynamic_fee_new)`. The active fee cannot go below the static fee.
 
 #### Step 1: Sample the fee rate
 
@@ -193,7 +180,7 @@ else:
     candidate_dynamic = min(dynamic_fee_previous, raw)
 ```
 
-`persistence_threshold` is in milli-sat/vB, the same units as `p25_ema`. `k` is an integer vbyte scale that converts that EMA into a per-output satoshi fee. Truncation toward zero. `k` is **not** the serialized size of an output. It is a calibrated scale so that at a reference p25 (about 5 to 10 sat/vB) the dynamic component is the same order of magnitude as `static_fee`. A single `k`, rather than per-script-type values, matches the static fee's uniform-per-output design. A single elevated 288-block window (~2 days) does not move the dynamic fee up. An attacker must sustain elevated fee conditions across at least two consecutive windows (~4 days) to produce any upward movement. The else-branch does not raise either: `raw` may be large, and `min` keeps the previous dynamic fee. It does allow a fall. A thick sample whose EMA is below the threshold produces a small `raw`, and the dynamic fee drops to that value instead of sticking at the old one. `active_fee` still cannot go below `static_fee`.
+`persistence_threshold` is in milli-sat/vB, the same units as `p25_ema`. Truncation is toward zero. `k` is an integer scale, not the serialized size of an output. One elevated window cannot raise the dynamic fee. The else-branch cannot raise it either: `min` keeps the previous value when `raw` is larger. A thick sample below the threshold can lower it. `active_fee` still cannot go below `static_fee`. A sample shorter than `min_tx_count` holds the previous EMA and dynamic fee and does not take this branch.
 
 #### Step 4: Apply the rate-of-change cap
 
@@ -297,7 +284,16 @@ Even with EMA smoothing and persistence, a sustained campaign could ratchet the 
 
 ### Why k Is a Scale, Not Output Size
 
-The p25 EMA is in milli-sat/vB. Multiplying by an integer `k` and dividing by 1000 produces sats per output. Dimensionally `k` has units of vbytes, but it is **not** set to the serialized size of a P2WPKH or P2TR output (31–43 vB). Using literal output vsize would make `dynamic_fee` track weight fees one-for-one and would overprice Lightning and CoinJoin during congestion. Calibration sets `k` so that at a reference p25 of about 5 to 10 sat/vB, `dynamic_fee` is the same order as `static_fee` (provisional `k` in 2–4). The products at the corners of that rectangle, before the rate cap and before `max(static_fee, ·)`, are 10 sats (`k = 2`, 5 sat/vB), 20 sats (`k = 4`, 5 sat/vB or `k = 2`, 10 sat/vB), and 40 sats (`k = 4`, 10 sat/vB). Ten sats is below both provisional static endpoints (16 and 20), so `active_fee` stays on `static_fee` there. Forty sats is above them, and step 4 then limits the first upward step. A single `k` matches the static fee's uniform-per-output model: the externalized cost being priced is per UTXO slot, not per script type.
+The p25 EMA is in milli-sat/vB. Multiplying by an integer `k` and dividing by 1000 produces sats per output. Dimensionally `k` has units of vbytes, but it is **not** set to the serialized size of a P2WPKH or P2TR output (31–43 vB). Using literal output vsize would make `dynamic_fee` track weight fees one-for-one and would overprice Lightning and CoinJoin during congestion. Calibration sets `k` so that at a reference p25 of about 5 to 10 sat/vB, `dynamic_fee` is the same order as `static_fee` (provisional `k` in 2–4). The products at the corners of that rectangle, before the rate cap and before `max(static_fee, ·)`, are:
+
+| `k` | p25 | Scaled sats per output | Against static 16 and 20 |
+|---|---|---|---|
+| 2 | 5 sat/vB | 10 | Below both. The static fee governs |
+| 4 | 5 sat/vB | 20 | Equals the high endpoint |
+| 2 | 10 sat/vB | 20 | Equals the high endpoint |
+| 4 | 10 sat/vB | 40 | Above both. Step 4 caps the first rise |
+
+A single `k` matches the static fee's uniform-per-output model: the externalized cost being priced is per UTXO slot, not per script type.
 
 ### Interaction with Permanent Data Channel Closure
 
@@ -400,7 +396,7 @@ This checklist is separate from and follows the static fee BIP's calibration. Th
 - For each combination report: number of periods where dynamic fee exceeds static fee; maximum dynamic fee reached; EMA lag to a sustained 10x fee increase; periods required to ratchet 2x under simulated sustained fee pressure.
 - Recommend a default parameter tuple only after sensitivity tables exist. Prefer slow `alpha_n` unless tables show a real benefit from faster response.
 - Calibrate `persistence_threshold` above the noise floor of quiet periods and below the movement threshold for genuine sustained congestion.
-- Confirm the dynamic fee sits visibly above the static fee during normal and high fee conditions at the recommended parameters.
+- At the recommended parameters, report the periods where the scaled EMA is above `static_fee` and the periods where it is not. The low corner of the provisional range (`k = 2`, 5 sat/vB) is 10 sats, below both static endpoints, so `active_fee` stays on `static_fee` there. Do not treat "always above static" as a passing condition.
 
 ### B. Anti-Manipulation Stress Test
 
@@ -438,13 +434,20 @@ This checklist is separate from and follows the static fee BIP's calibration. Th
 
 **Static fee as irreducible floor.** The dynamic fee can never push the active fee below the static fee. The static fee BIP's security properties are fully preserved regardless of what the dynamic layer does.
 
-**Low-activity window.** If the 288-block sample contains fewer than `min_tx_count` fee-paying transactions, EMA and `dynamic_fee` are held, not zeroed. Zeroing would re-introduce a from-zero rate-cap trap. The static fee still floors `active_fee`. A sample that meets `min_tx_count` but sits below `persistence_threshold` is not this case. Step 3 lowers `dynamic_fee` to the scaled EMA. Holding it there was the freeze the change log removes.
+**Low-activity window.** If the 288-block sample contains fewer than `min_tx_count` fee-paying transactions, EMA and `dynamic_fee` are held, not zeroed. Zeroing would re-introduce a from-zero rate-cap trap. The static fee still floors `active_fee`. A sample that meets `min_tx_count` but sits below `persistence_threshold` is not this case. Step 3 lowers `dynamic_fee` to `min(dynamic_fee_previous, raw)`. Holding the old value would freeze an elevated fee after the pressure stops.
 
 **Period boundary floor.** The grace window keeps the required per-transaction floor unambiguous at every period boundary. The previous period's `active_fee` governs during the grace window; the new rate governs after. Coinbase value is not part of this BIP.
 
 **Rate cap from zero.** `cap_base = max(dynamic_fee_previous, static_fee)` so a zero previous dynamic fee cannot pin `max_increase` at 0.
 
 **Reorg safety.** On a reorg crossing a 288-block period boundary, the EMA state must revert to the correct state for the reorganized chain tip. Implementations must cache EMA state snapshots at every period boundary. The consensus rule is: retain snapshots for the most recent 2,016 blocks (one difficulty adjustment period, about two weeks) of period boundaries. That bounds the cache to at most seven snapshots at any time and covers any reorg that Bitcoin's proof-of-work economics makes plausible, without relying on heuristic depth estimates. A reorg deeper than 2,016 blocks is treated as a chain split requiring operator intervention, consistent with existing Bitcoin consensus assumptions. Implementations that do not retain the required snapshots cannot correctly validate blocks after a deep reorg and must re-sync from a known-good checkpoint.
+
+---
+
+## Revision history
+
+- 2026-10-27. If persistence fails, `candidate_dynamic` is `min(dynamic_fee_previous, raw)`. A thick sample below the threshold can lower the dynamic fee. A raise still needs two consecutive windows. A sample shorter than `min_tx_count` still holds. Worked fixture, not a consensus constant: `static_fee = 20`, `k = 4`, threshold 5,000 milli-sat/vB, previous dynamic fee 80, then two windows of rates at 1,000 milli-sat/vB. The candidate falls to 4, and `active_fee` returns to the static fee.
+- 2026-10-27. At `k = 2` and 5 sat/vB the scaled value is 10 sats, below both provisional static endpoints, so `active_fee` stays on `static_fee`.
 
 ---
 

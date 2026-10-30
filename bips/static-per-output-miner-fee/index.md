@@ -1,14 +1,7 @@
 # Static Per-Output Miner Fee
 
-## Change log
-
-- 2026-10-27 — Validation: state that `n_outputs = 0` is only the arithmetic identity. Bitcoin Core `CheckTransaction` already rejects the transaction (`bad-txns-vout-empty`, confirmed on regtest, Core v28.1). Replaces the sentence that a zero-output transaction "meets the floor automatically" as if that were a usable exemption.
-- 2026-10-27 — Backwards Compatibility: a child transaction cannot fill a parent shortfall. BOLT 3 `zero_fee_commitments` and any anchor CPFP parent must carry `static_fee × n_outputs` on the parent itself. Extends the existing per-transaction floor; the formula is unchanged. Regtest accepted a 0-fee 3-output parent and a 20-sat 2-output parent under current consensus; the floor rejects both.
-- 2026-10-27 — Parameters: add the 100-output row (1,600 and 2,000 sats) and the regtest vsize of one 100-input 100-output P2WPKH transaction. The rate is `floor / vsize` for that construction. It does not change `static_fee`.
-
 ## Contents
 
-- [Change log](#change-log)
 - [Abstract](#abstract)
 - [Motivation](#motivation)
 - [Specification](#specification)
@@ -17,6 +10,7 @@
 - [Reference Implementation](#reference-implementation)
 - [Calibration Checklist](#calibration-checklist)
 - [Security Considerations](#security-considerations)
+- [Revision history](#revision-history)
 - [References](#references)
 - [Copyright](#copyright)
 
@@ -223,10 +217,6 @@ Both are deterministic from the soft fork activation parameters and need no ongo
 
 ### Parameters
 
-
-
-
-
 <figure class="article-chart">
 <table class="chart-matrix">
 <thead>
@@ -255,9 +245,14 @@ At the provisional band, count-vector cost scales linearly:
 <figcaption>Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.</figcaption>
 </figure>
 
-*Permanent, non-recoverable cost per spam run. Calibration must confirm deterrence at realistic attacker budgets and negligibility for legitimate high-output use.*
+One regtest measurement, Bitcoin Core v28.1, is not a consensus constant. A 100-input, 100-output P2WPKH transaction, signed with low-R ECDSA, had vsize 9,886 on two runs. Weight was 39,541, then 39,542; one witness byte did not change `ceil(weight / 4)`. Core accepted fees of 1,599, 1,600, and 2,000 sats. The 9,886 row is that vsize times 1 sat/vB. It was not a separate Core run.
 
-A regtest harness (Bitcoin Core v28.1.0, `decoderawtransaction`) measured one construction: 100 P2WPKH inputs and 100 P2WPKH outputs, signed with low-R ECDSA grinding. Two runs both reported **vsize 9,886**. Weight was 39,541 on the first run and 39,542 on the second; low-R DER length moved one witness byte, which did not cross a vbyte boundary (`ceil(weight / 4)` stayed 9,886). The provisional floor on that vsize is 1,600/9,886 sat/vB at 16 sats, or 2,000/9,886 sat/vB at 20 sats (about 0.162 and 0.202 sat/vB). A weight fee of 1 sat/vB on the same vsize is 9,886 sats, which already clears both floors. The floor rejects this shape only when `tx_fee` itself is below the product. Core accepted fees of 1,599, 1,600, and 2,000 sats; the floor accepts 1,600 only at the 16-sat endpoint and accepts 2,000 at both. This vsize is those measured transactions, not a chain statistic and not a new consensus constant.
+| Fee (sats) | What it is | Floor at 16 | Floor at 20 |
+|---|---|---|---|
+| 1,599 | Below both products | Reject | Reject |
+| 1,600 | `16 × 100` | Accept | Reject |
+| 2,000 | `20 × 100` | Accept | Accept |
+| 9,886 | 1 sat/vB on this vsize | Accept | Accept |
 
 ### Activation
 
@@ -277,7 +272,7 @@ The per-output amount must be part of `tx_fee`. Minting it on top of subsidy-plu
 
 A minimum output value floor forces attackers to lock capital in each output. That capital returns when the output is spent, so the floor is a revolving cost. The per-output miner fee removes that path: those sats go to miners and do not return. Every spam run is permanently more expensive.
 
-### Why this differs from prior minimum fee proposals
+### Why This Differs from Prior Minimum Fee Proposals
 
 Prior minimum fee proposals were either relay policy, which miners can bypass, or minimum output value floors, which return locked capital when outputs are spent. This proposal is neither. The per-transaction consensus validity rule means a non-compliant transaction cannot appear in any valid block, regardless of miner preference or side arrangements. The fee is paid at confirmation and is not recoverable by the sender.
 
@@ -319,7 +314,14 @@ Existing UTXOs remain valid and spendable. Old nodes will see new blocks as vali
 
 Lightning channel opens, CoinJoin transactions, and exchange batch payouts will pay the per-output fee for each output created. Calibration must confirm the fee is negligible relative to typical output values across historical fee regimes. Exchanges should be engaged before signaling begins.
 
-The floor is per transaction. A child that spends a P2A or anchor output does not count toward the parent's `tx_fee`. Regtest Core v28.1 accepted a parent with `tx_fee = 20` and 2 outputs, and a second parent with `tx_fee = 0` and 3 outputs (one of them P2A, script `51024e73`), plus a high-fee child of the first parent. The floor rejects both parents at 16 and at 20 sats. BOLT 3 `zero_fee_commitments` and `option_anchors` CPFP, as specified today, put the mining fee on the child. After activation those commitment transactions are valid only if the commitment's own `tx_fee` is at least `static_fee × n_outputs`. The child still pays any extra weight fee. Wallets that leave the commitment at fee 0 will produce transactions enforcing nodes reject.
+The floor is per transaction. A child that spends a P2A or anchor output does not count toward the parent's `tx_fee`. Regtest Core v28.1 accepted both parents below, and a high-fee child of the first. The floor rejects both parents. The child is not a row: its fee is not added.
+
+| Parent | Own `tx_fee` | Outputs | Required at 16 | Required at 20 | Floor |
+|---|---|---|---|---|---|
+| Two outputs | 20 | 2 | 32 | 40 | Reject |
+| Three outputs, one P2A `51024e73` | 0 | 3 | 48 | 60 | Reject |
+
+BOLT 3 `zero_fee_commitments` and `option_anchors` CPFP, as specified today, put the mining fee on the child. After activation those commitment transactions are valid only if the commitment's own `tx_fee` is at least `static_fee × n_outputs`. The child still pays any extra weight fee. Wallets that leave the commitment at fee 0 will produce transactions enforcing nodes reject.
 
 ---
 
@@ -423,6 +425,14 @@ A vertically integrated spammer-miner faces the same hashrate-share cap on self-
 These are known residual vectors. The [dynamic escalation BIP](/bips/dynamic-escalation-per-output-fee) and [Permanent Data Channel Closure](/bips/permanent-data-channel-closure) address surfaces this proposal does not close. The three pre-proposals are complementary, not redundant.
 
 **Static fee decay over time.** A fixed satoshi amount becomes economically trivial as BTC price and fee levels rise over decades. That is the known limit of the static-only design and the reason for the companion [dynamic escalation BIP](/bips/dynamic-escalation-per-output-fee). The static fee is not meant as a permanent final answer; it is the first layer the dynamic BIP builds on.
+
+---
+
+## Revision history
+
+- 2026-10-27. An empty output list meets `static_fee × 0` and is still invalid. Bitcoin Core `CheckTransaction` rejects it (`bad-txns-vout-empty`).
+- 2026-10-27. A child cannot fill a parent shortfall. The parent's own `tx_fee` must be at least `static_fee × n_outputs`.
+- 2026-10-27. The 100-output row is 1,600 sats at 16 and 2,000 sats at 20. The vsize note under Parameters is a measurement of one transaction shape, not a new constant.
 
 ---
 
