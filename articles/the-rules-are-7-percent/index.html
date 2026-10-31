@@ -77,68 +77,60 @@
 </ul>
 <hr>
 <h2 id="i-what-was-counted">I. What was counted</h2>
-<p>Tokei parsed <strong>2,698</strong> files and <strong>719,989</strong> code lines. Every one of those files is in exactly one bucket below. Git tracks 3,020 files. The 322 tokei skipped are 215 text files (31,095 physical lines, mostly Qt forms, CI glue, and licenses) and 107 binary files (4.82 MB). They are not in the code totals.</p>
-<p>The headline is the implementation, not the 719,989. Qt locale files are 286,741 of those lines and are translations, counted by tokei as TypeScript. Vendored libraries are another 112,703. First-party code, implementation plus tests plus contrib, build, and docs, is <strong>320,545</strong>.</p>
+<p>Tokei parsed <strong>2,698</strong> files and <strong>719,989</strong> code lines. Qt locale files are 103 of those files and <strong>286,741</strong> of those lines. Tokei counts them as TypeScript. They are translations, and the charts below leave them off. Every other parsed file is in exactly one bucket. Git tracks 3,020 files. The 322 tokei skipped are 215 text files (31,095 physical lines, mostly Qt forms, CI glue, and licenses) and 107 binary files (4.82 MB). They are not in the code totals.</p>
+<p>The headline is the implementation. Vendored libraries are another 112,703. First-party code, implementation plus tests plus contrib, build, and docs, is <strong>320,545</strong>. Those three figures, 286,741 plus 112,703 plus 320,545, are the 719,989.</p>
 <hr>
 <h2 id="ii-the-tree">II. The tree</h2>
 <figure class="article-chart chart-intensity">
-<div class="chart-heading">Code lines tokei counted, scaled to the Qt translations</div>
-<div class="intensity-row">
-<span class="intensity-name">Translations</span>
-<div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
-<span class="intensity-value">286,741</span>
-</div>
-</div>
+<div class="chart-heading">Code lines, scaled to the tests</div>
 <div class="intensity-row">
 <span class="intensity-name">Tests</span>
 <div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:53.8%"></span></div>
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
 <span class="intensity-value">154,273</span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">Implementation</span>
 <div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:52.7%"></span></div>
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:97.9%"></span></div>
 <span class="intensity-value">151,004</span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">Vendored</span>
 <div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:39.3%"></span></div>
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:73.1%"></span></div>
 <span class="intensity-value">112,703</span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">Contrib</span>
 <div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:3.2%"></span></div>
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:5.9%"></span></div>
 <span class="intensity-value">9,062</span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">Build and CI</span>
 <div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:2.2%"></span></div>
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:4.0%"></span></div>
 <span class="intensity-value">6,206</span>
 </div>
 </div>
-<figcaption>The 189 markdown files are comments and blanks in this count, 34,921 physical lines, and do not show as code. Comments and blanks bring the parsed tree to 910,653 physical lines. Source: tokei 14 on Bitcoin Core 32.1, <code>f0de87f</code>.</figcaption>
+<figcaption>Qt locale files, 286,741 lines, are left off this scale. The 189 markdown files are comments and blanks, 34,921 physical lines, and do not show as code. With the locale files, tokei reports 719,989 code lines and 910,653 physical lines. Source: tokei 14 on Bitcoin Core 32.1, <code>f0de87f</code>.</figcaption>
 </figure>
 
 <figure class="article-chart">
-<div class="chart-heading">Code, comments, and blanks, scaled to the Qt translations</div>
+<div class="chart-heading">Code, comments, and blanks, scaled to the implementation</div>
 <p class="chart-key"><span class="key-a">Code</span><span class="key-c">Comments and blanks</span></p>
-<div class="mix-row"><span class="intensity-name">Translations</span><div class="mix-scale"><div class="mix-bar" style="width:100.0%"><span class="mix-code" style="width:99.93%"></span><span class="mix-comment" style="width:0.00%"></span><span class="mix-blank" style="width:0.07%"></span></div><span class="pair-meta">286,741 code · 103 files</span></div></div>
-<div class="mix-row"><span class="intensity-name">Implementation</span><div class="mix-scale"><div class="mix-bar" style="width:74.5%"><span class="mix-code" style="width:70.66%"></span><span class="mix-comment" style="width:17.32%"></span><span class="mix-blank" style="width:12.03%"></span></div><span class="pair-meta">151,004 code · 756 files</span></div></div>
-<div class="mix-row"><span class="intensity-name">Tests</span><div class="mix-scale"><div class="mix-bar" style="width:71.3%"><span class="mix-code" style="width:75.44%"></span><span class="mix-comment" style="width:11.29%"></span><span class="mix-blank" style="width:13.27%"></span></div><span class="pair-meta">154,273 code · 921 files</span></div></div>
-<div class="mix-row"><span class="intensity-name">Vendored</span><div class="mix-scale"><div class="mix-bar" style="width:49.9%"><span class="mix-code" style="width:78.70%"></span><span class="mix-comment" style="width:12.81%"></span><span class="mix-blank" style="width:8.49%"></span></div><span class="pair-meta">112,703 code · 526 files</span></div></div>
-<div class="mix-row"><span class="intensity-name">Docs</span><div class="mix-scale"><div class="mix-bar" style="width:12.2%"><span class="mix-code" style="width:0.00%"></span><span class="mix-comment" style="width:79.86%"></span><span class="mix-blank" style="width:20.14%"></span></div><span class="pair-meta">0 code · 189 files</span></div></div>
-<div class="mix-row"><span class="intensity-name">Contrib</span><div class="mix-scale"><div class="mix-bar" style="width:6.0%"><span class="mix-code" style="width:52.46%"></span><span class="mix-comment" style="width:34.95%"></span><span class="mix-blank" style="width:12.59%"></span></div><span class="pair-meta">9,062 code · 97 files</span></div></div>
-<div class="mix-row"><span class="intensity-name">Build and CI</span><div class="mix-scale"><div class="mix-bar" style="width:3.5%"><span class="mix-code" style="width:61.52%"></span><span class="mix-comment" style="width:23.96%"></span><span class="mix-blank" style="width:14.51%"></span></div><span class="pair-meta">6,206 code · 106 files</span></div></div>
-<figcaption>Bar length is code, comments, and blanks together. The blue share of each bar is code. Docs are comments and blanks, so that bar has no blue.</figcaption>
+<div class="mix-row"><span class="intensity-name">Implementation</span><div class="mix-scale"><div class="mix-bar" style="width:100%"><span class="mix-code" style="width:70.66%"></span><span class="mix-comment" style="width:17.32%"></span><span class="mix-blank" style="width:12.03%"></span></div><span class="pair-meta">151,004 code · 756 files</span></div></div>
+<div class="mix-row"><span class="intensity-name">Tests</span><div class="mix-scale"><div class="mix-bar" style="width:95.7%"><span class="mix-code" style="width:75.44%"></span><span class="mix-comment" style="width:11.29%"></span><span class="mix-blank" style="width:13.27%"></span></div><span class="pair-meta">154,273 code · 921 files</span></div></div>
+<div class="mix-row"><span class="intensity-name">Vendored</span><div class="mix-scale"><div class="mix-bar" style="width:67.0%"><span class="mix-code" style="width:78.70%"></span><span class="mix-comment" style="width:12.81%"></span><span class="mix-blank" style="width:8.49%"></span></div><span class="pair-meta">112,703 code · 526 files</span></div></div>
+<div class="mix-row"><span class="intensity-name">Docs</span><div class="mix-scale"><div class="mix-bar" style="width:16.3%"><span class="mix-code" style="width:0.00%"></span><span class="mix-comment" style="width:79.86%"></span><span class="mix-blank" style="width:20.14%"></span></div><span class="pair-meta">0 code · 189 files</span></div></div>
+<div class="mix-row"><span class="intensity-name">Contrib</span><div class="mix-scale"><div class="mix-bar" style="width:8.1%"><span class="mix-code" style="width:52.46%"></span><span class="mix-comment" style="width:34.95%"></span><span class="mix-blank" style="width:12.59%"></span></div><span class="pair-meta">9,062 code · 97 files</span></div></div>
+<div class="mix-row"><span class="intensity-name">Build and CI</span><div class="mix-scale"><div class="mix-bar" style="width:4.7%"><span class="mix-code" style="width:61.52%"></span><span class="mix-comment" style="width:23.96%"></span><span class="mix-blank" style="width:14.51%"></span></div><span class="pair-meta">6,206 code · 106 files</span></div></div>
+<figcaption>Bar length is code, comments, and blanks together. The blue share of each bar is code. Docs are comments and blanks, so that bar has no blue. Qt locale files, 286,945 physical lines, are left off this scale.</figcaption>
 </figure>
 
 <p>Tests are 50.5% of implementation-plus-tests. Drop the JSON, hex, and HTML fixtures and test code is 141,369, which is 48.4% of implementation plus that test code. The program carries about as much test code as implementation code. On this release the test pile is the larger of the two.</p>
