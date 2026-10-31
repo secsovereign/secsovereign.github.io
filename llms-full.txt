@@ -4614,9 +4614,7 @@ The 3,580 vector lines are `script_tests.json` (2,614), `tx_valid.json` (426), `
 
 ## VII. Bundled code
 
-Vendored trees sum to 112,703 code lines. **89,312** (79%) are maintained as Bitcoin Core projects. **23,391** (21%) are forks of Google libraries.
-
-The fork's own patch is small next to what Google changed after the shared ancestor. leveldb in this release is commit `13da2d67` (11 August 2026). Its shared ancestor with Google's main is `0c40829` (5 November 2019). Since that ancestor the fork changed 32 files, <span class="diff"><span class="diff-add">+242</span><span class="diff-del">−194</span></span>. Google changed 115 files, <span class="diff"><span class="diff-add">+2,335</span><span class="diff-del">−1,886</span></span>. Set side by side at this release, 114 files differ: 1,973 lines are only in the fork and 2,374 are only in Google. Most of the fork's own patch is `util/env_windows.cc` (<span class="diff"><span class="diff-add">+88</span><span class="diff-del">−39</span></span>). crc32c is commit `efb8ea04` (30 August 2024), ancestor `21fc8ef` (8 February 2022). The fork changed 15 files, <span class="diff"><span class="diff-add">+46</span><span class="diff-del">−24</span></span>, mostly `src/crc32c_arm64.cc` (<span class="diff"><span class="diff-add">+22</span><span class="diff-del">−12</span></span>) and the dropped `third_party` submodules. Google changed 8 files, <span class="diff"><span class="diff-add">+54</span><span class="diff-del">−38</span></span>. The direct gap is 17 files: 68 lines only in the fork, 62 only in Google. These counts are git numstat, so they include comments and blanks. Google's leveldb tip for the comparison is `bb74ef73` (8 October 2026). Google's crc32c tip is `2bbb3be` (7 April 2025).
+Vendored trees sum to 112,703 code lines. **89,312** (79%) are maintained as Bitcoin Core projects. **23,391** (21%) are forks of Google libraries. secp256k1 is most of the first group, and it is larger than the first-party rules.
 
 <figure class="article-chart chart-intensity">
 <div class="chart-heading">Bundled code lines, scaled to libsecp256k1</div>
@@ -4669,8 +4667,10 @@ The fork's own patch is small next to what Google changed after the shared ances
 <span class="intensity-value">702</span>
 </div>
 </div>
-<figcaption>secp256k1 is 7.6 times the 10,122 first-party rule lines. Its README says the primary focus is Bitcoin. leveldb and crc32c are Google forks. univalue is absorbed into this repository and is not in <code>get_subtrees()</code>.</figcaption>
+<figcaption>secp256k1 is 7.6 times the 10,122 first-party rule lines. leveldb and crc32c are the Google forks. univalue lives in this repository.</figcaption>
 </figure>
+
+Since the projects split, Google has changed leveldb about ten times as much as this fork has. crc32c has barely moved on either side.
 
 <figure class="article-chart chart-intensity">
 <div class="chart-heading">Lines changed since the shared ancestor, scaled to Google's leveldb history</div>
@@ -4702,12 +4702,12 @@ The fork's own patch is small next to what Google changed after the shared ances
 <span class="intensity-value"><span class="diff"><span class="diff-add">+46</span><span class="diff-del">−24</span></span></span>
 </div>
 </div>
-<figcaption>Bar length is added plus deleted. The leveldb fork's own movement is about a tenth of Google's later history. crc32c's two sides are close, and both are small on this scale.</figcaption>
+<figcaption>Bar length is added plus deleted.</figcaption>
 </figure>
 
-Fetched at build time, and absent from the checkout, so they have no line count here: Qt 6.8.4, Boost 1.91.0, SQLite 3.50.4, ZeroMQ 4.3.5, Cap'n Proto 1.5.0, qrencode 4.1.1, systemtap 5.3. Those are wider-community libraries. `src/bench/nanobench.h` is 2,388 lines of third-party nanobench sitting inside the test tree.
+Qt, Boost, SQLite, ZeroMQ, Cap'n Proto, qrencode, and systemtap are fetched when the node is built. They are not in this checkout, so they have no line count here.
 
-Public-key checks in `src/pubkey.cpp` call into secp256k1. The signature math is a Core project used by other software. It is not part of the node's own source layout, and it is larger than the first-party rules.
+Public-key checks in `src/pubkey.cpp` call into secp256k1. That library is a Core project, used by other software, and it sits outside the node's own source.
 
 ---
 
@@ -5178,6 +5178,8 @@ The cost of storing the chain this program validates is a separate account, in *
 **Snapshot.** Bitcoin Core **32.1**, branch `32.x`, commit `f0de87f040621468b956f01f526a43a010310501`, 26 October 2026, "Merge bitcoin/bitcoin#36658: [32.x] Finalise 32.1". The tag matches the branch tip. Not shallow. 50,657 commits, 16,987 of them merges. Line counts are this release. Authorship is history through this commit.
 
 **Code lines.** tokei 14.0.0. A file is in one bucket. Implementation is `src/` excluding vendored prefixes (`secp256k1`, `leveldb`, `crc32c`, `minisketch`, `univalue`, `libmultiprocess`, `ctaes`), Qt locale, tests, fuzz, bench, markdown, and `CMakeLists.txt`. The system split uses explicit file lists for `src/node`, because that directory is not all P2P. `src/node/mining_args.cpp`, `mining_args.h`, and `mining_types.h` are in mining templates.
+
+**Forks.** leveldb in this release is `13da2d67` (11 August 2026). The shared ancestor with Google is `0c40829` (5 November 2019). The Google tip in the comparison is `bb74ef73` (8 October 2026). crc32c is `efb8ea04` (30 August 2024), ancestor `21fc8ef` (8 February 2022), Google tip `2bbb3be` (7 April 2025). The bars are git numstat and include comments and blanks.
 
 **The three-way cut.** Rule files are the SHA-256 and RIPEMD-160 sources, `hash.cpp` and `hash.h`, the script interpreter and script data, `pubkey`, `arith_uint256`, `uint256`, `src/primitives`, `src/consensus`, proof of work, versionbits, deployments, and signet. `validation.cpp` is split by function start, comment-stripped, then scaled from 4,187 raw code-like lines to tokei's 4,247. Adjacent is chainstate and storage, policy and mempool, indexes, and mining templates, including the matching parts of `validation.cpp`. SHA-1, SHA-3, and SHA-512 stay in the rest. The three parts sum to 151,004.
 
