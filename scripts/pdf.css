@@ -25,6 +25,8 @@ html, body {
   --light-gray: #ece7dc;
   --border: #d3cdc2;
   --text-muted: #5e5a54;
+  --diff-add: #147a45;
+  --diff-del: #a33b3b;
 }
 
 .pdf-page {
@@ -238,6 +240,24 @@ figure,
 .article-chart .intensity-name,
 .article-chart .net-node {
   color: #f5f5f5;
+}
+
+.article-body table:not(.chart-matrix) {
+  border-color: #d3cdc2;
+}
+
+.article-body table:not(.chart-matrix) th {
+  background: #ece7dc;
+  color: #0b6cb3;
+}
+
+.article-body table:not(.chart-matrix) tbody tr:nth-child(even) {
+  background: #f7f4ee;
+}
+
+.article-body table:not(.chart-matrix) th,
+.article-body table:not(.chart-matrix) td {
+  border-bottom-color: #d3cdc2;
 }
 
 .article-chart .net-node {

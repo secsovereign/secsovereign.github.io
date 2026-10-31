@@ -380,7 +380,7 @@ The 3,580 vector lines are `script_tests.json` (2,614), `tx_valid.json` (426), `
 
 Vendored trees sum to 112,703 code lines. **89,312** (79%) are maintained as Bitcoin Core projects. **23,391** (21%) are forks of Google libraries.
 
-The fork's own patch is small next to what Google changed after the shared ancestor. leveldb in this release is commit `13da2d67` (11 August 2026). Its shared ancestor with Google's main is `0c40829` (5 November 2019). Since that ancestor the fork changed 32 files, +242/−194. Google changed 115 files, +2,335/−1,886. Set side by side at this release, 114 files differ: 1,973 lines are only in the fork and 2,374 are only in Google. Most of the fork's own patch is `util/env_windows.cc` (+88/−39). crc32c is commit `efb8ea04` (30 August 2024), ancestor `21fc8ef` (8 February 2022). The fork changed 15 files, +46/−24, mostly `src/crc32c_arm64.cc` (+22/−12) and the dropped `third_party` submodules. Google changed 8 files, +54/−38. The direct gap is 17 files: 68 lines only in the fork, 62 only in Google. These counts are git numstat, so they include comments and blanks. Google's leveldb tip for the comparison is `bb74ef73` (8 October 2026). Google's crc32c tip is `2bbb3be` (7 April 2025).
+The fork's own patch is small next to what Google changed after the shared ancestor. leveldb in this release is commit `13da2d67` (11 August 2026). Its shared ancestor with Google's main is `0c40829` (5 November 2019). Since that ancestor the fork changed 32 files, <span class="diff"><span class="diff-add">+242</span><span class="diff-del">−194</span></span>. Google changed 115 files, <span class="diff"><span class="diff-add">+2,335</span><span class="diff-del">−1,886</span></span>. Set side by side at this release, 114 files differ: 1,973 lines are only in the fork and 2,374 are only in Google. Most of the fork's own patch is `util/env_windows.cc` (<span class="diff"><span class="diff-add">+88</span><span class="diff-del">−39</span></span>). crc32c is commit `efb8ea04` (30 August 2024), ancestor `21fc8ef` (8 February 2022). The fork changed 15 files, <span class="diff"><span class="diff-add">+46</span><span class="diff-del">−24</span></span>, mostly `src/crc32c_arm64.cc` (<span class="diff"><span class="diff-add">+22</span><span class="diff-del">−12</span></span>) and the dropped `third_party` submodules. Google changed 8 files, <span class="diff"><span class="diff-add">+54</span><span class="diff-del">−38</span></span>. The direct gap is 17 files: 68 lines only in the fork, 62 only in Google. These counts are git numstat, so they include comments and blanks. Google's leveldb tip for the comparison is `bb74ef73` (8 October 2026). Google's crc32c tip is `2bbb3be` (7 April 2025).
 
 <figure class="article-chart chart-intensity">
 <div class="chart-heading">Bundled code lines, scaled to libsecp256k1</div>
@@ -442,31 +442,31 @@ The fork's own patch is small next to what Google changed after the shared ances
 <span class="intensity-name">leveldb, Google</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
-<span class="intensity-value">4,221</span>
+<span class="intensity-value"><span class="diff"><span class="diff-add">+2,335</span><span class="diff-del">−1,886</span></span></span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">leveldb, the fork</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:10.3%"></span></div>
-<span class="intensity-value">436</span>
+<span class="intensity-value"><span class="diff"><span class="diff-add">+242</span><span class="diff-del">−194</span></span></span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">crc32c, Google</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:2.2%"></span></div>
-<span class="intensity-value">92</span>
+<span class="intensity-value"><span class="diff"><span class="diff-add">+54</span><span class="diff-del">−38</span></span></span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">crc32c, the fork</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:1.7%"></span></div>
-<span class="intensity-value">70</span>
+<span class="intensity-value"><span class="diff"><span class="diff-add">+46</span><span class="diff-del">−24</span></span></span>
 </div>
 </div>
-<figcaption>Added plus deleted. The leveldb fork's own movement is about a tenth of Google's later history. crc32c's two sides are close, and both are small on this scale.</figcaption>
+<figcaption>Bar length is added plus deleted. The leveldb fork's own movement is about a tenth of Google's later history. crc32c's two sides are close, and both are small on this scale.</figcaption>
 </figure>
 
 Fetched at build time, and absent from the checkout, so they have no line count here: Qt 6.8.4, Boost 1.91.0, SQLite 3.50.4, ZeroMQ 4.3.5, Cap'n Proto 1.5.0, qrencode 4.1.1, systemtap 5.3. Those are wider-community libraries. `src/bench/nanobench.h` is 2,388 lines of third-party nanobench sitting inside the test tree.
@@ -488,33 +488,40 @@ On that filter, **1,122,543** lines were added and **614,627** were deleted. Del
 <span class="stack-seg stack-major" style="width:45.2%">45% net</span>
 </div>
 <dl class="chart-stats">
-<div><dt>Added</dt><dd>1,122,543</dd></div>
-<div><dt>Deleted</dt><dd>614,627</dd></div>
-<div><dt>Net</dt><dd>507,916</dd></div>
+<div><dt>Added</dt><dd><span class="diff-add">+1,122,543</span></dd></div>
+<div><dt>Deleted</dt><dd><span class="diff-del">−614,627</span></dd></div>
+<div><dt>Net</dt><dd><span class="diff-add">+507,916</span></dd></div>
 </dl>
 <figcaption>33,670 non-merge commits through this release. 26,226 of them touched the filtered code files. The other 7,444 touched only build, docs, translations, or vendored paths.</figcaption>
 </figure>
 
-| Year | Added | Deleted | Code commits |
-|---:|---:|---:|---:|
-| 2009 | 54,844 | 10,686 | 68 |
-| 2010 | 65,289 | 62,104 | 218 |
-| 2011 | 53,392 | 27,777 | 672 |
-| 2012 | 37,038 | 21,369 | 958 |
-| 2013 | 59,554 | 20,211 | 688 |
-| 2014 | 64,249 | 36,468 | 1,273 |
-| 2015 | 49,181 | 21,257 | 1,032 |
-| 2016 | 57,430 | 28,521 | 1,400 |
-| 2017 | 65,394 | 43,770 | 1,932 |
-| 2018 | 56,407 | 34,265 | 1,648 |
-| 2019 | 60,527 | 35,236 | 1,785 |
-| 2020 | 91,782 | 47,157 | 2,606 |
-| 2021 | 86,333 | 50,883 | 2,577 |
-| 2022 | 69,544 | 33,989 | 2,134 |
-| 2023 | 59,283 | 32,818 | 1,843 |
-| 2024 | 78,067 | 44,992 | 2,001 |
-| 2025 | 64,429 | 37,866 | 1,865 |
-| 2026 | 49,800 | 25,258 | 1,526 |
+<div class="table-scroll">
+<table>
+<thead>
+<tr><th>Year</th><th>Change</th><th class="num">Code commits</th></tr>
+</thead>
+<tbody>
+<tr><td>2009</td><td><span class="diff"><span class="diff-add">+54,844</span><span class="diff-del">−10,686</span></span></td><td class="num">68</td></tr>
+<tr><td>2010</td><td><span class="diff"><span class="diff-add">+65,289</span><span class="diff-del">−62,104</span></span></td><td class="num">218</td></tr>
+<tr><td>2011</td><td><span class="diff"><span class="diff-add">+53,392</span><span class="diff-del">−27,777</span></span></td><td class="num">672</td></tr>
+<tr><td>2012</td><td><span class="diff"><span class="diff-add">+37,038</span><span class="diff-del">−21,369</span></span></td><td class="num">958</td></tr>
+<tr><td>2013</td><td><span class="diff"><span class="diff-add">+59,554</span><span class="diff-del">−20,211</span></span></td><td class="num">688</td></tr>
+<tr><td>2014</td><td><span class="diff"><span class="diff-add">+64,249</span><span class="diff-del">−36,468</span></span></td><td class="num">1,273</td></tr>
+<tr><td>2015</td><td><span class="diff"><span class="diff-add">+49,181</span><span class="diff-del">−21,257</span></span></td><td class="num">1,032</td></tr>
+<tr><td>2016</td><td><span class="diff"><span class="diff-add">+57,430</span><span class="diff-del">−28,521</span></span></td><td class="num">1,400</td></tr>
+<tr><td>2017</td><td><span class="diff"><span class="diff-add">+65,394</span><span class="diff-del">−43,770</span></span></td><td class="num">1,932</td></tr>
+<tr><td>2018</td><td><span class="diff"><span class="diff-add">+56,407</span><span class="diff-del">−34,265</span></span></td><td class="num">1,648</td></tr>
+<tr><td>2019</td><td><span class="diff"><span class="diff-add">+60,527</span><span class="diff-del">−35,236</span></span></td><td class="num">1,785</td></tr>
+<tr><td>2020</td><td><span class="diff"><span class="diff-add">+91,782</span><span class="diff-del">−47,157</span></span></td><td class="num">2,606</td></tr>
+<tr><td>2021</td><td><span class="diff"><span class="diff-add">+86,333</span><span class="diff-del">−50,883</span></span></td><td class="num">2,577</td></tr>
+<tr><td>2022</td><td><span class="diff"><span class="diff-add">+69,544</span><span class="diff-del">−33,989</span></span></td><td class="num">2,134</td></tr>
+<tr><td>2023</td><td><span class="diff"><span class="diff-add">+59,283</span><span class="diff-del">−32,818</span></span></td><td class="num">1,843</td></tr>
+<tr><td>2024</td><td><span class="diff"><span class="diff-add">+78,067</span><span class="diff-del">−44,992</span></span></td><td class="num">2,001</td></tr>
+<tr><td>2025</td><td><span class="diff"><span class="diff-add">+64,429</span><span class="diff-del">−37,866</span></span></td><td class="num">1,865</td></tr>
+<tr><td>2026</td><td><span class="diff"><span class="diff-add">+49,800</span><span class="diff-del">−25,258</span></span></td><td class="num">1,526</td></tr>
+</tbody>
+</table>
+</div>
 
 2026 runs through 26 October. 2010's net is 3,185. The largest net year is 2020, at 44,625. 2009's net, 44,158, is close. Distinct author emails peaked at 152 in 2018 and fell to 79 in 2023. That email count double-counts a person who used two addresses in one year.
 
@@ -565,20 +572,27 @@ On that filter, **1,122,543** lines were added and **614,627** were deleted. Del
 <figcaption>903 people remain after the bulk-import drop. The top five added 39.5% of kept additions. The top ten added 52.3%. Satoshi Nakamoto's commits in this row use the git author string <code>s_nakamoto</code>. Marco Falke, Gloria Zhao, and Michael Ford are the names in the release notes and in <code>SECURITY.md</code>. The git strings are MarcoFalke, glozow, and fanquake.</figcaption>
 </figure>
 
-| Person | Added | Deleted | Net | Commits | Deleted share |
-|---|---:|---:|---:|---:|---:|
-| Pieter Wuille | 132,987 | 59,517 | 73,470 | 1,703 | 45% |
-| Wladimir J. van der Laan | 97,885 | 47,828 | 50,057 | 1,337 | 49% |
-| Marco Falke | 72,530 | 61,422 | 11,108 | 2,879 | 85% |
-| Ava Chow | 61,034 | 41,384 | 19,650 | 1,274 | 68% |
-| Satoshi Nakamoto | 50,604 | 45,881 | 4,723 | 237 | 91% |
-| Gavin Andresen | 42,191 | 36,796 | 5,395 | 393 | 87% |
-| John Newbery | 24,882 | 26,142 | −1,260 | 749 | 105% |
-| Suhas Daftuar | 24,723 | 8,580 | 16,143 | 438 | 35% |
-| Russell Yanofsky | 22,958 | 13,286 | 9,672 | 414 | 58% |
-| Gloria Zhao | 19,444 | 5,951 | 13,493 | 390 | 31% |
-| Michael Ford | 19,053 | 17,676 | 1,377 | 601 | 93% |
-| Ryan Ofsky | 17,697 | 6,601 | 11,096 | 272 | 37% |
+<div class="table-scroll">
+<table>
+<thead>
+<tr><th>Person</th><th>Change</th><th class="num">Net</th><th class="num">Commits</th><th class="num">Deleted share</th></tr>
+</thead>
+<tbody>
+<tr><td>Pieter Wuille</td><td><span class="diff"><span class="diff-add">+132,987</span><span class="diff-del">−59,517</span></span></td><td class="num"><span class="diff-add">+73,470</span></td><td class="num">1,703</td><td class="num">45%</td></tr>
+<tr><td>Wladimir J. van der Laan</td><td><span class="diff"><span class="diff-add">+97,885</span><span class="diff-del">−47,828</span></span></td><td class="num"><span class="diff-add">+50,057</span></td><td class="num">1,337</td><td class="num">49%</td></tr>
+<tr><td>Marco Falke</td><td><span class="diff"><span class="diff-add">+72,530</span><span class="diff-del">−61,422</span></span></td><td class="num"><span class="diff-add">+11,108</span></td><td class="num">2,879</td><td class="num">85%</td></tr>
+<tr><td>Ava Chow</td><td><span class="diff"><span class="diff-add">+61,034</span><span class="diff-del">−41,384</span></span></td><td class="num"><span class="diff-add">+19,650</span></td><td class="num">1,274</td><td class="num">68%</td></tr>
+<tr><td>Satoshi Nakamoto</td><td><span class="diff"><span class="diff-add">+50,604</span><span class="diff-del">−45,881</span></span></td><td class="num"><span class="diff-add">+4,723</span></td><td class="num">237</td><td class="num">91%</td></tr>
+<tr><td>Gavin Andresen</td><td><span class="diff"><span class="diff-add">+42,191</span><span class="diff-del">−36,796</span></span></td><td class="num"><span class="diff-add">+5,395</span></td><td class="num">393</td><td class="num">87%</td></tr>
+<tr><td>John Newbery</td><td><span class="diff"><span class="diff-add">+24,882</span><span class="diff-del">−26,142</span></span></td><td class="num"><span class="diff-del">−1,260</span></td><td class="num">749</td><td class="num">105%</td></tr>
+<tr><td>Suhas Daftuar</td><td><span class="diff"><span class="diff-add">+24,723</span><span class="diff-del">−8,580</span></span></td><td class="num"><span class="diff-add">+16,143</span></td><td class="num">438</td><td class="num">35%</td></tr>
+<tr><td>Russell Yanofsky</td><td><span class="diff"><span class="diff-add">+22,958</span><span class="diff-del">−13,286</span></span></td><td class="num"><span class="diff-add">+9,672</span></td><td class="num">414</td><td class="num">58%</td></tr>
+<tr><td>Gloria Zhao</td><td><span class="diff"><span class="diff-add">+19,444</span><span class="diff-del">−5,951</span></span></td><td class="num"><span class="diff-add">+13,493</span></td><td class="num">390</td><td class="num">31%</td></tr>
+<tr><td>Michael Ford</td><td><span class="diff"><span class="diff-add">+19,053</span><span class="diff-del">−17,676</span></span></td><td class="num"><span class="diff-add">+1,377</span></td><td class="num">601</td><td class="num">93%</td></tr>
+<tr><td>Ryan Ofsky</td><td><span class="diff"><span class="diff-add">+17,697</span><span class="diff-del">−6,601</span></span></td><td class="num"><span class="diff-add">+11,096</span></td><td class="num">272</td><td class="num">37%</td></tr>
+</tbody>
+</table>
+</div>
 
 Michael Ford's code-file net is 1,377 because this filter skips build scripts. His merge share is a different measurement, in *[Who Controls Bitcoin](/articles/bitcoin-governance)*. Line authorship and merge authority are not the same ranking. Pieter Wuille leads additions. The merge log does not.
 
@@ -590,21 +604,28 @@ On a coarser directory sort of the same git lines, tests gained the most net (16
 
 The 55% figure above counts every filtered code file, including tests. Restricted to implementation files, and split with the same system lists as section III, **672,059** lines were added and **431,312** were deleted. **64.2%** of what was added was later deleted. No system has a majority. Wallet is the largest share of lines added, at **14.9%**. Validation is **14.8%**. The top four, wallet, validation, the GUI, and P2P, are **55.3%**.
 
-| System | Added | Deleted | Net | Commits | Share of lines added |
-|---|---:|---:|---:|---:|---:|
-| Wallet | 100,177 | 71,056 | 29,121 | 4,074 | 14.9% |
-| Validation and chain state | 99,577 | 67,991 | 31,586 | 4,295 | 14.8% |
-| GUI | 91,333 | 65,302 | 26,031 | 3,070 | 13.6% |
-| P2P | 80,675 | 51,106 | 29,569 | 3,382 | 12.0% |
-| RPC and HTTP | 63,238 | 39,140 | 24,098 | 3,142 | 9.4% |
-| Support and utilities | 59,510 | 33,237 | 26,273 | 2,630 | 8.9% |
-| Crypto and primitives | 36,031 | 20,597 | 15,434 | 969 | 5.4% |
-| Script | 34,561 | 19,247 | 15,314 | 958 | 5.1% |
-| Mempool and policy | 24,463 | 11,426 | 13,037 | 1,093 | 3.6% |
+<div class="table-scroll">
+<table>
+<thead>
+<tr><th>System</th><th>Change</th><th class="num">Net</th><th class="num">Commits</th><th class="num">Share of lines added</th></tr>
+</thead>
+<tbody>
+<tr><td>Wallet</td><td><span class="diff"><span class="diff-add">+100,177</span><span class="diff-del">−71,056</span></span></td><td class="num"><span class="diff-add">+29,121</span></td><td class="num">4,074</td><td class="num">14.9%</td></tr>
+<tr><td>Validation and chain state</td><td><span class="diff"><span class="diff-add">+99,577</span><span class="diff-del">−67,991</span></span></td><td class="num"><span class="diff-add">+31,586</span></td><td class="num">4,295</td><td class="num">14.8%</td></tr>
+<tr><td>GUI</td><td><span class="diff"><span class="diff-add">+91,333</span><span class="diff-del">−65,302</span></span></td><td class="num"><span class="diff-add">+26,031</span></td><td class="num">3,070</td><td class="num">13.6%</td></tr>
+<tr><td>P2P</td><td><span class="diff"><span class="diff-add">+80,675</span><span class="diff-del">−51,106</span></span></td><td class="num"><span class="diff-add">+29,569</span></td><td class="num">3,382</td><td class="num">12.0%</td></tr>
+<tr><td>RPC and HTTP</td><td><span class="diff"><span class="diff-add">+63,238</span><span class="diff-del">−39,140</span></span></td><td class="num"><span class="diff-add">+24,098</span></td><td class="num">3,142</td><td class="num">9.4%</td></tr>
+<tr><td>Support and utilities</td><td><span class="diff"><span class="diff-add">+59,510</span><span class="diff-del">−33,237</span></span></td><td class="num"><span class="diff-add">+26,273</span></td><td class="num">2,630</td><td class="num">8.9%</td></tr>
+<tr><td>Crypto and primitives</td><td><span class="diff"><span class="diff-add">+36,031</span><span class="diff-del">−20,597</span></span></td><td class="num"><span class="diff-add">+15,434</span></td><td class="num">969</td><td class="num">5.4%</td></tr>
+<tr><td>Script</td><td><span class="diff"><span class="diff-add">+34,561</span><span class="diff-del">−19,247</span></span></td><td class="num"><span class="diff-add">+15,314</span></td><td class="num">958</td><td class="num">5.1%</td></tr>
+<tr><td>Mempool and policy</td><td><span class="diff"><span class="diff-add">+24,463</span><span class="diff-del">−11,426</span></span></td><td class="num"><span class="diff-add">+13,037</span></td><td class="num">1,093</td><td class="num">3.6%</td></tr>
+</tbody>
+</table>
+</div>
 
-A commit that touches two systems is counted in both, so the commit column is not a partition. The line columns are. Most of these systems later delete between half and seven tenths of what they added. Mempool deletes 47%. The seed header, not in this table, deletes 89% across 39 commits. IPC deletes 21%.
+A commit that touches two systems is counted in both, so the commit column is not a partition. The change figures are. Most of these systems later delete between half and seven tenths of what they added. Mempool deletes 47%. The seed header, not in this table, deletes 89% across 39 commits. IPC deletes 21%.
 
-The early years are the GUI. In 2009–2013 the GUI is **28.7%** of implementation lines added. In 2022–2026, through 26 October, validation leads, at **16.2%** of the lines added in that era (25,716 of 158,548). The nets in that era are validation +11,263, mempool +7,504, P2P +7,339, support +6,916, RPC +5,816, wallet +2,061, and the GUI +261. Wallet is the largest tree today because older lines survived. It is not where the recent lines went.
+The early years are the GUI. In 2009–2013 the GUI is **28.7%** of implementation lines added. In 2022–2026, through 26 October, validation leads, at **16.2%** of the lines added in that era (25,716 of 158,548). The nets in that era are validation <span class="diff-add">+11,263</span>, mempool <span class="diff-add">+7,504</span>, P2P <span class="diff-add">+7,339</span>, support <span class="diff-add">+6,916</span>, RPC <span class="diff-add">+5,816</span>, wallet <span class="diff-add">+2,061</span>, and the GUI <span class="diff-add">+261</span>. Wallet is the largest tree today because older lines survived. It is not where the recent lines went.
 
 ---
 
@@ -842,6 +863,7 @@ Authors are git author-name strings, compared case-insensitively, with Andrew Ch
 
 At this release the tree exposes **171** RPC methods, **36** P2P message types, and **5** named deployment slots. RPC grew in every era and shed names in every era after 2013. The deployment list gained taproot by the end of 2021. In this release the named slots are bip34, bip65, bip66, csv, and segwit. The taproot rule is still in the script interpreter.
 
+<div class="chart-pair">
 <figure class="article-chart chart-intensity">
 <div class="chart-heading">RPC methods at the end of each era, scaled to 32.1</div>
 <div class="intensity-row">
@@ -907,13 +929,21 @@ At this release the tree exposes **171** RPC methods, **36** P2P message types, 
 </div>
 <figcaption>2013 is the messages the network dispatcher receives or sends. From 2017 on, the count is the <code>NetMsgType</code> list. Those two methods meet: 21 messages, drop alert, add the six compact-block and fee-filter names, and the 2017 table is 26.</figcaption>
 </figure>
+</div>
 
-| Era | RPC methods | RPC change | P2P messages | P2P change | Deployment slots | Slot change |
-|---|---:|---|---:|---|---:|---|
-| 2009–2013 | 72 | +72, −0 | 21 | +21, −0 | 1 | +1, −0 |
-| 2014–2017 | 119 | +52, −5 | 26 | +6, −1 | 5 | +4, −0 |
-| 2018–2021 | 156 | +53, −16 | 34 | +9, −1 | 6 | +1, −0 |
-| 2022–2026 | 171 | +29, −14 | 36 | +2, −0 | 5 | +0, −1 |
+<div class="table-scroll">
+<table>
+<thead>
+<tr><th>Era</th><th class="num">RPC methods</th><th>RPC change</th><th class="num">P2P messages</th><th>P2P change</th><th class="num">Deployment slots</th><th>Slot change</th></tr>
+</thead>
+<tbody>
+<tr><td>2009–2013</td><td class="num">72</td><td><span class="diff"><span class="diff-add">+72</span><span class="diff-del">−0</span></span></td><td class="num">21</td><td><span class="diff"><span class="diff-add">+21</span><span class="diff-del">−0</span></span></td><td class="num">1</td><td><span class="diff"><span class="diff-add">+1</span><span class="diff-del">−0</span></span></td></tr>
+<tr><td>2014–2017</td><td class="num">119</td><td><span class="diff"><span class="diff-add">+52</span><span class="diff-del">−5</span></span></td><td class="num">26</td><td><span class="diff"><span class="diff-add">+6</span><span class="diff-del">−1</span></span></td><td class="num">5</td><td><span class="diff"><span class="diff-add">+4</span><span class="diff-del">−0</span></span></td></tr>
+<tr><td>2018–2021</td><td class="num">156</td><td><span class="diff"><span class="diff-add">+53</span><span class="diff-del">−16</span></span></td><td class="num">34</td><td><span class="diff"><span class="diff-add">+9</span><span class="diff-del">−1</span></span></td><td class="num">6</td><td><span class="diff"><span class="diff-add">+1</span><span class="diff-del">−0</span></span></td></tr>
+<tr><td>2022–2026</td><td class="num">171</td><td><span class="diff"><span class="diff-add">+29</span><span class="diff-del">−14</span></span></td><td class="num">36</td><td><span class="diff"><span class="diff-add">+2</span><span class="diff-del">−0</span></span></td><td class="num">5</td><td><span class="diff"><span class="diff-add">+0</span><span class="diff-del">−1</span></span></td></tr>
+</tbody>
+</table>
+</div>
 
 2026 ends at this release. P2P additions by 2017 are blocktxn, cmpctblock, feefilter, getblocktxn, sendcmpct, and sendheaders. alert is the removal. By 2021 the new names are addrv2, sendaddrv2, the compact-filter set, and wtxidrelay, and reject is gone. By this release the new names are sendtxrcncl and feature, the BIP 434 negotiation message. RPC removals by 2017 are getgenerate, gethashespersec, getinfo, getwork, and setgenerate. By 2021 the account API is gone, along with addwitnessaddress, bumpfee, estimatefee, and signrawtransaction. By this release the legacy import and dump methods are gone. The 2013 deployment slot is the block-version-2 height-in-coinbase rule, later named bip34. The four added by 2017 are bip65, bip66, csv, and segwit. The one added by 2021 is taproot. testdummy is excluded. Height-field aliases of the same fork are one slot.
 
