@@ -33,7 +33,7 @@ A wrong rule forks the network. A policy disagreement does not. The two live in 
 
 ## I. What was counted
 
-Tokei parsed **2,698** files and **719,989** code lines. Qt locale files are 103 of those files and **286,741** of those lines. Tokei counts them as TypeScript. They are translations, and the charts below leave them off. Every other parsed file is in exactly one bucket. Git tracks 3,020 files. The 322 tokei skipped are 215 text files (31,095 physical lines, mostly Qt forms, CI glue, and licenses) and 107 binary files (4.82 MB). They are not in the code totals.
+Tokei parsed **2,698** files and **719,989** code lines. Qt locale files are 103 of those files and **286,741** of those lines. Tokei counts them as TypeScript. They are translations, and the charts below leave them off. Every other parsed file is in exactly one bucket.
 
 The headline is the implementation. Vendored libraries are another 112,703. First-party code, implementation plus tests plus contrib, build, and docs, is **320,545**. Those three figures, 286,741 plus 112,703 plus 320,545, are the 719,989.
 
@@ -78,7 +78,6 @@ The headline is the implementation. Vendored libraries are another 112,703. Firs
 <span class="intensity-value">6,206</span>
 </div>
 </div>
-<figcaption>Qt locale files, 286,741 lines, are left off this scale. The 189 markdown files are comments and blanks, 34,921 physical lines, and do not show as code. With the locale files, tokei reports 719,989 code lines and 910,653 physical lines. Source: tokei 14 on Bitcoin Core 32.1, <code>f0de87f</code>.</figcaption>
 </figure>
 
 <figure class="article-chart">
@@ -90,12 +89,9 @@ The headline is the implementation. Vendored libraries are another 112,703. Firs
 <div class="mix-row"><span class="intensity-name">Docs</span><div class="mix-scale"><div class="mix-bar" style="width:16.3%"><span class="mix-code" style="width:0.00%"></span><span class="mix-comment" style="width:79.86%"></span><span class="mix-blank" style="width:20.14%"></span></div><span class="pair-meta">0 code · 189 files</span></div></div>
 <div class="mix-row"><span class="intensity-name">Contrib</span><div class="mix-scale"><div class="mix-bar" style="width:8.1%"><span class="mix-code" style="width:52.46%"></span><span class="mix-comment" style="width:34.95%"></span><span class="mix-blank" style="width:12.59%"></span></div><span class="pair-meta">9,062 code · 97 files</span></div></div>
 <div class="mix-row"><span class="intensity-name">Build and CI</span><div class="mix-scale"><div class="mix-bar" style="width:4.7%"><span class="mix-code" style="width:61.52%"></span><span class="mix-comment" style="width:23.96%"></span><span class="mix-blank" style="width:14.51%"></span></div><span class="pair-meta">6,206 code · 106 files</span></div></div>
-<figcaption>Bar length is code, comments, and blanks together. The blue share of each bar is code. Docs are comments and blanks, so that bar has no blue. Qt locale files, 286,945 physical lines, are left off this scale.</figcaption>
 </figure>
 
-Tests are 50.5% of implementation-plus-tests. Drop the JSON, hex, and HTML fixtures and test code is 141,369, which is 48.4% of implementation plus that test code. The program carries about as much test code as implementation code. On this release the test pile is the larger of the two.
-
-First-party languages, the 320,545: C++ 181,104, Python 69,946, C and C++ headers 43,805, JSON 13,003, build files 10,667, Rust 1,141, other 879. Implementation bodies are 73.8% C++ (111,494) and 25.6% headers (38,669). The other 841 lines are neither.
+The program carries about as much test code as implementation code. On this release the test pile is the larger of the two. Implementation bodies are 73.8% C++ and 25.6% headers.
 
 ---
 
@@ -168,7 +164,7 @@ Seven hundred fifty-six files. The median file is 66 code lines. Thirty-three fi
 <span class="intensity-value">8,363</span>
 </div>
 </div>
-<figcaption>Validation here is chain state, indexes, and block storage. It is not the script interpreter. Mempool includes <code>src/policy</code> (2,665). The crypto bar is that directory, not the rule cut in section IV. Source: tokei on Bitcoin Core 32.1.</figcaption>
+<figcaption>The crypto bar is that directory. The 10,122 in section IV is a different cut.</figcaption>
 </figure>
 
 <figure class="article-chart chart-intensity">
@@ -183,10 +179,7 @@ Seven hundred fifty-six files. The median file is 66 code lines. Thirty-three fi
 <div class="intensity-row"><span class="intensity-name">Interfaces</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:23.7%"></span></div><span class="intensity-value">734</span></div></div>
 <div class="intensity-row"><span class="intensity-name">IPC</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:21.6%"></span></div><span class="intensity-value">668</span></div></div>
 <div class="intensity-row"><span class="intensity-name">ZMQ</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:20.7%"></span></div><span class="intensity-value">639</span></div></div>
-<figcaption>These sit outside the nine systems above. Peer seeds are <code>chainparamsseeds.h</code>.</figcaption>
 </figure>
-
-The largest files are `validation.cpp` (4,247), `net_processing.cpp` (4,220), `wallet.cpp` (3,488), `net.cpp` (3,248), `rpc/blockchain.cpp` (3,172), `chainparamsseeds.h` (2,679), `script/descriptor.cpp` (2,534), and `txgraph.cpp` (2,359).
 
 `src/node` is not all P2P. Block storage and chainstate in that directory are in the validation bar. P2P is the network files only.
 
@@ -208,7 +201,6 @@ Consensus here means the code that decides whether a block or a transaction is v
 <span><strong style="color:#3a5a6a">■</strong> Adjacent, 20,366</span>
 <span><strong style="color:var(--border)">■</strong> The rest, 120,516</span>
 </div>
-<figcaption>Exact shares are 6.70%, 13.49%, and 79.81%. The labels are the nearest percents and sum to 100. <code>validation.cpp</code> is the one file split by function.</figcaption>
 </figure>
 
 <figure class="article-chart chart-intensity">
@@ -255,14 +247,10 @@ Consensus here means the code that decides whether a block or a transaction is v
 <span class="intensity-value">556</span>
 </div>
 </div>
-<figcaption>The hash bar is SHA-256, including the CPU-specific files, plus RIPEMD-160 and the hash wrappers. SHA-1, SHA-3, and SHA-512 are in the rest. The interpreter itself is 1,584 lines. The 2,772 includes its header, script serialization, and the script error codes.</figcaption>
+<figcaption>SHA-1, SHA-3, and SHA-512 are in the rest. The interpreter itself is 1,584 of the 2,772.</figcaption>
 </figure>
 
-Core's exported library, `libbitcoinconsensus`, is **4,757** of these rule lines: the interpreter, script, merkle, transaction checks, hashes, and the basic types. The other **5,365** rule lines are outside it. **3,568** of those are the SHA-256 and RIPEMD-160 implementations. The other **1,797** are proof of work, versionbits, deployments, signet, transaction input checks, the 562 lines in `validation.cpp`, and a handful of headers.
-
-The kernel library is a different list. Its own comment says the list will shrink. The named sources still compile policy and mempool, so the kernel target is not this boundary. `bitcoin_crypto` sums to 5,605 and includes `cleanse.cpp` and `lockedpool.cpp`.
-
-`src/script/solver.h` says the solver is used by policy and the wallet, and not by consensus. Descriptors and miniscript are in the 120,516.
+Core's exported `libbitcoinconsensus` is **4,757** of these lines. The kernel target is a different list, and it still compiles policy and mempool.
 
 ---
 
@@ -300,12 +288,11 @@ Adjacent means the code that applies the rules, stores the result, or chooses wh
 <span class="intensity-value">1,019</span>
 </div>
 </div>
-<figcaption>Chainstate includes the UTXO cache, block storage, undo, chain activation, and 2,645 lines of <code>validation.cpp</code>. Policy includes the fee estimator, cluster mempool, RBF, <code>src/policy</code> (2,665), and 997 lines of <code>validation.cpp</code>.</figcaption>
 </figure>
 
 ### validation.cpp is mostly the machine around the checks
 
-The file is 4,247 code lines. The split is at function boundaries, comment-stripped, then scaled so the parts still sum to tokei's figure. ConnectBlock's checks stay with the rules. The undo write at the end of that function stays with chainstate. MemPoolAccept stays with policy.
+The file is 4,247 code lines. CheckBlock, ConnectBlock's checks, the subsidy, and BIP30 stay with the rules. The undo write stays with chainstate. MemPoolAccept stays with policy.
 
 <figure class="article-chart chart-stackbar">
 <div class="chart-heading">validation.cpp, 4,247 code lines</div>
@@ -321,16 +308,13 @@ The file is 4,247 code lines. The split is at function boundaries, comment-strip
 <div><dt>Validity checks</dt><dd>562</dd></div>
 <div><dt>Progress and errors</dt><dd>43</dd></div>
 </dl>
-<figcaption>CheckBlock, ConnectBlock's checks, the subsidy, and BIP30 are the 562. Progress reporting and FatalError are the 43, and those sit with the rest of the node.</figcaption>
 </figure>
 
 ---
 
 ## VI. Tests
 
-Tests are 154,273 code lines: functional Python 62,437, unit 42,026, fuzz 22,254, fixtures 12,904, bench 6,799, wallet 3,193, lint 1,774, CI 1,135, GUI 1,133, harness 410, IPC 208.
-
-A filename cut that stops at unit tests understates the functional suite. The assignment below puts every test file in one bucket. Rule tests are the named unit and fuzz files, further unit and fuzz of the rule types, the script and transaction vectors, and the functional tests of validity rules, including `p2p_segwit.py` (1,391), `feature_taproot.py` (1,353), and `feature_block.py` (927). Adjacent tests keep the mempool and policy names and add mining, assumeutxo, pruning, indexes, fee estimation, and package RPC. Benchmarks that share those names stay out of the ratio.
+Tests are 154,273 code lines, about as many as the implementation.
 
 <figure class="article-chart chart-intensity">
 <div class="chart-heading">Test lines per implementation line, scaled to the rules</div>
@@ -355,7 +339,6 @@ A filename cut that stops at unit tests understates the functional suite. The as
 <span class="intensity-value">0.88</span>
 </div>
 </div>
-<figcaption>Rules: 14,875 test lines on 10,122 implementation lines. Adjacent: 17,840 on 20,366. The rest of the test tree: 121,558 on 120,516. Adjacent still has more test lines than the rules. The rules have more test lines per line of implementation.</figcaption>
 </figure>
 
 <figure class="article-chart chart-intensity">
@@ -363,7 +346,6 @@ A filename cut that stops at unit tests understates the functional suite. The as
 <div class="intensity-row"><span class="intensity-name">The rest</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div><span class="intensity-value">121,558</span></div></div>
 <div class="intensity-row"><span class="intensity-name">Adjacent</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:14.7%"></span></div><span class="intensity-value">17,840</span></div></div>
 <div class="intensity-row"><span class="intensity-name">Rules</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:12.2%"></span></div><span class="intensity-value">14,875</span></div></div>
-<figcaption>The rest is wallet, GUI, P2P transport, lint, and CI. Rules are 14,875 lines on 10,122 of implementation. Adjacent is 17,840 on 20,366.</figcaption>
 </figure>
 
 <figure class="article-chart chart-intensity">
@@ -375,16 +357,15 @@ A filename cut that stops at unit tests understates the functional suite. The as
 <div class="intensity-row"><span class="intensity-name">Script and tx vectors</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:44.3%"></span></div><span class="intensity-value">3,580</span></div></div>
 <div class="intensity-row"><span class="intensity-name">Chainstate unit and fuzz</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:37.4%"></span></div><span class="intensity-value">3,021</span></div></div>
 <div class="intensity-row"><span class="intensity-name">Hash and block fuzz</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:17.4%"></span></div><span class="intensity-value">1,403</span></div></div>
-<figcaption>Mempool, mining, and chainstate are the adjacent 17,840. The other four rows are the rule 14,875. Everything else, 121,558, is the long bar above.</figcaption>
 </figure>
 
-The 3,580 vector lines are `script_tests.json` (2,614), `tx_valid.json` (426), `tx_invalid.json` (313), and `invalid_txs.py` (227). The rest row includes wallet, GUI, P2P transport, lint, and CI. A test that calls the interpreter under a name this list does not use is in that row.
+The long bar is wallet, GUI, P2P transport, lint, and CI. A test that calls the interpreter under another name is in that bar.
 
 ---
 
 ## VII. Bundled code
 
-Vendored trees sum to 112,703 code lines. **89,312** (79%) are maintained as Bitcoin Core projects. **23,391** (21%) are forks of Google libraries. secp256k1 is most of the first group, and it is larger than the first-party rules.
+Vendored trees sum to 112,703 code lines. **89,312** (79%) are maintained as Bitcoin Core projects. **23,391** (21%) are forks of Google libraries. secp256k1 is most of the first group, and it is 7.6 times the first-party rules.
 
 <figure class="article-chart chart-intensity">
 <div class="chart-heading">Bundled code lines, scaled to libsecp256k1</div>
@@ -437,7 +418,6 @@ Vendored trees sum to 112,703 code lines. **89,312** (79%) are maintained as Bit
 <span class="intensity-value">702</span>
 </div>
 </div>
-<figcaption>secp256k1 is 7.6 times the 10,122 first-party rule lines. leveldb and crc32c are the Google forks. univalue lives in this repository.</figcaption>
 </figure>
 
 Since the projects split, Google has changed leveldb about ten times as much as this fork has. crc32c has barely moved on either side.
@@ -472,7 +452,6 @@ Since the projects split, Google has changed leveldb about ten times as much as 
 <span class="intensity-value"><span class="diff"><span class="diff-add">+46</span><span class="diff-del">−24</span></span></span>
 </div>
 </div>
-<figcaption>Bar length is added plus deleted.</figcaption>
 </figure>
 
 Qt, Boost, SQLite, ZeroMQ, Cap'n Proto, qrencode, and systemtap are fetched when the node is built. They are not in this checkout, so they have no line count here.
@@ -496,7 +475,6 @@ Public-key checks in `src/pubkey.cpp` call into secp256k1. That library is a Cor
 <div><dt>Deleted</dt><dd><span class="diff-del">−614,627</span></dd></div>
 <div><dt>Net</dt><dd><span class="diff-add">+507,916</span></dd></div>
 </dl>
-<figcaption>33,670 non-merge commits through this release. 26,226 of them touched the filtered code files. The other 7,444 touched only build, docs, translations, or vendored paths.</figcaption>
 </figure>
 
 <p class="chart-heading chart-open">Lines added and deleted, by year</p>
@@ -506,7 +484,7 @@ Public-key checks in `src/pubkey.cpp` call into secp256k1. That library is a Cor
 <svg viewBox="-48 0 808 248" font-size="14" font-family="system-ui, sans-serif" role="img" aria-label="Lines added and deleted by year, in thousands"><line class="grid" x1="68" y1="214.0" x2="744" y2="214.0"/><text class="ylab" x="58" y="214.0">0</text><line class="grid" x1="68" y1="165.0" x2="744" y2="165.0"/><text class="ylab" x="58" y="165.0">25</text><line class="grid" x1="68" y1="116.0" x2="744" y2="116.0"/><text class="ylab" x="58" y="116.0">50</text><line class="grid" x1="68" y1="67.0" x2="744" y2="67.0"/><text class="ylab" x="58" y="67.0">75</text><line class="grid" x1="68" y1="18.0" x2="744" y2="18.0"/><text class="ylab" x="58" y="18.0">100</text><polyline class="series-a" points="68.0,106.2 107.8,86.6 147.5,110.1 187.3,141.5 227.1,96.4 266.8,88.6 306.6,118.0 346.4,102.3 386.1,86.6 425.9,104.2 465.6,94.4 505.4,33.7 545.2,45.4 584.9,76.8 624.7,98.4 664.5,61.1 704.2,88.6 744.0,116.0"/><circle class="series-a" cx="68.0" cy="106.2" r="3"/><circle class="series-a" cx="107.8" cy="86.6" r="3"/><circle class="series-a" cx="147.5" cy="110.1" r="3"/><circle class="series-a" cx="187.3" cy="141.5" r="3"/><circle class="series-a" cx="227.1" cy="96.4" r="3"/><circle class="series-a" cx="266.8" cy="88.6" r="3"/><circle class="series-a" cx="306.6" cy="118.0" r="3"/><circle class="series-a" cx="346.4" cy="102.3" r="3"/><circle class="series-a" cx="386.1" cy="86.6" r="3"/><circle class="series-a" cx="425.9" cy="104.2" r="3"/><circle class="series-a" cx="465.6" cy="94.4" r="3"/><circle class="series-a" cx="505.4" cy="33.7" r="3"/><circle class="series-a" cx="545.2" cy="45.4" r="3"/><circle class="series-a" cx="584.9" cy="76.8" r="3"/><circle class="series-a" cx="624.7" cy="98.4" r="3"/><circle class="series-a" cx="664.5" cy="61.1" r="3"/><circle class="series-a" cx="704.2" cy="88.6" r="3"/><circle class="series-a" cx="744.0" cy="116.0" r="3"/><polyline class="series-b" points="68.0,192.4 107.8,92.5 147.5,159.1 187.3,172.8 227.1,174.8 266.8,143.4 306.6,172.8 346.4,157.2 386.1,127.8 425.9,147.4 465.6,145.4 505.4,121.9 545.2,114.0 584.9,147.4 624.7,149.3 664.5,125.8 704.2,139.5 744.0,165.0"/><circle class="series-b" cx="68.0" cy="192.4" r="3"/><circle class="series-b" cx="107.8" cy="92.5" r="3"/><circle class="series-b" cx="147.5" cy="159.1" r="3"/><circle class="series-b" cx="187.3" cy="172.8" r="3"/><circle class="series-b" cx="227.1" cy="174.8" r="3"/><circle class="series-b" cx="266.8" cy="143.4" r="3"/><circle class="series-b" cx="306.6" cy="172.8" r="3"/><circle class="series-b" cx="346.4" cy="157.2" r="3"/><circle class="series-b" cx="386.1" cy="127.8" r="3"/><circle class="series-b" cx="425.9" cy="147.4" r="3"/><circle class="series-b" cx="465.6" cy="145.4" r="3"/><circle class="series-b" cx="505.4" cy="121.9" r="3"/><circle class="series-b" cx="545.2" cy="114.0" r="3"/><circle class="series-b" cx="584.9" cy="147.4" r="3"/><circle class="series-b" cx="624.7" cy="149.3" r="3"/><circle class="series-b" cx="664.5" cy="125.8" r="3"/><circle class="series-b" cx="704.2" cy="139.5" r="3"/><circle class="series-b" cx="744.0" cy="165.0" r="3"/><text class="xlab" x="68.0" y="238">09</text><text class="xlab x-minor" x="107.8" y="238">10</text><text class="xlab" x="147.5" y="238">11</text><text class="xlab x-minor" x="187.3" y="238">12</text><text class="xlab" x="227.1" y="238">13</text><text class="xlab x-minor" x="266.8" y="238">14</text><text class="xlab" x="306.6" y="238">15</text><text class="xlab x-minor" x="346.4" y="238">16</text><text class="xlab" x="386.1" y="238">17</text><text class="xlab x-minor" x="425.9" y="238">18</text><text class="xlab" x="465.6" y="238">19</text><text class="xlab x-minor" x="505.4" y="238">20</text><text class="xlab" x="545.2" y="238">21</text><text class="xlab x-minor" x="584.9" y="238">22</text><text class="xlab" x="624.7" y="238">23</text><text class="xlab x-minor" x="664.5" y="238">24</text><text class="xlab" x="704.2" y="238">25</text><text class="xlab x-minor" x="744.0" y="238">26</text></svg>
 </figure>
 
-<p class="chart-note">Thousands of lines, rounded. 2020 added 91,782 and deleted 47,157. 2010 added 65,289 and deleted 62,104, a net of 3,185. The largest net is 2020, at 44,625. 2009's net is 44,158. 2026 runs through 26 October.</p>
+<p class="chart-note">Thousands of lines, rounded. The largest net is 2020, at 44,625. 2010's net is 3,185.</p>
 
 <p class="chart-heading chart-open">Code commits by year</p>
 
@@ -514,7 +492,7 @@ Public-key checks in `src/pubkey.cpp` call into secp256k1. That library is a Cor
 <svg viewBox="-48 0 808 248" font-size="14" font-family="system-ui, sans-serif" role="img" aria-label="Code commits by year"><line class="grid" x1="68" y1="214.0" x2="744" y2="214.0"/><text class="ylab" x="58" y="214.0">0</text><line class="grid" x1="68" y1="148.7" x2="744" y2="148.7"/><text class="ylab" x="58" y="148.7">1,000</text><line class="grid" x1="68" y1="83.3" x2="744" y2="83.3"/><text class="ylab" x="58" y="83.3">2,000</text><line class="grid" x1="68" y1="18.0" x2="744" y2="18.0"/><text class="ylab" x="58" y="18.0">3,000</text><polyline class="series-a" points="68.0,209.6 107.8,199.8 147.5,170.1 187.3,151.4 227.1,169.1 266.8,130.8 306.6,146.6 346.4,122.5 386.1,87.8 425.9,106.3 465.6,97.4 505.4,43.7 545.2,45.6 584.9,74.6 624.7,93.6 664.5,83.3 704.2,92.2 744.0,114.3"/><circle class="series-a" cx="68.0" cy="209.6" r="3"/><circle class="series-a" cx="107.8" cy="199.8" r="3"/><circle class="series-a" cx="147.5" cy="170.1" r="3"/><circle class="series-a" cx="187.3" cy="151.4" r="3"/><circle class="series-a" cx="227.1" cy="169.1" r="3"/><circle class="series-a" cx="266.8" cy="130.8" r="3"/><circle class="series-a" cx="306.6" cy="146.6" r="3"/><circle class="series-a" cx="346.4" cy="122.5" r="3"/><circle class="series-a" cx="386.1" cy="87.8" r="3"/><circle class="series-a" cx="425.9" cy="106.3" r="3"/><circle class="series-a" cx="465.6" cy="97.4" r="3"/><circle class="series-a" cx="505.4" cy="43.7" r="3"/><circle class="series-a" cx="545.2" cy="45.6" r="3"/><circle class="series-a" cx="584.9" cy="74.6" r="3"/><circle class="series-a" cx="624.7" cy="93.6" r="3"/><circle class="series-a" cx="664.5" cy="83.3" r="3"/><circle class="series-a" cx="704.2" cy="92.2" r="3"/><circle class="series-a" cx="744.0" cy="114.3" r="3"/><text class="xlab" x="68.0" y="238">09</text><text class="xlab x-minor" x="107.8" y="238">10</text><text class="xlab" x="147.5" y="238">11</text><text class="xlab x-minor" x="187.3" y="238">12</text><text class="xlab" x="227.1" y="238">13</text><text class="xlab x-minor" x="266.8" y="238">14</text><text class="xlab" x="306.6" y="238">15</text><text class="xlab x-minor" x="346.4" y="238">16</text><text class="xlab" x="386.1" y="238">17</text><text class="xlab x-minor" x="425.9" y="238">18</text><text class="xlab" x="465.6" y="238">19</text><text class="xlab x-minor" x="505.4" y="238">20</text><text class="xlab" x="545.2" y="238">21</text><text class="xlab x-minor" x="584.9" y="238">22</text><text class="xlab" x="624.7" y="238">23</text><text class="xlab x-minor" x="664.5" y="238">24</text><text class="xlab" x="704.2" y="238">25</text><text class="xlab x-minor" x="744.0" y="238">26</text></svg>
 </figure>
 
-<p class="chart-note">The peak is 2,606 commits in 2020. 2026, through 26 October, is 1,526.</p>
+<p class="chart-note">The peak is 2,606 commits in 2020.</p>
 
 <p class="chart-heading chart-open">Distinct people by year</p>
 
@@ -522,7 +500,7 @@ Public-key checks in `src/pubkey.cpp` call into secp256k1. That library is a Cor
 <svg viewBox="-48 0 808 248" font-size="14" font-family="system-ui, sans-serif" role="img" aria-label="Distinct people by year"><line class="grid" x1="68" y1="214.0" x2="744" y2="214.0"/><text class="ylab" x="58" y="214.0">0</text><line class="grid" x1="68" y1="165.0" x2="744" y2="165.0"/><text class="ylab" x="58" y="165.0">40</text><line class="grid" x1="68" y1="116.0" x2="744" y2="116.0"/><text class="ylab" x="58" y="116.0">80</text><line class="grid" x1="68" y1="67.0" x2="744" y2="67.0"/><text class="ylab" x="58" y="67.0">120</text><line class="grid" x1="68" y1="18.0" x2="744" y2="18.0"/><text class="ylab" x="58" y="18.0">160</text><polyline class="series-a" points="68.0,211.6 107.8,205.4 147.5,149.1 187.3,158.9 227.1,140.5 266.8,73.1 306.6,109.9 346.4,86.6 386.1,60.9 425.9,37.6 465.6,56.0 505.4,49.8 545.2,59.7 584.9,62.1 624.7,120.9 664.5,108.7 704.2,78.0 744.0,85.4"/><circle class="series-a" cx="68.0" cy="211.6" r="3"/><circle class="series-a" cx="107.8" cy="205.4" r="3"/><circle class="series-a" cx="147.5" cy="149.1" r="3"/><circle class="series-a" cx="187.3" cy="158.9" r="3"/><circle class="series-a" cx="227.1" cy="140.5" r="3"/><circle class="series-a" cx="266.8" cy="73.1" r="3"/><circle class="series-a" cx="306.6" cy="109.9" r="3"/><circle class="series-a" cx="346.4" cy="86.6" r="3"/><circle class="series-a" cx="386.1" cy="60.9" r="3"/><circle class="series-a" cx="425.9" cy="37.6" r="3"/><circle class="series-a" cx="465.6" cy="56.0" r="3"/><circle class="series-a" cx="505.4" cy="49.8" r="3"/><circle class="series-a" cx="545.2" cy="59.7" r="3"/><circle class="series-a" cx="584.9" cy="62.1" r="3"/><circle class="series-a" cx="624.7" cy="120.9" r="3"/><circle class="series-a" cx="664.5" cy="108.7" r="3"/><circle class="series-a" cx="704.2" cy="78.0" r="3"/><circle class="series-a" cx="744.0" cy="85.4" r="3"/><text class="xlab" x="68.0" y="238">09</text><text class="xlab x-minor" x="107.8" y="238">10</text><text class="xlab" x="147.5" y="238">11</text><text class="xlab x-minor" x="187.3" y="238">12</text><text class="xlab" x="227.1" y="238">13</text><text class="xlab x-minor" x="266.8" y="238">14</text><text class="xlab" x="306.6" y="238">15</text><text class="xlab x-minor" x="346.4" y="238">16</text><text class="xlab" x="386.1" y="238">17</text><text class="xlab x-minor" x="425.9" y="238">18</text><text class="xlab" x="465.6" y="238">19</text><text class="xlab x-minor" x="505.4" y="238">20</text><text class="xlab" x="545.2" y="238">21</text><text class="xlab x-minor" x="584.9" y="238">22</text><text class="xlab" x="624.7" y="238">23</text><text class="xlab x-minor" x="664.5" y="238">24</text><text class="xlab" x="704.2" y="238">25</text><text class="xlab x-minor" x="744.0" y="238">26</text></svg>
 </figure>
 
-<p class="chart-note">Two git names that share an email are one person, and so is one name that used two addresses. The peak is 144 people in 2018. 2023 falls to 76. 2026, through 26 October, is 105.</p>
+<p class="chart-note">The peak is 144 people in 2018. 2023 falls to 76.</p>
 
 <figure class="article-chart chart-intensity">
 <div class="chart-heading">Lines added by person, bulk imports omitted, scaled to Pieter Wuille</div>
@@ -568,7 +546,7 @@ Public-key checks in `src/pubkey.cpp` call into secp256k1. That library is a Cor
 <span class="intensity-value">42,191</span>
 </div>
 </div>
-<figcaption>900 people after dropping two bulk imports, sirius-m and Vinnie Falco. The top five added 39.5% of kept additions. The top ten added 52.3%. Satoshi Nakamoto's row is the git string <code>s_nakamoto</code>.</figcaption>
+<figcaption>900 people, after dropping two bulk imports, sirius-m and Vinnie Falco. The top five added 39.5%. The top ten added 52.3%. Satoshi's row is the git string <code>s_nakamoto</code>.</figcaption>
 </figure>
 
 <figure class="article-chart">
@@ -586,12 +564,9 @@ Public-key checks in `src/pubkey.cpp` call into secp256k1. That library is a Cor
 <div class="pair-row"><span class="intensity-name">Gloria Zhao</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:14.6%"></span></div><span class="pair-num add">+19,444</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:4.5%"></span></div><span class="pair-num del">−5,951</span></div><span class="pair-meta">net +13,493 · 390 commits · deletes 31%</span></div></div>
 <div class="pair-row"><span class="intensity-name">Michael Ford</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:14.3%"></span></div><span class="pair-num add">+19,053</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:13.3%"></span></div><span class="pair-num del">−17,676</span></div><span class="pair-meta">net +1,377 · 601 commits · deletes 93%</span></div></div>
 <div class="pair-row"><span class="intensity-name">Ryan Ofsky</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:13.3%"></span></div><span class="pair-num add">+17,697</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:5.0%"></span></div><span class="pair-num del">−6,601</span></div><span class="pair-meta">net +11,096 · 272 commits · deletes 37%</span></div></div>
-<figcaption>John Newbery deleted more than he added. Satoshi Nakamoto's row is the git string <code>s_nakamoto</code>.</figcaption>
 </figure>
 
-Michael Ford's code-file net is 1,377 because this filter skips build scripts. His merge share is a different measurement, in *[Who Controls Bitcoin](/articles/bitcoin-governance)*. Line authorship and merge authority are not the same ranking. Pieter Wuille leads additions. The merge log does not.
-
-On a coarser directory sort of the same git lines, tests gained the most net (167,063 of 302,025 added). Validation kept 31,808 of 110,917. The GUI kept 23,077 of 84,779. Crypto kept 8,120 of 27,526. That sort counts all of `src/node` as P2P, so it does not match the 16,880 current P2P bar. The next section uses the same file lists as the bars in section III.
+Michael Ford's small net skips build scripts. His merge share is a different ranking, in *[Who Controls Bitcoin](/articles/bitcoin-governance)*.
 
 ---
 
@@ -611,12 +586,10 @@ The 55% figure above counts every filtered code file, including tests. Restricte
 <div class="pair-row"><span class="intensity-name">Crypto</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:36.0%"></span></div><span class="pair-num add">+36,031</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:20.6%"></span></div><span class="pair-num del">−20,597</span></div><span class="pair-meta">net +15,434 · 969 commits · 5.4%</span></div></div>
 <div class="pair-row"><span class="intensity-name">Script</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:34.5%"></span></div><span class="pair-num add">+34,561</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:19.2%"></span></div><span class="pair-num del">−19,247</span></div><span class="pair-meta">net +15,314 · 958 commits · 5.1%</span></div></div>
 <div class="pair-row"><span class="intensity-name">Mempool</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:24.4%"></span></div><span class="pair-num add">+24,463</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:11.4%"></span></div><span class="pair-num del">−11,426</span></div><span class="pair-meta">net +13,037 · 1,093 commits · 3.6%</span></div></div>
-<figcaption>A commit that touches two systems is counted in both commit totals. The lines are a partition. Mempool deletes 47% of what it added. The seed header, not in this chart, deletes 89% across 39 commits. IPC deletes 21%.</figcaption>
+<figcaption>A commit that touches two systems is counted in both commit totals. The lines are a partition.</figcaption>
 </figure>
 
-The early years are the GUI. In 2009–2013 the GUI is **28.7%** of implementation lines added. In 2022–2026, through 26 October, validation leads, at **16.2%** (25,716 of 158,548).
-
-The nets in that later era are validation <span class="diff-add">+11,263</span>, mempool <span class="diff-add">+7,504</span>, P2P <span class="diff-add">+7,339</span>, support <span class="diff-add">+6,916</span>, RPC <span class="diff-add">+5,816</span>, wallet <span class="diff-add">+2,061</span>, and the GUI <span class="diff-add">+261</span>. Wallet is the largest tree today because older lines survived. It is not where the recent lines went.
+The early years are the GUI. In 2009–2013 the GUI is **28.7%** of implementation lines added. In 2022–2026, through 26 October, validation leads, at **16.2%**. Wallet is the largest tree today because older lines survived.
 
 ---
 
@@ -689,8 +662,9 @@ The nets in that later era are validation <span class="diff-add">+11,263</span>,
 <span class="intensity-value">45.5%<span class="pair-meta">1,093 commits · validation 36.7%, RPC 20.9%</span></span>
 </div>
 </div>
-<figcaption>All history through 32.1. A commit that edits two systems counts once in each. Alone means no other classified implementation system. The last three years, 26 October 2023 through this release, are close for wallet (68% alone) and validation (62%). The GUI moved, from 66.8% alone over the whole history to 47% in that window.</figcaption>
 </figure>
+
+In the last three years the GUI fell to 47% alone. Wallet stayed near 68%, and validation near 62%.
 
 ---
 
@@ -749,7 +723,6 @@ The nets in that later era are validation <span class="diff-add">+11,263</span>,
 <span class="intensity-value">3.0%</span>
 </div>
 </div>
-<figcaption>12,734 non-blank lines. Jorge Timón includes the jtimon author string. The median rule line was last touched in 2017. The median adjacent line was last touched in 2023. The median line in the rest of the implementation was last touched in 2021.</figcaption>
 </figure>
 
 <figure class="article-chart chart-intensity">
@@ -757,12 +730,9 @@ The nets in that later era are validation <span class="diff-add">+11,263</span>,
 <div class="intensity-row"><span class="intensity-name">Rules, Pieter Wuille</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100.0%"></span></div><span class="intensity-value">44.2% · 2017</span></div></div>
 <div class="intensity-row"><span class="intensity-name">Adjacent, Pieter Wuille</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:54.5%"></span></div><span class="intensity-value">24.1% · 2023</span></div></div>
 <div class="intensity-row"><span class="intensity-name">The rest, Ava Chow</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:25.8%"></span></div><span class="intensity-value">11.4% · 2021</span></div></div>
-<figcaption>The year is the median line in that bucket. Rules are 12,734 non-blank lines, adjacent 28,051, the rest 146,731.</figcaption>
 </figure>
 
-Across all 187,516 non-blank implementation lines, Pieter Wuille last touched 13.9%, Ava Chow 9.1%, Marco Falke 7.6%, and Wladimir J. van der Laan 5.9%. Those four, plus TheCharlatan, Hennadii Stepanov, Russell Yanofsky, and Vasil Dimov, last touched 49.0%. Gloria Zhao is third on the adjacent lines, at 6.9%, and tenth overall.
-
-The rule lines are older than the code around them, and one person last touched 44% of them. The additions chart in section VIII is a different question. Satoshi's author string leads a large share of historical additions and is absent from the lines that remain. Who would make the next change is the next section.
+Pieter Wuille last touched 13.9% of all 187,516 non-blank implementation lines, against 44.2% of the rules. Satoshi's author string leads a large share of historical additions and is absent from the lines that remain. Who would make the next change is the next section.
 
 ---
 
@@ -821,7 +791,6 @@ Over the three years ending 26 October 2026, validation's 798 commits come from 
 <span class="intensity-value">15%</span>
 </div>
 </div>
-<figcaption>Author dates from 26 October 2023 through this release. The validation bar is the largest person, not a majority. Seven people cover half of validation's commits. No system is one person.</figcaption>
 </figure>
 
 <figure class="article-chart chart-intensity">
@@ -835,7 +804,6 @@ Over the three years ending 26 October 2026, validation's 798 commits come from 
 <div class="intensity-row"><span class="intensity-name">GUI</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:46.6%"></span></div><span class="intensity-value">34<span class="pair-meta">3 to half · top three 52% · 197 commits</span></span></div></div>
 <div class="intensity-row"><span class="intensity-name">Script</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:46.6%"></span></div><span class="intensity-value">34<span class="pair-meta">3 to half · top three 52% · 174 commits</span></span></div></div>
 <div class="intensity-row"><span class="intensity-name">Crypto</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:43.8%"></span></div><span class="intensity-value">32<span class="pair-meta">5 to half · top three 39% · 178 commits</span></span></div></div>
-<figcaption>The bar is the number of people. The largest person's share is the chart above. Top three hold 58% of mempool commits, 52% of wallet, GUI, and script, and 34% of validation.</figcaption>
 </figure>
 
 The rule files are their own count. In the same three years, **169** commits touch them, from **31** people, and **five** cover half. Marco Falke is 18%. Anthony Towns and Lőrinc are the next two, and the three together hold 42%. Pieter Wuille's 44.2% is the text that remains, and the median of those lines is 2017. These recent commits are a different list. The 562 check lines inside `validation.cpp` are left out of this count. That file is mostly chainstate and mempool.
@@ -846,16 +814,15 @@ The rule files are their own count. In the same three years, **169** commits tou
 <div class="intensity-row"><span class="intensity-name">Rule files</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:71.4%"></span></div><span class="intensity-value">5<span class="pair-meta">31 people · Marco Falke 18%</span></span></div></div>
 <div class="intensity-row"><span class="intensity-name">Mempool</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:42.9%"></span></div><span class="intensity-value">3<span class="pair-meta">40 people · Pieter Wuille 36%</span></span></div></div>
 <div class="intensity-row"><span class="intensity-name">Wallet</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:42.9%"></span></div><span class="intensity-value">3<span class="pair-meta">63 people · Ava Chow 31%</span></span></div></div>
-<figcaption>The bar is how many people cover half the commits. Rule files are the section IV list, without <code>validation.cpp</code>. Same window and the same person merge as the charts above.</figcaption>
 </figure>
 
-Two git names that share an email are one person. RPC has the most people, 73, and seven of them reach half of its commits. The GUI is the quiet tree, 197 commits. ismaelsadeeq is third on mempool, at 9%, after Pieter Wuille and Suhas Daftuar.
+Two git names that share an email are one person. RPC has the most people, 73. The GUI is the quiet tree, 197 commits.
 
 ---
 
 ## The size of the contract
 
-At this release the tree exposes **171** RPC methods, **36** P2P message types, and **5** named deployment slots. RPC grew in every era and shed names in every era after 2013. The deployment list gained taproot by the end of 2021. In this release the named slots are bip34, bip65, bip66, csv, and segwit. The taproot rule is still in the script interpreter.
+At this release the tree exposes **171** RPC methods, **36** P2P message types, and **5** named deployment slots. Named slots went 1, 5, 6, then 5. Taproot left the named list. The rule is still in the interpreter.
 
 <p class="chart-heading chart-open">RPC methods and P2P message types, end of each era</p>
 <p class="chart-key"><span class="key-a">RPC methods</span><span class="key-b">P2P messages</span></p>
@@ -864,25 +831,13 @@ At this release the tree exposes **171** RPC methods, **36** P2P message types, 
 <svg viewBox="-48 0 808 248" font-size="14" font-family="system-ui, sans-serif" role="img" aria-label="RPC methods and P2P message types at the end of each era"><line class="grid" x1="68" y1="214.0" x2="744" y2="214.0"/><text class="ylab" x="58" y="214.0">0</text><line class="grid" x1="68" y1="165.0" x2="744" y2="165.0"/><text class="ylab" x="58" y="165.0">50</text><line class="grid" x1="68" y1="116.0" x2="744" y2="116.0"/><text class="ylab" x="58" y="116.0">100</text><line class="grid" x1="68" y1="67.0" x2="744" y2="67.0"/><text class="ylab" x="58" y="67.0">150</text><line class="grid" x1="68" y1="18.0" x2="744" y2="18.0"/><text class="ylab" x="58" y="18.0">200</text><polyline class="series-a" points="68.0,143.4 293.3,97.4 518.7,61.1 744.0,46.4"/><circle class="series-a" cx="68.0" cy="143.4" r="3"/><circle class="series-a" cx="293.3" cy="97.4" r="3"/><circle class="series-a" cx="518.7" cy="61.1" r="3"/><circle class="series-a" cx="744.0" cy="46.4" r="3"/><polyline class="series-b" points="68.0,193.4 293.3,188.5 518.7,180.7 744.0,178.7"/><circle class="series-b" cx="68.0" cy="193.4" r="3"/><circle class="series-b" cx="293.3" cy="188.5" r="3"/><circle class="series-b" cx="518.7" cy="180.7" r="3"/><circle class="series-b" cx="744.0" cy="178.7" r="3"/><text class="xlab" x="68.0" y="238">2013</text><text class="xlab" x="293.3" y="238">2017</text><text class="xlab" x="518.7" y="238">2021</text><text class="xlab" x="744.0" y="238">2026</text></svg>
 </figure>
 
-<p class="chart-note">RPC by era: <span class="diff"><span class="diff-add">+72</span><span class="diff-del">−0</span></span>, then <span class="diff"><span class="diff-add">+52</span><span class="diff-del">−5</span></span>, <span class="diff"><span class="diff-add">+53</span><span class="diff-del">−16</span></span>, <span class="diff"><span class="diff-add">+29</span><span class="diff-del">−14</span></span>. P2P: <span class="diff"><span class="diff-add">+21</span><span class="diff-del">−0</span></span>, then <span class="diff"><span class="diff-add">+6</span><span class="diff-del">−1</span></span>, <span class="diff"><span class="diff-add">+9</span><span class="diff-del">−1</span></span>, <span class="diff"><span class="diff-add">+2</span><span class="diff-del">−0</span></span>. Named deployment slots went 1, 5, 6, 5.</p>
-
-The names behind those changes:
-
-- By 2017, P2P added blocktxn, cmpctblock, feefilter, getblocktxn, sendcmpct, and sendheaders, and dropped alert.
-- By 2021 it added addrv2, sendaddrv2, the compact-filter messages, and wtxidrelay, and dropped reject. This release added sendtxrcncl and feature.
-- RPC dropped getgenerate, gethashespersec, getinfo, getwork, and setgenerate by 2017. By 2021 the account API was gone, along with addwitnessaddress, bumpfee, estimatefee, and signrawtransaction. This release dropped the legacy import and dump methods.
-- The 2013 slot is the block-version-2 height-in-coinbase rule, later named bip34. By 2017 the slots were bip34, bip65, bip66, csv, and segwit. Taproot was the slot added by 2021. This release names the five buried deployments. The taproot rule is still in the interpreter.
-
-
-Commit-message counts of the words "bug fix" are not a defect rate. Cyclomatic complexity restates the files the line counts already flag as large. Neither is in this article.
-
 ---
 
 ## X. Patch debt
 
-The January 2026 debt study scores a file from how often it is edited in small diffs and how long it has gone without a large rewrite. This is the same formula, rerun on **17,072** merged pull requests from 3 January 2011 through 12 October 2026. It is a churn score. It is not a bug count. The pull-request dump ends before the 32.1 tag, so the scores do not see merges from 13 October through 26 October.
+The January 2026 debt study scores a file from how often it is edited in small diffs and how long it has gone without a large rewrite. This is the same formula, rerun on **17,072** merged pull requests through 12 October 2026. It is a churn score. It is not a bug count.
 
-Counting every path that history ever touched, including files that are gone, **28.2%** score above 50 and the patch-to-refactor ratio is **3.0**. That reproduces the January headline (26.8% and 3.0). RPC is 63% of that wider count.
+Counting every path that history ever touched, including files that are gone, **28.2%** score above 50 and the patch-to-refactor ratio is **3.0**. RPC is 63% of that wider count.
 
 Restricted to files still in this tree, **15.8%** of files score above 50, and those files hold **10.2%** of current code lines. High-scoring files are smaller than average. Many of the old high scores were paths that no longer exist (`main.cpp`, `ui.cpp`). Among living files the ratio is **3.6** patches per refactor. Wallet is **6.9** to 1. The study's own consensus bucket, 26 files, is patched once per refactor, and 42% of those files still score above 50. That bucket is not the 10,122 rule lines.
 
@@ -930,10 +885,7 @@ Restricted to files still in this tree, **15.8%** of files score above 50, and t
 <span class="intensity-value">12.7%</span>
 </div>
 </div>
-<figcaption>Percent of files still in the tree. RPC's 63% was the count that included deleted paths. Among RPC files that remain, 24% score above 50.</figcaption>
 </figure>
-
-The highest living source files on this score are `src/index/base.cpp` (80, 376 lines), `src/rpc/util.cpp` (79.4, 1,249 lines), `src/wallet/walletdb.h` (79.3), `src/interfaces/chain.h` (77.9), and `src/validationinterface.cpp` (72.3).
 
 ---
 
