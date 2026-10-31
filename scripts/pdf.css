@@ -231,8 +231,21 @@ figure,
 .article-chart .chart-heading,
 .article-chart figcaption,
 .article-chart .stackbar-legend,
-.article-chart .chart-stats dt {
+.article-chart .chart-stats dt,
+.chart-heading.chart-open,
+.chart-key,
+.chart-note {
   color: #a8a8a8;
+}
+
+.chart-heading.chart-open,
+.chart-key {
+  background: #161616;
+  border-color: #2c2c2c;
+}
+
+.article-chart.chart-xychart text {
+  fill: #f5f5f5 !important;
 }
 
 .article-chart .chart-stats dd,

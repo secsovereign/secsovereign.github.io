@@ -923,8 +923,67 @@ body {
 }
 
 .article-chart.chart-xychart .chart-svg svg.mermaid-svg {
-    max-width: 420px;
-    max-height: 220px;
+    max-width: 100%;
+    max-height: none;
+}
+
+.article-chart.chart-xychart .background {
+    fill: transparent;
+}
+
+.article-chart.chart-xychart .bottom-axis path,
+.article-chart.chart-xychart .left-axis path {
+    stroke: #666666;
+}
+
+.chart-heading.chart-open {
+    margin: 1.25rem 0 0;
+    padding: 0.7rem 0.75rem 0.15rem;
+    background: var(--light-gray);
+    border: 1px solid var(--border);
+    border-bottom: 0;
+    border-radius: 8px 8px 0 0;
+}
+
+.chart-key {
+    margin: 0;
+    padding: 0.15rem 0.75rem 0.45rem;
+    background: var(--light-gray);
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.chart-key span + span {
+    margin-left: 1.1rem;
+}
+
+.chart-key .key-a::before,
+.chart-key .key-b::before {
+    content: "";
+    display: inline-block;
+    width: 1.15rem;
+    height: 3px;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+    border-radius: 2px;
+}
+
+.chart-key .key-a::before { background: #0099ff; }
+.chart-key .key-b::before { background: #ff6b6b; }
+
+.chart-heading.chart-open + .article-chart,
+.chart-heading.chart-open + .chart-key + .article-chart {
+    margin-top: 0;
+    border-radius: 0 0 8px 8px;
+}
+
+.chart-note {
+    margin: 0.65rem 0 1.25rem;
+    color: var(--text-muted);
+    font-size: 0.92rem;
 }
 
 .article-chart.chart-xychart .chart-svg svg.mermaid-svg text,

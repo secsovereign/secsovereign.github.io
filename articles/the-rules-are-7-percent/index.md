@@ -477,9 +477,7 @@ Public-key checks in `src/pubkey.cpp` call into secp256k1. The signature math is
 
 ## VIII. Who added the lines
 
-History is git numstat on non-merge commits, extensions `.cpp`, `.h`, `.hpp`, `.c`, `.cc`, `.py`, and `.rs` only. Comments and blanks are included, so these are not tokei code lines. Vendored prefixes, Qt translations, and build scripts are excluded. Two bulk imports are dropped from the people table and kept in the year chart: sirius-m (46,010 added, 16 commits) and Vinnie Falco (25,695 added, 2 commits).
-
-On that filter, **1,122,543** lines were added and **614,627** were deleted. Deleted over added is **55%**. Net is added minus deleted. It is not the lines still in the tree. That count is section IX.
+**1,122,543** lines were added and **614,627** were deleted. **55%** of what was added was later deleted. Net is added minus deleted. It is not the lines still in the tree. That count is section IX. The filter is code files only. Comments and blanks count. Vendored trees, Qt translations, and build scripts do not.
 
 <figure class="article-chart chart-stackbar">
 <div class="chart-heading">Of the lines added to code files, through 26 October 2026</div>
@@ -495,35 +493,40 @@ On that filter, **1,122,543** lines were added and **614,627** were deleted. Del
 <figcaption>33,670 non-merge commits through this release. 26,226 of them touched the filtered code files. The other 7,444 touched only build, docs, translations, or vendored paths.</figcaption>
 </figure>
 
-<div class="table-scroll">
-<table>
-<thead>
-<tr><th>Year</th><th>Change</th><th class="num">Code commits</th></tr>
-</thead>
-<tbody>
-<tr><td>2009</td><td><span class="diff"><span class="diff-add">+54,844</span><span class="diff-del">−10,686</span></span></td><td class="num">68</td></tr>
-<tr><td>2010</td><td><span class="diff"><span class="diff-add">+65,289</span><span class="diff-del">−62,104</span></span></td><td class="num">218</td></tr>
-<tr><td>2011</td><td><span class="diff"><span class="diff-add">+53,392</span><span class="diff-del">−27,777</span></span></td><td class="num">672</td></tr>
-<tr><td>2012</td><td><span class="diff"><span class="diff-add">+37,038</span><span class="diff-del">−21,369</span></span></td><td class="num">958</td></tr>
-<tr><td>2013</td><td><span class="diff"><span class="diff-add">+59,554</span><span class="diff-del">−20,211</span></span></td><td class="num">688</td></tr>
-<tr><td>2014</td><td><span class="diff"><span class="diff-add">+64,249</span><span class="diff-del">−36,468</span></span></td><td class="num">1,273</td></tr>
-<tr><td>2015</td><td><span class="diff"><span class="diff-add">+49,181</span><span class="diff-del">−21,257</span></span></td><td class="num">1,032</td></tr>
-<tr><td>2016</td><td><span class="diff"><span class="diff-add">+57,430</span><span class="diff-del">−28,521</span></span></td><td class="num">1,400</td></tr>
-<tr><td>2017</td><td><span class="diff"><span class="diff-add">+65,394</span><span class="diff-del">−43,770</span></span></td><td class="num">1,932</td></tr>
-<tr><td>2018</td><td><span class="diff"><span class="diff-add">+56,407</span><span class="diff-del">−34,265</span></span></td><td class="num">1,648</td></tr>
-<tr><td>2019</td><td><span class="diff"><span class="diff-add">+60,527</span><span class="diff-del">−35,236</span></span></td><td class="num">1,785</td></tr>
-<tr><td>2020</td><td><span class="diff"><span class="diff-add">+91,782</span><span class="diff-del">−47,157</span></span></td><td class="num">2,606</td></tr>
-<tr><td>2021</td><td><span class="diff"><span class="diff-add">+86,333</span><span class="diff-del">−50,883</span></span></td><td class="num">2,577</td></tr>
-<tr><td>2022</td><td><span class="diff"><span class="diff-add">+69,544</span><span class="diff-del">−33,989</span></span></td><td class="num">2,134</td></tr>
-<tr><td>2023</td><td><span class="diff"><span class="diff-add">+59,283</span><span class="diff-del">−32,818</span></span></td><td class="num">1,843</td></tr>
-<tr><td>2024</td><td><span class="diff"><span class="diff-add">+78,067</span><span class="diff-del">−44,992</span></span></td><td class="num">2,001</td></tr>
-<tr><td>2025</td><td><span class="diff"><span class="diff-add">+64,429</span><span class="diff-del">−37,866</span></span></td><td class="num">1,865</td></tr>
-<tr><td>2026</td><td><span class="diff"><span class="diff-add">+49,800</span><span class="diff-del">−25,258</span></span></td><td class="num">1,526</td></tr>
-</tbody>
-</table>
-</div>
+<p class="chart-heading chart-open">Lines added and deleted, by year</p>
+<p class="chart-key"><span class="key-a">Added</span><span class="key-b">Deleted</span></p>
 
-2026 runs through 26 October. 2010's net is 3,185. The largest net year is 2020, at 44,625. 2009's net, 44,158, is close. Distinct people peaked at 144 in 2018 and fell to 76 in 2023. A person is one email, or two git names that share an email, or one name that used two addresses. 2024 is 86, 2025 is 111, and 2026 through 26 October is 105.
+```mermaid
+xychart-beta
+    x-axis [09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+    y-axis "Thousands of lines" 0 --> 100
+    line [55, 65, 53, 37, 60, 64, 49, 57, 65, 56, 61, 92, 86, 70, 59, 78, 64, 50]
+    line [11, 62, 28, 21, 20, 36, 21, 29, 44, 34, 35, 47, 51, 34, 33, 45, 38, 25]
+```
+
+<p class="chart-note">Thousands of lines, rounded. 2020 added 91,782 and deleted 47,157. 2010 added 65,289 and deleted 62,104, a net of 3,185. The largest net is 2020, at 44,625. 2009's net is 44,158. 2026 runs through 26 October.</p>
+
+<p class="chart-heading chart-open">Code commits by year</p>
+
+```mermaid
+xychart-beta
+    x-axis [09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+    y-axis "Commits" 0 --> 2800
+    line [68, 218, 672, 958, 688, 1273, 1032, 1400, 1932, 1648, 1785, 2606, 2577, 2134, 1843, 2001, 1865, 1526]
+```
+
+<p class="chart-note">The peak is 2,606 commits in 2020. 2026, through 26 October, is 1,526.</p>
+
+<p class="chart-heading chart-open">Distinct people by year</p>
+
+```mermaid
+xychart-beta
+    x-axis [09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+    y-axis "People" 0 --> 160
+    line [2, 7, 53, 45, 60, 115, 85, 104, 125, 144, 129, 134, 126, 124, 76, 86, 111, 105]
+```
+
+<p class="chart-note">Two git names that share an email are one person, and so is one name that used two addresses. The peak is 144 people in 2018. 2023 falls to 76. 2026, through 26 October, is 105.</p>
 
 <figure class="article-chart chart-intensity">
 <div class="chart-heading">Lines added by person, bulk imports omitted, scaled to Pieter Wuille</div>
@@ -569,7 +572,7 @@ On that filter, **1,122,543** lines were added and **614,627** were deleted. Del
 <span class="intensity-value">42,191</span>
 </div>
 </div>
-<figcaption>900 people remain after the bulk-import drop. Two git names that share an email are one person. The top five added 39.5% of kept additions. The top ten added 52.3%. Satoshi Nakamoto's commits in this row use the git author string <code>s_nakamoto</code>. Marco Falke, Gloria Zhao, and Michael Ford are the names in the release notes and in <code>SECURITY.md</code>. The git strings are MarcoFalke, glozow, and fanquake.</figcaption>
+<figcaption>900 people after dropping two bulk imports, sirius-m and Vinnie Falco. The top five added 39.5% of kept additions. The top ten added 52.3%. Satoshi Nakamoto's row is the git string <code>s_nakamoto</code>.</figcaption>
 </figure>
 
 <div class="table-scroll">
@@ -625,7 +628,9 @@ The 55% figure above counts every filtered code file, including tests. Restricte
 
 A commit that touches two systems is counted in both, so the commit column is not a partition. The change figures are. Most of these systems later delete between half and seven tenths of what they added. Mempool deletes 47%. The seed header, not in this table, deletes 89% across 39 commits. IPC deletes 21%.
 
-The early years are the GUI. In 2009–2013 the GUI is **28.7%** of implementation lines added. In 2022–2026, through 26 October, validation leads, at **16.2%** of the lines added in that era (25,716 of 158,548). The nets in that era are validation <span class="diff-add">+11,263</span>, mempool <span class="diff-add">+7,504</span>, P2P <span class="diff-add">+7,339</span>, support <span class="diff-add">+6,916</span>, RPC <span class="diff-add">+5,816</span>, wallet <span class="diff-add">+2,061</span>, and the GUI <span class="diff-add">+261</span>. Wallet is the largest tree today because older lines survived. It is not where the recent lines went.
+The early years are the GUI. In 2009–2013 the GUI is **28.7%** of implementation lines added. In 2022–2026, through 26 October, validation leads, at **16.2%** (25,716 of 158,548).
+
+The nets in that later era are validation <span class="diff-add">+11,263</span>, mempool <span class="diff-add">+7,504</span>, P2P <span class="diff-add">+7,339</span>, support <span class="diff-add">+6,916</span>, RPC <span class="diff-add">+5,816</span>, wallet <span class="diff-add">+2,061</span>, and the GUI <span class="diff-add">+261</span>. Wallet is the largest tree today because older lines survived. It is not where the recent lines went.
 
 ---
 
@@ -855,7 +860,7 @@ Over the three years ending 26 October 2026, validation's 798 commits come from 
 | Script | 174 | 34 | 3 | Ava Chow 29% | 52% |
 | Mempool | 401 | 40 | 3 | Pieter Wuille 36% | 58% |
 
-A person is one email, or two git names that share an email. Ava Chow includes Andrew Chow. TheCharlatan includes sedited. Gloria Zhao includes glozow. Michael Ford includes fanquake. Lőrinc includes l0rinc. furszy and ismaelsadeeq are the names in the release notes. ismaelsadeeq is 9% of recent mempool commits, third after Pieter Wuille and Suhas Daftuar. RPC has the most people, 73, and seven of them reach half. The GUI is the quiet tree, 197 commits. Pieter Wuille last touched 44% of the rule lines still in the tree, and the median rule line was last touched in 2017. Over these three years his largest share is mempool, at 36%, and he is second on crypto, at 13%.
+Two git names that share an email are one person. RPC has the most people, 73, and seven of them reach half of its commits. The GUI is the quiet tree, 197 commits. ismaelsadeeq is third on mempool, at 9%, after Pieter Wuille and Suhas Daftuar.
 
 ---
 
@@ -863,89 +868,26 @@ A person is one email, or two git names that share an email. Ava Chow includes A
 
 At this release the tree exposes **171** RPC methods, **36** P2P message types, and **5** named deployment slots. RPC grew in every era and shed names in every era after 2013. The deployment list gained taproot by the end of 2021. In this release the named slots are bip34, bip65, bip66, csv, and segwit. The taproot rule is still in the script interpreter.
 
-<div class="chart-pair">
-<figure class="article-chart chart-intensity">
-<div class="chart-heading">RPC methods at the end of each era, scaled to 32.1</div>
-<div class="intensity-row">
-<span class="intensity-name">2022–2026</span>
-<div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
-<span class="intensity-value">171</span>
-</div>
-</div>
-<div class="intensity-row">
-<span class="intensity-name">2018–2021</span>
-<div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:91.2%"></span></div>
-<span class="intensity-value">156</span>
-</div>
-</div>
-<div class="intensity-row">
-<span class="intensity-name">2014–2017</span>
-<div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:69.6%"></span></div>
-<span class="intensity-value">119</span>
-</div>
-</div>
-<div class="intensity-row">
-<span class="intensity-name">2009–2013</span>
-<div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:42.1%"></span></div>
-<span class="intensity-value">72</span>
-</div>
-</div>
-<figcaption>Registered method names, including hidden methods. 2013 and 2017 are the command tables. 2021 and 2026 are <code>RPCHelpMan</code> and <code>RPCMethod</code> constructors.</figcaption>
-</figure>
+<p class="chart-heading chart-open">RPC methods and P2P message types, end of each era</p>
+<p class="chart-key"><span class="key-a">RPC methods</span><span class="key-b">P2P messages</span></p>
 
-<figure class="article-chart chart-intensity">
-<div class="chart-heading">P2P message types at the end of each era, scaled to 32.1</div>
-<div class="intensity-row">
-<span class="intensity-name">2022–2026</span>
-<div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
-<span class="intensity-value">36</span>
-</div>
-</div>
-<div class="intensity-row">
-<span class="intensity-name">2018–2021</span>
-<div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:94.4%"></span></div>
-<span class="intensity-value">34</span>
-</div>
-</div>
-<div class="intensity-row">
-<span class="intensity-name">2014–2017</span>
-<div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:72.2%"></span></div>
-<span class="intensity-value">26</span>
-</div>
-</div>
-<div class="intensity-row">
-<span class="intensity-name">2009–2013</span>
-<div class="intensity-wrap">
-<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:58.3%"></span></div>
-<span class="intensity-value">21</span>
-</div>
-</div>
-<figcaption>2013 is the messages the network dispatcher receives or sends. From 2017 on, the count is the <code>NetMsgType</code> list. Those two methods meet: 21 messages, drop alert, add the six compact-block and fee-filter names, and the 2017 table is 26.</figcaption>
-</figure>
-</div>
+```mermaid
+xychart-beta
+    x-axis [2013, 2017, 2021, 2026]
+    y-axis "Count" 0 --> 180
+    line [72, 119, 156, 171]
+    line [21, 26, 34, 36]
+```
 
-<div class="table-scroll">
-<table>
-<thead>
-<tr><th>Era</th><th class="num">RPC methods</th><th>RPC change</th><th class="num">P2P messages</th><th>P2P change</th><th class="num">Deployment slots</th><th>Slot change</th></tr>
-</thead>
-<tbody>
-<tr><td>2009–2013</td><td class="num">72</td><td><span class="diff"><span class="diff-add">+72</span><span class="diff-del">−0</span></span></td><td class="num">21</td><td><span class="diff"><span class="diff-add">+21</span><span class="diff-del">−0</span></span></td><td class="num">1</td><td><span class="diff"><span class="diff-add">+1</span><span class="diff-del">−0</span></span></td></tr>
-<tr><td>2014–2017</td><td class="num">119</td><td><span class="diff"><span class="diff-add">+52</span><span class="diff-del">−5</span></span></td><td class="num">26</td><td><span class="diff"><span class="diff-add">+6</span><span class="diff-del">−1</span></span></td><td class="num">5</td><td><span class="diff"><span class="diff-add">+4</span><span class="diff-del">−0</span></span></td></tr>
-<tr><td>2018–2021</td><td class="num">156</td><td><span class="diff"><span class="diff-add">+53</span><span class="diff-del">−16</span></span></td><td class="num">34</td><td><span class="diff"><span class="diff-add">+9</span><span class="diff-del">−1</span></span></td><td class="num">6</td><td><span class="diff"><span class="diff-add">+1</span><span class="diff-del">−0</span></span></td></tr>
-<tr><td>2022–2026</td><td class="num">171</td><td><span class="diff"><span class="diff-add">+29</span><span class="diff-del">−14</span></span></td><td class="num">36</td><td><span class="diff"><span class="diff-add">+2</span><span class="diff-del">−0</span></span></td><td class="num">5</td><td><span class="diff"><span class="diff-add">+0</span><span class="diff-del">−1</span></span></td></tr>
-</tbody>
-</table>
-</div>
+<p class="chart-note">RPC by era: <span class="diff"><span class="diff-add">+72</span><span class="diff-del">−0</span></span>, then <span class="diff"><span class="diff-add">+52</span><span class="diff-del">−5</span></span>, <span class="diff"><span class="diff-add">+53</span><span class="diff-del">−16</span></span>, <span class="diff"><span class="diff-add">+29</span><span class="diff-del">−14</span></span>. P2P: <span class="diff"><span class="diff-add">+21</span><span class="diff-del">−0</span></span>, then <span class="diff"><span class="diff-add">+6</span><span class="diff-del">−1</span></span>, <span class="diff"><span class="diff-add">+9</span><span class="diff-del">−1</span></span>, <span class="diff"><span class="diff-add">+2</span><span class="diff-del">−0</span></span>. Named deployment slots went 1, 5, 6, 5.</p>
 
-2026 ends at this release. P2P additions by 2017 are blocktxn, cmpctblock, feefilter, getblocktxn, sendcmpct, and sendheaders. alert is the removal. By 2021 the new names are addrv2, sendaddrv2, the compact-filter set, and wtxidrelay, and reject is gone. By this release the new names are sendtxrcncl and feature, the BIP 434 negotiation message. RPC removals by 2017 are getgenerate, gethashespersec, getinfo, getwork, and setgenerate. By 2021 the account API is gone, along with addwitnessaddress, bumpfee, estimatefee, and signrawtransaction. By this release the legacy import and dump methods are gone. The 2013 deployment slot is the block-version-2 height-in-coinbase rule, later named bip34. The four added by 2017 are bip65, bip66, csv, and segwit. The one added by 2021 is taproot. testdummy is excluded. Height-field aliases of the same fork are one slot.
+The names behind those changes:
+
+- By 2017, P2P added blocktxn, cmpctblock, feefilter, getblocktxn, sendcmpct, and sendheaders, and dropped alert.
+- By 2021 it added addrv2, sendaddrv2, the compact-filter messages, and wtxidrelay, and dropped reject. This release added sendtxrcncl and feature.
+- RPC dropped getgenerate, gethashespersec, getinfo, getwork, and setgenerate by 2017. By 2021 the account API was gone, along with addwitnessaddress, bumpfee, estimatefee, and signrawtransaction. This release dropped the legacy import and dump methods.
+- The 2013 slot is the block-version-2 height-in-coinbase rule, later named bip34. By 2017 the slots were bip34, bip65, bip66, csv, and segwit. Taproot was the slot added by 2021. This release names the five buried deployments. The taproot rule is still in the interpreter.
+
 
 Commit-message counts of the words "bug fix" are not a defect rate. Cyclomatic complexity restates the files the line counts already flag as large. Neither is in this article.
 
@@ -1016,7 +958,7 @@ The rules that have to be specified, audited, and matched by any other implement
 
 *[Don't Trust, Verify](/articles/dont-trust-verify#vi-the-same-system-applied-to-bitcoin-core)* is about that collapse at the review layer. The first independent audit of Bitcoin Core, Quarkslab in September 2025, scoped P2P, mempool, block validation, and chain state. Those are mostly the adjacent lines in section V, plus some of the checks. The interpreter, the hash implementations, and the type of the transaction are the rest of the 10,122, and secp256k1 is another 76,503.
 
-*[Who Controls Bitcoin](/articles/bitcoin-governance)* measures who merges. This article measures who wrote lines and who last touched the lines that remain. The rankings differ. Merge concentration answers who can land a change. The blame in section IX answers whose text is still in the rule files. Both can be true, and neither is a substitute for the other. The sections after that blame answer three further questions. A commit that edits validation and the wallet is one change, and for the wallet that happens 13.7% of the time. Over the last three years, validation's commits are spread across 67 names. The contract a release exposes is the RPC methods, the P2P message types, and the deployment slots.
+*[Who Controls Bitcoin](/articles/bitcoin-governance)* measures who merges. This article measures who wrote lines and who last touched the lines that remain. The rankings differ. Merge concentration answers who can land a change. The blame in section IX answers whose text is still in the rule files. Both can be true, and neither is a substitute for the other. The later sections answer three further questions. Wallet commits also touch validation 13.7% of the time. Over the last three years, validation's commits come from 66 people. A release exposes 171 RPC methods, 36 P2P message types, and 5 deployment slots.
 
 *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)* argues the client is a monolith because the wallet, the network, and the rules ship together. The line count is the size of that claim. Seven percent is the rules. Eighty percent is the rest of the same binary.
 

@@ -50,9 +50,28 @@ const MERMAID_THEME = [
   '',
 ].join('\n');
 
+function mermaidChrome() {
+  if (process.env.PUPPETEER_EXECUTABLE_PATH && fs.existsSync(process.env.PUPPETEER_EXECUTABLE_PATH)) {
+    return process.env.PUPPETEER_EXECUTABLE_PATH;
+  }
+  const cache = path.join(os.homedir(), '.cache/puppeteer/chrome-headless-shell');
+  if (!fs.existsSync(cache)) return null;
+  const found = [];
+  for (const ver of fs.readdirSync(cache)) {
+    const dir = path.join(cache, ver);
+    if (!fs.statSync(dir).isDirectory()) continue;
+    for (const name of fs.readdirSync(dir)) {
+      const bin = path.join(dir, name, 'chrome-headless-shell');
+      if (fs.existsSync(bin)) found.push(bin);
+    }
+  }
+  found.sort();
+  return found.at(-1) || null;
+}
+
 function mmdcArgsForDiagram(code) {
   if (/\bxychart/i.test(code)) {
-    return ['-w', '420', '-H', '220'];
+    return ['-w', '780', '-H', '360'];
   }
   return ['-w', '520', '-H', '120'];
 }
@@ -69,12 +88,16 @@ function renderMermaidDiagram(code) {
   const tmpOut = path.join(os.tmpdir(), `${id}.svg`);
   try {
     fs.writeFileSync(tmpIn, diagram);
+    const chrome = mermaidChrome();
     execFileSync(MMDC, ['-i', tmpIn, '-o', tmpOut, '-b', 'transparent', ...mmdcArgsForDiagram(code)], {
       cwd: ROOT,
       stdio: 'pipe',
       timeout: 60000,
+      env: chrome ? { ...process.env, PUPPETEER_EXECUTABLE_PATH: chrome } : process.env,
     });
     let svg = fs.readFileSync(tmpOut, 'utf8');
+    svg = svg.replace(/id="my-svg"/g, `id="${id}"`);
+    svg = svg.replace(/#my-svg/g, `#${id}`);
     svg = svg.replace(/<svg /, '<svg class="mermaid-svg" ');
     svg = svg.replace(/font-size:16px/g, 'font-size:10px');
     if (!/\bxychart/i.test(code)) {
