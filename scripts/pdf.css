@@ -244,7 +244,8 @@ figure,
   border-color: #2c2c2c;
 }
 
-.article-chart.chart-xychart text {
+.article-chart.chart-xychart text,
+.chart-line text {
   fill: #f5f5f5 !important;
 }
 
