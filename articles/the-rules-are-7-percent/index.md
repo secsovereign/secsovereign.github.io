@@ -88,15 +88,18 @@ The headline is the implementation, not the 719,989. Qt locale files are 286,741
 <figcaption>The 189 markdown files are comments and blanks in this count, 34,921 physical lines, and do not show as code. Comments and blanks bring the parsed tree to 910,653 physical lines. Source: tokei 14 on Bitcoin Core 32.1, <code>f0de87f</code>.</figcaption>
 </figure>
 
-| Bucket | Code | Comments | Blanks | Files |
-|---|---:|---:|---:|---:|
-| Qt translations | 286,741 | 3 | 201 | 103 |
-| Tests | 154,273 | 23,091 | 27,145 | 921 |
-| Implementation | 151,004 | 37,005 | 25,701 | 756 |
-| Vendored | 112,703 | 18,346 | 12,159 | 526 |
-| Contrib | 9,062 | 6,037 | 2,174 | 97 |
-| Build and CI | 6,206 | 2,417 | 1,464 | 106 |
-| Docs | 0 | 27,889 | 7,032 | 189 |
+<figure class="article-chart">
+<div class="chart-heading">Code, comments, and blanks, scaled to the Qt translations</div>
+<p class="chart-key"><span class="key-a">Code</span><span class="key-c">Comments and blanks</span></p>
+<div class="mix-row"><span class="intensity-name">Translations</span><div class="mix-scale"><div class="mix-bar" style="width:100.0%"><span class="mix-code" style="width:99.93%"></span><span class="mix-comment" style="width:0.00%"></span><span class="mix-blank" style="width:0.07%"></span></div><span class="pair-meta">286,741 code · 103 files</span></div></div>
+<div class="mix-row"><span class="intensity-name">Implementation</span><div class="mix-scale"><div class="mix-bar" style="width:74.5%"><span class="mix-code" style="width:70.66%"></span><span class="mix-comment" style="width:17.32%"></span><span class="mix-blank" style="width:12.03%"></span></div><span class="pair-meta">151,004 code · 756 files</span></div></div>
+<div class="mix-row"><span class="intensity-name">Tests</span><div class="mix-scale"><div class="mix-bar" style="width:71.3%"><span class="mix-code" style="width:75.44%"></span><span class="mix-comment" style="width:11.29%"></span><span class="mix-blank" style="width:13.27%"></span></div><span class="pair-meta">154,273 code · 921 files</span></div></div>
+<div class="mix-row"><span class="intensity-name">Vendored</span><div class="mix-scale"><div class="mix-bar" style="width:49.9%"><span class="mix-code" style="width:78.70%"></span><span class="mix-comment" style="width:12.81%"></span><span class="mix-blank" style="width:8.49%"></span></div><span class="pair-meta">112,703 code · 526 files</span></div></div>
+<div class="mix-row"><span class="intensity-name">Docs</span><div class="mix-scale"><div class="mix-bar" style="width:12.2%"><span class="mix-code" style="width:0.00%"></span><span class="mix-comment" style="width:79.86%"></span><span class="mix-blank" style="width:20.14%"></span></div><span class="pair-meta">0 code · 189 files</span></div></div>
+<div class="mix-row"><span class="intensity-name">Contrib</span><div class="mix-scale"><div class="mix-bar" style="width:6.0%"><span class="mix-code" style="width:52.46%"></span><span class="mix-comment" style="width:34.95%"></span><span class="mix-blank" style="width:12.59%"></span></div><span class="pair-meta">9,062 code · 97 files</span></div></div>
+<div class="mix-row"><span class="intensity-name">Build and CI</span><div class="mix-scale"><div class="mix-bar" style="width:3.5%"><span class="mix-code" style="width:61.52%"></span><span class="mix-comment" style="width:23.96%"></span><span class="mix-blank" style="width:14.51%"></span></div><span class="pair-meta">6,206 code · 106 files</span></div></div>
+<figcaption>Bar length is code, comments, and blanks together. The blue share of each bar is code. Docs are comments and blanks, so that bar has no blue.</figcaption>
+</figure>
 
 Tests are 50.5% of implementation-plus-tests. Drop the JSON, hex, and HTML fixtures and test code is 141,369, which is 48.4% of implementation plus that test code. The program carries about as much test code as implementation code. On this release the test pile is the larger of the two.
 
@@ -173,21 +176,23 @@ Seven hundred fifty-six files. The median file is 66 code lines. Thirty-three fi
 <span class="intensity-value">8,363</span>
 </div>
 </div>
-<figcaption>Validation here is chain state, indexes, and block storage. It is not the script interpreter. Mempool includes <code>src/policy</code> (2,665). The crypto bar is that directory, not the rule cut in section IV. The bars below 2,000 lines are in the table. Source: tokei on Bitcoin Core 32.1.</figcaption>
+<figcaption>Validation here is chain state, indexes, and block storage. It is not the script interpreter. Mempool includes <code>src/policy</code> (2,665). The crypto bar is that directory, not the rule cut in section IV. Source: tokei on Bitcoin Core 32.1.</figcaption>
 </figure>
 
-| Also in the 151,004 | Code |
-|---|---:|
-| Executables | 3,094 |
-| Peer address seeds (`chainparamsseeds.h`) | 2,679 |
-| Init | 2,318 |
-| Node interfaces | 1,719 |
-| Mining templates | 1,019 |
-| Addresses | 816 |
-| Logging | 812 |
-| Interfaces | 734 |
-| IPC | 668 |
-| ZMQ | 639 |
+<figure class="article-chart chart-intensity">
+<div class="chart-heading">The rest of the implementation, scaled to the executables</div>
+<div class="intensity-row"><span class="intensity-name">Executables</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100.0%"></span></div><span class="intensity-value">3,094</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Peer seeds</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:86.6%"></span></div><span class="intensity-value">2,679</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Init</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:74.9%"></span></div><span class="intensity-value">2,318</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Node interfaces</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:55.6%"></span></div><span class="intensity-value">1,719</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Mining templates</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:32.9%"></span></div><span class="intensity-value">1,019</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Addresses</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:26.4%"></span></div><span class="intensity-value">816</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Logging</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:26.2%"></span></div><span class="intensity-value">812</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Interfaces</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:23.7%"></span></div><span class="intensity-value">734</span></div></div>
+<div class="intensity-row"><span class="intensity-name">IPC</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:21.6%"></span></div><span class="intensity-value">668</span></div></div>
+<div class="intensity-row"><span class="intensity-name">ZMQ</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:20.7%"></span></div><span class="intensity-value">639</span></div></div>
+<figcaption>These sit outside the nine systems above. Peer seeds are <code>chainparamsseeds.h</code>.</figcaption>
+</figure>
 
 The largest files are `validation.cpp` (4,247), `net_processing.cpp` (4,220), `wallet.cpp` (3,488), `net.cpp` (3,248), `rpc/blockchain.cpp` (3,172), `chainparamsseeds.h` (2,679), `script/descriptor.cpp` (2,534), and `txgraph.cpp` (2,359).
 
@@ -361,16 +366,25 @@ A filename cut that stops at unit tests understates the functional suite. The as
 <figcaption>Rules: 14,875 test lines on 10,122 implementation lines. Adjacent: 17,840 on 20,366. The rest of the test tree: 121,558 on 120,516. Adjacent still has more test lines than the rules. The rules have more test lines per line of implementation.</figcaption>
 </figure>
 
-| What was counted | Code lines | Bucket |
-|---|---:|---|
-| Named rule unit and fuzz | 4,517 | Rules |
-| Integer, hash, script, and block fuzz | 1,403 | Rules |
-| Functional tests of validity rules | 5,375 | Rules |
-| `script_tests.json`, tx vectors, `invalid_txs.py` | 3,580 | Rules |
-| Mempool, policy, cluster, RBF, package names | 8,073 | Adjacent |
-| Mining, assumeutxo, pruning, indexes, package RPC | 6,746 | Adjacent |
-| Coins, miner, blockfilter, chainstate unit and fuzz | 3,021 | Adjacent |
-| Everything else in the test tree | 121,558 | The rest |
+<figure class="article-chart chart-intensity">
+<div class="chart-heading">Test lines by bucket, scaled to everything else</div>
+<div class="intensity-row"><span class="intensity-name">The rest</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div><span class="intensity-value">121,558</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Adjacent</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:14.7%"></span></div><span class="intensity-value">17,840</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Rules</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:12.2%"></span></div><span class="intensity-value">14,875</span></div></div>
+<figcaption>The rest is wallet, GUI, P2P transport, lint, and CI. Rules are 14,875 lines on 10,122 of implementation. Adjacent is 17,840 on 20,366.</figcaption>
+</figure>
+
+<figure class="article-chart chart-intensity">
+<div class="chart-heading">Rule and adjacent tests, scaled to mempool and policy</div>
+<div class="intensity-row"><span class="intensity-name">Mempool and policy</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div><span class="intensity-value">8,073</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Mining and indexes</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:83.6%"></span></div><span class="intensity-value">6,746</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Rule functional tests</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:66.6%"></span></div><span class="intensity-value">5,375</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Named rule unit and fuzz</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:56.0%"></span></div><span class="intensity-value">4,517</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Script and tx vectors</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:44.3%"></span></div><span class="intensity-value">3,580</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Chainstate unit and fuzz</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:37.4%"></span></div><span class="intensity-value">3,021</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Hash and block fuzz</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:17.4%"></span></div><span class="intensity-value">1,403</span></div></div>
+<figcaption>Mempool, mining, and chainstate are the adjacent 17,840. The other four rows are the rule 14,875. Everything else, 121,558, is the long bar above.</figcaption>
+</figure>
 
 The 3,580 vector lines are `script_tests.json` (2,614), `tx_valid.json` (426), `tx_invalid.json` (313), and `invalid_txs.py` (227). The rest row includes wallet, GUI, P2P transport, lint, and CI. A test that calls the interpreter under a name this list does not use is in that row.
 
@@ -497,7 +511,7 @@ Public-key checks in `src/pubkey.cpp` call into secp256k1. The signature math is
 <p class="chart-key"><span class="key-a">Added</span><span class="key-b">Deleted</span></p>
 
 <figure class="article-chart chart-line">
-<svg viewBox="0 0 760 248" font-size="14" font-family="system-ui, sans-serif" role="img" aria-label="Lines added and deleted by year, in thousands"><line class="grid" x1="68" y1="214.0" x2="744" y2="214.0"/><text class="ylab" x="58" y="214.0">0</text><line class="grid" x1="68" y1="165.0" x2="744" y2="165.0"/><text class="ylab" x="58" y="165.0">25</text><line class="grid" x1="68" y1="116.0" x2="744" y2="116.0"/><text class="ylab" x="58" y="116.0">50</text><line class="grid" x1="68" y1="67.0" x2="744" y2="67.0"/><text class="ylab" x="58" y="67.0">75</text><line class="grid" x1="68" y1="18.0" x2="744" y2="18.0"/><text class="ylab" x="58" y="18.0">100</text><polyline class="series-a" points="68.0,106.2 107.8,86.6 147.5,110.1 187.3,141.5 227.1,96.4 266.8,88.6 306.6,118.0 346.4,102.3 386.1,86.6 425.9,104.2 465.6,94.4 505.4,33.7 545.2,45.4 584.9,76.8 624.7,98.4 664.5,61.1 704.2,88.6 744.0,116.0"/><circle class="series-a" cx="68.0" cy="106.2" r="3"/><circle class="series-a" cx="107.8" cy="86.6" r="3"/><circle class="series-a" cx="147.5" cy="110.1" r="3"/><circle class="series-a" cx="187.3" cy="141.5" r="3"/><circle class="series-a" cx="227.1" cy="96.4" r="3"/><circle class="series-a" cx="266.8" cy="88.6" r="3"/><circle class="series-a" cx="306.6" cy="118.0" r="3"/><circle class="series-a" cx="346.4" cy="102.3" r="3"/><circle class="series-a" cx="386.1" cy="86.6" r="3"/><circle class="series-a" cx="425.9" cy="104.2" r="3"/><circle class="series-a" cx="465.6" cy="94.4" r="3"/><circle class="series-a" cx="505.4" cy="33.7" r="3"/><circle class="series-a" cx="545.2" cy="45.4" r="3"/><circle class="series-a" cx="584.9" cy="76.8" r="3"/><circle class="series-a" cx="624.7" cy="98.4" r="3"/><circle class="series-a" cx="664.5" cy="61.1" r="3"/><circle class="series-a" cx="704.2" cy="88.6" r="3"/><circle class="series-a" cx="744.0" cy="116.0" r="3"/><polyline class="series-b" points="68.0,192.4 107.8,92.5 147.5,159.1 187.3,172.8 227.1,174.8 266.8,143.4 306.6,172.8 346.4,157.2 386.1,127.8 425.9,147.4 465.6,145.4 505.4,121.9 545.2,114.0 584.9,147.4 624.7,149.3 664.5,125.8 704.2,139.5 744.0,165.0"/><circle class="series-b" cx="68.0" cy="192.4" r="3"/><circle class="series-b" cx="107.8" cy="92.5" r="3"/><circle class="series-b" cx="147.5" cy="159.1" r="3"/><circle class="series-b" cx="187.3" cy="172.8" r="3"/><circle class="series-b" cx="227.1" cy="174.8" r="3"/><circle class="series-b" cx="266.8" cy="143.4" r="3"/><circle class="series-b" cx="306.6" cy="172.8" r="3"/><circle class="series-b" cx="346.4" cy="157.2" r="3"/><circle class="series-b" cx="386.1" cy="127.8" r="3"/><circle class="series-b" cx="425.9" cy="147.4" r="3"/><circle class="series-b" cx="465.6" cy="145.4" r="3"/><circle class="series-b" cx="505.4" cy="121.9" r="3"/><circle class="series-b" cx="545.2" cy="114.0" r="3"/><circle class="series-b" cx="584.9" cy="147.4" r="3"/><circle class="series-b" cx="624.7" cy="149.3" r="3"/><circle class="series-b" cx="664.5" cy="125.8" r="3"/><circle class="series-b" cx="704.2" cy="139.5" r="3"/><circle class="series-b" cx="744.0" cy="165.0" r="3"/><text class="xlab" x="68.0" y="238">09</text><text class="xlab x-minor" x="107.8" y="238">10</text><text class="xlab" x="147.5" y="238">11</text><text class="xlab x-minor" x="187.3" y="238">12</text><text class="xlab" x="227.1" y="238">13</text><text class="xlab x-minor" x="266.8" y="238">14</text><text class="xlab" x="306.6" y="238">15</text><text class="xlab x-minor" x="346.4" y="238">16</text><text class="xlab" x="386.1" y="238">17</text><text class="xlab x-minor" x="425.9" y="238">18</text><text class="xlab" x="465.6" y="238">19</text><text class="xlab x-minor" x="505.4" y="238">20</text><text class="xlab" x="545.2" y="238">21</text><text class="xlab x-minor" x="584.9" y="238">22</text><text class="xlab" x="624.7" y="238">23</text><text class="xlab x-minor" x="664.5" y="238">24</text><text class="xlab" x="704.2" y="238">25</text><text class="xlab x-minor" x="744.0" y="238">26</text></svg>
+<svg viewBox="-48 0 808 248" font-size="14" font-family="system-ui, sans-serif" role="img" aria-label="Lines added and deleted by year, in thousands"><line class="grid" x1="68" y1="214.0" x2="744" y2="214.0"/><text class="ylab" x="58" y="214.0">0</text><line class="grid" x1="68" y1="165.0" x2="744" y2="165.0"/><text class="ylab" x="58" y="165.0">25</text><line class="grid" x1="68" y1="116.0" x2="744" y2="116.0"/><text class="ylab" x="58" y="116.0">50</text><line class="grid" x1="68" y1="67.0" x2="744" y2="67.0"/><text class="ylab" x="58" y="67.0">75</text><line class="grid" x1="68" y1="18.0" x2="744" y2="18.0"/><text class="ylab" x="58" y="18.0">100</text><polyline class="series-a" points="68.0,106.2 107.8,86.6 147.5,110.1 187.3,141.5 227.1,96.4 266.8,88.6 306.6,118.0 346.4,102.3 386.1,86.6 425.9,104.2 465.6,94.4 505.4,33.7 545.2,45.4 584.9,76.8 624.7,98.4 664.5,61.1 704.2,88.6 744.0,116.0"/><circle class="series-a" cx="68.0" cy="106.2" r="3"/><circle class="series-a" cx="107.8" cy="86.6" r="3"/><circle class="series-a" cx="147.5" cy="110.1" r="3"/><circle class="series-a" cx="187.3" cy="141.5" r="3"/><circle class="series-a" cx="227.1" cy="96.4" r="3"/><circle class="series-a" cx="266.8" cy="88.6" r="3"/><circle class="series-a" cx="306.6" cy="118.0" r="3"/><circle class="series-a" cx="346.4" cy="102.3" r="3"/><circle class="series-a" cx="386.1" cy="86.6" r="3"/><circle class="series-a" cx="425.9" cy="104.2" r="3"/><circle class="series-a" cx="465.6" cy="94.4" r="3"/><circle class="series-a" cx="505.4" cy="33.7" r="3"/><circle class="series-a" cx="545.2" cy="45.4" r="3"/><circle class="series-a" cx="584.9" cy="76.8" r="3"/><circle class="series-a" cx="624.7" cy="98.4" r="3"/><circle class="series-a" cx="664.5" cy="61.1" r="3"/><circle class="series-a" cx="704.2" cy="88.6" r="3"/><circle class="series-a" cx="744.0" cy="116.0" r="3"/><polyline class="series-b" points="68.0,192.4 107.8,92.5 147.5,159.1 187.3,172.8 227.1,174.8 266.8,143.4 306.6,172.8 346.4,157.2 386.1,127.8 425.9,147.4 465.6,145.4 505.4,121.9 545.2,114.0 584.9,147.4 624.7,149.3 664.5,125.8 704.2,139.5 744.0,165.0"/><circle class="series-b" cx="68.0" cy="192.4" r="3"/><circle class="series-b" cx="107.8" cy="92.5" r="3"/><circle class="series-b" cx="147.5" cy="159.1" r="3"/><circle class="series-b" cx="187.3" cy="172.8" r="3"/><circle class="series-b" cx="227.1" cy="174.8" r="3"/><circle class="series-b" cx="266.8" cy="143.4" r="3"/><circle class="series-b" cx="306.6" cy="172.8" r="3"/><circle class="series-b" cx="346.4" cy="157.2" r="3"/><circle class="series-b" cx="386.1" cy="127.8" r="3"/><circle class="series-b" cx="425.9" cy="147.4" r="3"/><circle class="series-b" cx="465.6" cy="145.4" r="3"/><circle class="series-b" cx="505.4" cy="121.9" r="3"/><circle class="series-b" cx="545.2" cy="114.0" r="3"/><circle class="series-b" cx="584.9" cy="147.4" r="3"/><circle class="series-b" cx="624.7" cy="149.3" r="3"/><circle class="series-b" cx="664.5" cy="125.8" r="3"/><circle class="series-b" cx="704.2" cy="139.5" r="3"/><circle class="series-b" cx="744.0" cy="165.0" r="3"/><text class="xlab" x="68.0" y="238">09</text><text class="xlab x-minor" x="107.8" y="238">10</text><text class="xlab" x="147.5" y="238">11</text><text class="xlab x-minor" x="187.3" y="238">12</text><text class="xlab" x="227.1" y="238">13</text><text class="xlab x-minor" x="266.8" y="238">14</text><text class="xlab" x="306.6" y="238">15</text><text class="xlab x-minor" x="346.4" y="238">16</text><text class="xlab" x="386.1" y="238">17</text><text class="xlab x-minor" x="425.9" y="238">18</text><text class="xlab" x="465.6" y="238">19</text><text class="xlab x-minor" x="505.4" y="238">20</text><text class="xlab" x="545.2" y="238">21</text><text class="xlab x-minor" x="584.9" y="238">22</text><text class="xlab" x="624.7" y="238">23</text><text class="xlab x-minor" x="664.5" y="238">24</text><text class="xlab" x="704.2" y="238">25</text><text class="xlab x-minor" x="744.0" y="238">26</text></svg>
 </figure>
 
 <p class="chart-note">Thousands of lines, rounded. 2020 added 91,782 and deleted 47,157. 2010 added 65,289 and deleted 62,104, a net of 3,185. The largest net is 2020, at 44,625. 2009's net is 44,158. 2026 runs through 26 October.</p>
@@ -505,7 +519,7 @@ Public-key checks in `src/pubkey.cpp` call into secp256k1. The signature math is
 <p class="chart-heading chart-open">Code commits by year</p>
 
 <figure class="article-chart chart-line">
-<svg viewBox="0 0 760 248" font-size="14" font-family="system-ui, sans-serif" role="img" aria-label="Code commits by year"><line class="grid" x1="68" y1="214.0" x2="744" y2="214.0"/><text class="ylab" x="58" y="214.0">0</text><line class="grid" x1="68" y1="148.7" x2="744" y2="148.7"/><text class="ylab" x="58" y="148.7">1,000</text><line class="grid" x1="68" y1="83.3" x2="744" y2="83.3"/><text class="ylab" x="58" y="83.3">2,000</text><line class="grid" x1="68" y1="18.0" x2="744" y2="18.0"/><text class="ylab" x="58" y="18.0">3,000</text><polyline class="series-a" points="68.0,209.6 107.8,199.8 147.5,170.1 187.3,151.4 227.1,169.1 266.8,130.8 306.6,146.6 346.4,122.5 386.1,87.8 425.9,106.3 465.6,97.4 505.4,43.7 545.2,45.6 584.9,74.6 624.7,93.6 664.5,83.3 704.2,92.2 744.0,114.3"/><circle class="series-a" cx="68.0" cy="209.6" r="3"/><circle class="series-a" cx="107.8" cy="199.8" r="3"/><circle class="series-a" cx="147.5" cy="170.1" r="3"/><circle class="series-a" cx="187.3" cy="151.4" r="3"/><circle class="series-a" cx="227.1" cy="169.1" r="3"/><circle class="series-a" cx="266.8" cy="130.8" r="3"/><circle class="series-a" cx="306.6" cy="146.6" r="3"/><circle class="series-a" cx="346.4" cy="122.5" r="3"/><circle class="series-a" cx="386.1" cy="87.8" r="3"/><circle class="series-a" cx="425.9" cy="106.3" r="3"/><circle class="series-a" cx="465.6" cy="97.4" r="3"/><circle class="series-a" cx="505.4" cy="43.7" r="3"/><circle class="series-a" cx="545.2" cy="45.6" r="3"/><circle class="series-a" cx="584.9" cy="74.6" r="3"/><circle class="series-a" cx="624.7" cy="93.6" r="3"/><circle class="series-a" cx="664.5" cy="83.3" r="3"/><circle class="series-a" cx="704.2" cy="92.2" r="3"/><circle class="series-a" cx="744.0" cy="114.3" r="3"/><text class="xlab" x="68.0" y="238">09</text><text class="xlab x-minor" x="107.8" y="238">10</text><text class="xlab" x="147.5" y="238">11</text><text class="xlab x-minor" x="187.3" y="238">12</text><text class="xlab" x="227.1" y="238">13</text><text class="xlab x-minor" x="266.8" y="238">14</text><text class="xlab" x="306.6" y="238">15</text><text class="xlab x-minor" x="346.4" y="238">16</text><text class="xlab" x="386.1" y="238">17</text><text class="xlab x-minor" x="425.9" y="238">18</text><text class="xlab" x="465.6" y="238">19</text><text class="xlab x-minor" x="505.4" y="238">20</text><text class="xlab" x="545.2" y="238">21</text><text class="xlab x-minor" x="584.9" y="238">22</text><text class="xlab" x="624.7" y="238">23</text><text class="xlab x-minor" x="664.5" y="238">24</text><text class="xlab" x="704.2" y="238">25</text><text class="xlab x-minor" x="744.0" y="238">26</text></svg>
+<svg viewBox="-48 0 808 248" font-size="14" font-family="system-ui, sans-serif" role="img" aria-label="Code commits by year"><line class="grid" x1="68" y1="214.0" x2="744" y2="214.0"/><text class="ylab" x="58" y="214.0">0</text><line class="grid" x1="68" y1="148.7" x2="744" y2="148.7"/><text class="ylab" x="58" y="148.7">1,000</text><line class="grid" x1="68" y1="83.3" x2="744" y2="83.3"/><text class="ylab" x="58" y="83.3">2,000</text><line class="grid" x1="68" y1="18.0" x2="744" y2="18.0"/><text class="ylab" x="58" y="18.0">3,000</text><polyline class="series-a" points="68.0,209.6 107.8,199.8 147.5,170.1 187.3,151.4 227.1,169.1 266.8,130.8 306.6,146.6 346.4,122.5 386.1,87.8 425.9,106.3 465.6,97.4 505.4,43.7 545.2,45.6 584.9,74.6 624.7,93.6 664.5,83.3 704.2,92.2 744.0,114.3"/><circle class="series-a" cx="68.0" cy="209.6" r="3"/><circle class="series-a" cx="107.8" cy="199.8" r="3"/><circle class="series-a" cx="147.5" cy="170.1" r="3"/><circle class="series-a" cx="187.3" cy="151.4" r="3"/><circle class="series-a" cx="227.1" cy="169.1" r="3"/><circle class="series-a" cx="266.8" cy="130.8" r="3"/><circle class="series-a" cx="306.6" cy="146.6" r="3"/><circle class="series-a" cx="346.4" cy="122.5" r="3"/><circle class="series-a" cx="386.1" cy="87.8" r="3"/><circle class="series-a" cx="425.9" cy="106.3" r="3"/><circle class="series-a" cx="465.6" cy="97.4" r="3"/><circle class="series-a" cx="505.4" cy="43.7" r="3"/><circle class="series-a" cx="545.2" cy="45.6" r="3"/><circle class="series-a" cx="584.9" cy="74.6" r="3"/><circle class="series-a" cx="624.7" cy="93.6" r="3"/><circle class="series-a" cx="664.5" cy="83.3" r="3"/><circle class="series-a" cx="704.2" cy="92.2" r="3"/><circle class="series-a" cx="744.0" cy="114.3" r="3"/><text class="xlab" x="68.0" y="238">09</text><text class="xlab x-minor" x="107.8" y="238">10</text><text class="xlab" x="147.5" y="238">11</text><text class="xlab x-minor" x="187.3" y="238">12</text><text class="xlab" x="227.1" y="238">13</text><text class="xlab x-minor" x="266.8" y="238">14</text><text class="xlab" x="306.6" y="238">15</text><text class="xlab x-minor" x="346.4" y="238">16</text><text class="xlab" x="386.1" y="238">17</text><text class="xlab x-minor" x="425.9" y="238">18</text><text class="xlab" x="465.6" y="238">19</text><text class="xlab x-minor" x="505.4" y="238">20</text><text class="xlab" x="545.2" y="238">21</text><text class="xlab x-minor" x="584.9" y="238">22</text><text class="xlab" x="624.7" y="238">23</text><text class="xlab x-minor" x="664.5" y="238">24</text><text class="xlab" x="704.2" y="238">25</text><text class="xlab x-minor" x="744.0" y="238">26</text></svg>
 </figure>
 
 <p class="chart-note">The peak is 2,606 commits in 2020. 2026, through 26 October, is 1,526.</p>
@@ -513,7 +527,7 @@ Public-key checks in `src/pubkey.cpp` call into secp256k1. The signature math is
 <p class="chart-heading chart-open">Distinct people by year</p>
 
 <figure class="article-chart chart-line">
-<svg viewBox="0 0 760 248" font-size="14" font-family="system-ui, sans-serif" role="img" aria-label="Distinct people by year"><line class="grid" x1="68" y1="214.0" x2="744" y2="214.0"/><text class="ylab" x="58" y="214.0">0</text><line class="grid" x1="68" y1="165.0" x2="744" y2="165.0"/><text class="ylab" x="58" y="165.0">40</text><line class="grid" x1="68" y1="116.0" x2="744" y2="116.0"/><text class="ylab" x="58" y="116.0">80</text><line class="grid" x1="68" y1="67.0" x2="744" y2="67.0"/><text class="ylab" x="58" y="67.0">120</text><line class="grid" x1="68" y1="18.0" x2="744" y2="18.0"/><text class="ylab" x="58" y="18.0">160</text><polyline class="series-a" points="68.0,211.6 107.8,205.4 147.5,149.1 187.3,158.9 227.1,140.5 266.8,73.1 306.6,109.9 346.4,86.6 386.1,60.9 425.9,37.6 465.6,56.0 505.4,49.8 545.2,59.7 584.9,62.1 624.7,120.9 664.5,108.7 704.2,78.0 744.0,85.4"/><circle class="series-a" cx="68.0" cy="211.6" r="3"/><circle class="series-a" cx="107.8" cy="205.4" r="3"/><circle class="series-a" cx="147.5" cy="149.1" r="3"/><circle class="series-a" cx="187.3" cy="158.9" r="3"/><circle class="series-a" cx="227.1" cy="140.5" r="3"/><circle class="series-a" cx="266.8" cy="73.1" r="3"/><circle class="series-a" cx="306.6" cy="109.9" r="3"/><circle class="series-a" cx="346.4" cy="86.6" r="3"/><circle class="series-a" cx="386.1" cy="60.9" r="3"/><circle class="series-a" cx="425.9" cy="37.6" r="3"/><circle class="series-a" cx="465.6" cy="56.0" r="3"/><circle class="series-a" cx="505.4" cy="49.8" r="3"/><circle class="series-a" cx="545.2" cy="59.7" r="3"/><circle class="series-a" cx="584.9" cy="62.1" r="3"/><circle class="series-a" cx="624.7" cy="120.9" r="3"/><circle class="series-a" cx="664.5" cy="108.7" r="3"/><circle class="series-a" cx="704.2" cy="78.0" r="3"/><circle class="series-a" cx="744.0" cy="85.4" r="3"/><text class="xlab" x="68.0" y="238">09</text><text class="xlab x-minor" x="107.8" y="238">10</text><text class="xlab" x="147.5" y="238">11</text><text class="xlab x-minor" x="187.3" y="238">12</text><text class="xlab" x="227.1" y="238">13</text><text class="xlab x-minor" x="266.8" y="238">14</text><text class="xlab" x="306.6" y="238">15</text><text class="xlab x-minor" x="346.4" y="238">16</text><text class="xlab" x="386.1" y="238">17</text><text class="xlab x-minor" x="425.9" y="238">18</text><text class="xlab" x="465.6" y="238">19</text><text class="xlab x-minor" x="505.4" y="238">20</text><text class="xlab" x="545.2" y="238">21</text><text class="xlab x-minor" x="584.9" y="238">22</text><text class="xlab" x="624.7" y="238">23</text><text class="xlab x-minor" x="664.5" y="238">24</text><text class="xlab" x="704.2" y="238">25</text><text class="xlab x-minor" x="744.0" y="238">26</text></svg>
+<svg viewBox="-48 0 808 248" font-size="14" font-family="system-ui, sans-serif" role="img" aria-label="Distinct people by year"><line class="grid" x1="68" y1="214.0" x2="744" y2="214.0"/><text class="ylab" x="58" y="214.0">0</text><line class="grid" x1="68" y1="165.0" x2="744" y2="165.0"/><text class="ylab" x="58" y="165.0">40</text><line class="grid" x1="68" y1="116.0" x2="744" y2="116.0"/><text class="ylab" x="58" y="116.0">80</text><line class="grid" x1="68" y1="67.0" x2="744" y2="67.0"/><text class="ylab" x="58" y="67.0">120</text><line class="grid" x1="68" y1="18.0" x2="744" y2="18.0"/><text class="ylab" x="58" y="18.0">160</text><polyline class="series-a" points="68.0,211.6 107.8,205.4 147.5,149.1 187.3,158.9 227.1,140.5 266.8,73.1 306.6,109.9 346.4,86.6 386.1,60.9 425.9,37.6 465.6,56.0 505.4,49.8 545.2,59.7 584.9,62.1 624.7,120.9 664.5,108.7 704.2,78.0 744.0,85.4"/><circle class="series-a" cx="68.0" cy="211.6" r="3"/><circle class="series-a" cx="107.8" cy="205.4" r="3"/><circle class="series-a" cx="147.5" cy="149.1" r="3"/><circle class="series-a" cx="187.3" cy="158.9" r="3"/><circle class="series-a" cx="227.1" cy="140.5" r="3"/><circle class="series-a" cx="266.8" cy="73.1" r="3"/><circle class="series-a" cx="306.6" cy="109.9" r="3"/><circle class="series-a" cx="346.4" cy="86.6" r="3"/><circle class="series-a" cx="386.1" cy="60.9" r="3"/><circle class="series-a" cx="425.9" cy="37.6" r="3"/><circle class="series-a" cx="465.6" cy="56.0" r="3"/><circle class="series-a" cx="505.4" cy="49.8" r="3"/><circle class="series-a" cx="545.2" cy="59.7" r="3"/><circle class="series-a" cx="584.9" cy="62.1" r="3"/><circle class="series-a" cx="624.7" cy="120.9" r="3"/><circle class="series-a" cx="664.5" cy="108.7" r="3"/><circle class="series-a" cx="704.2" cy="78.0" r="3"/><circle class="series-a" cx="744.0" cy="85.4" r="3"/><text class="xlab" x="68.0" y="238">09</text><text class="xlab x-minor" x="107.8" y="238">10</text><text class="xlab" x="147.5" y="238">11</text><text class="xlab x-minor" x="187.3" y="238">12</text><text class="xlab" x="227.1" y="238">13</text><text class="xlab x-minor" x="266.8" y="238">14</text><text class="xlab" x="306.6" y="238">15</text><text class="xlab x-minor" x="346.4" y="238">16</text><text class="xlab" x="386.1" y="238">17</text><text class="xlab x-minor" x="425.9" y="238">18</text><text class="xlab" x="465.6" y="238">19</text><text class="xlab x-minor" x="505.4" y="238">20</text><text class="xlab" x="545.2" y="238">21</text><text class="xlab x-minor" x="584.9" y="238">22</text><text class="xlab" x="624.7" y="238">23</text><text class="xlab x-minor" x="664.5" y="238">24</text><text class="xlab" x="704.2" y="238">25</text><text class="xlab x-minor" x="744.0" y="238">26</text></svg>
 </figure>
 
 <p class="chart-note">Two git names that share an email are one person, and so is one name that used two addresses. The peak is 144 people in 2018. 2023 falls to 76. 2026, through 26 October, is 105.</p>
@@ -565,27 +579,23 @@ Public-key checks in `src/pubkey.cpp` call into secp256k1. The signature math is
 <figcaption>900 people after dropping two bulk imports, sirius-m and Vinnie Falco. The top five added 39.5% of kept additions. The top ten added 52.3%. Satoshi Nakamoto's row is the git string <code>s_nakamoto</code>.</figcaption>
 </figure>
 
-<div class="table-scroll">
-<table>
-<thead>
-<tr><th>Person</th><th>Change</th><th class="num">Net</th><th class="num">Commits</th><th class="num">Deleted share</th></tr>
-</thead>
-<tbody>
-<tr><td>Pieter Wuille</td><td><span class="diff"><span class="diff-add">+132,987</span><span class="diff-del">−59,517</span></span></td><td class="num"><span class="diff-add">+73,470</span></td><td class="num">1,703</td><td class="num">45%</td></tr>
-<tr><td>Wladimir J. van der Laan</td><td><span class="diff"><span class="diff-add">+97,885</span><span class="diff-del">−47,828</span></span></td><td class="num"><span class="diff-add">+50,057</span></td><td class="num">1,337</td><td class="num">49%</td></tr>
-<tr><td>Marco Falke</td><td><span class="diff"><span class="diff-add">+72,530</span><span class="diff-del">−61,422</span></span></td><td class="num"><span class="diff-add">+11,108</span></td><td class="num">2,879</td><td class="num">85%</td></tr>
-<tr><td>Ava Chow</td><td><span class="diff"><span class="diff-add">+61,034</span><span class="diff-del">−41,384</span></span></td><td class="num"><span class="diff-add">+19,650</span></td><td class="num">1,274</td><td class="num">68%</td></tr>
-<tr><td>Satoshi Nakamoto</td><td><span class="diff"><span class="diff-add">+50,604</span><span class="diff-del">−45,881</span></span></td><td class="num"><span class="diff-add">+4,723</span></td><td class="num">237</td><td class="num">91%</td></tr>
-<tr><td>Gavin Andresen</td><td><span class="diff"><span class="diff-add">+42,191</span><span class="diff-del">−36,796</span></span></td><td class="num"><span class="diff-add">+5,395</span></td><td class="num">393</td><td class="num">87%</td></tr>
-<tr><td>John Newbery</td><td><span class="diff"><span class="diff-add">+24,882</span><span class="diff-del">−26,142</span></span></td><td class="num"><span class="diff-del">−1,260</span></td><td class="num">749</td><td class="num">105%</td></tr>
-<tr><td>Suhas Daftuar</td><td><span class="diff"><span class="diff-add">+24,723</span><span class="diff-del">−8,580</span></span></td><td class="num"><span class="diff-add">+16,143</span></td><td class="num">438</td><td class="num">35%</td></tr>
-<tr><td>Russell Yanofsky</td><td><span class="diff"><span class="diff-add">+22,958</span><span class="diff-del">−13,286</span></span></td><td class="num"><span class="diff-add">+9,672</span></td><td class="num">414</td><td class="num">58%</td></tr>
-<tr><td>Gloria Zhao</td><td><span class="diff"><span class="diff-add">+19,444</span><span class="diff-del">−5,951</span></span></td><td class="num"><span class="diff-add">+13,493</span></td><td class="num">390</td><td class="num">31%</td></tr>
-<tr><td>Michael Ford</td><td><span class="diff"><span class="diff-add">+19,053</span><span class="diff-del">−17,676</span></span></td><td class="num"><span class="diff-add">+1,377</span></td><td class="num">601</td><td class="num">93%</td></tr>
-<tr><td>Ryan Ofsky</td><td><span class="diff"><span class="diff-add">+17,697</span><span class="diff-del">−6,601</span></span></td><td class="num"><span class="diff-add">+11,096</span></td><td class="num">272</td><td class="num">37%</td></tr>
-</tbody>
-</table>
-</div>
+<figure class="article-chart">
+<div class="chart-heading">Lines added and deleted by person, scaled to Pieter Wuille</div>
+<p class="chart-key"><span class="key-a">Added</span><span class="key-b">Deleted</span></p>
+<div class="pair-row"><span class="intensity-name">Pieter Wuille</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:100.0%"></span></div><span class="pair-num add">+132,987</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:44.8%"></span></div><span class="pair-num del">−59,517</span></div><span class="pair-meta">net +73,470 · 1,703 commits · deletes 45%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Wladimir J. van der Laan</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:73.6%"></span></div><span class="pair-num add">+97,885</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:36.0%"></span></div><span class="pair-num del">−47,828</span></div><span class="pair-meta">net +50,057 · 1,337 commits · deletes 49%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Marco Falke</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:54.5%"></span></div><span class="pair-num add">+72,530</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:46.2%"></span></div><span class="pair-num del">−61,422</span></div><span class="pair-meta">net +11,108 · 2,879 commits · deletes 85%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Ava Chow</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:45.9%"></span></div><span class="pair-num add">+61,034</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:31.1%"></span></div><span class="pair-num del">−41,384</span></div><span class="pair-meta">net +19,650 · 1,274 commits · deletes 68%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Satoshi Nakamoto</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:38.1%"></span></div><span class="pair-num add">+50,604</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:34.5%"></span></div><span class="pair-num del">−45,881</span></div><span class="pair-meta">net +4,723 · 237 commits · deletes 91%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Gavin Andresen</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:31.7%"></span></div><span class="pair-num add">+42,191</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:27.7%"></span></div><span class="pair-num del">−36,796</span></div><span class="pair-meta">net +5,395 · 393 commits · deletes 87%</span></div></div>
+<div class="pair-row"><span class="intensity-name">John Newbery</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:18.7%"></span></div><span class="pair-num add">+24,882</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:19.7%"></span></div><span class="pair-num del">−26,142</span></div><span class="pair-meta">net −1,260 · 749 commits · deletes 105%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Suhas Daftuar</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:18.6%"></span></div><span class="pair-num add">+24,723</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:6.5%"></span></div><span class="pair-num del">−8,580</span></div><span class="pair-meta">net +16,143 · 438 commits · deletes 35%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Russell Yanofsky</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:17.3%"></span></div><span class="pair-num add">+22,958</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:10.0%"></span></div><span class="pair-num del">−13,286</span></div><span class="pair-meta">net +9,672 · 414 commits · deletes 58%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Gloria Zhao</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:14.6%"></span></div><span class="pair-num add">+19,444</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:4.5%"></span></div><span class="pair-num del">−5,951</span></div><span class="pair-meta">net +13,493 · 390 commits · deletes 31%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Michael Ford</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:14.3%"></span></div><span class="pair-num add">+19,053</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:13.3%"></span></div><span class="pair-num del">−17,676</span></div><span class="pair-meta">net +1,377 · 601 commits · deletes 93%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Ryan Ofsky</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:13.3%"></span></div><span class="pair-num add">+17,697</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:5.0%"></span></div><span class="pair-num del">−6,601</span></div><span class="pair-meta">net +11,096 · 272 commits · deletes 37%</span></div></div>
+<figcaption>John Newbery deleted more than he added. Satoshi Nakamoto's row is the git string <code>s_nakamoto</code>.</figcaption>
+</figure>
 
 Michael Ford's code-file net is 1,377 because this filter skips build scripts. His merge share is a different measurement, in *[Who Controls Bitcoin](/articles/bitcoin-governance)*. Line authorship and merge authority are not the same ranking. Pieter Wuille leads additions. The merge log does not.
 
@@ -597,26 +607,20 @@ On a coarser directory sort of the same git lines, tests gained the most net (16
 
 The 55% figure above counts every filtered code file, including tests. Restricted to implementation files, and split with the same system lists as section III, **672,059** lines were added and **431,312** were deleted. **64.2%** of what was added was later deleted. No system has a majority. Wallet is the largest share of lines added, at **14.9%**. Validation is **14.8%**. The top four, wallet, validation, the GUI, and P2P, are **55.3%**.
 
-<div class="table-scroll">
-<table>
-<thead>
-<tr><th>System</th><th>Change</th><th class="num">Net</th><th class="num">Commits</th><th class="num">Share of lines added</th></tr>
-</thead>
-<tbody>
-<tr><td>Wallet</td><td><span class="diff"><span class="diff-add">+100,177</span><span class="diff-del">−71,056</span></span></td><td class="num"><span class="diff-add">+29,121</span></td><td class="num">4,074</td><td class="num">14.9%</td></tr>
-<tr><td>Validation and chain state</td><td><span class="diff"><span class="diff-add">+99,577</span><span class="diff-del">−67,991</span></span></td><td class="num"><span class="diff-add">+31,586</span></td><td class="num">4,295</td><td class="num">14.8%</td></tr>
-<tr><td>GUI</td><td><span class="diff"><span class="diff-add">+91,333</span><span class="diff-del">−65,302</span></span></td><td class="num"><span class="diff-add">+26,031</span></td><td class="num">3,070</td><td class="num">13.6%</td></tr>
-<tr><td>P2P</td><td><span class="diff"><span class="diff-add">+80,675</span><span class="diff-del">−51,106</span></span></td><td class="num"><span class="diff-add">+29,569</span></td><td class="num">3,382</td><td class="num">12.0%</td></tr>
-<tr><td>RPC and HTTP</td><td><span class="diff"><span class="diff-add">+63,238</span><span class="diff-del">−39,140</span></span></td><td class="num"><span class="diff-add">+24,098</span></td><td class="num">3,142</td><td class="num">9.4%</td></tr>
-<tr><td>Support and utilities</td><td><span class="diff"><span class="diff-add">+59,510</span><span class="diff-del">−33,237</span></span></td><td class="num"><span class="diff-add">+26,273</span></td><td class="num">2,630</td><td class="num">8.9%</td></tr>
-<tr><td>Crypto and primitives</td><td><span class="diff"><span class="diff-add">+36,031</span><span class="diff-del">−20,597</span></span></td><td class="num"><span class="diff-add">+15,434</span></td><td class="num">969</td><td class="num">5.4%</td></tr>
-<tr><td>Script</td><td><span class="diff"><span class="diff-add">+34,561</span><span class="diff-del">−19,247</span></span></td><td class="num"><span class="diff-add">+15,314</span></td><td class="num">958</td><td class="num">5.1%</td></tr>
-<tr><td>Mempool and policy</td><td><span class="diff"><span class="diff-add">+24,463</span><span class="diff-del">−11,426</span></span></td><td class="num"><span class="diff-add">+13,037</span></td><td class="num">1,093</td><td class="num">3.6%</td></tr>
-</tbody>
-</table>
-</div>
-
-A commit that touches two systems is counted in both, so the commit column is not a partition. The change figures are. Most of these systems later delete between half and seven tenths of what they added. Mempool deletes 47%. The seed header, not in this table, deletes 89% across 39 commits. IPC deletes 21%.
+<figure class="article-chart">
+<div class="chart-heading">Implementation lines added and deleted, scaled to the wallet</div>
+<p class="chart-key"><span class="key-a">Added</span><span class="key-b">Deleted</span></p>
+<div class="pair-row"><span class="intensity-name">Wallet</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:100.0%"></span></div><span class="pair-num add">+100,177</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:70.9%"></span></div><span class="pair-num del">−71,056</span></div><span class="pair-meta">net +29,121 · 4,074 commits · 14.9%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Validation</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:99.4%"></span></div><span class="pair-num add">+99,577</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:67.9%"></span></div><span class="pair-num del">−67,991</span></div><span class="pair-meta">net +31,586 · 4,295 commits · 14.8%</span></div></div>
+<div class="pair-row"><span class="intensity-name">GUI</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:91.2%"></span></div><span class="pair-num add">+91,333</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:65.2%"></span></div><span class="pair-num del">−65,302</span></div><span class="pair-meta">net +26,031 · 3,070 commits · 13.6%</span></div></div>
+<div class="pair-row"><span class="intensity-name">P2P</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:80.5%"></span></div><span class="pair-num add">+80,675</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:51.0%"></span></div><span class="pair-num del">−51,106</span></div><span class="pair-meta">net +29,569 · 3,382 commits · 12.0%</span></div></div>
+<div class="pair-row"><span class="intensity-name">RPC and HTTP</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:63.1%"></span></div><span class="pair-num add">+63,238</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:39.1%"></span></div><span class="pair-num del">−39,140</span></div><span class="pair-meta">net +24,098 · 3,142 commits · 9.4%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Support</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:59.4%"></span></div><span class="pair-num add">+59,510</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:33.2%"></span></div><span class="pair-num del">−33,237</span></div><span class="pair-meta">net +26,273 · 2,630 commits · 8.9%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Crypto</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:36.0%"></span></div><span class="pair-num add">+36,031</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:20.6%"></span></div><span class="pair-num del">−20,597</span></div><span class="pair-meta">net +15,434 · 969 commits · 5.4%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Script</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:34.5%"></span></div><span class="pair-num add">+34,561</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:19.2%"></span></div><span class="pair-num del">−19,247</span></div><span class="pair-meta">net +15,314 · 958 commits · 5.1%</span></div></div>
+<div class="pair-row"><span class="intensity-name">Mempool</span><div><div class="pair-line"><div class="pair-track"><span class="pair-fill add" style="width:24.4%"></span></div><span class="pair-num add">+24,463</span></div><div class="pair-line"><div class="pair-track"><span class="pair-fill del" style="width:11.4%"></span></div><span class="pair-num del">−11,426</span></div><span class="pair-meta">net +13,037 · 1,093 commits · 3.6%</span></div></div>
+<figcaption>A commit that touches two systems is counted in both commit totals. The lines are a partition. Mempool deletes 47% of what it added. The seed header, not in this chart, deletes 89% across 39 commits. IPC deletes 21%.</figcaption>
+</figure>
 
 The early years are the GUI. In 2009–2013 the GUI is **28.7%** of implementation lines added. In 2022–2026, through 26 October, validation leads, at **16.2%** (25,716 of 158,548).
 
@@ -634,79 +638,67 @@ The nets in that later era are validation <span class="diff-add">+11,263</span>,
 <span class="intensity-name">GUI</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
-<span class="intensity-value">66.8%</span>
+<span class="intensity-value">66.8%<span class="pair-meta">3,070 commits · wallet 17.7%</span></span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">Wallet</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:91.3%"></span></div>
-<span class="intensity-value">61.0%</span>
+<span class="intensity-value">61.0%<span class="pair-meta">4,074 commits · RPC 17.9%, validation 13.7%</span></span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">P2P</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:90.3%"></span></div>
-<span class="intensity-value">60.3%</span>
+<span class="intensity-value">60.3%<span class="pair-meta">3,382 commits · validation 20.8%, RPC 15.9%</span></span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">Validation</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:78.6%"></span></div>
-<span class="intensity-value">52.5%</span>
+<span class="intensity-value">52.5%<span class="pair-meta">4,295 commits · RPC 17.3%, P2P 16.4%</span></span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">Support</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:74.1%"></span></div>
-<span class="intensity-value">49.5%</span>
+<span class="intensity-value">49.5%<span class="pair-meta">2,630 commits · validation 23.8%, P2P 20.1%</span></span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">Crypto</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:73.5%"></span></div>
-<span class="intensity-value">49.1%</span>
+<span class="intensity-value">49.1%<span class="pair-meta">969 commits · support 26.7%, validation 26.6%</span></span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">Script</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:71.9%"></span></div>
-<span class="intensity-value">48.0%</span>
+<span class="intensity-value">48.0%<span class="pair-meta">958 commits · wallet 29.4%, validation 25.9%</span></span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">RPC</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:68.7%"></span></div>
-<span class="intensity-value">45.9%</span>
+<span class="intensity-value">45.9%<span class="pair-meta">3,142 commits · validation 23.6%, wallet 23.2%</span></span>
 </div>
 </div>
 <div class="intensity-row">
 <span class="intensity-name">Mempool</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:68.1%"></span></div>
-<span class="intensity-value">45.5%</span>
+<span class="intensity-value">45.5%<span class="pair-meta">1,093 commits · validation 36.7%, RPC 20.9%</span></span>
 </div>
 </div>
 <figcaption>All history through 32.1. A commit that edits two systems counts once in each. Alone means no other classified implementation system. The last three years, 26 October 2023 through this release, are close for wallet (68% alone) and validation (62%). The GUI moved, from 66.8% alone over the whole history to 47% in that window.</figcaption>
 </figure>
-
-| System | Commits | Only this system | Also touches |
-|---|---:|---:|---|
-| GUI | 3,070 | 66.8% | wallet 17.7% |
-| Wallet | 4,074 | 61.0% | RPC 17.9%, validation 13.7% |
-| P2P | 3,382 | 60.3% | validation 20.8%, RPC 15.9% |
-| Validation | 4,295 | 52.5% | RPC 17.3%, P2P 16.4% |
-| Support | 2,630 | 49.5% | validation 23.8%, P2P 20.1% |
-| Crypto | 969 | 49.1% | support 26.7%, validation 26.6% |
-| Script | 958 | 48.0% | wallet 29.4%, validation 25.9% |
-| RPC | 3,142 | 45.9% | validation 23.6%, wallet 23.2% |
-| Mempool | 1,093 | 45.5% | validation 36.7%, RPC 20.9% |
 
 ---
 
@@ -768,15 +760,17 @@ The nets in that later era are validation <span class="diff-add">+11,263</span>,
 <figcaption>12,734 non-blank lines. Jorge Timón includes the jtimon author string. The median rule line was last touched in 2017. The median adjacent line was last touched in 2023. The median line in the rest of the implementation was last touched in 2021.</figcaption>
 </figure>
 
-| Bucket | Non-blank lines | Most of those lines | Share | Median year |
-|---|---:|---|---:|---:|
-| Rules | 12,734 | Pieter Wuille | 44.2% | 2017 |
-| Adjacent | 28,051 | Pieter Wuille | 24.1% | 2023 |
-| The rest | 146,731 | Ava Chow | 11.4% | 2021 |
+<figure class="article-chart chart-intensity">
+<div class="chart-heading">Largest share of the lines that remain, scaled to the rules</div>
+<div class="intensity-row"><span class="intensity-name">Rules, Pieter Wuille</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100.0%"></span></div><span class="intensity-value">44.2% · 2017</span></div></div>
+<div class="intensity-row"><span class="intensity-name">Adjacent, Pieter Wuille</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:54.5%"></span></div><span class="intensity-value">24.1% · 2023</span></div></div>
+<div class="intensity-row"><span class="intensity-name">The rest, Ava Chow</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:25.8%"></span></div><span class="intensity-value">11.4% · 2021</span></div></div>
+<figcaption>The year is the median line in that bucket. Rules are 12,734 non-blank lines, adjacent 28,051, the rest 146,731.</figcaption>
+</figure>
 
 Across all 187,516 non-blank implementation lines, Pieter Wuille last touched 13.9%, Ava Chow 9.1%, Marco Falke 7.6%, and Wladimir J. van der Laan 5.9%. Those four, plus TheCharlatan, Hennadii Stepanov, Russell Yanofsky, and Vasil Dimov, last touched 49.0%. Gloria Zhao is third on the adjacent lines, at 6.9%, and tenth overall.
 
-The rule lines are older than the code around them, and one person last touched 44% of them. The additions table in section VIII is a different question. Satoshi's author string leads a large share of historical additions and is absent from the lines that remain. Who would make the next change is the next section.
+The rule lines are older than the code around them, and one person last touched 44% of them. The additions chart in section VIII is a different question. Satoshi's author string leads a large share of historical additions and is absent from the lines that remain. Who would make the next change is the next section.
 
 ---
 
@@ -835,20 +829,23 @@ Over the three years ending 26 October 2026, validation's 798 commits come from 
 <span class="intensity-value">15%</span>
 </div>
 </div>
-<figcaption>Author dates from 26 October 2023 through this release. The validation bar is the largest person, not a majority. Seven people cover half of validation's commits. No system in the table is one person.</figcaption>
+<figcaption>Author dates from 26 October 2023 through this release. The validation bar is the largest person, not a majority. Seven people cover half of validation's commits. No system is one person.</figcaption>
 </figure>
 
-| System | Commits | People | People to half | Largest share | Top three |
-|---|---:|---:|---:|---|---:|
-| Validation | 798 | 66 | 7 | Lőrinc 15% | 34% |
-| Wallet | 665 | 63 | 3 | Ava Chow 31% | 52% |
-| GUI | 197 | 34 | 3 | Marco Falke 20% | 52% |
-| P2P | 549 | 58 | 7 | Gloria Zhao 17% | 37% |
-| RPC | 562 | 73 | 7 | Marco Falke 15% | 33% |
-| Support | 539 | 58 | 5 | Marco Falke 24% | 43% |
-| Crypto | 178 | 32 | 5 | Marco Falke 17% | 39% |
-| Script | 174 | 34 | 3 | Ava Chow 29% | 52% |
-| Mempool | 401 | 40 | 3 | Pieter Wuille 36% | 58% |
+<figure class="article-chart chart-intensity">
+<div class="chart-heading">People editing each system, last three years, scaled to RPC</div>
+<div class="intensity-row"><span class="intensity-name">RPC</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100.0%"></span></div><span class="intensity-value">73<span class="pair-meta">7 to half · top three 33% · 562 commits</span></span></div></div>
+<div class="intensity-row"><span class="intensity-name">Validation</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:90.4%"></span></div><span class="intensity-value">66<span class="pair-meta">7 to half · top three 34% · 798 commits</span></span></div></div>
+<div class="intensity-row"><span class="intensity-name">Wallet</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:86.3%"></span></div><span class="intensity-value">63<span class="pair-meta">3 to half · top three 52% · 665 commits</span></span></div></div>
+<div class="intensity-row"><span class="intensity-name">P2P</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:79.5%"></span></div><span class="intensity-value">58<span class="pair-meta">7 to half · top three 37% · 549 commits</span></span></div></div>
+<div class="intensity-row"><span class="intensity-name">Support</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:79.5%"></span></div><span class="intensity-value">58<span class="pair-meta">5 to half · top three 43% · 539 commits</span></span></div></div>
+<div class="intensity-row"><span class="intensity-name">Mempool</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:54.8%"></span></div><span class="intensity-value">40<span class="pair-meta">3 to half · top three 58% · 401 commits</span></span></div></div>
+<div class="intensity-row"><span class="intensity-name">GUI</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:46.6%"></span></div><span class="intensity-value">34<span class="pair-meta">3 to half · top three 52% · 197 commits</span></span></div></div>
+<div class="intensity-row"><span class="intensity-name">Script</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:46.6%"></span></div><span class="intensity-value">34<span class="pair-meta">3 to half · top three 52% · 174 commits</span></span></div></div>
+<div class="intensity-row"><span class="intensity-name">Crypto</span><div class="intensity-wrap"><div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:43.8%"></span></div><span class="intensity-value">32<span class="pair-meta">5 to half · top three 39% · 178 commits</span></span></div></div>
+<figcaption>The bar is the number of people. The largest person's share is the chart above. Top three hold 58% of mempool commits, 52% of wallet, GUI, and script, and 34% of validation.</figcaption>
+</figure>
+
 
 Two git names that share an email are one person. RPC has the most people, 73, and seven of them reach half of its commits. The GUI is the quiet tree, 197 commits. ismaelsadeeq is third on mempool, at 9%, after Pieter Wuille and Suhas Daftuar.
 
@@ -862,7 +859,7 @@ At this release the tree exposes **171** RPC methods, **36** P2P message types, 
 <p class="chart-key"><span class="key-a">RPC methods</span><span class="key-b">P2P messages</span></p>
 
 <figure class="article-chart chart-line">
-<svg viewBox="0 0 760 248" font-size="14" font-family="system-ui, sans-serif" role="img" aria-label="RPC methods and P2P message types at the end of each era"><line class="grid" x1="68" y1="214.0" x2="744" y2="214.0"/><text class="ylab" x="58" y="214.0">0</text><line class="grid" x1="68" y1="165.0" x2="744" y2="165.0"/><text class="ylab" x="58" y="165.0">50</text><line class="grid" x1="68" y1="116.0" x2="744" y2="116.0"/><text class="ylab" x="58" y="116.0">100</text><line class="grid" x1="68" y1="67.0" x2="744" y2="67.0"/><text class="ylab" x="58" y="67.0">150</text><line class="grid" x1="68" y1="18.0" x2="744" y2="18.0"/><text class="ylab" x="58" y="18.0">200</text><polyline class="series-a" points="68.0,143.4 293.3,97.4 518.7,61.1 744.0,46.4"/><circle class="series-a" cx="68.0" cy="143.4" r="3"/><circle class="series-a" cx="293.3" cy="97.4" r="3"/><circle class="series-a" cx="518.7" cy="61.1" r="3"/><circle class="series-a" cx="744.0" cy="46.4" r="3"/><polyline class="series-b" points="68.0,193.4 293.3,188.5 518.7,180.7 744.0,178.7"/><circle class="series-b" cx="68.0" cy="193.4" r="3"/><circle class="series-b" cx="293.3" cy="188.5" r="3"/><circle class="series-b" cx="518.7" cy="180.7" r="3"/><circle class="series-b" cx="744.0" cy="178.7" r="3"/><text class="xlab" x="68.0" y="238">2013</text><text class="xlab" x="293.3" y="238">2017</text><text class="xlab" x="518.7" y="238">2021</text><text class="xlab" x="744.0" y="238">2026</text></svg>
+<svg viewBox="-48 0 808 248" font-size="14" font-family="system-ui, sans-serif" role="img" aria-label="RPC methods and P2P message types at the end of each era"><line class="grid" x1="68" y1="214.0" x2="744" y2="214.0"/><text class="ylab" x="58" y="214.0">0</text><line class="grid" x1="68" y1="165.0" x2="744" y2="165.0"/><text class="ylab" x="58" y="165.0">50</text><line class="grid" x1="68" y1="116.0" x2="744" y2="116.0"/><text class="ylab" x="58" y="116.0">100</text><line class="grid" x1="68" y1="67.0" x2="744" y2="67.0"/><text class="ylab" x="58" y="67.0">150</text><line class="grid" x1="68" y1="18.0" x2="744" y2="18.0"/><text class="ylab" x="58" y="18.0">200</text><polyline class="series-a" points="68.0,143.4 293.3,97.4 518.7,61.1 744.0,46.4"/><circle class="series-a" cx="68.0" cy="143.4" r="3"/><circle class="series-a" cx="293.3" cy="97.4" r="3"/><circle class="series-a" cx="518.7" cy="61.1" r="3"/><circle class="series-a" cx="744.0" cy="46.4" r="3"/><polyline class="series-b" points="68.0,193.4 293.3,188.5 518.7,180.7 744.0,178.7"/><circle class="series-b" cx="68.0" cy="193.4" r="3"/><circle class="series-b" cx="293.3" cy="188.5" r="3"/><circle class="series-b" cx="518.7" cy="180.7" r="3"/><circle class="series-b" cx="744.0" cy="178.7" r="3"/><text class="xlab" x="68.0" y="238">2013</text><text class="xlab" x="293.3" y="238">2017</text><text class="xlab" x="518.7" y="238">2021</text><text class="xlab" x="744.0" y="238">2026</text></svg>
 </figure>
 
 <p class="chart-note">RPC by era: <span class="diff"><span class="diff-add">+72</span><span class="diff-del">−0</span></span>, then <span class="diff"><span class="diff-add">+52</span><span class="diff-del">−5</span></span>, <span class="diff"><span class="diff-add">+53</span><span class="diff-del">−16</span></span>, <span class="diff"><span class="diff-add">+29</span><span class="diff-del">−14</span></span>. P2P: <span class="diff"><span class="diff-add">+21</span><span class="diff-del">−0</span></span>, then <span class="diff"><span class="diff-add">+6</span><span class="diff-del">−1</span></span>, <span class="diff"><span class="diff-add">+9</span><span class="diff-del">−1</span></span>, <span class="diff"><span class="diff-add">+2</span><span class="diff-del">−0</span></span>. Named deployment slots went 1, 5, 6, 5.</p>

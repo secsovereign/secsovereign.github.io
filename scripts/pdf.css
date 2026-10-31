@@ -252,8 +252,13 @@ figure,
 .article-chart .chart-stats dd,
 .article-chart .compare-label,
 .article-chart .intensity-name,
+.article-chart .intensity-value,
 .article-chart .net-node {
   color: #f5f5f5;
+}
+
+.article-chart .pair-meta {
+  color: #a8a8a8;
 }
 
 .article-body table:not(.chart-matrix) {
