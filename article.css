@@ -710,12 +710,49 @@ body {
     font-weight: 600;
 }
 
-.intensity-row {
+/* One label column per chart. A row that sizes itself lets a long name
+   shove that row's bar off the line the shorter names use. */
+.article-chart:has(> .intensity-row),
+.article-chart:has(> .pair-row),
+.article-chart:has(> .mix-row) {
     display: grid;
-    grid-template-columns: minmax(5.5rem, max-content) minmax(0, 1fr);
+    grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 0.65rem;
+}
+
+.article-chart:has(> .intensity-row) > :not(.intensity-row),
+.article-chart:has(> .pair-row) > :not(.pair-row),
+.article-chart:has(> .mix-row) > :not(.mix-row) {
+    grid-column: 1 / -1;
+}
+
+.intensity-row,
+.pair-row,
+.mix-row {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
     align-items: center;
-    gap: 0.65rem;
     margin-top: 0.45rem;
+}
+
+@media (min-width: 601px) {
+    .article-chart:has(> .intensity-row) {
+        grid-template-columns: max-content minmax(0, 1fr) max-content;
+        column-gap: 0.65rem;
+    }
+
+    .article-chart:has(> .intensity-row) .intensity-wrap {
+        display: contents;
+    }
+
+    .article-chart:has(> .intensity-row) .intensity-track {
+        width: 100%;
+    }
+
+    .article-chart:has(> .intensity-row .pair-meta) {
+        grid-template-columns: max-content minmax(0, 1fr) 11rem;
+    }
 }
 
 .intensity-name {
@@ -972,10 +1009,6 @@ body {
 
 .pair-row,
 .mix-row {
-    display: grid;
-    grid-template-columns: minmax(5.5rem, max-content) minmax(0, 1fr);
-    align-items: center;
-    gap: 0.55rem 0.65rem;
     margin-top: 0.55rem;
 }
 
@@ -1023,6 +1056,8 @@ body {
     font-size: 0.78rem;
     font-weight: 600;
     white-space: nowrap;
+    min-width: 5.75rem;
+    text-align: right;
 }
 
 .pair-num.add { color: #0099ff; }
@@ -1142,10 +1177,16 @@ body {
         padding: 0.4rem 0.5rem;
     }
 
+    .article-chart:has(> .intensity-row),
+    .article-chart:has(> .pair-row),
+    .article-chart:has(> .mix-row) {
+        grid-template-columns: minmax(4.5rem, 38%) minmax(0, 1fr);
+    }
+
     .intensity-row,
     .pair-row,
     .mix-row {
-        grid-template-columns: minmax(4.5rem, 38%) minmax(0, 1fr);
+        grid-template-columns: subgrid;
     }
 
     .intensity-name {
