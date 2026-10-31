@@ -5017,7 +5017,7 @@ The rule lines are older than the code around them, and one person last touched 
 
 ## Who still edits a system
 
-Over the three years ending 26 October 2026, validation's 798 commits come from 67 author names, and seven people cover half. Lőrinc is 15%. Marco Falke is 10%. TheCharlatan is 9%. Mempool is the concentrated system: Pieter Wuille is 36% and Suhas Daftuar is 12%, just under half together, and three people cover half. Wallet takes three people to reach half. Ava Chow, including commits signed Andrew Chow, is 31% of them.
+Over the three years ending 26 October 2026, validation's 798 commits come from 66 people, and seven of them cover half. Lőrinc is 15%. Marco Falke is 10%. TheCharlatan, including commits signed sedited, is 9%. Mempool is the concentrated system: Pieter Wuille is 36% and Suhas Daftuar is 12%, just under half together, and three people cover half. Wallet takes three people to reach half. Ava Chow, including commits signed Andrew Chow, is 31% of them.
 
 <figure class="article-chart chart-intensity">
 <div class="chart-heading">Largest share of a system's commits, last three years, scaled to mempool</div>
@@ -5073,19 +5073,19 @@ Over the three years ending 26 October 2026, validation's 798 commits come from 
 <figcaption>Author dates from 26 October 2023 through this release. The validation bar is the largest person, not a majority. Seven people cover half of validation's commits. No system in the table is one person.</figcaption>
 </figure>
 
-| System | Commits | Authors | People to half | Largest share | Top three |
+| System | Commits | People | People to half | Largest share | Top three |
 |---|---:|---:|---:|---|---:|
-| Validation | 798 | 67 | 7 | Lőrinc 15% | 33% |
-| Wallet | 665 | 68 | 3 | Ava Chow 31% | 52% |
-| GUI | 197 | 35 | 3 | Marco Falke 20% | 52% |
-| P2P | 549 | 60 | 7 | Gloria Zhao 17% | 37% |
-| RPC | 562 | 78 | 7 | Marco Falke 15% | 33% |
+| Validation | 798 | 66 | 7 | Lőrinc 15% | 34% |
+| Wallet | 665 | 63 | 3 | Ava Chow 31% | 52% |
+| GUI | 197 | 34 | 3 | Marco Falke 20% | 52% |
+| P2P | 549 | 58 | 7 | Gloria Zhao 17% | 37% |
+| RPC | 562 | 73 | 7 | Marco Falke 15% | 33% |
 | Support | 539 | 58 | 5 | Marco Falke 24% | 43% |
 | Crypto | 178 | 32 | 5 | Marco Falke 17% | 39% |
-| Script | 174 | 35 | 3 | Ava Chow 29% | 52% |
+| Script | 174 | 34 | 3 | Ava Chow 29% | 52% |
 | Mempool | 401 | 40 | 3 | Pieter Wuille 36% | 58% |
 
-Authors are git author-name strings, compared case-insensitively, with Andrew Chow counted as Ava Chow, glozow as Gloria Zhao, and fanquake as Michael Ford. furszy and ismaelsadeeq are the names in the release notes. ismaelsadeeq is 9% of recent mempool commits, third after Pieter Wuille and Suhas Daftuar. RPC has the most names, 78, and seven people to reach half. The GUI is the quiet tree, 197 commits. Pieter Wuille last touched 44% of the rule lines still in the tree, and the median rule line was last touched in 2017. Over these three years his largest share is mempool, at 36%, and he is second on crypto, at 13%.
+A person is one email, or two git names that share an email. Ava Chow includes Andrew Chow. TheCharlatan includes sedited. Gloria Zhao includes glozow. Michael Ford includes fanquake. Lőrinc includes l0rinc. furszy and ismaelsadeeq are the names in the release notes. ismaelsadeeq is 9% of recent mempool commits, third after Pieter Wuille and Suhas Daftuar. RPC has the most people, 73, and seven of them reach half. The GUI is the quiet tree, 197 commits. Pieter Wuille last touched 44% of the rule lines still in the tree, and the median rule line was last touched in 2017. Over these three years his largest share is mempool, at 36%, and he is second on crypto, at 13%.
 
 ---
 
@@ -5268,7 +5268,7 @@ The cost of storing the chain this program validates is a separate account, in *
 
 **History.** `git log HEAD --no-merges --numstat`. Renames of the form `{old => new}` are rewritten to the new path. Identity merges achow101 emails, hebasto in the email, and otherwise the dominant display name, casefolded, plus the published aliases: Wladimir's three spellings, Ava Chow and Andrew Chow, Marco Falke and MarcoFalke, Gloria Zhao and glozow, Michael Ford and fanquake, jtimon and Jorge Timón. The tables use the release-note names. Satoshi Nakamoto's row is the <code>s_nakamoto</code> string. People who share only a first name stay separate. Ryan Ofsky and Russell Yanofsky are different people.
 
-**Systems over time.** The same numstat history, implementation paths only, classified with the section III file lists, including the explicit `src/node` split. A path is classified by the name it had in that commit. Vendored trees and tests are out. A commit that touches two systems counts in both commit totals. "Only this system" means the commit touched no other classified implementation system. The three-year window is author dates from 26 October 2023 through this release. Ava Chow includes commits signed Andrew Chow.
+**Systems over time.** The same numstat history, implementation paths only, classified with the section III file lists, including the explicit `src/node` split. A path is classified by the name it had in that commit. Vendored trees and tests are out. A commit that touches two systems counts in both commit totals. "Only this system" means the commit touched no other classified implementation system. The three-year window is author dates from 26 October 2023 through this release. The people column merges git names that share an email, and the same published aliases as the history.
 
 **The contract.** RPC names are the command table when that table carries the method name (2013 and 2017) and `RPCHelpMan` / `RPCMethod` constructors when it does not (2021 and this release). Hidden methods are included. P2P names in 2013 are the message strings the network dispatcher in `src/main.cpp`, `src/net.cpp`, and `src/alert.cpp` receives or sends. From 2017 on they are the `NetMsgType` strings. Deployment slots are `DEPLOYMENT_*` enumerators other than testdummy, plus the block-version-2 height rule, with height-field aliases of the same fork collapsed to one name. Era tips are the last commit on this history at the end of 2013 (`aec55a07`), 2017 (`c9439e73`), 2021 (`1831d43e`), and this release.
 

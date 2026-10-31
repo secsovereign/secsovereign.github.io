@@ -977,7 +977,7 @@
 <p>The rule lines are older than the code around them, and one person last touched 44% of them. The additions table in section VIII is a different question. Satoshi's author string leads a large share of historical additions and is absent from the lines that remain. Who would make the next change is the next section.</p>
 <hr>
 <h2 id="who-still-edits-a-system">Who still edits a system</h2>
-<p>Over the three years ending 26 October 2026, validation's 798 commits come from 67 author names, and seven people cover half. Lőrinc is 15%. Marco Falke is 10%. TheCharlatan is 9%. Mempool is the concentrated system: Pieter Wuille is 36% and Suhas Daftuar is 12%, just under half together, and three people cover half. Wallet takes three people to reach half. Ava Chow, including commits signed Andrew Chow, is 31% of them.</p>
+<p>Over the three years ending 26 October 2026, validation's 798 commits come from 66 people, and seven of them cover half. Lőrinc is 15%. Marco Falke is 10%. TheCharlatan, including commits signed sedited, is 9%. Mempool is the concentrated system: Pieter Wuille is 36% and Suhas Daftuar is 12%, just under half together, and three people cover half. Wallet takes three people to reach half. Ava Chow, including commits signed Andrew Chow, is 31% of them.</p>
 <figure class="article-chart chart-intensity">
 <div class="chart-heading">Largest share of a system's commits, last three years, scaled to mempool</div>
 <div class="intensity-row">
@@ -1037,7 +1037,7 @@
 <tr>
 <th>System</th>
 <th align="right">Commits</th>
-<th align="right">Authors</th>
+<th align="right">People</th>
 <th align="right">People to half</th>
 <th>Largest share</th>
 <th align="right">Top three</th>
@@ -1046,15 +1046,15 @@
 <tbody><tr>
 <td>Validation</td>
 <td align="right">798</td>
-<td align="right">67</td>
+<td align="right">66</td>
 <td align="right">7</td>
 <td>Lőrinc 15%</td>
-<td align="right">33%</td>
+<td align="right">34%</td>
 </tr>
 <tr>
 <td>Wallet</td>
 <td align="right">665</td>
-<td align="right">68</td>
+<td align="right">63</td>
 <td align="right">3</td>
 <td>Ava Chow 31%</td>
 <td align="right">52%</td>
@@ -1062,7 +1062,7 @@
 <tr>
 <td>GUI</td>
 <td align="right">197</td>
-<td align="right">35</td>
+<td align="right">34</td>
 <td align="right">3</td>
 <td>Marco Falke 20%</td>
 <td align="right">52%</td>
@@ -1070,7 +1070,7 @@
 <tr>
 <td>P2P</td>
 <td align="right">549</td>
-<td align="right">60</td>
+<td align="right">58</td>
 <td align="right">7</td>
 <td>Gloria Zhao 17%</td>
 <td align="right">37%</td>
@@ -1078,7 +1078,7 @@
 <tr>
 <td>RPC</td>
 <td align="right">562</td>
-<td align="right">78</td>
+<td align="right">73</td>
 <td align="right">7</td>
 <td>Marco Falke 15%</td>
 <td align="right">33%</td>
@@ -1102,7 +1102,7 @@
 <tr>
 <td>Script</td>
 <td align="right">174</td>
-<td align="right">35</td>
+<td align="right">34</td>
 <td align="right">3</td>
 <td>Ava Chow 29%</td>
 <td align="right">52%</td>
@@ -1116,7 +1116,7 @@
 <td align="right">58%</td>
 </tr>
 </tbody></table>
-<p>Authors are git author-name strings, compared case-insensitively, with Andrew Chow counted as Ava Chow, glozow as Gloria Zhao, and fanquake as Michael Ford. furszy and ismaelsadeeq are the names in the release notes. ismaelsadeeq is 9% of recent mempool commits, third after Pieter Wuille and Suhas Daftuar. RPC has the most names, 78, and seven people to reach half. The GUI is the quiet tree, 197 commits. Pieter Wuille last touched 44% of the rule lines still in the tree, and the median rule line was last touched in 2017. Over these three years his largest share is mempool, at 36%, and he is second on crypto, at 13%.</p>
+<p>A person is one email, or two git names that share an email. Ava Chow includes Andrew Chow. TheCharlatan includes sedited. Gloria Zhao includes glozow. Michael Ford includes fanquake. Lőrinc includes l0rinc. furszy and ismaelsadeeq are the names in the release notes. ismaelsadeeq is 9% of recent mempool commits, third after Pieter Wuille and Suhas Daftuar. RPC has the most people, 73, and seven of them reach half. The GUI is the quiet tree, 197 commits. Pieter Wuille last touched 44% of the rule lines still in the tree, and the median rule line was last touched in 2017. Over these three years his largest share is mempool, at 36%, and he is second on crypto, at 13%.</p>
 <hr>
 <h2 id="the-size-of-the-contract">The size of the contract</h2>
 <p>At this release the tree exposes <strong>171</strong> RPC methods, <strong>36</strong> P2P message types, and <strong>5</strong> named deployment slots. RPC grew in every era and shed names in every era after 2013. The deployment list gained taproot by the end of 2021. In this release the named slots are bip34, bip65, bip66, csv, and segwit. The taproot rule is still in the script interpreter.</p>
@@ -1272,7 +1272,7 @@
 <p><strong>The three-way cut.</strong> Rule files are the SHA-256 and RIPEMD-160 sources, <code>hash.cpp</code> and <code>hash.h</code>, the script interpreter and script data, <code>pubkey</code>, <code>arith_uint256</code>, <code>uint256</code>, <code>src/primitives</code>, <code>src/consensus</code>, proof of work, versionbits, deployments, and signet. <code>validation.cpp</code> is split by function start, comment-stripped, then scaled from 4,187 raw code-like lines to tokei's 4,247. Adjacent is chainstate and storage, policy and mempool, indexes, and mining templates, including the matching parts of <code>validation.cpp</code>. SHA-1, SHA-3, and SHA-512 stay in the rest. The three parts sum to 151,004.</p>
 <p><strong>Tests.</strong> The named rule unit and fuzz files are the earlier filename list (4,517) plus integer, hash, script, and block tests that name a rule type (1,403). Functional rule tests are an explicit basename list: <code>feature_block</code>, <code>feature_taproot</code>, <code>feature_segwit</code>, <code>feature_cltv</code>, <code>feature_csv_activation</code>, <code>feature_dersig</code>, <code>feature_nulldummy</code>, <code>feature_bip68_sequence</code>, <code>feature_signet</code>, <code>feature_versionbits_warning</code>, <code>p2p_segwit</code>, <code>p2p_invalid_block</code>, <code>p2p_invalid_tx</code>, <code>p2p_mutated_blocks</code>. Adjacent adds an explicit list of mining, assumeutxo, pruning, index, fee, package, and chainstate tests to the mempool and policy filename prefix. A test outside those lists stays in the rest. That undercounts a functional test that exercises the interpreter under another name.</p>
 <p><strong>History.</strong> <code>git log HEAD --no-merges --numstat</code>. Renames of the form <code>{old =&gt; new}</code> are rewritten to the new path. Identity merges achow101 emails, hebasto in the email, and otherwise the dominant display name, casefolded, plus the published aliases: Wladimir's three spellings, Ava Chow and Andrew Chow, Marco Falke and MarcoFalke, Gloria Zhao and glozow, Michael Ford and fanquake, jtimon and Jorge Timón. The tables use the release-note names. Satoshi Nakamoto's row is the <code>s_nakamoto</code> string. People who share only a first name stay separate. Ryan Ofsky and Russell Yanofsky are different people.</p>
-<p><strong>Systems over time.</strong> The same numstat history, implementation paths only, classified with the section III file lists, including the explicit <code>src/node</code> split. A path is classified by the name it had in that commit. Vendored trees and tests are out. A commit that touches two systems counts in both commit totals. "Only this system" means the commit touched no other classified implementation system. The three-year window is author dates from 26 October 2023 through this release. Ava Chow includes commits signed Andrew Chow.</p>
+<p><strong>Systems over time.</strong> The same numstat history, implementation paths only, classified with the section III file lists, including the explicit <code>src/node</code> split. A path is classified by the name it had in that commit. Vendored trees and tests are out. A commit that touches two systems counts in both commit totals. "Only this system" means the commit touched no other classified implementation system. The three-year window is author dates from 26 October 2023 through this release. The people column merges git names that share an email, and the same published aliases as the history.</p>
 <p><strong>The contract.</strong> RPC names are the command table when that table carries the method name (2013 and 2017) and <code>RPCHelpMan</code> / <code>RPCMethod</code> constructors when it does not (2021 and this release). Hidden methods are included. P2P names in 2013 are the message strings the network dispatcher in <code>src/main.cpp</code>, <code>src/net.cpp</code>, and <code>src/alert.cpp</code> receives or sends. From 2017 on they are the <code>NetMsgType</code> strings. Deployment slots are <code>DEPLOYMENT_*</code> enumerators other than testdummy, plus the block-version-2 height rule, with height-field aliases of the same fork collapsed to one name. Era tips are the last commit on this history at the end of 2013 (<code>aec55a07</code>), 2017 (<code>c9439e73</code>), 2021 (<code>1831d43e</code>), and this release.</p>
 <p><strong>Blame.</strong> <code>git blame -w --line-porcelain</code> on each implementation file. Whitespace-only changes do not move the line. Blank lines are dropped. The same alias list as the history.</p>
 <p><strong>Debt.</strong> <code>scripts/analysis/code_turnover_analysis.py</code> in the Bitcoin Governance Research repository, run on <code>data/github/prs_raw.jsonl</code> (25,506 pull requests, 17,072 merged with a date, last merge 12 October 2026). The score weights patch frequency, time since a large rewrite, age of files the script labels consensus, and modifications per estimated line. Change type is a size heuristic: a refactor is a change over 30% of the estimated file or over 200 lines. The script's subsystem labels are filename patterns. They are not the three-way cut in section IV. Living-file membership is the 32.1 tree.</p>
