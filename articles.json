@@ -127,7 +127,7 @@
     {
       "slug": "the-rules-are-7-percent",
       "title": "The Rules Are 7% of the Program",
-      "description": "A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Tests match that implementation. Most of what was added was later deleted.",
+      "description": "A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Wallet commits rarely also touch validation. The release exposes 171 RPC methods, 36 P2P message types, and 5 deployment slots.",
       "published": "2026-10-30"
     }
   ]

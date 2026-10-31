@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Rules Are 7% of the Program | SecureSovereign</title>
-    <meta name="description" content="A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Tests match that implementation. Most of what was added was later deleted.">
+    <meta name="description" content="A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Wallet commits rarely also touch validation. The release exposes 171 RPC methods, 36 P2P message types, and 5 deployment slots.">
     <meta name="robots" content="index,follow">
     <link rel="canonical" href="https://secsov.com/articles/the-rules-are-7-percent">
     <link rel="icon" href="/favicon.ico" sizes="any">
@@ -12,15 +12,15 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <meta property="og:type" content="article">
     <meta property="og:title" content="The Rules Are 7% of the Program">
-    <meta property="og:description" content="A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Tests match that implementation. Most of what was added was later deleted.">
+    <meta property="og:description" content="A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Wallet commits rarely also touch validation. The release exposes 171 RPC methods, 36 P2P message types, and 5 deployment slots.">
     <meta property="og:url" content="https://secsov.com/articles/the-rules-are-7-percent">
     <meta property="og:site_name" content="SecureSovereign">
     <meta property="og:locale" content="en_US">
     <meta property="article:published_time" content="2026-10-30">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="The Rules Are 7% of the Program">
-    <meta name="twitter:description" content="A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Tests match that implementation. Most of what was added was later deleted.">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The Rules Are 7% of the Program","description":"A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Tests match that implementation. Most of what was added was later deleted.","url":"https://secsov.com/articles/the-rules-are-7-percent","mainEntityOfPage":{"@type":"WebPage","@id":"https://secsov.com/articles/the-rules-are-7-percent"},"author":{"@type":"Person","name":"Josh","alternateName":"Secure Sovereign","url":"https://secsov.com/"},"publisher":{"@type":"Organization","name":"SecureSovereign","url":"https://secsov.com/"},"isPartOf":{"@type":"WebSite","name":"SecureSovereign","url":"https://secsov.com/"},"datePublished":"2026-10-30","dateModified":"2026-10-30"}</script>
+    <meta name="twitter:description" content="A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Wallet commits rarely also touch validation. The release exposes 171 RPC methods, 36 P2P message types, and 5 deployment slots.">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The Rules Are 7% of the Program","description":"A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Wallet commits rarely also touch validation. The release exposes 171 RPC methods, 36 P2P message types, and 5 deployment slots.","url":"https://secsov.com/articles/the-rules-are-7-percent","mainEntityOfPage":{"@type":"WebPage","@id":"https://secsov.com/articles/the-rules-are-7-percent"},"author":{"@type":"Person","name":"Josh","alternateName":"Secure Sovereign","url":"https://secsov.com/"},"publisher":{"@type":"Organization","name":"SecureSovereign","url":"https://secsov.com/"},"isPartOf":{"@type":"WebSite","name":"SecureSovereign","url":"https://secsov.com/"},"datePublished":"2026-10-30","dateModified":"2026-10-30"}</script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/article.css" rel="stylesheet">
@@ -31,7 +31,7 @@
         <a href="/">← Home</a>
         <span class="sep">/</span>
         <span style="color: var(--text-muted); font-family: 'Courier New', monospace; font-size: 0.9rem;">The Rules Are 7% of the Program</span>
-        <div class="share-widget nav-share" data-share-url="https://secsov.com/articles/the-rules-are-7-percent" data-share-title="The Rules Are 7% of the Program" data-share-text="The Rules Are 7% of the Program: A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Tests match that implementation. Most of what was added was later deleted.">
+        <div class="share-widget nav-share" data-share-url="https://secsov.com/articles/the-rules-are-7-percent" data-share-title="The Rules Are 7% of the Program" data-share-text="The Rules Are 7% of the Program: A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Wallet commits rarely also touch validation. The release exposes 171 RPC methods, 36 P2P message types, and 5 deployment slots.">
         <button type="button" class="share-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Share">
             <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Share
         </button>
@@ -65,7 +65,11 @@
 <li><a href="#vi-tests">VI. Tests</a></li>
 <li><a href="#vii-bundled-code">VII. Bundled code</a></li>
 <li><a href="#viii-who-added-the-lines">VIII. Who added the lines</a></li>
+<li><a href="#where-the-work-went">Where the work went</a></li>
+<li><a href="#what-changes-in-the-same-commit">What changes in the same commit</a></li>
 <li><a href="#ix-who-last-touched-what-remains">IX. Who last touched what remains</a></li>
+<li><a href="#who-still-edits-a-system">Who still edits a system</a></li>
+<li><a href="#the-size-of-the-contract">The size of the contract</a></li>
 <li><a href="#x-patch-debt">X. Patch debt</a></li>
 <li><a href="#xi-what-the-count-is-for">XI. What the count is for</a></li>
 <li><a href="#xii-method">XII. Method</a></li>
@@ -511,7 +515,8 @@
 <p>The 3,580 vector lines are <code>script_tests.json</code> (2,614), <code>tx_valid.json</code> (426), <code>tx_invalid.json</code> (313), and <code>invalid_txs.py</code> (227). The rest row includes wallet, GUI, P2P transport, lint, and CI. A test that calls the interpreter under a name this list does not use is in that row.</p>
 <hr>
 <h2 id="vii-bundled-code">VII. Bundled code</h2>
-<p>Vendored trees sum to 112,703 code lines. <strong>89,312</strong> (79%) are maintained as Bitcoin Core projects. <strong>23,391</strong> (21%) are forks of Google libraries. The patch size of those forks against Google's master was not measured.</p>
+<p>Vendored trees sum to 112,703 code lines. <strong>89,312</strong> (79%) are maintained as Bitcoin Core projects. <strong>23,391</strong> (21%) are forks of Google libraries.</p>
+<p>The fork's own patch is small next to what Google changed after the shared ancestor. leveldb in this release is commit <code>13da2d67</code> (11 August 2026). Its shared ancestor with Google's main is <code>0c40829</code> (5 November 2019). Since that ancestor the fork changed 32 files, +242/−194. Google changed 115 files, +2,335/−1,886. Set side by side at this release, 114 files differ: 1,973 lines are only in the fork and 2,374 are only in Google. Most of the fork's own patch is <code>util/env_windows.cc</code> (+88/−39). crc32c is commit <code>efb8ea04</code> (30 August 2024), ancestor <code>21fc8ef</code> (8 February 2022). The fork changed 15 files, +46/−24, mostly <code>src/crc32c_arm64.cc</code> (+22/−12) and the dropped <code>third_party</code> submodules. Google changed 8 files, +54/−38. The direct gap is 17 files: 68 lines only in the fork, 62 only in Google. These counts are git numstat, so they include comments and blanks. Google's leveldb tip for the comparison is <code>bb74ef73</code> (8 October 2026). Google's crc32c tip is <code>2bbb3be</code> (7 April 2025).</p>
 <figure class="article-chart chart-intensity">
 <div class="chart-heading">Bundled code lines, scaled to libsecp256k1</div>
 <div class="intensity-row">
@@ -564,6 +569,39 @@
 </div>
 </div>
 <figcaption>secp256k1 is 7.6 times the 10,122 first-party rule lines. Its README says the primary focus is Bitcoin. leveldb and crc32c are Google forks. univalue is absorbed into this repository and is not in <code>get_subtrees()</code>.</figcaption>
+</figure>
+
+<figure class="article-chart chart-intensity">
+<div class="chart-heading">Lines changed since the shared ancestor, scaled to Google's leveldb history</div>
+<div class="intensity-row">
+<span class="intensity-name">leveldb, Google</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
+<span class="intensity-value">4,221</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">leveldb, the fork</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:10.3%"></span></div>
+<span class="intensity-value">436</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">crc32c, Google</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:2.2%"></span></div>
+<span class="intensity-value">92</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">crc32c, the fork</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:1.7%"></span></div>
+<span class="intensity-value">70</span>
+</div>
+</div>
+<figcaption>Added plus deleted. The leveldb fork's own movement is about a tenth of Google's later history. crc32c's two sides are close, and both are small on this scale.</figcaption>
 </figure>
 
 <p>Fetched at build time, and absent from the checkout, so they have no line count here: Qt 6.8.4, Boost 1.91.0, SQLite 3.50.4, ZeroMQ 4.3.5, Cap'n Proto 1.5.0, qrencode 4.1.1, systemtap 5.3. Those are wider-community libraries. <code>src/bench/nanobench.h</code> is 2,388 lines of third-party nanobench sitting inside the test tree.</p>
@@ -722,7 +760,7 @@
 </div>
 </div>
 <div class="intensity-row">
-<span class="intensity-name">MarcoFalke</span>
+<span class="intensity-name">Marco Falke</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:54.5%"></span></div>
 <span class="intensity-value">72,530</span>
@@ -736,7 +774,7 @@
 </div>
 </div>
 <div class="intensity-row">
-<span class="intensity-name">s_nakamoto</span>
+<span class="intensity-name">Satoshi Nakamoto</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:38.1%"></span></div>
 <span class="intensity-value">50,604</span>
@@ -749,7 +787,7 @@
 <span class="intensity-value">42,191</span>
 </div>
 </div>
-<figcaption>903 people remain after the bulk-import drop. The top five added 39.5% of kept additions. The top ten added 52.3%. s_nakamoto is the 2009–2010 author string.</figcaption>
+<figcaption>903 people remain after the bulk-import drop. The top five added 39.5% of kept additions. The top ten added 52.3%. Satoshi Nakamoto's commits in this row use the git author string <code>s_nakamoto</code>. Marco Falke, Gloria Zhao, and Michael Ford are the names in the release notes and in <code>SECURITY.md</code>. The git strings are MarcoFalke, glozow, and fanquake.</figcaption>
 </figure>
 
 <table>
@@ -780,7 +818,7 @@
 <td align="right">49%</td>
 </tr>
 <tr>
-<td>MarcoFalke</td>
+<td>Marco Falke</td>
 <td align="right">72,530</td>
 <td align="right">61,422</td>
 <td align="right">11,108</td>
@@ -796,7 +834,7 @@
 <td align="right">68%</td>
 </tr>
 <tr>
-<td>s_nakamoto</td>
+<td>Satoshi Nakamoto</td>
 <td align="right">50,604</td>
 <td align="right">45,881</td>
 <td align="right">4,723</td>
@@ -836,7 +874,7 @@
 <td align="right">58%</td>
 </tr>
 <tr>
-<td>glozow</td>
+<td>Gloria Zhao</td>
 <td align="right">19,444</td>
 <td align="right">5,951</td>
 <td align="right">13,493</td>
@@ -844,7 +882,7 @@
 <td align="right">31%</td>
 </tr>
 <tr>
-<td>fanquake</td>
+<td>Michael Ford</td>
 <td align="right">19,053</td>
 <td align="right">17,676</td>
 <td align="right">1,377</td>
@@ -860,8 +898,232 @@
 <td align="right">37%</td>
 </tr>
 </tbody></table>
-<p>fanquake's code-file net is 1,377 because this filter skips build scripts. His merge share is a different measurement, in <em><a href="/articles/bitcoin-governance">Who Controls Bitcoin</a></em>. Line authorship and merge authority are not the same ranking. Pieter Wuille leads additions. The merge log does not.</p>
-<p>On a coarser directory sort of the same git lines, tests gained the most net (167,063 of 302,025 added). Validation kept 31,808 of 110,917. The GUI kept 23,077 of 84,779. Crypto kept 8,120 of 27,526. That sort counts all of <code>src/node</code> as P2P, so it does not match the 16,880 current P2P bar.</p>
+<p>Michael Ford's code-file net is 1,377 because this filter skips build scripts. His merge share is a different measurement, in <em><a href="/articles/bitcoin-governance">Who Controls Bitcoin</a></em>. Line authorship and merge authority are not the same ranking. Pieter Wuille leads additions. The merge log does not.</p>
+<p>On a coarser directory sort of the same git lines, tests gained the most net (167,063 of 302,025 added). Validation kept 31,808 of 110,917. The GUI kept 23,077 of 84,779. Crypto kept 8,120 of 27,526. That sort counts all of <code>src/node</code> as P2P, so it does not match the 16,880 current P2P bar. The next section uses the same file lists as the bars in section III.</p>
+<hr>
+<h2 id="where-the-work-went">Where the work went</h2>
+<p>The 55% figure above counts every filtered code file, including tests. Restricted to implementation files, and split with the same system lists as section III, <strong>672,059</strong> lines were added and <strong>431,312</strong> were deleted. <strong>64.2%</strong> of what was added was later deleted. No system has a majority. Wallet is the largest share of lines added, at <strong>14.9%</strong>. Validation is <strong>14.8%</strong>. The top four, wallet, validation, the GUI, and P2P, are <strong>55.3%</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th align="right">Added</th>
+<th align="right">Deleted</th>
+<th align="right">Net</th>
+<th align="right">Commits</th>
+<th align="right">Share of lines added</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Wallet</td>
+<td align="right">100,177</td>
+<td align="right">71,056</td>
+<td align="right">29,121</td>
+<td align="right">4,074</td>
+<td align="right">14.9%</td>
+</tr>
+<tr>
+<td>Validation and chain state</td>
+<td align="right">99,577</td>
+<td align="right">67,991</td>
+<td align="right">31,586</td>
+<td align="right">4,295</td>
+<td align="right">14.8%</td>
+</tr>
+<tr>
+<td>GUI</td>
+<td align="right">91,333</td>
+<td align="right">65,302</td>
+<td align="right">26,031</td>
+<td align="right">3,070</td>
+<td align="right">13.6%</td>
+</tr>
+<tr>
+<td>P2P</td>
+<td align="right">80,675</td>
+<td align="right">51,106</td>
+<td align="right">29,569</td>
+<td align="right">3,382</td>
+<td align="right">12.0%</td>
+</tr>
+<tr>
+<td>RPC and HTTP</td>
+<td align="right">63,238</td>
+<td align="right">39,140</td>
+<td align="right">24,098</td>
+<td align="right">3,142</td>
+<td align="right">9.4%</td>
+</tr>
+<tr>
+<td>Support and utilities</td>
+<td align="right">59,510</td>
+<td align="right">33,237</td>
+<td align="right">26,273</td>
+<td align="right">2,630</td>
+<td align="right">8.9%</td>
+</tr>
+<tr>
+<td>Crypto and primitives</td>
+<td align="right">36,031</td>
+<td align="right">20,597</td>
+<td align="right">15,434</td>
+<td align="right">969</td>
+<td align="right">5.4%</td>
+</tr>
+<tr>
+<td>Script</td>
+<td align="right">34,561</td>
+<td align="right">19,247</td>
+<td align="right">15,314</td>
+<td align="right">958</td>
+<td align="right">5.1%</td>
+</tr>
+<tr>
+<td>Mempool and policy</td>
+<td align="right">24,463</td>
+<td align="right">11,426</td>
+<td align="right">13,037</td>
+<td align="right">1,093</td>
+<td align="right">3.6%</td>
+</tr>
+</tbody></table>
+<p>A commit that touches two systems is counted in both, so the commit column is not a partition. The line columns are. Most of these systems later delete between half and seven tenths of what they added. Mempool deletes 47%. The seed header, not in this table, deletes 89% across 39 commits. IPC deletes 21%.</p>
+<p>The early years are the GUI. In 2009–2013 the GUI is <strong>28.7%</strong> of implementation lines added. In 2022–2026, through 26 October, validation leads, at <strong>16.2%</strong> of the lines added in that era (25,716 of 158,548). The nets in that era are validation +11,263, mempool +7,504, P2P +7,339, support +6,916, RPC +5,816, wallet +2,061, and the GUI +261. Wallet is the largest tree today because older lines survived. It is not where the recent lines went.</p>
+<hr>
+<h2 id="what-changes-in-the-same-commit">What changes in the same commit</h2>
+<p><strong>61.0%</strong> of wallet commits touch no other implementation system, and <strong>13.7%</strong> of them also touch validation. The tight pair is mempool and validation: <strong>36.7%</strong> of mempool commits also edit validation. RPC is the least separate. It is alone in <strong>45.9%</strong> of its commits, and those commits also touch validation <strong>23.6%</strong> of the time and wallet <strong>23.2%</strong>.</p>
+<figure class="article-chart chart-intensity">
+<div class="chart-heading">Share of a system's commits that touch no other implementation system</div>
+<div class="intensity-row">
+<span class="intensity-name">GUI</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
+<span class="intensity-value">66.8%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Wallet</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:91.3%"></span></div>
+<span class="intensity-value">61.0%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">P2P</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:90.3%"></span></div>
+<span class="intensity-value">60.3%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Validation</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:78.6%"></span></div>
+<span class="intensity-value">52.5%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Support</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:74.1%"></span></div>
+<span class="intensity-value">49.5%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Crypto</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:73.5%"></span></div>
+<span class="intensity-value">49.1%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Script</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:71.9%"></span></div>
+<span class="intensity-value">48.0%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">RPC</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:68.7%"></span></div>
+<span class="intensity-value">45.9%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Mempool</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:68.1%"></span></div>
+<span class="intensity-value">45.5%</span>
+</div>
+</div>
+<figcaption>All history through 32.1. A commit that edits two systems counts once in each. Alone means no other classified implementation system. The last three years, 26 October 2023 through this release, are close for wallet (68% alone) and validation (62%). The GUI moved, from 66.8% alone over the whole history to 47% in that window.</figcaption>
+</figure>
+
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th align="right">Commits</th>
+<th align="right">Only this system</th>
+<th>Also touches</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GUI</td>
+<td align="right">3,070</td>
+<td align="right">66.8%</td>
+<td>wallet 17.7%</td>
+</tr>
+<tr>
+<td>Wallet</td>
+<td align="right">4,074</td>
+<td align="right">61.0%</td>
+<td>RPC 17.9%, validation 13.7%</td>
+</tr>
+<tr>
+<td>P2P</td>
+<td align="right">3,382</td>
+<td align="right">60.3%</td>
+<td>validation 20.8%, RPC 15.9%</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td align="right">4,295</td>
+<td align="right">52.5%</td>
+<td>RPC 17.3%, P2P 16.4%</td>
+</tr>
+<tr>
+<td>Support</td>
+<td align="right">2,630</td>
+<td align="right">49.5%</td>
+<td>validation 23.8%, P2P 20.1%</td>
+</tr>
+<tr>
+<td>Crypto</td>
+<td align="right">969</td>
+<td align="right">49.1%</td>
+<td>support 26.7%, validation 26.6%</td>
+</tr>
+<tr>
+<td>Script</td>
+<td align="right">958</td>
+<td align="right">48.0%</td>
+<td>wallet 29.4%, validation 25.9%</td>
+</tr>
+<tr>
+<td>RPC</td>
+<td align="right">3,142</td>
+<td align="right">45.9%</td>
+<td>validation 23.6%, wallet 23.2%</td>
+</tr>
+<tr>
+<td>Mempool</td>
+<td align="right">1,093</td>
+<td align="right">45.5%</td>
+<td>validation 36.7%, RPC 20.9%</td>
+</tr>
+</tbody></table>
 <hr>
 <h2 id="ix-who-last-touched-what-remains">IX. Who last touched what remains</h2>
 <p><code>git blame -w</code> on the 756 implementation files. Each non-blank line goes to the last commit that changed it. <code>validation.cpp</code> is split on the same function boundaries as section IV. Comments count, so these totals sit above the tokei code lines: 12,734 non-blank rule lines against 10,122 code lines.</p>
@@ -889,7 +1151,7 @@
 </div>
 </div>
 <div class="intensity-row">
-<span class="intensity-name">MarcoFalke</span>
+<span class="intensity-name">Marco Falke</span>
 <div class="intensity-wrap">
 <div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:8.5%"></span></div>
 <span class="intensity-value">3.8%</span>
@@ -951,8 +1213,270 @@
 <td align="right">2021</td>
 </tr>
 </tbody></table>
-<p>Across all 187,516 non-blank implementation lines, Pieter Wuille last touched 13.9%, Ava Chow 9.1%, MarcoFalke 7.6%, and Wladimir J. van der Laan 5.9%. Those four, plus TheCharlatan, Hennadii Stepanov, Russell Yanofsky, and Vasil Dimov, last touched 49.0%. glozow is third on the adjacent lines, at 6.9%, and tenth overall.</p>
-<p>The rule lines are older than the code around them, and one person last touched 44% of them. The additions table in section VIII is a different question. Satoshi's author string leads a large share of historical additions and is absent from the lines that remain.</p>
+<p>Across all 187,516 non-blank implementation lines, Pieter Wuille last touched 13.9%, Ava Chow 9.1%, Marco Falke 7.6%, and Wladimir J. van der Laan 5.9%. Those four, plus TheCharlatan, Hennadii Stepanov, Russell Yanofsky, and Vasil Dimov, last touched 49.0%. Gloria Zhao is third on the adjacent lines, at 6.9%, and tenth overall.</p>
+<p>The rule lines are older than the code around them, and one person last touched 44% of them. The additions table in section VIII is a different question. Satoshi's author string leads a large share of historical additions and is absent from the lines that remain. Who would make the next change is the next section.</p>
+<hr>
+<h2 id="who-still-edits-a-system">Who still edits a system</h2>
+<p>Over the three years ending 26 October 2026, validation's 798 commits come from 67 author names, and seven people cover half. Lőrinc is 15%. Marco Falke is 10%. TheCharlatan is 9%. Mempool is the concentrated system: Pieter Wuille is 36% and Suhas Daftuar is 12%, just under half together, and three people cover half. Wallet takes three people to reach half. Ava Chow, including commits signed Andrew Chow, is 31% of them.</p>
+<figure class="article-chart chart-intensity">
+<div class="chart-heading">Largest share of a system's commits, last three years, scaled to mempool</div>
+<div class="intensity-row">
+<span class="intensity-name">Mempool, Pieter Wuille</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
+<span class="intensity-value">36%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Wallet, Ava Chow</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:86.1%"></span></div>
+<span class="intensity-value">31%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Script, Ava Chow</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:80.6%"></span></div>
+<span class="intensity-value">29%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Support, Marco Falke</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:66.7%"></span></div>
+<span class="intensity-value">24%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">GUI, Marco Falke</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:55.6%"></span></div>
+<span class="intensity-value">20%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">P2P, Gloria Zhao</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:47.2%"></span></div>
+<span class="intensity-value">17%</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">Validation, Lőrinc</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:41.7%"></span></div>
+<span class="intensity-value">15%</span>
+</div>
+</div>
+<figcaption>Author dates from 26 October 2023 through this release. The validation bar is the largest person, not a majority. Seven people cover half of validation's commits. No system in the table is one person.</figcaption>
+</figure>
+
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th align="right">Commits</th>
+<th align="right">Authors</th>
+<th align="right">People to half</th>
+<th>Largest share</th>
+<th align="right">Top three</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Validation</td>
+<td align="right">798</td>
+<td align="right">67</td>
+<td align="right">7</td>
+<td>Lőrinc 15%</td>
+<td align="right">33%</td>
+</tr>
+<tr>
+<td>Wallet</td>
+<td align="right">665</td>
+<td align="right">68</td>
+<td align="right">3</td>
+<td>Ava Chow 31%</td>
+<td align="right">52%</td>
+</tr>
+<tr>
+<td>GUI</td>
+<td align="right">197</td>
+<td align="right">35</td>
+<td align="right">3</td>
+<td>Marco Falke 20%</td>
+<td align="right">52%</td>
+</tr>
+<tr>
+<td>P2P</td>
+<td align="right">549</td>
+<td align="right">60</td>
+<td align="right">7</td>
+<td>Gloria Zhao 17%</td>
+<td align="right">37%</td>
+</tr>
+<tr>
+<td>RPC</td>
+<td align="right">562</td>
+<td align="right">78</td>
+<td align="right">7</td>
+<td>Marco Falke 15%</td>
+<td align="right">33%</td>
+</tr>
+<tr>
+<td>Support</td>
+<td align="right">539</td>
+<td align="right">58</td>
+<td align="right">5</td>
+<td>Marco Falke 24%</td>
+<td align="right">43%</td>
+</tr>
+<tr>
+<td>Crypto</td>
+<td align="right">178</td>
+<td align="right">32</td>
+<td align="right">5</td>
+<td>Marco Falke 17%</td>
+<td align="right">39%</td>
+</tr>
+<tr>
+<td>Script</td>
+<td align="right">174</td>
+<td align="right">35</td>
+<td align="right">3</td>
+<td>Ava Chow 29%</td>
+<td align="right">52%</td>
+</tr>
+<tr>
+<td>Mempool</td>
+<td align="right">401</td>
+<td align="right">40</td>
+<td align="right">3</td>
+<td>Pieter Wuille 36%</td>
+<td align="right">58%</td>
+</tr>
+</tbody></table>
+<p>Authors are git author-name strings, compared case-insensitively, with Andrew Chow counted as Ava Chow, glozow as Gloria Zhao, and fanquake as Michael Ford. furszy and ismaelsadeeq are the names in the release notes. ismaelsadeeq is 9% of recent mempool commits, third after Pieter Wuille and Suhas Daftuar. RPC has the most names, 78, and seven people to reach half. The GUI is the quiet tree, 197 commits. Pieter Wuille last touched 44% of the rule lines still in the tree, and the median rule line was last touched in 2017. Over these three years his largest share is mempool, at 36%, and he is second on crypto, at 13%.</p>
+<hr>
+<h2 id="the-size-of-the-contract">The size of the contract</h2>
+<p>At this release the tree exposes <strong>171</strong> RPC methods, <strong>36</strong> P2P message types, and <strong>5</strong> named deployment slots. RPC grew in every era and shed names in every era after 2013. The deployment list gained taproot by the end of 2021. In this release the named slots are bip34, bip65, bip66, csv, and segwit. The taproot rule is still in the script interpreter.</p>
+<figure class="article-chart chart-intensity">
+<div class="chart-heading">RPC methods at the end of each era, scaled to 32.1</div>
+<div class="intensity-row">
+<span class="intensity-name">2022–2026</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
+<span class="intensity-value">171</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">2018–2021</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:91.2%"></span></div>
+<span class="intensity-value">156</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">2014–2017</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:69.6%"></span></div>
+<span class="intensity-value">119</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">2009–2013</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:42.1%"></span></div>
+<span class="intensity-value">72</span>
+</div>
+</div>
+<figcaption>Registered method names, including hidden methods. 2013 and 2017 are the command tables. 2021 and 2026 are <code>RPCHelpMan</code> and <code>RPCMethod</code> constructors.</figcaption>
+</figure>
+
+<figure class="article-chart chart-intensity">
+<div class="chart-heading">P2P message types at the end of each era, scaled to 32.1</div>
+<div class="intensity-row">
+<span class="intensity-name">2022–2026</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:100%"></span></div>
+<span class="intensity-value">36</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">2018–2021</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill" style="width:94.4%"></span></div>
+<span class="intensity-value">34</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">2014–2017</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:72.2%"></span></div>
+<span class="intensity-value">26</span>
+</div>
+</div>
+<div class="intensity-row">
+<span class="intensity-name">2009–2013</span>
+<div class="intensity-wrap">
+<div class="intensity-track" aria-hidden="true"><span class="intensity-fill intensity-alt" style="width:58.3%"></span></div>
+<span class="intensity-value">21</span>
+</div>
+</div>
+<figcaption>2013 is the messages the network dispatcher receives or sends. From 2017 on, the count is the <code>NetMsgType</code> list. Those two methods meet: 21 messages, drop alert, add the six compact-block and fee-filter names, and the 2017 table is 26.</figcaption>
+</figure>
+
+<table>
+<thead>
+<tr>
+<th>Era</th>
+<th align="right">RPC methods</th>
+<th>RPC change</th>
+<th align="right">P2P messages</th>
+<th>P2P change</th>
+<th align="right">Deployment slots</th>
+<th>Slot change</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2009–2013</td>
+<td align="right">72</td>
+<td>+72, −0</td>
+<td align="right">21</td>
+<td>+21, −0</td>
+<td align="right">1</td>
+<td>+1, −0</td>
+</tr>
+<tr>
+<td>2014–2017</td>
+<td align="right">119</td>
+<td>+52, −5</td>
+<td align="right">26</td>
+<td>+6, −1</td>
+<td align="right">5</td>
+<td>+4, −0</td>
+</tr>
+<tr>
+<td>2018–2021</td>
+<td align="right">156</td>
+<td>+53, −16</td>
+<td align="right">34</td>
+<td>+9, −1</td>
+<td align="right">6</td>
+<td>+1, −0</td>
+</tr>
+<tr>
+<td>2022–2026</td>
+<td align="right">171</td>
+<td>+29, −14</td>
+<td align="right">36</td>
+<td>+2, −0</td>
+<td align="right">5</td>
+<td>+0, −1</td>
+</tr>
+</tbody></table>
+<p>2026 ends at this release. P2P additions by 2017 are blocktxn, cmpctblock, feefilter, getblocktxn, sendcmpct, and sendheaders. alert is the removal. By 2021 the new names are addrv2, sendaddrv2, the compact-filter set, and wtxidrelay, and reject is gone. By this release the new names are sendtxrcncl and feature, the BIP 434 negotiation message. RPC removals by 2017 are getgenerate, gethashespersec, getinfo, getwork, and setgenerate. By 2021 the account API is gone, along with addwitnessaddress, bumpfee, estimatefee, and signrawtransaction. By this release the legacy import and dump methods are gone. The 2013 deployment slot is the block-version-2 height-in-coinbase rule, later named bip34. The four added by 2017 are bip65, bip66, csv, and segwit. The one added by 2021 is taproot. testdummy is excluded. Height-field aliases of the same fork are one slot.</p>
+<p>Commit-message counts of the words "bug fix" are not a defect rate. Cyclomatic complexity restates the files the line counts already flag as large. Neither is in this article.</p>
 <hr>
 <h2 id="x-patch-debt">X. Patch debt</h2>
 <p>The January 2026 debt study scores a file from how often it is edited in small diffs and how long it has gone without a large rewrite. This is the same formula, rerun on <strong>17,072</strong> merged pull requests from 3 January 2011 through 12 October 2026. It is a churn score. It is not a bug count. The pull-request dump ends before the 32.1 tag, so the scores do not see merges from 13 October through 26 October.</p>
@@ -1010,7 +1534,7 @@
 <h2 id="xi-what-the-count-is-for">XI. What the count is for</h2>
 <p>The rules that have to be specified, audited, and matched by any other implementation are 10,122 code lines, plus a signature library that is larger than they are. The program operators download is the other 93% of the implementation, the tests, and the bundled trees. Treating a release as "the consensus rules" collapses those piles.</p>
 <p><em><a href="/articles/dont-trust-verify#vi-the-same-system-applied-to-bitcoin-core">Don't Trust, Verify</a></em> is about that collapse at the review layer. The first independent audit of Bitcoin Core, Quarkslab in September 2025, scoped P2P, mempool, block validation, and chain state. Those are mostly the adjacent lines in section V, plus some of the checks. The interpreter, the hash implementations, and the type of the transaction are the rest of the 10,122, and secp256k1 is another 76,503.</p>
-<p><em><a href="/articles/bitcoin-governance">Who Controls Bitcoin</a></em> measures who merges. This article measures who wrote lines and who last touched the lines that remain. The rankings differ. Merge concentration answers who can land a change. The blame in section IX answers whose text is still in the rule files. Both can be true, and neither is a substitute for the other.</p>
+<p><em><a href="/articles/bitcoin-governance">Who Controls Bitcoin</a></em> measures who merges. This article measures who wrote lines and who last touched the lines that remain. The rankings differ. Merge concentration answers who can land a change. The blame in section IX answers whose text is still in the rule files. Both can be true, and neither is a substitute for the other. The sections after that blame answer three further questions. A commit that edits validation and the wallet is one change, and for the wallet that happens 13.7% of the time. Over the last three years, validation's commits are spread across 67 names. The contract a release exposes is the RPC methods, the P2P message types, and the deployment slots.</p>
 <p><em><a href="/articles/bitcoin-core-the-biggest-fallacies">Bitcoin Core: The Biggest Fallacies</a></em> argues the client is a monolith because the wallet, the network, and the rules ship together. The line count is the size of that claim. Seven percent is the rules. Eighty percent is the rest of the same binary.</p>
 <p><em><a href="/articles/what-bitcoins-stalled-proposals-tell-you">What Bitcoin's Stalled Proposals Tell You</a></em> uses the authorship Gini from the governance research. That Gini is on pull-request authorship. The added-line shares in section VIII are a third cut. Top-five line additions at 39.5% and a historical authorship Gini near 0.85 are the same shape at two resolutions. They are not the same number.</p>
 <p>The cost of storing the chain this program validates is a separate account, in <em><a href="/articles/full-cost-of-running-a-bitcoin-node">Full Cost of Running a Bitcoin Node</a></em>.</p>
@@ -1020,7 +1544,9 @@
 <p><strong>Code lines.</strong> tokei 14.0.0. A file is in one bucket. Implementation is <code>src/</code> excluding vendored prefixes (<code>secp256k1</code>, <code>leveldb</code>, <code>crc32c</code>, <code>minisketch</code>, <code>univalue</code>, <code>libmultiprocess</code>, <code>ctaes</code>), Qt locale, tests, fuzz, bench, markdown, and <code>CMakeLists.txt</code>. The system split uses explicit file lists for <code>src/node</code>, because that directory is not all P2P. <code>src/node/mining_args.cpp</code>, <code>mining_args.h</code>, and <code>mining_types.h</code> are in mining templates.</p>
 <p><strong>The three-way cut.</strong> Rule files are the SHA-256 and RIPEMD-160 sources, <code>hash.cpp</code> and <code>hash.h</code>, the script interpreter and script data, <code>pubkey</code>, <code>arith_uint256</code>, <code>uint256</code>, <code>src/primitives</code>, <code>src/consensus</code>, proof of work, versionbits, deployments, and signet. <code>validation.cpp</code> is split by function start, comment-stripped, then scaled from 4,187 raw code-like lines to tokei's 4,247. Adjacent is chainstate and storage, policy and mempool, indexes, and mining templates, including the matching parts of <code>validation.cpp</code>. SHA-1, SHA-3, and SHA-512 stay in the rest. The three parts sum to 151,004.</p>
 <p><strong>Tests.</strong> The named rule unit and fuzz files are the earlier filename list (4,517) plus integer, hash, script, and block tests that name a rule type (1,403). Functional rule tests are an explicit basename list: <code>feature_block</code>, <code>feature_taproot</code>, <code>feature_segwit</code>, <code>feature_cltv</code>, <code>feature_csv_activation</code>, <code>feature_dersig</code>, <code>feature_nulldummy</code>, <code>feature_bip68_sequence</code>, <code>feature_signet</code>, <code>feature_versionbits_warning</code>, <code>p2p_segwit</code>, <code>p2p_invalid_block</code>, <code>p2p_invalid_tx</code>, <code>p2p_mutated_blocks</code>. Adjacent adds an explicit list of mining, assumeutxo, pruning, index, fee, package, and chainstate tests to the mempool and policy filename prefix. A test outside those lists stays in the rest. That undercounts a functional test that exercises the interpreter under another name.</p>
-<p><strong>History.</strong> <code>git log HEAD --no-merges --numstat</code>. Renames of the form <code>{old =&gt; new}</code> are rewritten to the new path. Identity merges achow101 emails, hebasto in the email, and otherwise the dominant display name, casefolded, plus the published aliases (Wladimir's three spellings, MarcoFalke's, Ava Chow's, glozow and Gloria Zhao, fanquake and Michael Ford, jtimon and Jorge Timón). People who share only a first name stay separate. Ryan Ofsky and Russell Yanofsky are different people.</p>
+<p><strong>History.</strong> <code>git log HEAD --no-merges --numstat</code>. Renames of the form <code>{old =&gt; new}</code> are rewritten to the new path. Identity merges achow101 emails, hebasto in the email, and otherwise the dominant display name, casefolded, plus the published aliases: Wladimir's three spellings, Ava Chow and Andrew Chow, Marco Falke and MarcoFalke, Gloria Zhao and glozow, Michael Ford and fanquake, jtimon and Jorge Timón. The tables use the release-note names. Satoshi Nakamoto's row is the <code>s_nakamoto</code> string. People who share only a first name stay separate. Ryan Ofsky and Russell Yanofsky are different people.</p>
+<p><strong>Systems over time.</strong> The same numstat history, implementation paths only, classified with the section III file lists, including the explicit <code>src/node</code> split. A path is classified by the name it had in that commit. Vendored trees and tests are out. A commit that touches two systems counts in both commit totals. "Only this system" means the commit touched no other classified implementation system. The three-year window is author dates from 26 October 2023 through this release. Ava Chow includes commits signed Andrew Chow.</p>
+<p><strong>The contract.</strong> RPC names are the command table when that table carries the method name (2013 and 2017) and <code>RPCHelpMan</code> / <code>RPCMethod</code> constructors when it does not (2021 and this release). Hidden methods are included. P2P names in 2013 are the message strings the network dispatcher in <code>src/main.cpp</code>, <code>src/net.cpp</code>, and <code>src/alert.cpp</code> receives or sends. From 2017 on they are the <code>NetMsgType</code> strings. Deployment slots are <code>DEPLOYMENT_*</code> enumerators other than testdummy, plus the block-version-2 height rule, with height-field aliases of the same fork collapsed to one name. Era tips are the last commit on this history at the end of 2013 (<code>aec55a07</code>), 2017 (<code>c9439e73</code>), 2021 (<code>1831d43e</code>), and this release.</p>
 <p><strong>Blame.</strong> <code>git blame -w --line-porcelain</code> on each implementation file. Whitespace-only changes do not move the line. Blank lines are dropped. The same alias list as the history.</p>
 <p><strong>Debt.</strong> <code>scripts/analysis/code_turnover_analysis.py</code> in the Bitcoin Governance Research repository, run on <code>data/github/prs_raw.jsonl</code> (25,506 pull requests, 17,072 merged with a date, last merge 12 October 2026). The score weights patch frequency, time since a large rewrite, age of files the script labels consensus, and modifications per estimated line. Change type is a size heuristic: a refactor is a change over 30% of the estimated file or over 200 lines. The script's subsystem labels are filename patterns. They are not the three-way cut in section IV. Living-file membership is the 32.1 tree.</p>
 <hr>
@@ -1033,7 +1559,7 @@
 </ul>
 </article>
         
-        <div class="article-share-bar" data-share-url="https://secsov.com/articles/the-rules-are-7-percent" data-share-title="The Rules Are 7% of the Program" data-share-text="The Rules Are 7% of the Program: A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Tests match that implementation. Most of what was added was later deleted.">
+        <div class="article-share-bar" data-share-url="https://secsov.com/articles/the-rules-are-7-percent" data-share-title="The Rules Are 7% of the Program" data-share-text="The Rules Are 7% of the Program: A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Wallet commits rarely also touch validation. The release exposes 171 RPC methods, 36 P2P message types, and 5 deployment slots.">
         <span class="share-label">Share</span>
         <div class="article-share-icons"></div>
     </div>
