@@ -589,7 +589,25 @@ The 55% figure above counts every filtered code file, including tests. Restricte
 <figcaption>A commit that touches two systems is counted in both commit totals. The lines are a partition.</figcaption>
 </figure>
 
-The early years are the GUI. In 2009–2013 the GUI is **28.7%** of implementation lines added. In 2022–2026, through 26 October, validation leads, at **16.2%**. Wallet is the largest tree today because older lines survived.
+The early years are the GUI. In 2009–2013 the GUI is **28.7%** of implementation lines added. Wallet is the plurality in 2018–2021, at **26.3%**. From 2022 through 26 October, validation leads, at **16.2%**, and the GUI's net is **+261**. Wallet is the largest tree today because older lines survived.
+
+<figure class="article-chart chart-stackbar">
+<div class="chart-heading">Share of implementation lines added, by era</div>
+<div class="era-row"><span class="era-label">2009–2013</span><div class="stackbar era-bar" role="img" aria-label="2009 to 2013: GUI 28.7 percent, validation 17.6, wallet 8.2, P2P 10.3, RPC 8.9, support 8.5, mempool 0.2, the rest 17.5"><span class="stack-seg seg-gui" style="width:28.65%"></span><span class="stack-seg seg-val" style="width:17.58%"></span><span class="stack-seg seg-wal" style="width:8.21%"></span><span class="stack-seg seg-p2p" style="width:10.35%"></span><span class="stack-seg seg-rpc" style="width:8.95%"></span><span class="stack-seg seg-sup" style="width:8.54%"></span><span class="stack-seg seg-mem" style="width:0.18%"></span><span class="stack-seg seg-else" style="width:17.54%"></span></div></div>
+<div class="era-row"><span class="era-label">2014–2017</span><div class="stackbar era-bar" role="img" aria-label="2014 to 2017: GUI 11.3 percent, validation 14.9, wallet 13.8, P2P 12.1, RPC 9.5, support 8.0, mempool 4.2, the rest 26.1"><span class="stack-seg seg-gui" style="width:11.30%"></span><span class="stack-seg seg-val" style="width:14.87%"></span><span class="stack-seg seg-wal" style="width:13.85%"></span><span class="stack-seg seg-p2p" style="width:12.10%"></span><span class="stack-seg seg-rpc" style="width:9.53%"></span><span class="stack-seg seg-sup" style="width:8.01%"></span><span class="stack-seg seg-mem" style="width:4.20%"></span><span class="stack-seg seg-else" style="width:26.14%"></span></div></div>
+<div class="era-row"><span class="era-label">2018–2021</span><div class="stackbar era-bar" role="img" aria-label="2018 to 2021: GUI 7.2 percent, validation 9.9, wallet 26.3, P2P 14.1, RPC 9.4, support 7.7, mempool 2.1, the rest 23.3"><span class="stack-seg seg-gui" style="width:7.19%"></span><span class="stack-seg seg-val" style="width:9.92%"></span><span class="stack-seg seg-wal" style="width:26.27%"></span><span class="stack-seg seg-p2p" style="width:14.06%"></span><span class="stack-seg seg-rpc" style="width:9.39%"></span><span class="stack-seg seg-sup" style="width:7.73%"></span><span class="stack-seg seg-mem" style="width:2.14%"></span><span class="stack-seg seg-else" style="width:23.30%"></span></div></div>
+<div class="era-row"><span class="era-label">2022–2026</span><div class="stackbar era-bar" role="img" aria-label="2022 to 2026: GUI 2.5 percent, validation 16.2, wallet 12.9, P2P 12.0, RPC 9.9, support 11.2, mempool 9.2, the rest 26.1"><span class="stack-seg seg-gui" style="width:2.54%"></span><span class="stack-seg seg-val" style="width:16.22%"></span><span class="stack-seg seg-wal" style="width:12.86%"></span><span class="stack-seg seg-p2p" style="width:11.96%"></span><span class="stack-seg seg-rpc" style="width:9.93%"></span><span class="stack-seg seg-sup" style="width:11.20%"></span><span class="stack-seg seg-mem" style="width:9.21%"></span><span class="stack-seg seg-else" style="width:26.08%"></span></div></div>
+<div class="stackbar-legend">
+<span><strong style="color:var(--primary)">■</strong> GUI</span>
+<span><strong style="color:#3a5a6a">■</strong> Validation</span>
+<span><strong style="color:#2a6a4a">■</strong> Wallet</span>
+<span><strong style="color:#245a78">■</strong> P2P</span>
+<span><strong style="color:#5c5348">■</strong> RPC</span>
+<span><strong style="color:#3d5c4a">■</strong> Support</span>
+<span><strong style="color:#6a5a32">■</strong> Mempool</span>
+<span><strong style="color:var(--border)">■</strong> The rest</span>
+</div>
+</figure>
 
 ---
 
@@ -919,7 +937,7 @@ The cost of storing the chain this program validates is a separate account, in *
 
 **History.** `git log HEAD --no-merges --numstat`. Renames of the form `{old => new}` are rewritten to the new path. Identity merges every pair of git names that share an email, and one name that used two addresses, plus the published aliases: Wladimir's three spellings, Ava Chow and Andrew Chow, Marco Falke and MarcoFalke, Gloria Zhao and glozow, Michael Ford and fanquake, jtimon and Jorge Timón. The tables use the release-note names. Satoshi Nakamoto's row is the <code>s_nakamoto</code> string. People who share only a first name stay separate. Ryan Ofsky and Russell Yanofsky are different people.
 
-**Systems over time.** The same numstat history, implementation paths only, classified with the section III file lists, including the explicit `src/node` split. A path is classified by the name it had in that commit. Vendored trees and tests are out. A commit that touches two systems counts in both commit totals. "Only this system" means the commit touched no other classified implementation system. The three-year window is author dates from 26 October 2023 through this release. The people column merges git names that share an email, and the same published aliases as the history.
+**Systems over time.** The same numstat history, implementation paths only, classified with the section III file lists, including the explicit `src/node` split. A path is classified by the name it had in that commit. Vendored trees and tests are out. The era chart uses that same partition in four spans: through 2013, through 2017, through 2021, and from 2022 through this release. Crypto, script, and the smaller systems are the remainder of each bar. A commit that touches two systems counts in both commit totals. "Only this system" means the commit touched no other classified implementation system. The three-year window is author dates from 26 October 2023 through this release. The people column merges git names that share an email, and the same published aliases as the history.
 
 **Rule-file editors.** The same window and the same person merge. A commit counts once when it touches a file in the section IV rule list: the SHA-256 and RIPEMD-160 sources, `hash.cpp` and `hash.h`, the script interpreter and script data, `pubkey`, `arith_uint256`, `uint256`, `src/primitives`, `src/consensus`, proof of work, versionbits, deployments, and signet. `validation.cpp` is left out. Its 562 check lines share the file with chainstate and mempool.
 
