@@ -323,7 +323,7 @@
         /* Catalog directory cards */
         .catalog-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
             gap: 20px;
         }
 
@@ -690,14 +690,14 @@
                     </div>
                 </div>
                 <div class="catalog-card">
-                    <p class="catalog-kicker">BIPs</p>
+                    <p class="catalog-kicker">Proposals</p>
                     <div class="catalog-body">
                         <ul class="catalog-item-list">
-                        <li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="/bips/static-per-output-miner-fee" class="writing-link">Static Per-Output Miner Fee</a></li>
-                        <li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="/bips/dynamic-escalation-per-output-fee" class="writing-link">Dynamic Escalation of the Per-Output Miner Fee</a></li>
+                        <li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="/proposals/quantum-adoption" class="writing-link">Getting a Quantum Upgrade Adopted Is a Security Problem</a></li>
                         <li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="/bips/permanent-data-channel-closure" class="writing-link">Permanent Data Channel Closure</a></li>
+                        <li><span class="catalog-mark" aria-hidden="true">&gt;</span><a href="/bips/dynamic-escalation-per-output-fee" class="writing-link">Dynamic Escalation of the Per-Output Miner Fee</a></li>
                     </ul>
-                        <a class="catalog-more" href="/bips">All BIPs</a>
+                        <a class="catalog-more" href="/proposals">All proposals</a>
                     </div>
                 </div>
             </div>

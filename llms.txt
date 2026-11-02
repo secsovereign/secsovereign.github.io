@@ -2,7 +2,7 @@
 
 > Josh "Secure Sovereign" — Bitcoin builder, governance researcher, and Certified Bitcoin Professional (CBP). Long-form writing on Bitcoin Core governance capture, blockspace policy, consensus engineering, and monetary sovereignty. Bitcoin holder since 2010.
 
-This site publishes **long-form reference articles** and **BIP pre-proposals**, not a blog feed. The homepage (`https://secsov.com/`) contains author bio and disclosures — **article text lives at `/articles/{slug}`**, BIP text at `/bips/{slug}`. Fetch each URL below, or use `https://secsov.com/llms-full.txt` for all articles and BIP pre-proposals in one file.
+This site publishes **long-form reference articles**, **BIP pre-proposals**, and **work proposals**. The homepage (`https://secsov.com/`) contains author bio and disclosures — **article text lives at `/articles/{slug}`**, BIP text at `/bips/{slug}`, proposals at `/proposals/{slug}`. Fetch each URL below, or use `https://secsov.com/llms-full.txt` for all articles and BIP pre-proposals in one file.
 
 **URL patterns** (no trailing slash required; GitHub Pages may redirect):
 
@@ -36,9 +36,10 @@ This site publishes **long-form reference articles** and **BIP pre-proposals**, 
 
 ## Start here
 
-- [Homepage](https://secsov.com/): Author bio, expertise, project disclosures, links to all writing and BIPs.
+- [Homepage](https://secsov.com/): Author bio, expertise, project disclosures, links to writing and proposals.
 - [Article index](https://secsov.com/articles): Curated list of all long-form articles with one-line summaries.
-- [BIP index](https://secsov.com/bips): Bitcoin Improvement Pre-Proposals (not numbered BIPs; not yet submitted).
+- [Proposal index](https://secsov.com/proposals): Protocol pre-proposals and work offered to a named funder.
+- [BIP filter](https://secsov.com/bips): BIP-only filter of /proposals. Not numbered or submitted to the BIP process.
 - [Full text (articles + BIP pre-proposals)](https://secsov.com/llms-full.txt): Concatenated Markdown of every article and BIP pre-proposal for single-fetch ingestion.
 
 ## Bitcoin governance
@@ -97,6 +98,10 @@ This site publishes **long-form reference articles** and **BIP pre-proposals**, 
 - [Bitcoin District Podcast](https://btcdcpodcast.com): Bitcoin podcast on protocol, politics, and people in DC (disclosed affiliation).
 - [NovaSapien](https://novasapien.com): Bitcoin services (disclosed affiliation).
 - [BitDevs DMV](https://bitdevsdmv.com): Socratic seminars on Bitcoin protocol research across DC, Maryland, and Virginia (disclosed affiliation).
+
+## Proposals
+
+- [Getting a Quantum Upgrade Adopted Is a Security Problem](https://secsov.com/proposals/quantum-adoption): A research proposal to the Bitcoin Security Consortium. Adoption failure of a quantum-resistant upgrade is a security failure. The report maps activation precedent, holder migration from chain data, process conditions, and design failure modes.
 
 ## Optional
 

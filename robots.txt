@@ -1,6 +1,7 @@
 User-agent: *
 Disallow: /articles/*/index.md
 Disallow: /bips/*/index.md
+Disallow: /proposals/*/index.md
 
 Sitemap: https://secsov.com/sitemap.xml
 # LLM index: https://secsov.com/llms.txt

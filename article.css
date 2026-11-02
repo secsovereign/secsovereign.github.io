@@ -60,6 +60,33 @@ body {
     font-size: 0.95rem;
 }
 
+.index-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: -0.5rem 0 1.5rem;
+}
+
+.index-filter a {
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.65rem;
+}
+
+.index-filter a:hover,
+.index-filter a:focus-visible {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.index-filter a.is-current {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
 .article-index-list {
     list-style: none;
     padding: 0;

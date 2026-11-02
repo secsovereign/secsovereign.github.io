@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting a Quantum Upgrade Adopted Is a Security Problem (Work Proposal) | SecureSovereign</title>
+    <meta name="description" content="A research proposal to the Bitcoin Security Consortium. Adoption failure of a quantum-resistant upgrade is a security failure. The report maps activation precedent, holder migration from chain data, process conditions, and design failure modes.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://secsov.com/proposals/quantum-adoption">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Getting a Quantum Upgrade Adopted Is a Security Problem (Work Proposal)">
+    <meta property="og:description" content="A research proposal to the Bitcoin Security Consortium. Adoption failure of a quantum-resistant upgrade is a security failure. The report maps activation precedent, holder migration from chain data, process conditions, and design failure modes.">
+    <meta property="og:url" content="https://secsov.com/proposals/quantum-adoption">
+    <meta property="og:site_name" content="SecureSovereign">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-10-01">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Getting a Quantum Upgrade Adopted Is a Security Problem (Work Proposal)">
+    <meta name="twitter:description" content="A research proposal to the Bitcoin Security Consortium. Adoption failure of a quantum-resistant upgrade is a security failure. The report maps activation precedent, holder migration from chain data, process conditions, and design failure modes.">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Getting a Quantum Upgrade Adopted Is a Security Problem (Work Proposal)","description":"A research proposal to the Bitcoin Security Consortium. Adoption failure of a quantum-resistant upgrade is a security failure. The report maps activation precedent, holder migration from chain data, process conditions, and design failure modes.","url":"https://secsov.com/proposals/quantum-adoption","mainEntityOfPage":{"@type":"WebPage","@id":"https://secsov.com/proposals/quantum-adoption"},"author":{"@type":"Person","name":"Josh","alternateName":"Secure Sovereign","url":"https://secsov.com/"},"publisher":{"@type":"Organization","name":"SecureSovereign","url":"https://secsov.com/"},"isPartOf":{"@type":"WebSite","name":"SecureSovereign","url":"https://secsov.com/"},"datePublished":"2026-10-01","dateModified":"2026-10-01"}</script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/article.css" rel="stylesheet">
+    <link href="/share.css" rel="stylesheet">
+    </head>
+<body>
+    <nav class="site-nav">
+        <a href="/">← Home</a>
+        <span class="sep">/</span>
+        <a href="/proposals">Proposals</a>
+        <span class="sep">/</span>
+        <span style="color: var(--text-muted); font-family: 'Courier New', monospace; font-size: 0.9rem;">Getting a Quantum Upgrade Adopted Is a Security Problem</span>
+        <div class="share-widget nav-share" data-share-url="https://secsov.com/proposals/quantum-adoption" data-share-title="Getting a Quantum Upgrade Adopted Is a Security Problem (Work Proposal)" data-share-text="Getting a Quantum Upgrade Adopted Is a Security Problem (Work Proposal): A research proposal to the Bitcoin Security Consortium. Adoption failure of a quantum-resistant upgrade is a security failure. The report maps activation precedent, holder migration from chain data, process conditions, and design failure modes.">
+        <button type="button" class="share-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Share">
+            <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Share
+        </button>
+        <div class="share-menu" role="menu"></div>
+    </div>
+    </nav>
+    <div class="article-wrap">
+        <header class="article-meta">
+        <div class="article-meta-row">
+            <p class="article-dates"><time datetime="2026-10-01">Published October 1, 2026</time></p>
+            <p class="article-downloads">
+        <a class="article-file-link" href="index.pdf" download="quantum-adoption.pdf">PDF</a>
+        <a class="article-file-link" href="index.md" download="quantum-adoption.md">Markdown</a>
+    </p>
+        </div>
+        
+    </header>
+        <article class="article-body"><h1>Getting a Quantum Upgrade Adopted Is a Security Problem</h1>
+<p><em>A research proposal to the Bitcoin Security Consortium. October 2026.</em></p>
+<h2 id="the-gap">The gap</h2>
+<p>A quantum-resistant upgrade protects Bitcoin only after the network adopts it. No one can mandate that. Thousands of independent node operators have to run the new rules, miners and economic nodes have to enforce them, and holders have to move their coins. An upgrade that stalls protects nothing. One that activates under contested legitimacy adds chain-split risk on top of the quantum exposure it was meant to remove. Adoption failure is a security failure.</p>
+<p>The design space is wide and still open. Candidate output types include P2MR (<a href="https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki">BIP-360</a>), P2TRv2, P2TRH, and P2QR, compared side by side in the <a href="https://delvingbitcoin.org/t/pqc-output-type-discussion/2749">PQC output type discussion</a> on Delving Bitcoin. Leading signature candidates are hash-based, including <a href="https://blog.blockstream.com/op_checkshrincs-a-hash-based-signature-opcode-for-post-quantum-bitcoin/">SHRINCS</a> and <a href="https://delvingbitcoin.org/t/shrimps-2-5-kb-post-quantum-signatures-across-multiple-stateful-devices/2355">SHRIMPS</a> from Blockstream researchers. For coins that never move, the options range from leaving legacy spends valid, to rate-limiting them, to <a href="https://delvingbitcoin.org/t/post-quantum-migrations-via-commit-then-reveal-ala-bip16-an-alternative-to-sunsetting/2467">commit-then-reveal migration</a>, to a sunset with a recovery path as in <a href="https://github.com/bitcoin/bips/blob/master/bip-0361.mediawiki">BIP-361</a>.</p>
+<p>Several of the central disputes are adoption questions in technical form. P2TRv2 keeps today's fee profile and wallet behavior to win broad early adoption, and relies on a later consensus change to disable elliptic-curve spends. P2MR gives up some spend efficiency for protection that does not depend on that later change. Which tradeoff holds up depends on how quickly users adopt an output type under each design, and on whether a contested elliptic-curve disable could activate when it is needed.</p>
+<p>Existing migration estimates bound how long migration would take given block space. They do not say how quickly holders will actually choose to move, which is the constraint most likely to bind. Estimates of exposed supply run from about ten thousand coins at near-term risk to roughly a third of all bitcoin, depending on the exposure model, and much of the exposed value sits with a small number of large custodians. This proposal measures the behavioral side with data.</p>
+<h2 id="what-i-propose">What I propose</h2>
+<p>A research report that analyzes the network conditions a quantum migration depends on and maps the realistic paths to adoption, with the failure modes of each. The report would serve as input to the consortium's published material on Bitcoin's security. It would cover four areas.</p>
+<ol>
+<li><p><strong>Activation precedent.</strong> The SegWit and Taproot histories from proposal to activation, including the activation-method disputes (BIP 148 and BIP 91 in 2017, the LOT=true versus LOT=false debate and Speedy Trial in 2021). The output is what each episode shows about timelines, about where consensus held and where it nearly broke, and what that history implies for a follow-up change, such as an elliptic-curve disable, that may face organized opposition.</p>
+</li>
+<li><p><strong>Behavioral migration rates from chain data.</strong> Existing work, including the <a href="https://chaincode.com/bitcoin-post-quantum.pdf">Chaincode Labs post-quantum report</a>, <a href="https://github.com/presidiobtc/bitcoin-quantum/">Presidio Bitcoin's readiness report</a>, and ongoing Delving Bitcoin and bitcoin-dev discussions on migration incentives, bounds migration time by block space. This section measures holder behavior. It tracks how quickly value moved to each new output type after activation (P2SH, SegWit, Taproot), separates custodial and exchange flows from individual holders where chain heuristics allow, and tests how fee profile and wallet support shaped each curve. The result is a set of realistic adoption curves to set against each candidate design, and a bound on how much supply any legacy-coin policy would actually catch.</p>
+</li>
+<li><p><strong>Process conditions.</strong> A quantitative picture of how consensus changes move through review and merge, drawn from an existing dataset covering Bitcoin Core development from 2010 to 2026 across GitHub, the development mailing list, and IRC. This section establishes what the development pipeline can realistically carry, and on what timeline.</p>
+</li>
+<li><p><strong>Design and failure-mode map.</strong> For the leading designs, and the combinations of output type, signature scheme, and legacy-coin policy their authors propose, the report sets out what has to be true for adoption, which follow-up consensus changes the design depends on, where the path can split the network, and which observable signals would show it is on or off track. The framework takes new proposals as they appear, so the map stays current as the design space moves.</p>
+</li>
+</ol>
+<p>The report will not recommend a specific proposal or activation method. It describes conditions and risks so that developers, node operators, and holders can make that call with better information. This keeps the work consistent with the consortium's position of not advocating code changes.</p>
+<h2 id="optional-workstream">Optional workstream</h2>
+<p>A migration rule is easier to review when it is stated precisely and tested on more than one codebase before activation. I wrote a formal mathematical specification of Bitcoin's consensus rules (the Orange Paper) and maintain an independent Rust node built from it. As an optional extension, I can express a candidate output type or opcode, such as P2MR or a SHRINCS verification opcode, in the specification, implement it in the independent node, and differential-test it against the proposal's reference implementation. Disagreements between two independent implementations of the same rule text surface ambiguities before any activation discussion.</p>
+<h2 id="what-already-exists">What already exists</h2>
+<ul>
+<li><strong>Governance dataset.</strong> Bitcoin Core development from 2010 to 2026, drawn from GitHub pull requests, reviews, and comments, the development mailing list, and IRC. <a href="https://github.com/secsovereign/bitcoin-governance-research">github.com/secsovereign/bitcoin-governance-research</a></li>
+<li><strong>Orange Paper.</strong> A formal specification of Bitcoin consensus, with consensus functions checked against it using Z3. <a href="https://thebitcoincommons.org/spec.html">thebitcoincommons.org/spec.html</a></li>
+<li><strong>Independent node.</strong> Built from that specification, with extensive differential tooling against Bitcoin Core in its bench tool, blvm-bench. <a href="https://github.com/BTCDecoded">github.com/BTCDecoded</a></li>
+</ul>
+<h2 id="collaboration">Collaboration</h2>
+<p>I will coordinate with other prominent researchers in this space, including the authors of the leading proposals, to review the technical sections.</p>
+<h2 id="disclosure">Disclosure</h2>
+<p>I build an independent Bitcoin implementation, I have written critically about Bitcoin Core's governance model, and I have argued publicly that implementation diversity strengthens the network. A report on adoption conditions touches those questions. I am stating the interest up front so the method can be judged on its own terms. Every finding will rest on public data, and the dataset and analysis code will be published with the report.</p>
+<h2 id="deliverables-and-timeline">Deliverables and timeline</h2>
+<ul>
+<li><strong>Report.</strong> Final report with published data and analysis code, delivered 16 weeks from start. An interim draft goes to the funder at week 8 for factual review. Conclusions remain mine.</li>
+<li><strong>Optional workstream.</strong> Six additional weeks.</li>
+</ul>
+</article>
+        
+        <div class="article-share-bar" data-share-url="https://secsov.com/proposals/quantum-adoption" data-share-title="Getting a Quantum Upgrade Adopted Is a Security Problem (Work Proposal)" data-share-text="Getting a Quantum Upgrade Adopted Is a Security Problem (Work Proposal): A research proposal to the Bitcoin Security Consortium. Adoption failure of a quantum-resistant upgrade is a security failure. The report maps activation precedent, holder migration from chain data, process conditions, and design failure modes.">
+        <span class="share-label">Share</span>
+        <div class="article-share-icons"></div>
+    </div>
+    </div>
+    <script src="/share.js"></script>
+    </body>
+</html>

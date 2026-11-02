@@ -7,6 +7,9 @@
     <loc>https://secsov.com/articles</loc>
   </url>
   <url>
+    <loc>https://secsov.com/proposals</loc>
+  </url>
+  <url>
     <loc>https://secsov.com/bips</loc>
   </url>
   <url>
@@ -89,7 +92,7 @@
   </url>
   <url>
     <loc>https://secsov.com/articles/the-rules-are-7-percent</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-11-01</lastmod>
   </url>
   <url>
     <loc>https://secsov.com/bips/static-per-output-miner-fee</loc>
@@ -102,5 +105,9 @@
   <url>
     <loc>https://secsov.com/bips/permanent-data-channel-closure</loc>
     <lastmod>2026-08-12</lastmod>
+  </url>
+  <url>
+    <loc>https://secsov.com/proposals/quantum-adoption</loc>
+    <lastmod>2026-10-01</lastmod>
   </url>
 </urlset>

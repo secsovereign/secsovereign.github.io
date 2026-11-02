@@ -248,6 +248,64 @@ function mdPathForBipSlug(slug) {
   return path.join(ROOT, 'bips', slug, 'index.md');
 }
 
+function proposalPath(slug) {
+  return `/proposals/${slug}`;
+}
+
+function proposalUrl(slug) {
+  return `${SITE}${proposalPath(slug)}`;
+}
+
+function mdPathForProposalSlug(slug) {
+  return path.join(ROOT, 'proposals', slug, 'index.md');
+}
+
+function sortByDateDesc(items, field) {
+  return [...items].sort((a, b) => {
+    const da = a[field] || '';
+    const db = b[field] || '';
+    if (!da && !db) return (a.slug || '').localeCompare(b.slug || '');
+    if (!da) return 1;
+    if (!db) return -1;
+    if (da !== db) return db.localeCompare(da);
+    return (a.slug || '').localeCompare(b.slug || '');
+  });
+}
+
+function collectProposalItems(bips, proposals) {
+  const work = (proposals || []).map((p) => ({
+    kind: 'work',
+    slug: p.slug,
+    title: p.title,
+    href: proposalPath(p.slug),
+    date: p.published,
+    description: p.description,
+    audience: p.audience,
+  }));
+  const bipItems = (bips || []).map((b) => ({
+    kind: 'bip',
+    slug: b.slug,
+    title: b.title,
+    href: bipPath(b.slug),
+    date: b.created,
+    description: b.description,
+    status: b.status,
+    dependsOn: b.dependsOn,
+    relatedBips: b.relatedBips,
+    relatedBipsLabel: b.relatedBipsLabel,
+  }));
+  return sortByDateDesc([...work, ...bipItems], 'date');
+}
+
+function proposalFilterNav(active) {
+  const allClass = active === 'all' ? ' class="is-current"' : '';
+  const bipClass = active === 'bip' ? ' class="is-current"' : '';
+  return `<nav class="index-filter" aria-label="Proposal filters">
+            <a href="/proposals"${allClass}>All</a>
+            <a href="/bips"${bipClass}>BIPs</a>
+        </nav>`;
+}
+
 function formatArticleDate(isoDate) {
   if (!isoDate) return '';
   const [y, m, d] = isoDate.split('-').map(Number);
@@ -296,33 +354,29 @@ function renderCatalogTitleList(items) {
   return `<ul class="catalog-item-list">\n                        ${rows}\n                    </ul>`;
 }
 
-function renderHomepageCatalogCards(articles, bips) {
+function renderCatalogCard(kicker, items, moreHref, moreLabel) {
+  return `<div class="catalog-card">
+                    <p class="catalog-kicker">${escapeHtml(kicker)}</p>
+                    <div class="catalog-body">
+                        ${renderCatalogTitleList(items)}
+                        <a class="catalog-more" href="${escapeHtml(moreHref)}">${escapeHtml(moreLabel)}</a>
+                    </div>
+                </div>`;
+}
+
+function renderHomepageCatalogCards(articles, bips, proposals) {
   const sorted = sortArticlesByPublished(articles);
   const moreWriting = sorted.slice(3, 6).map((a) => ({
     href: articlePath(a.slug),
     title: a.title,
   }));
-  const writingList = renderCatalogTitleList(moreWriting);
-  const bipEntries = (bips || []).map((b) => ({
-    href: bipPath(b.slug),
-    title: b.title,
+  const proposalEntries = collectProposalItems(bips, proposals).slice(0, 3).map((item) => ({
+    href: item.href,
+    title: item.title,
   }));
-  const bipList = renderCatalogTitleList(bipEntries);
   return `<div class="catalog-grid">
-                <div class="catalog-card">
-                    <p class="catalog-kicker">Writing</p>
-                    <div class="catalog-body">
-                        ${writingList}
-                        <a class="catalog-more" href="/articles">All writing</a>
-                    </div>
-                </div>
-                <div class="catalog-card">
-                    <p class="catalog-kicker">BIPs</p>
-                    <div class="catalog-body">
-                        ${bipList}
-                        <a class="catalog-more" href="/bips">All BIPs</a>
-                    </div>
-                </div>
+                ${renderCatalogCard('Writing', moreWriting, '/articles', 'All writing')}
+                ${renderCatalogCard('Proposals', proposalEntries, '/proposals', 'All proposals')}
             </div>`;
 }
 
@@ -353,11 +407,11 @@ function patchHomepageFeatured(articles) {
   );
 }
 
-function patchHomepageCatalog(articles, bips) {
+function patchHomepageCatalog(articles, bips, proposals) {
   patchHomepageMarkedSection(
     '<!-- catalog-cards:start -->',
     '<!-- catalog-cards:end -->',
-    renderHomepageCatalogCards(articles, bips),
+    renderHomepageCatalogCards(articles, bips, proposals),
     'Catalog section',
   );
 }
@@ -643,7 +697,7 @@ function renderPage({
 `;
 }
 
-function renderListIndex({ title, description, canonicalPath, intro, itemsHtml, navLabel }) {
+function renderListIndex({ title, description, canonicalPath, intro, itemsHtml, navLabel, filterHtml = '' }) {
   const desc = escapeHtml(description);
   const fullTitle = escapeHtml(`${title} | SecureSovereign`);
   const url = `${SITE}${canonicalPath}`;
@@ -688,6 +742,7 @@ function renderListIndex({ title, description, canonicalPath, intro, itemsHtml, 
         <header class="article-index-header">
             <h1>${escapeHtml(title)}</h1>
             <p class="article-index-intro">${escapeHtml(intro)}</p>
+            ${filterHtml}
         </header>
         <ul class="article-index-list">${itemsHtml}</ul>
     </div>
@@ -718,26 +773,30 @@ function renderArticlesIndex(articles) {
   });
 }
 
-function renderBipsIndex(bips) {
-  const items = bips.map((b) => {
-    const href = bipPath(b.slug);
-    const title = escapeHtml(b.title);
-    const desc = escapeHtml(b.description || '');
+function renderProposalIndexItems(items, bips) {
+  return items.map((item) => {
+    const href = escapeHtml(item.href);
+    const title = escapeHtml(item.title);
+    const desc = escapeHtml(item.description || '');
     const descHtml = desc ? `<p class="article-index-desc">${desc}</p>` : '';
-    const status = escapeHtml(b.status || 'Pre-Proposal');
-    const created = b.created ? formatArticleDate(b.created) : '';
-    const metaParts = [status];
-    if (created) metaParts.push(`Created ${created}`);
-    const datesHtml = `<div class="article-index-meta"><p class="article-index-dates">${escapeHtml(metaParts.join(' · '))}</p>${indexFileLinksHtml(href, b.slug)}</div>`;
+    const metaParts = [];
+    if (item.kind === 'bip') {
+      metaParts.push('BIP');
+      metaParts.push(item.status || 'Pre-Proposal');
+    } else if (item.audience) {
+      metaParts.push(item.audience);
+    }
+    if (item.date) metaParts.push(formatArticleDate(item.date));
+    const datesHtml = `<div class="article-index-meta"><p class="article-index-dates">${escapeHtml(metaParts.join(' · '))}</p>${indexFileLinksHtml(item.href, item.slug)}</div>`;
     let depHtml = '';
-    if (b.dependsOn) {
-      const dep = bipBySlug(bips, b.dependsOn);
+    if (item.kind === 'bip' && item.dependsOn) {
+      const dep = bipBySlug(bips, item.dependsOn);
       if (dep) {
         depHtml = `<p class="article-index-dep">Depends on <a href="${escapeHtml(bipPath(dep.slug))}">${escapeHtml(dep.title)}</a></p>`;
       }
-    } else if (b.relatedBips && b.relatedBips.length) {
-      const label = b.relatedBipsLabel || 'Related BIPs';
-      const links = b.relatedBips
+    } else if (item.kind === 'bip' && item.relatedBips && item.relatedBips.length) {
+      const label = item.relatedBipsLabel || 'Related BIPs';
+      const links = item.relatedBips
         .map((slug) => bipBySlug(bips, slug))
         .filter(Boolean)
         .map((related) => `<a href="${escapeHtml(bipPath(related.slug))}">${escapeHtml(related.title)}</a>`)
@@ -748,14 +807,31 @@ function renderBipsIndex(bips) {
     }
     return `<li class="article-index-item"><a href="${href}">${title}</a>${datesHtml}${depHtml}${descHtml}</li>`;
   }).join('\n');
+}
 
+function renderBipsIndex(bips, proposals) {
+  const items = collectProposalItems(bips, proposals).filter((item) => item.kind === 'bip');
   return renderListIndex({
-    title: 'BIPs',
-    description: 'Bitcoin Improvement Pre-Proposals: consensus per-output miner fees and related blockspace policy. Not yet numbered or submitted to the BIP process.',
+    title: 'Proposals',
+    description: 'Bitcoin Improvement Pre-Proposals. This is the BIP filter of /proposals. Not numbered or submitted to the BIP process.',
     canonicalPath: '/bips',
-    intro: 'Bitcoin Improvement Pre-Proposals. These are not numbered BIPs and have not been submitted to the BIP process.',
-    itemsHtml: items,
-    navLabel: 'BIPs',
+    intro: 'BIP filter. These are not numbered BIPs and have not been submitted to the BIP process.',
+    itemsHtml: renderProposalIndexItems(items, bips),
+    navLabel: 'Proposals',
+    filterHtml: proposalFilterNav('bip'),
+  });
+}
+
+function renderProposalsIndex(bips, proposals) {
+  const items = collectProposalItems(bips, proposals);
+  return renderListIndex({
+    title: 'Proposals',
+    description: 'Protocol pre-proposals and work offered to a named funder.',
+    canonicalPath: '/proposals',
+    intro: 'Protocol pre-proposals and work offered to a named funder.',
+    itemsHtml: renderProposalIndexItems(items, bips),
+    navLabel: 'Proposals',
+    filterHtml: proposalFilterNav('all'),
   });
 }
 
@@ -790,9 +866,10 @@ const LLMS_SECTIONS = [
   {
     title: 'Start here',
     links: [
-      { title: 'Homepage', url: `${SITE}/`, note: 'Author bio, expertise, project disclosures, links to all writing and BIPs.' },
+      { title: 'Homepage', url: `${SITE}/`, note: 'Author bio, expertise, project disclosures, links to writing and proposals.' },
       { title: 'Article index', url: `${SITE}/articles`, note: 'Curated list of all long-form articles with one-line summaries.' },
-      { title: 'BIP index', url: `${SITE}/bips`, note: 'Bitcoin Improvement Pre-Proposals (not numbered BIPs; not yet submitted).' },
+      { title: 'Proposal index', url: `${SITE}/proposals`, note: 'Protocol pre-proposals and work offered to a named funder.' },
+      { title: 'BIP filter', url: `${SITE}/bips`, note: 'BIP-only filter of /proposals. Not numbered or submitted to the BIP process.' },
       { title: 'Full text (articles + BIP pre-proposals)', url: `${SITE}/llms-full.txt`, note: 'Concatenated Markdown of every article and BIP pre-proposal for single-fetch ingestion.' },
     ],
   },
@@ -863,13 +940,13 @@ function bipBySlug(bips, slug) {
   return bips.find((b) => b.slug === slug);
 }
 
-function buildLlmsTxt(articles, bips) {
+function buildLlmsTxt(articles, bips, proposals) {
   const lines = [
     '# SecureSovereign (secsov.com)',
     '',
     '> Josh "Secure Sovereign" — Bitcoin builder, governance researcher, and Certified Bitcoin Professional (CBP). Long-form writing on Bitcoin Core governance capture, blockspace policy, consensus engineering, and monetary sovereignty. Bitcoin holder since 2010.',
     '',
-    'This site publishes **long-form reference articles** and **BIP pre-proposals**, not a blog feed. The homepage (`https://secsov.com/`) contains author bio and disclosures — **article text lives at `/articles/{slug}`**, BIP text at `/bips/{slug}`. Fetch each URL below, or use `https://secsov.com/llms-full.txt` for all articles and BIP pre-proposals in one file.',
+    'This site publishes **long-form reference articles**, **BIP pre-proposals**, and **work proposals**. The homepage (`https://secsov.com/`) contains author bio and disclosures — **article text lives at `/articles/{slug}`**, BIP text at `/bips/{slug}`, proposals at `/proposals/{slug}`. Fetch each URL below, or use `https://secsov.com/llms-full.txt` for all articles and BIP pre-proposals in one file.',
     '',
     '**URL patterns** (no trailing slash required; GitHub Pages may redirect):',
     '',
@@ -929,6 +1006,14 @@ function buildLlmsTxt(articles, bips) {
     lines.push('');
   }
 
+  if (proposals && proposals.length) {
+    lines.push('## Proposals', '');
+    for (const proposal of sortByDateDesc(proposals, 'published')) {
+      lines.push(llmsLinkLine(proposal.title, proposalUrl(proposal.slug), proposal.description || proposal.audience || 'Work proposal.'));
+    }
+    lines.push('');
+  }
+
   lines.push(
     '## Optional',
     '',
@@ -961,7 +1046,7 @@ function buildLlmsTxt(articles, bips) {
   return lines.join('\n');
 }
 
-function buildLlmsFullTxt(articles, bips) {
+function buildLlmsFullTxt(articles, bips, proposals) {
   const parts = [
     '# SecureSovereign — Full Corpus',
     '',
@@ -1006,6 +1091,24 @@ function buildLlmsFullTxt(articles, bips) {
     }
   }
 
+  if (proposals && proposals.length) {
+    parts.push('# Work Proposals', '');
+    for (const proposal of proposals) {
+      const mdPath = proposal.file
+        ? path.join(ROOT, proposal.file)
+        : mdPathForProposalSlug(proposal.slug);
+      const md = fs.readFileSync(mdPath, 'utf8');
+      parts.push(
+        `<!-- source: ${proposalUrl(proposal.slug)} -->`,
+        '',
+        md.trim(),
+        '',
+        '---',
+        '',
+      );
+    }
+  }
+
   return parts.join('\n');
 }
 
@@ -1039,21 +1142,22 @@ function build404(articles) {
         <span class="sep">/</span>
         <a href="/articles">Writing</a>
         <span class="sep">/</span>
-        <a href="/bips">BIPs</a>
+        <a href="/proposals">Proposals</a>
     </nav>
     <div class="article-wrap">
         <h1>Page not found</h1>
-        <p><a href="/">Home</a> · <a href="/articles">All articles</a> · <a href="/bips">BIPs</a></p>
+        <p><a href="/">Home</a> · <a href="/articles">All articles</a> · <a href="/proposals">Proposals</a></p>
     </div>
 </body>
 </html>
 `;
 }
 
-function buildSitemap(articles, bips) {
+function buildSitemap(articles, bips, proposals) {
   const entries = [
     { loc: `${SITE}/` },
     { loc: `${SITE}/articles` },
+    { loc: `${SITE}/proposals` },
     { loc: `${SITE}/bips` },
     { loc: `${SITE}/llms.txt` },
     { loc: `${SITE}/llms-full.txt` },
@@ -1065,6 +1169,9 @@ function buildSitemap(articles, bips) {
   for (const b of bips) {
     const lastmod = b.updated || b.created;
     entries.push({ loc: bipUrl(b.slug), lastmod });
+  }
+  for (const p of proposals || []) {
+    entries.push({ loc: proposalUrl(p.slug), lastmod: p.updated || p.published });
   }
   const body = entries.map(({ loc, lastmod }) => {
     const lastmodTag = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : '';
@@ -1120,6 +1227,15 @@ function loadBips() {
   }));
 }
 
+function loadProposals() {
+  const manifestPath = path.join(ROOT, 'proposals.json');
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  return (manifest.proposals || []).map((entry) => ({
+    ...entry,
+    slug: entry.slug || (entry.file ? fileToSlug(entry.file) : null),
+  }));
+}
+
 async function main() {
   const manifestPath = path.join(ROOT, 'articles.json');
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
@@ -1128,6 +1244,7 @@ async function main() {
     slug: entry.slug || (entry.file ? fileToSlug(entry.file) : null),
   }));
   const bips = loadBips();
+  const proposals = loadProposals();
 
   if (applyGitUpdatedDates(articles)) {
     manifest.articles = articles.map(({ slug, title, description, published, updated, originalUrl, file }) => {
@@ -1244,7 +1361,7 @@ async function main() {
       bodyHtml,
       metaBlock: bipMetaHtml(bip),
       publishedMeta,
-      navParent: { href: '/bips', label: 'BIPs' },
+      navParent: { href: '/proposals', label: 'Proposals' },
       afterBody: bipRelatedFooterHtml(bip, bips),
       jsonLd: articleJsonLd({
         title: bipDocTitle,
@@ -1275,27 +1392,96 @@ async function main() {
     });
   }
 
-  fs.writeFileSync(path.join(bipsRoot, 'index.html'), renderBipsIndex(bips));
+  fs.writeFileSync(path.join(bipsRoot, 'index.html'), renderBipsIndex(bips, proposals));
   console.log('Wrote bips/index.html');
+
+  const proposalsRoot = path.join(ROOT, 'proposals');
+  fs.mkdirSync(proposalsRoot, { recursive: true });
+
+  for (const proposal of proposals) {
+    if (!proposal.slug) {
+      console.error('Missing slug for proposal:', proposal.title || proposal);
+      process.exit(1);
+    }
+    const mdPath = proposal.file
+      ? path.join(ROOT, proposal.file)
+      : mdPathForProposalSlug(proposal.slug);
+    if (!fs.existsSync(mdPath)) {
+      console.error('Missing:', mdPath);
+      process.exit(1);
+    }
+    const md = fs.readFileSync(mdPath, 'utf8');
+    const description = proposal.description || extractDescription(md, proposal.title);
+    proposal.description = description;
+    let bodyHtml = marked.parse(renderMermaidBlocks(renderOpcodeAtlasBlocks(md)));
+    bodyHtml = addHeadingIds(bodyHtml);
+    const publishedMeta = proposal.published
+      ? `\n    <meta property="article:published_time" content="${escapeHtml(proposal.published)}">`
+      : '';
+    const html = renderPage({
+      title: proposal.title,
+      documentTitle: `${proposal.title} (Work Proposal)`,
+      description,
+      url: proposalUrl(proposal.slug),
+      bodyHtml,
+      metaBlock: articleMetaHtml({
+        ...proposal,
+        slug: proposal.slug,
+        published: proposal.published,
+        updated: proposal.updated,
+      }),
+      publishedMeta,
+      navParent: { href: '/proposals', label: 'Proposals' },
+      jsonLd: articleJsonLd({
+        title: `${proposal.title} (Work Proposal)`,
+        description,
+        url: proposalUrl(proposal.slug),
+        published: proposal.published,
+        updated: proposal.updated || proposal.published,
+        kind: 'proposal',
+      }),
+    });
+    const outDir = path.join(proposalsRoot, proposal.slug);
+    fs.mkdirSync(outDir, { recursive: true });
+    fs.writeFileSync(path.join(outDir, 'index.html'), html);
+    console.log('Wrote proposals/' + proposal.slug + '/index.html');
+    pdfJobs.push({
+      slug: proposal.slug,
+      title: proposal.title,
+      kind: 'proposal',
+      bodyHtml,
+      canonicalUrl: proposalUrl(proposal.slug),
+      markdownUrl: `${SITE}/proposals/${proposal.slug}/index.md`,
+      metaLines: [
+        proposal.audience || 'Work proposal',
+        proposal.published ? `Published ${formatArticleDate(proposal.published)}` : '',
+      ],
+      outPath: path.join(outDir, 'index.pdf'),
+    });
+  }
+
+  fs.writeFileSync(path.join(proposalsRoot, 'index.html'), renderProposalsIndex(bips, proposals));
+  console.log('Wrote proposals/index.html');
 
   fs.writeFileSync(path.join(ROOT, '404.html'), build404(articles));
   console.log('Wrote 404.html');
 
-  fs.writeFileSync(path.join(ROOT, 'llms.txt'), buildLlmsTxt(articles, bips));
+  fs.writeFileSync(path.join(ROOT, 'llms.txt'), buildLlmsTxt(articles, bips, proposals));
   console.log('Wrote llms.txt');
 
-  fs.writeFileSync(path.join(ROOT, 'llms-full.txt'), buildLlmsFullTxt(articles, bips));
+  fs.writeFileSync(path.join(ROOT, 'llms-full.txt'), buildLlmsFullTxt(articles, bips, proposals));
   console.log('Wrote llms-full.txt');
 
-  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), buildSitemap(articles, bips));
+  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), buildSitemap(articles, bips, proposals));
   console.log('Wrote sitemap.xml');
 
   patchHomepageFeatured(articles);
-  patchHomepageCatalog(articles, bips);
+  patchHomepageCatalog(articles, bips, proposals);
 
   const robots = `User-agent: *
 Disallow: /articles/*/index.md
 Disallow: /bips/*/index.md
+Disallow: /proposals/*/index.md
 
 Sitemap: ${SITE}/sitemap.xml
 # LLM index: ${SITE}/llms.txt

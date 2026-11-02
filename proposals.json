@@ -1,0 +1,11 @@
+{
+  "proposals": [
+    {
+      "slug": "quantum-adoption",
+      "title": "Getting a Quantum Upgrade Adopted Is a Security Problem",
+      "audience": "Bitcoin Security Consortium",
+      "published": "2026-10-01",
+      "description": "A research proposal to the Bitcoin Security Consortium. Adoption failure of a quantum-resistant upgrade is a security failure. The report maps activation precedent, holder migration from chain data, process conditions, and design failure modes."
+    }
+  ]
+}
