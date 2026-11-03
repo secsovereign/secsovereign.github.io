@@ -330,8 +330,20 @@ function formatArticleDateShort(isoDate) {
   });
 }
 
+function sortArticlesForFeatured(articles) {
+  return [...articles].sort((a, b) => {
+    const da = a.listed || a.updated || a.published || '';
+    const db = b.listed || b.updated || b.published || '';
+    if (!da && !db) return (a.slug || '').localeCompare(b.slug || '');
+    if (!da) return 1;
+    if (!db) return -1;
+    if (da !== db) return db.localeCompare(da);
+    return (a.slug || '').localeCompare(b.slug || '');
+  });
+}
+
 function renderHomepageFeaturedList(articles) {
-  const featured = sortArticlesByPublished(articles).slice(0, 3);
+  const featured = sortArticlesForFeatured(articles).slice(0, 3);
   const items = featured.map((a) => {
     const href = articlePath(a.slug);
     const title = escapeHtml(a.title);
@@ -1202,6 +1214,7 @@ function applyGitUpdatedDates(articles) {
       ? path.join(ROOT, article.file)
       : mdPathForSlug(article.slug);
     if (!fs.existsSync(mdPath)) continue;
+    if (article.unsigned) continue;
     const relPath = path.relative(ROOT, mdPath);
     const gitUpdated = gitLastCommitDateIso(relPath);
     if (!gitUpdated) continue;
@@ -1249,7 +1262,7 @@ async function main() {
   const proposals = loadProposals();
 
   if (applyGitUpdatedDates(articles)) {
-    manifest.articles = articles.map(({ slug, title, description, published, updated, originalUrl, file, unsigned }) => {
+    manifest.articles = articles.map(({ slug, title, description, published, updated, originalUrl, file, unsigned, listed }) => {
       const entry = { slug, title };
       if (description) entry.description = description;
       if (published) entry.published = published;
@@ -1257,6 +1270,7 @@ async function main() {
       if (originalUrl) entry.originalUrl = originalUrl;
       if (file) entry.file = file;
       if (unsigned) entry.unsigned = true;
+      if (listed) entry.listed = listed;
       return entry;
     });
     fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);

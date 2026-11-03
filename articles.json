@@ -136,14 +136,16 @@
       "title": "Who Governs Bitcoin's Code, and Why Diligence Doesn't Ask",
       "description": "ETF filings disclose a loose community of core developers. The public record shows five merge keys, no written review minimum, and no tested exit from the Core lineage.",
       "published": "2026-10-30",
-      "unsigned": true
+      "unsigned": true,
+      "listed": "2026-11-03"
     },
     {
       "slug": "bitcoin-has-governance",
       "title": "Bitcoin Has Governance, and It Is an Informal Oligarchy",
       "description": "Five merge keys gate the repository, and the deployment layer can only refuse what they offer. Informal oligarchy ties for the lowest score, and the gap is legibility and credible commitment.",
       "published": "2026-11-01",
-      "unsigned": true
+      "unsigned": true,
+      "listed": "2026-11-03"
     }
   ]
 }

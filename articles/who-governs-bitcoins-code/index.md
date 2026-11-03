@@ -20,7 +20,7 @@ The wording matters, and it varies by issuer in ways that tell a diligence team 
 ## The loose community is small enough to count
 
 <figure class="chart-preserve">
-<img src="charts/contributor-funnel.png" alt="The loose community of core developers narrows to five merge-key holders. People at each level of involvement in Bitcoin Core, bars on a log scale. Have ever contributed, 2010 to 2026, 7,971. Active in the past year, any GitHub activity, 850. Established authors, 5 or more pull requests merged by a key holder, all time, 207. Sustained active contributors, 5 or more pull requests and a sustained merge record, 72. Active developers in 2024, 5 or more commits that year, 1A1z report, 41. Top authors write 47.8% of pull requests, 10. Merge-key holders can merge to the main branch, 5.">
+<img src="charts/contributor-funnel.png?v=dark" alt="The loose community of core developers narrows to five merge-key holders. People at each level of involvement in Bitcoin Core, bars on a log scale. Have ever contributed, 2010 to 2026, 7,971. Active in the past year, any GitHub activity, 850. Established authors, 5 or more pull requests merged by a key holder, all time, 207. Sustained active contributors, 5 or more pull requests and a sustained merge record, 72. Active developers in 2024, 5 or more commits that year, 1A1z report, 41. Top authors write 47.8% of pull requests, 10. Merge-key holders can merge to the main branch, 5.">
 <figcaption>BTCDecoded contributor analysis of Bitcoin Core GitHub history, 2010 to 2026, and the 1A1z Funding Bitcoin report (October 2024). Established authors are counted over all time.</figcaption>
 </figure>
 
@@ -69,7 +69,7 @@ Bank capital rules already treat the network as something to assess. Under the B
 Five trusted-key holders can merge code into Core's main branch, and the existing maintainers decide who joins them. Over the full record, 23 GitHub logins have used merge keys, and three of them performed three-quarters of all merges. Node operators install releases without auditing them and rely on the maintainers' review, which makes that review the last control before code reaches the network.
 
 <figure class="chart-preserve">
-<img src="charts/merge-logins.png" alt="Three logins performed 76.4% of all Bitcoin Core merges. 16,845 merged pull requests by 23 logins, 2010 to 2026. laanwj 5,717. fanquake 3,797. maflcko 3,349. achow101 1,164. gavinandresen 564. sipa 545. glozow 313. jgarzik 286. sedited 262. jonasschnelli 234. 13 other logins 614.">
+<img src="charts/merge-logins.png?v=dark" alt="Three logins performed 76.4% of all Bitcoin Core merges. 16,845 merged pull requests by 23 logins, 2010 to 2026. laanwj 5,717. fanquake 3,797. maflcko 3,349. achow101 1,164. gavinandresen 564. sipa 545. glozow 313. jgarzik 286. sedited 262. jonasschnelli 234. 13 other logins 614.">
 <figcaption>BTCDecoded cross-repository comparison, merged_by field on 16,845 merged Bitcoin Core pull requests, 2010 to 2026.</figcaption>
 </figure>
 
@@ -100,7 +100,7 @@ Diligence asks about funding concentration because it is how influence enters an
 ## Review practice has improved, and it rests on custom
 
 <figure class="chart-preserve">
-<img src="charts/review-practice.png" alt="Unreviewed self-merges fell from 84% to 4% since 2016, yet no rule requires review. Maintainer-merged pull requests, 2016 to 2026. Self-merges with zero reviews fall from 83.9% in 2016 to 4.0% in 2026, with 30.3% in 2021 marked. Self-merge rate falls from about 25% to 10.9%. Average review depth on maintainer-merged pull requests rises from 1.0 in 2016 to 10.0 in 2025 and 7.8 in 2026. A written rule sets no minimum review count.">
+<img src="charts/review-practice.png?v=dark" alt="Unreviewed self-merges fell from 84% to 4% since 2016, yet no rule requires review. Maintainer-merged pull requests, 2016 to 2026. Self-merges with zero reviews fall from 83.9% in 2016 to 4.0% in 2026, with 30.3% in 2021 marked. Self-merge rate falls from about 25% to 10.9%. Average review depth on maintainer-merged pull requests rises from 1.0 in 2016 to 10.0 in 2025 and 7.8 in 2026. A written rule sets no minimum review count.">
 <figcaption>BTCDecoded Bitcoin Core governance research, TEMPORAL_ANALYSIS_REPORT, 2016 to 2026 to date (2026 is a partial year). GitHub review records exist from 2016.</figcaption>
 </figure>
 

@@ -58,7 +58,8 @@ function absolutizeImages(html, assetDir) {
   if (!assetDir) return html;
   return html.replace(/\bsrc="([^"]+)"/g, (match, src) => {
     if (/^(https?:|data:|file:)/i.test(src)) return match;
-    const abs = path.resolve(assetDir, src);
+    const fileSrc = src.split(/[?#]/)[0];
+    const abs = path.resolve(assetDir, fileSrc);
     return `src="file://${abs}"`;
   });
 }
