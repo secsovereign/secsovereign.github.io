@@ -543,6 +543,22 @@ body {
     overflow-x: auto;
 }
 
+.chart-preserve {
+    margin: 1.5rem 0 1.75rem;
+}
+
+.chart-preserve img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.chart-preserve figcaption {
+    margin-top: 0.55rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
 .article-chart.chart-flowchart {
     max-width: 520px;
 }

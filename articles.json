@@ -130,6 +130,20 @@
       "description": "A line count of Bitcoin Core 32.1. The consensus rules are 10,122 code lines, 7% of the implementation. Wallet commits rarely also touch validation. The release exposes 171 RPC methods, 36 P2P message types, and 5 deployment slots.",
       "published": "2026-10-30",
       "updated": "2026-11-01"
+    },
+    {
+      "slug": "who-governs-bitcoins-code",
+      "title": "Who Governs Bitcoin's Code, and Why Diligence Doesn't Ask",
+      "description": "ETF filings disclose a loose community of core developers. The public record shows five merge keys, no written review minimum, and no tested exit from the Core lineage.",
+      "published": "2026-10-30",
+      "unsigned": true
+    },
+    {
+      "slug": "bitcoin-has-governance",
+      "title": "Bitcoin Has Governance, and It Is an Informal Oligarchy",
+      "description": "Five merge keys gate the repository, and the deployment layer can only refuse what they offer. Informal oligarchy ties for the lowest score, and the gap is legibility and credible commitment.",
+      "published": "2026-11-01",
+      "unsigned": true
     }
   ]
 }

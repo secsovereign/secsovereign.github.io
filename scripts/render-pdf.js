@@ -54,6 +54,15 @@ function absolutizeHrefs(html) {
   return html.replace(/\bhref="(\/[^"]*)"/g, (_m, href) => `href="${SITE}${href}"`);
 }
 
+function absolutizeImages(html, assetDir) {
+  if (!assetDir) return html;
+  return html.replace(/\bsrc="([^"]+)"/g, (match, src) => {
+    if (/^(https?:|data:|file:)/i.test(src)) return match;
+    const abs = path.resolve(assetDir, src);
+    return `src="file://${abs}"`;
+  });
+}
+
 function renderPdfHtml(job) {
   const articleCss = fs.readFileSync(path.join(ROOT, 'article.css'), 'utf8');
   const pdfCss = fs.readFileSync(path.join(__dirname, 'pdf.css'), 'utf8');
@@ -62,6 +71,7 @@ function renderPdfHtml(job) {
   let body = stripLeadingH1(job.bodyHtml);
   body = wrapKeepWithNext(body);
   body = absolutizeHrefs(body);
+  body = absolutizeImages(body, job.assetDir);
 
   const metaBits = (job.metaLines || []).filter(Boolean);
   const canonical = job.canonicalUrl;
@@ -69,6 +79,9 @@ function renderPdfHtml(job) {
   const metaHtml = metaBits.length
     ? `<p class="pdf-meta">${escapeHtml(metaBits.join(' · '))}</p>`
     : '';
+  const byline = job.unsigned
+    ? escapeHtml(PDF_ATTRIBUTION)
+    : `${escapeHtml(PDF_AUTHOR)} · ${escapeHtml(PDF_ATTRIBUTION)}`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -81,7 +94,7 @@ function renderPdfHtml(job) {
   <div class="pdf-page">
     <header class="pdf-masthead">
       <h1>${escapeHtml(job.title)}</h1>
-      <p class="pdf-byline">${escapeHtml(PDF_AUTHOR)} · ${escapeHtml(PDF_ATTRIBUTION)}</p>
+      <p class="pdf-byline">${byline}</p>
       ${metaHtml}
     </header>
     <article class="article-body pdf-body">${body}</article>
@@ -89,7 +102,7 @@ function renderPdfHtml(job) {
       <p class="pdf-colophon-mark">SecureSovereign</p>
       <p>Markdown is the canonical source: <a href="${escapeHtml(mdUrl)}">${escapeHtml(mdUrl)}</a></p>
       <p>Formatted snapshot of <a href="${escapeHtml(canonical)}">${escapeHtml(canonical)}</a></p>
-      <p>${escapeHtml(PDF_AUTHOR)} · ${escapeHtml(PDF_ATTRIBUTION)}</p>
+      <p>${byline}</p>
     </footer>
   </div>
 </body>

@@ -597,7 +597,7 @@ function jsonLdScript(data) {
   return `<script type="application/ld+json">${JSON.stringify(data)}</script>`;
 }
 
-function articleJsonLd({ title, description, url, published, updated, kind = 'article' }) {
+function articleJsonLd({ title, description, url, published, updated, kind = 'article', unsigned = false }) {
   const data = {
     '@context': 'https://schema.org',
     '@type': kind === 'bip' ? 'TechArticle' : 'Article',
@@ -605,19 +605,21 @@ function articleJsonLd({ title, description, url, published, updated, kind = 'ar
     description,
     url,
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-    author: {
+  };
+  if (!unsigned) {
+    data.author = {
       '@type': 'Person',
       name: 'Josh',
       alternateName: 'Secure Sovereign',
       url: `${SITE}/`,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'SecureSovereign',
-      url: `${SITE}/`,
-    },
-    isPartOf: { '@type': 'WebSite', name: 'SecureSovereign', url: `${SITE}/` },
+    };
+  }
+  data.publisher = {
+    '@type': 'Organization',
+    name: 'SecureSovereign',
+    url: `${SITE}/`,
   };
+  data.isPartOf = { '@type': 'WebSite', name: 'SecureSovereign', url: `${SITE}/` };
   if (published) data.datePublished = published;
   if (updated) data.dateModified = updated;
   else if (published) data.dateModified = published;
@@ -1247,13 +1249,14 @@ async function main() {
   const proposals = loadProposals();
 
   if (applyGitUpdatedDates(articles)) {
-    manifest.articles = articles.map(({ slug, title, description, published, updated, originalUrl, file }) => {
+    manifest.articles = articles.map(({ slug, title, description, published, updated, originalUrl, file, unsigned }) => {
       const entry = { slug, title };
       if (description) entry.description = description;
       if (published) entry.published = published;
       if (updated) entry.updated = updated;
       if (originalUrl) entry.originalUrl = originalUrl;
       if (file) entry.file = file;
+      if (unsigned) entry.unsigned = true;
       return entry;
     });
     fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
@@ -1301,6 +1304,7 @@ async function main() {
         url: articleUrl(article.slug),
         published: article.published,
         updated: article.updated,
+        unsigned: article.unsigned,
       }),
     });
     const outDir = path.join(articlesRoot, article.slug);
@@ -1321,6 +1325,8 @@ async function main() {
           : '',
       ],
       outPath: path.join(outDir, 'index.pdf'),
+      assetDir: outDir,
+      unsigned: Boolean(article.unsigned),
     });
   }
 
