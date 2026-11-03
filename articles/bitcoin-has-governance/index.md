@@ -31,13 +31,13 @@ Bitcoin's rules are enforced by thousands of independent nodes, but the software
 The repository layer maintains the software. Core 32.1, released in October 2026, has 151,004 lines of implementation code and 154,273 lines of tests. The rules that decide whether a block or transaction is valid are 10,122 of those lines, 7% of the implementation. Anyone can submit changes, but only the five merge-key holders can merge them, and their gate covers the other 93% of the code as well as the rules. Nearly every alternative node program is built from Core's code, so decisions made here reach almost every node.
 
 <figure class="chart-preserve">
-<img src="charts/rules-stack.png?v=dark" alt="The rules are 7% of the code, and five keys gate the other 93% too. Consensus rules, 10,122 lines, 7%. Applies and stores the rules, chooses what to relay, 20,366 lines, 13%. Wallet, interface, network, RPC and everything else, 120,516 lines, 80%. Gated by five merge keys. Bitcoin Core 32.1 implementation code, 151,004 lines. Excludes 154,273 lines of tests.">
+<img src="charts/rules-stackpng?v=dark2" alt="The rules are 7% of the code, and five keys gate the other 93% too. Consensus rules, 10,122 lines, 7%. Applies and stores the rules, chooses what to relay, 20,366 lines, 13%. Wallet, interface, network, RPC and everything else, 120,516 lines, 80%. Gated by five merge keys. Bitcoin Core 32.1 implementation code, 151,004 lines. Excludes 154,273 lines of tests.">
 </figure>
 
 The deployment layer decides which release actually runs. Node operators choose what software to run, miners choose which upgrades to signal for, and businesses such as exchanges and wallet providers decide what to support. Each group can refuse a release.
 
 <figure class="chart-preserve">
-<img src="charts/two-layers.png?v=dark" alt="Five keys propose and the deployment layer disposes. Repository layer, where code is written and merged. Contributors, anyone can submit, then five merge keys, gate every merge, then release, Core and its derivatives. Funding is concentrated. The repository offers a release. Deployment layer, where software is chosen and run, can refuse it. Node operators choose what to run. Miners, four pools mine over 70%. Businesses backed Segwit2x, cancelled. Switching software is cheap. Leaving the consensus rules means leaving the network.">
+<img src="charts/two-layerspng?v=dark2" alt="Five keys propose and the deployment layer disposes. Repository layer, where code is written and merged. Contributors, anyone can submit, then five merge keys, gate every merge, then release, Core and its derivatives. Funding is concentrated. The repository offers a release. Deployment layer, where software is chosen and run, can refuse it. Node operators choose what to run. Miners, four pools mine over 70%. Businesses backed Segwit2x, cancelled. Switching software is cheap. Leaving the consensus rules means leaving the network.">
 </figure>
 
 Five merge keys decide what is offered, and nodes, miners and businesses decide what runs. Neither layer is a pure form of governance.
@@ -45,7 +45,7 @@ Five merge keys decide what is offered, and nodes, miners and businesses decide 
 The chart estimates how strongly each layer leans on seven forms, from 0 to 5. Forms overlap, so the scores do not sum to a whole. Technocracy means authority earned through technical track record, rough consensus means open review and signaling, and market and exit means forks and competing software.
 
 <figure class="chart-preserve">
-<img src="charts/layer-lean.png?v=dark" alt="The repository layer leans on informal oligarchy, and deployment leans on exit. Estimated lean from 0, none, to 5, heavy. Informal oligarchy, repository 5, deployment 2. Technocracy, repository 4, deployment 1. Rough consensus, both 3. Plutocracy and patronage, repository 2, deployment 3. Market and exit, repository 2, deployment 4. Written rules, repository 1, deployment 2. Single leader, repository 1, deployment 0.">
+<img src="charts/layer-leanpng?v=dark2" alt="The repository layer leans on informal oligarchy, and deployment leans on exit. Estimated lean from 0, none, to 5, heavy. Informal oligarchy, repository 5, deployment 2. Technocracy, repository 4, deployment 1. Rough consensus, both 3. Plutocracy and patronage, repository 2, deployment 3. Market and exit, repository 2, deployment 4. Written rules, repository 1, deployment 2. Single leader, repository 1, deployment 0.">
 </figure>
 
 The repository layer leans on informal oligarchy and technocracy. The deployment layer leans on exit, hashrate and rough consensus. The rest of the article concentrates on the repository layer.
@@ -69,7 +69,7 @@ Nine episodes since 2013 show identifiable people and groups making binding deci
 The author's analysis of about 17,000 merged Bitcoin Core pull requests through October 2026 adds numbers. It uses GitHub's public record of each merged pull request, with its author, the person who merged it and every recorded review. A self-merge is a maintainer merging their own pull request, and a review is a recorded approval, comment or change request on GitHub.
 
 <figure class="chart-preserve">
-<img src="charts/merge-share.png?v=dark" alt="Since 2022 one key holder has merged half of all pull requests. Share of the 5,747 pull requests merged since 2022. Top merger 50.2%. Second 20.2%. Third 11.8%. Fourth 5.4%. Fifth 4.6%. All other mergers 7.8%. Top three 82.2%.">
+<img src="charts/merge-sharepng?v=dark2" alt="Since 2022 one key holder has merged half of all pull requests. Share of the 5,747 pull requests merged since 2022. Top merger 50.2%. Second 20.2%. Third 11.8%. Fourth 5.4%. Fifth 4.6%. All other mergers 7.8%. Top three 82.2%.">
 </figure>
 
 - Merging is more concentrated than the key count suggests. Since 2022 one current key holder has merged 50.2% of pull requests and three have merged 82.2%. Merge share is not decision share, since many merges are routine, but it shows where the gate is narrowest.
@@ -83,7 +83,7 @@ The author's analysis of about 17,000 merged Bitcoin Core pull requests through 
 Review practice has tightened since 2016, while the self-merge rate stayed high until 2021. The self-merge rate is the share of merged pull requests merged by their own author.
 
 <figure class="chart-preserve">
-<img src="charts/self-merge-line.png?v=dark" alt="Unreviewed self-merges fell from 83.9% to 4.0% between 2016 and 2026. Self-merges with no recorded review start at 83.9% in 2016, pass 30.3% in 2021, and end at 4.0% in partial 2026, shown dashed. Self-merge rate ends at 10.9% in partial 2026. Self-merge rate is the share of merged pull requests merged by their own author.">
+<img src="charts/self-merge-linepng?v=dark2" alt="Unreviewed self-merges fell from 83.9% to 4.0% between 2016 and 2026. Self-merges with no recorded review start at 83.9% in 2016, pass 30.3% in 2021, and end at 4.0% in partial 2026, shown dashed. Self-merge rate ends at 10.9% in partial 2026. Self-merge rate is the share of merged pull requests merged by their own author.">
 </figure>
 
 Funding is concentrated as well. A 1A1z report found that $8.4 million was spent on Bitcoin developers in 2023. Among the eight sponsors that rely only on donations, the top three receive 62.25% of their funding from a single source, Jack Dorsey.
@@ -126,7 +126,7 @@ The two excluded forms need a counted electorate. Every form that survives needs
 Informal oligarchy ties a single maintainer for the lowest score, 15 of 30. On the other four measures combined, informal oligarchy, the foundation, the formal oligarchy and the single maintainer all score 11, so against the two plural forms its whole shortfall is legibility and credible commitment.
 
 <figure class="chart-preserve">
-<img src="charts/radar-forms.png?v=dark" alt="Informal oligarchy ties for last, and its gap is legibility and commitment. Six measures per form, 1 worst to 5 best. Ostrom commons 22 of 30, low confidence. Mixed constitution 21 of 30, low confidence. Foundation steward 19 of 30, low confidence. Elected council 19 of 30, medium confidence. Formal oligarchy 18 of 30, low confidence. Deployment layer today 16 of 30, low confidence. Single maintainer 15 of 30, low confidence. Informal oligarchy, current, 15 of 30, medium confidence. Dashed outline is informal oligarchy, for reference.">
+<img src="charts/radar-formspng?v=dark2" alt="Informal oligarchy ties for last, and its gap is legibility and commitment. Six measures per form, 1 worst to 5 best. Ostrom commons 22 of 30, low confidence. Mixed constitution 21 of 30, low confidence. Foundation steward 19 of 30, low confidence. Elected council 19 of 30, medium confidence. Formal oligarchy 18 of 30, low confidence. Deployment layer today 16 of 30, low confidence. Single maintainer 15 of 30, low confidence. Informal oligarchy, current, 15 of 30, medium confidence. Dashed outline is informal oligarchy, for reference.">
 </figure>
 
 Higher is better, and for exit cost and decision cost higher means cheaper. The scores are judgments, and each panel notes how much evidence stands behind it.
@@ -134,7 +134,7 @@ Higher is better, and for exit cost and decision cost higher means cheaper. The 
 The chart isolates the comparison that matters, informal oligarchy against formal oligarchy.
 
 <figure class="chart-preserve">
-<img src="charts/formal-gap.png?v=dark" alt="Informal oligarchy trails formal oligarchy only on legibility and commitment. Legibility, informal oligarchy 2, formal oligarchy 4. Credible commitment, informal oligarchy 2, formal oligarchy 3. Capture resistance, both 2. Exit cost, error correction, and decision cost, both 3. Score from 1 worst to 5 best. Higher is better, and for exit cost and decision cost higher means cheaper.">
+<img src="charts/formal-gappng?v=dark2" alt="Informal oligarchy trails formal oligarchy only on legibility and commitment. Legibility, informal oligarchy 2, formal oligarchy 4. Credible commitment, informal oligarchy 2, formal oligarchy 3. Capture resistance, both 2. Exit cost, error correction, and decision cost, both 3. Score from 1 worst to 5 best. Higher is better, and for exit cost and decision cost higher means cheaper.">
 </figure>
 
 - Exit cost is 3 for every repository form. Switching software over a policy difference is cheap, as the move to alternatives during the version 30 dispute showed. Leaving the consensus rules means leaving the network, and that costs the same whoever maintains the repository. The failed BLAKE2b fork and Segwit2x show weak demand for those changes more than a high price for leaving. The one repository-level lever is a written, independent specification of the rules, which is a design choice separate from the form of governance.
