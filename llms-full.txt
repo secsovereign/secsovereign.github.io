@@ -5469,7 +5469,7 @@ The repository layer maintains the software. Core 32.1, released in October 2026
 The deployment layer decides which release actually runs. Node operators choose what software to run, miners choose which upgrades to signal for, and businesses such as exchanges and wallet providers decide what to support. Each group can refuse a release.
 
 <figure class="chart-preserve">
-<img src="charts/two-layers.png?v=dark3" alt="Five keys propose and the deployment layer disposes. Repository layer, where code is written and merged. Contributors, anyone can submit, then five merge keys, gate every merge, then release, Core and its derivatives. Funding is concentrated. The repository offers a release. Deployment layer, where software is chosen and run, can refuse it. Node operators choose what to run. Miners, four pools mine over 70%. Businesses backed Segwit2x, cancelled. Switching software is cheap. Leaving the consensus rules means leaving the network.">
+<img src="charts/two-layers.png?v=dark4" alt="Five keys propose and the deployment layer disposes. Repository layer, where code is written and merged. Contributors, anyone can submit, then five merge keys, gate every merge, then release, Core and its derivatives. Funding is concentrated. The repository offers a release. Deployment layer, where software is chosen and run, can refuse it. Node operators choose what to run. Miners, four pools mine over 70%. Businesses backed Segwit2x, cancelled. Switching software is cheap, but maintaining that software is not. Leaving the consensus rules means leaving the network.">
 </figure>
 
 Five merge keys decide what is offered, and nodes, miners and businesses decide what runs. Neither layer is a pure form of governance.
