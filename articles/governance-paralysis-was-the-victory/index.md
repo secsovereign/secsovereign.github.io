@@ -42,7 +42,7 @@ Bitcoin Cash forked off in 2017, but it wasn’t a solution. Bitcoin Cash left B
 
 ## CVE-2018-17144: The Bug That Proved Gavin Right
 
-On September 17, 2018, a developer known as Awemany responsibly disclosed a vulnerability to Bitcoin Core developers. It was initially presented as a denial-of-service bug, but within hours, Bitcoin Core contributor Matt Corallo determined it was also an inflation vulnerability. A miner could create Bitcoin out of thin air by spending the same inputs multiple times within a single transaction.
+On September 17, 2018, at 14:57 UTC, an anonymous reporter responsibly disclosed the crash bug to developers of Bitcoin Core, Bitcoin ABC, and Bitcoin Unlimited. It was initially presented as a denial-of-service bug, but at 17:47 UTC Bitcoin Core contributor Matt Corallo determined it was also an inflation vulnerability. He opened pull request 14247 at 21:57 UTC, with a patch and a test, and Wladimir van der Laan merged it at 23:21 UTC. [Bitcoin ABC's September 26 report](https://www.bitcoinabc.org/2018-09-26-incident-report/) says this person later self-identified as Awemany, a Bitcoin Unlimited developer. A miner could create Bitcoin out of thin air by spending the same inputs multiple times within a single transaction.
 
 The bug was introduced in Bitcoin Core 0.14.0 in March 2017 and had been present in the codebase for over a year and a half before anyone found it. It was created by an optimization that removed a costly duplicate-input check during block validation. The duplicate-input path was never mined. Replaying the live chain would have matched Core. The find was in the source. A second client would have seen it on a crafted transaction, not on those blocks.
 
@@ -150,6 +150,7 @@ For why the adversarial culture that followed that trauma is still doing work, s
 - [Brian Armstrong, "Scaling Bitcoin: The Great Block Size Debate," Coinbase Blog](https://www.coinbase.com/blog/scaling-bitcoin-the-great-block-size-debate), May 2016
 - [House Oversight Committee documents](https://oversight.house.gov/): Epstein to MIT/DCI/Core developer funding chain; Joi Ito email to Epstein, April 25, 2015 (November 2025 release)
 - [Bitcoin Core notice, CVE-2018-17144](https://bitcoincore.org/en/2018/09/20/notice/), September 20, 2018
+- [Bitcoin ABC incident report](https://www.bitcoinabc.org/2018-09-26-incident-report/), September 26, 2018
 - [Luke Dashjr inflation bug quote](https://cointelegraph.com/news/bitcoin-developer-luke-jr-says-inflation-bug-was-worse-than-reported), Cointelegraph, May 2019
 - [DefiLlama stablecoin market cap](https://defillama.com/stablecoins): live data, February 2026
 - [CoinGecko](https://www.coingecko.com/): stablecoin market cap cross-check (~$314B same date)
