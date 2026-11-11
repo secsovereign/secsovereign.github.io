@@ -1,6 +1,6 @@
 # Who Governs Bitcoin's Code, and Why Diligence Doesn't Ask
 
-*Disclosure. The author builds Bitcoin Commons, an alternative Bitcoin implementation discussed near the end of this piece. The quantitative record comes from the author's [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research), a public repository with its methodology and datasets, and its definitions and limits are summarized in the Method and Methodology sections. The merge counts are recomputed from the files linked in the Method section.*
+*Disclosure. The author builds Bitcoin Commons, a formal specification of Bitcoin consensus and a forkable governance model, discussed near the end of this piece. The quantitative record comes from the author's [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research), a public repository with its methodology and datasets, and its definitions and limits are summarized in the Method and Methodology sections. The merge counts are recomputed from the files linked in the Method section.*
 
 ## Key findings
 

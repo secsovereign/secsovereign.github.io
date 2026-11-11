@@ -54,7 +54,7 @@ A single implementation lineage makes the software layer easier to pressure, bec
 
 ## One public attempt
 
-Bitcoin Commons is a from-scratch Rust client aimed at the same chain and the same consensus rules, built from the [Orange Paper](https://thebitcoincommons.org/spec.html), a human-readable mathematical specification, not a new coin and not a ticker split. The case for a specification that humans can read is *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)*.
+Bitcoin Commons is a formal specification of Bitcoin consensus (the [Orange Paper](https://thebitcoincommons.org/spec.html)) and a forkable governance model. BLVM is a from-scratch Rust client built from that specification, aimed at the same chain and the same consensus rules, not a new coin and not a ticker split. The case for a specification that humans can read is *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)*.
 
 Full-chain differential replay against Bitcoin Core is the scale test. `blvm-bench` targets on the order of 900,000 blocks. Those runs are operator-driven and resource-heavy. That is not a claim every CI job has zero-divergence proof to tip. Methodology lives in the [differential testing guide](https://docs.thebitcoincommons.org/development/differential-testing.html). Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. The Specification Lock checks annotated implementation paths against the spec. It does not replace a written specification, and it is not governance enforcement.
 

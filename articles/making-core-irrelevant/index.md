@@ -68,7 +68,7 @@ The implementation problem is a specification problem first. Without a formal co
 
 Satoshi warned against a second compatible implementation and called it a menace to the network. Take that warning seriously. The risk he named was a quiet consensus mismatch that splits the chain. Formal verification alone does not close that risk. You need formal verification, fuzzing, differential testing, and property tests. That stack is the engineering answer, not a dismissal of the warning.
 
-Bitcoin Commons is the leading attempt at that path, a from-scratch Rust node written separately from Core, not copied from it.
+Bitcoin Commons is the leading attempt at that path: a formal specification of Bitcoin consensus (the Orange Paper) and a forkable governance model. BLVM is a from-scratch Rust node written separately from Core, not copied from it.
 
 The Orange Paper is the document that node is built from, Bitcoin's consensus rules written as mathematics a person can read. Signature checks, UTXO accounting, script, and block structure are defined as objects with precise rules instead of as whatever Bitcoin Core happens to do. Any implementation can check itself against that document. That is why the Orange Paper is a public good even if Commons is slow. The no-spec moat dissolves when the spec exists, for the whole ecosystem, not only for Bitcoin Commons.
 
