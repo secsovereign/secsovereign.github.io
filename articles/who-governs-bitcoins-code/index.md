@@ -100,7 +100,7 @@ Diligence asks about funding concentration because it is how influence enters an
 ## Review practice has improved, and it rests on custom
 
 <figure class="chart-preserve">
-<img src="charts/review-practice.png?v=dark3" alt="Unreviewed self-merges fell from 42.2% in 2017 to 4.0% in 2026, yet no rule requires review. Maintainer-merged pull requests, 2016 to 2026. Self-merges with zero reviews fall from 42.2% in 2017 to 4.0% in 2026, with 30.3% in 2021 marked. Self-merge rate falls from about 25% to 10.9%. Average review depth on maintainer-merged pull requests rises from 1.0 in 2016 to 10.0 in 2025 and 7.8 in 2026. A written rule sets no minimum review count.">
+<img src="charts/review-practice.png?v=2017" alt="Unreviewed self-merges fell from 42.2% in 2017 to 4.0% in 2026, yet no rule requires review. The chart starts in 2017. Self-merge rate is 30.3% in 2021 and 10.9% in partial 2026. Average review depth ends at 7.8. A written rule sets no minimum review count.">
 <figcaption>BTCDecoded Bitcoin Core governance research, TEMPORAL_ANALYSIS_REPORT, 2016 to 2026 to date (2026 is a partial year). GitHub review records exist from 2016.</figcaption>
 </figure>
 

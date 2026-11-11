@@ -83,7 +83,7 @@ The author's analysis of about 17,000 merged Bitcoin Core pull requests through 
 Review practice has tightened since 2016, while the self-merge rate stayed high until 2021. The self-merge rate is the share of merged pull requests merged by their own author.
 
 <figure class="chart-preserve">
-<img src="charts/self-merge-line.png?v=dark3" alt="Unreviewed self-merges fell from 42.2% in 2017 to 4.0% in 2026. The chart still draws 2016, and that year is not the baseline. Self-merges with no recorded review are charted from 2016, and the cited baseline is 42.2% in 2017, pass 30.3% in 2021, and end at 4.0% in partial 2026, shown dashed. Self-merge rate ends at 10.9% in partial 2026. Self-merge rate is the share of merged pull requests merged by their own author.">
+<img src="charts/self-merge-line.png?v=2017" alt="Unreviewed self-merges fell from 42.2% in 2017 to 4.0% in 2026. The chart starts in 2017. Self-merges with no recorded review pass 30.3% in 2021 and end at 4.0% in partial 2026, shown dashed. Self-merge rate ends at 10.9% in partial 2026.">
 </figure>
 
 Funding is concentrated as well. A 1A1z report found that $8.4 million was spent on Bitcoin developers in 2023. Among the eight sponsors that rely only on donations, the top three receive 62.25% of their funding from a single source, Jack Dorsey.
