@@ -929,7 +929,7 @@ const LLMS_SECTIONS = [
     title: 'External research and projects',
     links: [
       { title: 'Bitcoin Governance Research (GitHub)', url: 'https://github.com/secsovereign/bitcoin-governance-research', note: 'Quantitative PR-level analysis: merge concentration, bloc cohesion, stalled proposals (Erlay, Dandelion), conflict resolution, review access outcomes.' },
-      { title: 'The Bitcoin Commons', url: 'https://thebitcoincommons.org', note: 'Alternative Bitcoin node in Rust from formal mathematical specification (BLVM).' },
+      { title: 'The Bitcoin Commons', url: 'https://thebitcoincommons.org', note: 'Formal specification of Bitcoin consensus and a forkable governance model (BLVM is the Rust node built from the spec).' },
       { title: 'Bitcoin Commons consensus spec', url: 'https://thebitcoincommons.org/spec.html', note: 'Formal consensus specification referenced in The Achievable Floor.' },
       { title: 'BTCDecoded', url: 'https://btcdecoded.org', note: 'Bitcoin research, governance, and node infrastructure (disclosed affiliation).' },
       { title: 'Commons Pool', url: 'https://commonspool.org', note: 'Operatorless Bitcoin mining pool built on Bitcoin Commons (disclosed affiliation).' },
