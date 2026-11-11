@@ -75,7 +75,7 @@ The author's analysis of about 17,000 merged Bitcoin Core pull requests through 
 - Merging is more concentrated than the key count suggests. Since 2022 one current key holder has merged 50.2% of pull requests and three have merged 82.2%. Merge share is not decision share, since many merges are routine, but it shows where the gate is narrowest.
 - The proposal layer is far more open than the code layer. The repository that records Bitcoin Improvement Proposals has 443 distinct mergers and a top-three share of 10.6%, against 23 mergers and 76.4% for Core over its history.
 - Maintainers self-merged 25.5% of their merged pull requests, and 45.1% of those self-merges had no recorded review. No written rule sets a minimum number of reviews.
-- Practice has improved. Self-merges with no recorded review fell from 83.9% in 2016 to 4.0% so far in 2026.
+- Practice has improved. Self-merges with no recorded review fell from 42.2% in 2017 to 4.0% in 2026, a partial year. 2016 is not the baseline.
 - Outsiders face a hard start. A contributor's first pull request was merged about 29% of the time over the project's history and about 16% since 2022. Established outsiders with five or more earlier merges are merged about two thirds of the time.
 - No written rule says who receives merge keys. The contribution guidelines describe how a key holder judges consensus and say nothing about how keys are granted.
 - The files that define the rules drew 169 commits from 31 people over the last three years, and five of them accounted for half. Writing the code is spread more widely than the power to merge it.
@@ -83,7 +83,7 @@ The author's analysis of about 17,000 merged Bitcoin Core pull requests through 
 Review practice has tightened since 2016, while the self-merge rate stayed high until 2021. The self-merge rate is the share of merged pull requests merged by their own author.
 
 <figure class="chart-preserve">
-<img src="charts/self-merge-line.png?v=dark3" alt="Unreviewed self-merges fell from 83.9% to 4.0% between 2016 and 2026. Self-merges with no recorded review start at 83.9% in 2016, pass 30.3% in 2021, and end at 4.0% in partial 2026, shown dashed. Self-merge rate ends at 10.9% in partial 2026. Self-merge rate is the share of merged pull requests merged by their own author.">
+<img src="charts/self-merge-line.png?v=dark3" alt="Unreviewed self-merges fell from 42.2% in 2017 to 4.0% in 2026. The chart still draws 2016, and that year is not the baseline. Self-merges with no recorded review are charted from 2016, and the cited baseline is 42.2% in 2017, pass 30.3% in 2021, and end at 4.0% in partial 2026, shown dashed. Self-merge rate ends at 10.9% in partial 2026. Self-merge rate is the share of merged pull requests merged by their own author.">
 </figure>
 
 Funding is concentrated as well. A 1A1z report found that $8.4 million was spent on Bitcoin developers in 2023. Among the eight sponsors that rely only on donations, the top three receive 62.25% of their funding from a single source, Jack Dorsey.
@@ -196,3 +196,6 @@ Bitcoin episodes
 - Line counts for Core 32.1, [The Rules Are 7% of the Program](/articles/the-rules-are-7-percent)
 
 Dataset. The merge, review and outsider figures come from the author's [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) analysis of Core's pull request history, built from GitHub's public record of 16,811 merged pull requests. A self-merge is a merge by the pull request's author, and a review is any recorded approval, comment or change request. The Bitcoin Commons design comes from its governance documents.
+
+
+Correction dated 2026-11-11. The review-series baseline in this article was 2016 at 83.9 percent. That year is the first year GitHub review objects exist in the dump, so the rate mixes a missing instrument with the later practice. The baseline is 2017. Zero-review self-merges fell from 42.2 percent in 2017 to 4.0 percent in 2026, a partial year. Zero-review merges of other authors' pull requests fell from 32.4 percent in 2017 to 8.8 percent in 2026. The self-merge fall may reflect a maintainer norm, tooling, or how review is recorded. That question is open. The 2016 row stays in the research table. Source: Bitcoin Governance Research, findings/TEMPORAL_ANALYSIS_REPORT.md, note dated 2026-11-11, analysis/findings/data/temporal_analysis.json at commit 1225a188, repository c526cd03.

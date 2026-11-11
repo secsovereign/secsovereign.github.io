@@ -57,7 +57,7 @@ A regulated firm already holds its critical software to three tests. Bitcoin Cor
 | Control the firm already applies | What it requires | Bitcoin Core |
 | --- | --- | --- |
 | Change management under SOX IT general controls | No single person can develop, approve, and deploy a change | Maintainers merged their own pull requests in 2,501 of 9,793 maintainer merges, and no written rule bars it |
-| SLSA source integrity, Level 3 | Every change approved by two trusted persons before submission | No written review minimum, though zero-review self-merges fell from 83.9% of self-merges in 2016 to 4.0% in 2026 |
+| SLSA source integrity, Level 3 | Every change approved by two trusted persons before submission | No written review minimum, though zero-review self-merges fell from 42.2% of self-merges in 2017 to 4.0% in 2026. 2016 is excluded because it is the first year review objects exist in the dump |
 | ICT third-party risk under EU DORA | An assessment of concentration risk and a documented exit strategy | Core or code derived from it runs on most nodes, with no independent specification to exit against |
 
 The third test shows the deepest gap. DORA's Article 28 says that "for ICT services supporting critical or important functions, financial entities shall put in place exit strategies," and third-party risk programs enforce that through contracts, with audit rights, service levels, and termination clauses. Bitcoin Core has no CEO or foundation, no contract, and no counterparty, so the most critical dependency in a bitcoin position sits outside the program built to catch it.
@@ -100,11 +100,11 @@ Diligence asks about funding concentration because it is how influence enters an
 ## Review practice has improved, and it rests on custom
 
 <figure class="chart-preserve">
-<img src="charts/review-practice.png?v=dark3" alt="Unreviewed self-merges fell from 84% to 4% since 2016, yet no rule requires review. Maintainer-merged pull requests, 2016 to 2026. Self-merges with zero reviews fall from 83.9% in 2016 to 4.0% in 2026, with 30.3% in 2021 marked. Self-merge rate falls from about 25% to 10.9%. Average review depth on maintainer-merged pull requests rises from 1.0 in 2016 to 10.0 in 2025 and 7.8 in 2026. A written rule sets no minimum review count.">
+<img src="charts/review-practice.png?v=dark3" alt="Unreviewed self-merges fell from 42.2% in 2017 to 4.0% in 2026, yet no rule requires review. Maintainer-merged pull requests, 2016 to 2026. Self-merges with zero reviews fall from 42.2% in 2017 to 4.0% in 2026, with 30.3% in 2021 marked. Self-merge rate falls from about 25% to 10.9%. Average review depth on maintainer-merged pull requests rises from 1.0 in 2016 to 10.0 in 2025 and 7.8 in 2026. A written rule sets no minimum review count.">
 <figcaption>BTCDecoded Bitcoin Core governance research, TEMPORAL_ANALYSIS_REPORT, 2016 to 2026 to date (2026 is a partial year). GitHub review records exist from 2016.</figcaption>
 </figure>
 
-Since GitHub review records begin in 2016, average review depth on maintainer-merged pull requests has risen from 1.0 to 7.8, and zero-review self-merges have fallen from 83.9% of self-merges to 4.0%. Active reviewers grew from 22 to 94 by 2021, and pull requests per reviewer fell from 71 to 21. A 2025 [Quarkslab audit](https://blog.quarkslab.com/bitcoin-core-audit.html) called Core the most mature and well tested codebase its engineers had assessed and found no high-impact issues in its peer-to-peer scope.
+Since GitHub review records begin in 2016, average review depth on maintainer-merged pull requests has risen from 1.0 to 7.8, and zero-review self-merges have fallen from 42.2% of self-merges in 2017 to 4.0%. Active reviewers grew from 22 to 94 by 2021, and pull requests per reviewer fell from 71 to 21. A 2025 [Quarkslab audit](https://blog.quarkslab.com/bitcoin-core-audit.html) called Core the most mature and well tested codebase its engineers had assessed and found no high-impact issues in its peer-to-peer scope.
 
 Incident handling has matured too. Since 2024 the project has published [security advisories](https://bitcoincore.org/en/security-advisories/) under a written disclosure policy that ranks bugs from low to critical and sets disclosure timelines for each grade. The list now holds 28 entries, one of them critical, the 2018 inflation bug. The policy also says critical bugs fall outside its standard timelines and would need an ad hoc procedure, so the most serious class of defect still has no written process.
 
@@ -247,3 +247,6 @@ Bitcoin Commons. [Whitepaper](https://thebitcoincommons.org/whitepaper.html), [C
 Quantitative record. [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research), covering the executive summary, research methodology, temporal analysis, merge pattern breakdown, cross-repository and size-adjusted comparisons, and contributor analysis.
 
 Corrections. On November 9, 2026, the CVE-2018-17144 account was aligned with the Bitcoin Core notice timeline, and the reporter's later self-identification as Awemany was kept from the Bitcoin ABC report. The merge statistics now carry a published method.
+
+
+Correction dated 2026-11-11. The review-series baseline in this article was 2016 at 83.9 percent. That year is the first year GitHub review objects exist in the dump, so the rate mixes a missing instrument with the later practice. The baseline is 2017. Zero-review self-merges fell from 42.2 percent in 2017 to 4.0 percent in 2026, a partial year. Zero-review merges of other authors' pull requests fell from 32.4 percent in 2017 to 8.8 percent in 2026. The self-merge fall may reflect a maintainer norm, tooling, or how review is recorded. That question is open. The 2016 row stays in the research table. Source: Bitcoin Governance Research, findings/TEMPORAL_ANALYSIS_REPORT.md, note dated 2026-11-11, analysis/findings/data/temporal_analysis.json at commit 1225a188, repository c526cd03.
