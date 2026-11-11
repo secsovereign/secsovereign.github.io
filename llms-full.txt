@@ -1836,7 +1836,7 @@ Bcoin, written in JavaScript and created by Christopher Jeffery, was built as ba
 
 A Core-derived fork is a derivative. btcd diverges. libbitcoin is incompatible. Bcoin is dead. Each fails for a different reason, but the failure is the same: none of them can prove they enforce the same consensus rules as every block Bitcoin has ever produced. Without that proof, a second implementation is just another codebase asking the network to trust it.
 
-Bitcoin Commons is one public attempt to build that proof on the same chain, a from-scratch Rust client built from the Orange Paper, a human-readable mathematical specification of Bitcoin's consensus rules. Full-chain differential replay against Core is the scale test. `blvm-bench` targets on the order of 900,000 blocks. Those runs are operator-driven and resource-heavy. That is not a claim every CI job has zero-divergence proof to tip, so Commons has not yet passed the bar in the paragraph above. Methodology lives in the [differential testing guide](https://docs.thebitcoincommons.org/development/differential-testing.html). Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. No previous alternative shipped that mix of a readable spec, a Specification Lock, and a full-chain differential program.
+Bitcoin Commons is one public attempt to build that proof on the same chain: a formal specification of Bitcoin consensus (the Orange Paper) and a forkable governance model. BLVM is a from-scratch Rust client built from that specification. Full-chain differential replay against Core is the scale test. `blvm-bench` targets on the order of 900,000 blocks. Those runs are operator-driven and resource-heavy. That is not a claim every CI job has zero-divergence proof to tip, so Commons has not yet passed the bar in the paragraph above. Methodology lives in the [differential testing guide](https://docs.thebitcoincommons.org/development/differential-testing.html). Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. No previous alternative shipped that mix of a readable spec, a Specification Lock, and a full-chain differential program.
 
 The 2025 OP_RETURN controversy proved something important: that migration is latent demand, not apathy. The Bitcoin community will move when Core’s direction conflicts with its values. It just needs somewhere worthy to move to.
 
@@ -3365,7 +3365,7 @@ A single implementation lineage makes the software layer easier to pressure, bec
 
 ## One public attempt
 
-Bitcoin Commons is a from-scratch Rust client aimed at the same chain and the same consensus rules, built from the [Orange Paper](https://thebitcoincommons.org/spec.html), a human-readable mathematical specification, not a new coin and not a ticker split. The case for a specification that humans can read is *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)*.
+Bitcoin Commons is a formal specification of Bitcoin consensus (the [Orange Paper](https://thebitcoincommons.org/spec.html)) and a forkable governance model. BLVM is a from-scratch Rust client built from that specification, aimed at the same chain and the same consensus rules, not a new coin and not a ticker split. The case for a specification that humans can read is *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)*.
 
 Full-chain differential replay against Bitcoin Core is the scale test. `blvm-bench` targets on the order of 900,000 blocks. Those runs are operator-driven and resource-heavy. That is not a claim every CI job has zero-divergence proof to tip. Methodology lives in the [differential testing guide](https://docs.thebitcoincommons.org/development/differential-testing.html). Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. The Specification Lock checks annotated implementation paths against the spec. It does not replace a written specification, and it is not governance enforcement.
 
@@ -3898,7 +3898,7 @@ The implementation problem is a specification problem first. Without a formal co
 
 Satoshi warned against a second compatible implementation and called it a menace to the network. Take that warning seriously. The risk he named was a quiet consensus mismatch that splits the chain. Formal verification alone does not close that risk. You need formal verification, fuzzing, differential testing, and property tests. That stack is the engineering answer, not a dismissal of the warning.
 
-Bitcoin Commons is the leading attempt at that path, a from-scratch Rust node written separately from Core, not copied from it.
+Bitcoin Commons is the leading attempt at that path: a formal specification of Bitcoin consensus (the Orange Paper) and a forkable governance model. BLVM is a from-scratch Rust node written separately from Core, not copied from it.
 
 The Orange Paper is the document that node is built from, Bitcoin's consensus rules written as mathematics a person can read. Signature checks, UTXO accounting, script, and block structure are defined as objects with precise rules instead of as whatever Bitcoin Core happens to do. Any implementation can check itself against that document. That is why the Orange Paper is a public good even if Commons is slow. The no-spec moat dissolves when the spec exists, for the whole ecosystem, not only for Bitcoin Commons.
 
@@ -5193,7 +5193,7 @@ The cost of storing the chain this program validates is a separate account, in *
 
 # Who Governs Bitcoin's Code, and Why Diligence Doesn't Ask
 
-*Disclosure. The author builds Bitcoin Commons, an alternative Bitcoin implementation discussed near the end of this piece. The quantitative record comes from the author's [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research), a public repository with its methodology and datasets, and its definitions and limits are summarized in the Method and Methodology sections. The merge counts are recomputed from the files linked in the Method section.*
+*Disclosure. The author builds Bitcoin Commons, a formal specification of Bitcoin consensus and a forkable governance model, discussed near the end of this piece. The quantitative record comes from the author's [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research), a public repository with its methodology and datasets, and its definitions and limits are summarized in the Method and Methodology sections. The merge counts are recomputed from the files linked in the Method section.*
 
 ## Key findings
 
@@ -5563,7 +5563,7 @@ Seven of nine forms of governance can apply to the repository layer. Real system
 | Informal oligarchy | Yes, and it is the current form | Five key holders, chosen by pull request and meeting |
 | Formal oligarchy | Yes | A committee with published rules for selection, review and removal |
 | Elected council | Yes, with limits | Python elected a five-member steering council in 2019, but Bitcoin has no agreed electorate |
-| Mixed constitution with written vetoes | Yes | Separate powers for proposers, reviewers and deployers, with written thresholds. Bitcoin Commons, an alternative Bitcoin implementation, uses a five-tier version with signature thresholds |
+| Mixed constitution with written vetoes | Yes | Separate powers for proposers, reviewers and deployers, with written thresholds. Bitcoin Commons, a formal specification of Bitcoin consensus and a forkable governance model, uses a five-tier version with signature thresholds |
 | Commons governed by Ostrom's principles | Yes, conditional | Needs bounded membership and monitoring, and her cases were small and local |
 
 The two excluded forms need a counted electorate. Every form that survives needs only an accountable group and a written rule, which the repository layer largely lacks.

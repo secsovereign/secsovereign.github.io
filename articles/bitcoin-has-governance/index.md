@@ -116,7 +116,7 @@ Seven of nine forms of governance can apply to the repository layer. Real system
 | Informal oligarchy | Yes, and it is the current form | Five key holders, chosen by pull request and meeting |
 | Formal oligarchy | Yes | A committee with published rules for selection, review and removal |
 | Elected council | Yes, with limits | Python elected a five-member steering council in 2019, but Bitcoin has no agreed electorate |
-| Mixed constitution with written vetoes | Yes | Separate powers for proposers, reviewers and deployers, with written thresholds. Bitcoin Commons, an alternative Bitcoin implementation, uses a five-tier version with signature thresholds |
+| Mixed constitution with written vetoes | Yes | Separate powers for proposers, reviewers and deployers, with written thresholds. Bitcoin Commons, a formal specification of Bitcoin consensus and a forkable governance model, uses a five-tier version with signature thresholds |
 | Commons governed by Ostrom's principles | Yes, conditional | Needs bounded membership and monitoring, and her cases were small and local |
 
 The two excluded forms need a counted electorate. Every form that survives needs only an accountable group and a written rule, which the repository layer largely lacks.
