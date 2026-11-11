@@ -99,7 +99,7 @@ The demand for policy plurality was always there. The monoculture was suppressin
 
 ## What Better Looks Like
 
-Bitcoin Commons is a from-scratch Rust client built from a human-readable mathematical specification called the Orange Paper. Same chain, same 21 million. It is not a Core fork or a thin wrapper around Core’s consensus logic. Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. The design is meant to make the merge path harder to capture than informal GitHub authority.
+Bitcoin Commons is a formal specification of Bitcoin consensus (the Orange Paper) and a forkable governance model. BLVM is a from-scratch Rust client built from that specification. Same chain, same 21 million. It is not a Core fork or a thin wrapper around Core’s consensus logic. Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. The design is meant to make the merge path harder to capture than informal GitHub authority.
 
 ## The Orange Paper and the BLVM
 

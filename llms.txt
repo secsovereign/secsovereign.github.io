@@ -89,7 +89,7 @@ This site publishes **long-form reference articles**, **BIP pre-proposals**, and
 ## External research and projects
 
 - [Bitcoin Governance Research (GitHub)](https://github.com/secsovereign/bitcoin-governance-research): Quantitative PR-level analysis: merge concentration, bloc cohesion, stalled proposals (Erlay, Dandelion), conflict resolution, review access outcomes.
-- [The Bitcoin Commons](https://thebitcoincommons.org): Alternative Bitcoin node in Rust from formal mathematical specification (BLVM).
+- [The Bitcoin Commons](https://thebitcoincommons.org): Formal specification of Bitcoin consensus and a forkable governance model (BLVM is the Rust node built from the spec).
 - [Bitcoin Commons consensus spec](https://thebitcoincommons.org/spec.html): Formal consensus specification referenced in The Achievable Floor.
 - [BTCDecoded](https://btcdecoded.org): Bitcoin research, governance, and node infrastructure (disclosed affiliation).
 - [Commons Pool](https://commonspool.org): Operatorless Bitcoin mining pool built on Bitcoin Commons (disclosed affiliation).
