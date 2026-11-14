@@ -408,25 +408,25 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 
 <figure class="article-chart chart-stackbar">
-<div class="chart-heading">Effective Core codebase share on reachable nodes (2025 to mid-2026)</div>
-<div class="stackbar" role="img" aria-label="About 98 percent of reachable nodes run Core lineage code: 77 percent Core directly plus 21 percent Knots running mostly Core code">
-<span class="stack-seg stack-major" style="width:77%">Core 77%</span>
-<span class="stack-seg stack-knots" style="width:21.4%">Knots · Core code 21%</span>
-<span class="stack-seg stack-minor" style="width:1.6%">~1%</span>
+<div class="chart-heading">Reachable nodes by advertised client, 12 November 2026</div>
+<div class="stackbar" role="img" aria-label="About 90 percent Bitcoin Core, about 9.5 percent Knots family, about 0.5 percent other. The Knots family shares about 95 percent of Core's code, so about 99 percent ran one lineage.">
+<span class="stack-seg stack-major" style="width:90%">Core 90%</span>
+<span class="stack-seg stack-knots" style="width:9.5%">Knots family 9.5%</span>
+<span class="stack-seg stack-minor" style="width:0.5%">0.5%</span>
 </div>
 <div class="stackbar-legend">
 <span><strong style="color:var(--primary)">■</strong> Bitcoin Core</span>
-<span><strong style="color:#5a7a8a">■</strong> Knots (95% Core codebase)</span>
-<span><strong style="color:var(--border)">■</strong> Knots-only delta</span>
+<span><strong style="color:#5a7a8a">■</strong> Knots family (about 95% Core code)</span>
+<span><strong style="color:var(--border)">■</strong> Other</span>
 </div>
 <dl class="chart-stats">
-<div><dt>Node split</dt><dd>77% Core · 22.5% Knots</dd></div>
-<div><dt>Effective same recipe</dt><dd>~98%+</dd></div>
+<div><dt>Node split</dt><dd>about 90% Core · about 9.5% Knots family</dd></div>
+<div><dt>Effective same recipe</dt><dd>about 99%</dd></div>
 </dl>
-<figcaption>77% + (22.5% × 95% Core code) ≈ 98%. Node share alone understates how much of the network runs the same implementation lineage.</figcaption>
+<figcaption>12 November 2026, Coin Dance and Bitnodes. 90% + (9.5% × 95% Core code) is about 99% of reachable nodes on one lineage. The Knots share is one user-agent family.</figcaption>
 </figure>
 
-88. **One kitchen is preparing 98%+ of the menu.** In the 2025 to mid-2026 window, Core ran on roughly 77% of nodes directly. Knots ran on roughly 22.5%. That Knots was 95% Core's codebase. That means one kitchen was preparing 98%+ of the menu, because the only other kitchen was using 95% the same recipes. Luke's Knots later followed a BLAKE2b proof-of-work hard fork and left Bitcoin. Core-derived forks that stayed on Bitcoin are still that Core kitchen. No dated measurement exists for what share stayed after the split. Nobody is forcing you to eat anything. But if one kitchen is preparing every dish on every menu in every restaurant in town, that kitchen is governing what you eat whether they hold a gun to your head or not.
+88. **One kitchen is preparing about 99% of the menu.** On 12 November 2026, about 90% of reachable nodes advertised Bitcoin Core and about 9.5% advertised the Knots family. That family still shares about 95% of Core's code, so about 99% ran one lineage. Luke's Knots followed a BLAKE2b proof-of-work hard fork and left Bitcoin. Core-derived forks that stayed on Bitcoin are still that Core kitchen. Nobody is forcing you to eat anything. But if one kitchen is preparing every dish on every menu in every restaurant in town, that kitchen is governing what you eat whether they hold a gun to your head or not.
 
 89. **A Core-derived fork is the counterargument to Core's dominance. It is 95% Core. That is not a counterargument.** A Core-derived fork inherits Core's architecture, Core's codebase, and Core's technical debt. The only people who can maintain it are people who understand Core deeply enough to track its changes and merge them selectively. A bug that still lives in the shared code is a bug in the fork. Maintainers can patch after the fact. They cannot escape Core's architecture. If that architecture makes something impossible, the fork cannot do it either. Luke's Knots leaving Bitcoin on a BLAKE2b proof-of-work hard fork does not create a second Bitcoin implementation. That is not a free market in implementations. That is one implementation with a small permission slip to disagree on policy at the margins.
 
@@ -442,13 +442,13 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 *These arguments address a common position: that the ability to exit proves there is no governance.*
 
-93. **The 22.5% proves the cost, not the freedom.** When the evidence offered for a free market is that 22.5% of node operators, in the 2025 to mid-2026 window, staged a significant coordinated response to one decision by a handful of maintainers, that proves exit is expensive and exceptional, not easy and routine. A genuinely free market doesn't require a revolt to change suppliers.
+93. **The surge proves the cost, not the freedom.** When the evidence offered for a free market is that Knots reached 25.45% of reachable nodes on 14 September 2025, that proves exit is expensive and exceptional, not easy and routine. A genuinely free market doesn't require a revolt to change suppliers.
 
 94. **Building around the problem is evidence the problem was real.** Bitcoin Commons spent seven months building a ground-up Rust implementation from a formal mathematical specification precisely because ignoring Core's process while staying on its codebase is not a real alternative. That is the cost the governance problem predicts. One kitchen. Enormous switching cost to cook your own food. Not a gun. Still power.
 
 95. **The absence of coercion is not the absence of governance.** Elinor Ostrom won the Nobel Prize in Economics for demonstrating that commons can be governed successfully through voluntary, self-organized institutions with no coercive authority whatsoever. Her work documented hundreds of cases. The question is not whether Bitcoin's governance uses coercion. The question is whether it has the properties Ostrom identified as necessary for commons governance to work: visible rules, visible decision-making, accountability to participants, and genuine alternatives. Bitcoin currently fails most of those tests.
 
-96. **Ostrom's failure modes describe Bitcoin's current situation closely.** Ostrom documented how commons fail: rules are invisible, decision-making is captured by a small group, participants cannot see who is making decisions on their behalf, and exit options are theoretical rather than practical. A small group controls what 77% of the network ran in the 2025 to mid-2026 window, banned critics for naming conflicts of interest, and kept Core from adopting a formal spec for seventeen years. That is not friction. That is Ostrom's failure pattern.
+96. **Ostrom's failure modes describe Bitcoin's current situation closely.** Ostrom documented how commons fail: rules are invisible, decision-making is captured by a small group, participants cannot see who is making decisions on their behalf, and exit options are theoretical rather than practical. A small group controls what about 90% of reachable nodes ran on 12 November 2026, banned critics for naming conflicts of interest, and kept Core from adopting a formal spec for seventeen years. That is not friction. That is Ostrom's failure pattern.
 
 97. **Good governance and formalized government are not the same thing.** The goal is not foundations, steering committees, or stakeholder processes. Those are capture vectors. The goal is the same thing Ostrom's successful commons had: visible rules, visible decision-making, accountability to participants, and genuine alternatives so that exit is real rather than theoretical. That is compatible with everything Bitcoin's defenders claim to value. It is what they are not currently delivering.
 
@@ -463,7 +463,7 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 <tr><td>Visible rules</td><td>Informal process; no adopted formal consensus specification</td></tr>
 <tr><td>Visible decision-making</td><td>Concentrated merge authority; unpublished merge criteria</td></tr>
 <tr><td>Accountability to participants</td><td>Critics moderated off conflicts; no appeal mechanism</td></tr>
-<tr><td>Genuine alternatives</td><td>Core lineage runs ~98%+ of nodes; exit is costly and exceptional</td></tr>
+<tr><td>Genuine alternatives</td><td>Core lineage runs about 99% of reachable nodes; exit is costly and exceptional</td></tr>
 </tbody>
 </table>
 <figcaption>Ostrom's successful-commons criteria applied to reference-client governance (§95–97).</figcaption>

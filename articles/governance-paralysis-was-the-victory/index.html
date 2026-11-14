@@ -17,11 +17,11 @@
     <meta property="og:site_name" content="SecureSovereign">
     <meta property="og:locale" content="en_US">
     <meta property="article:published_time" content="2026-02-02">
-    <meta property="article:modified_time" content="2026-09-20">
+    <meta property="article:modified_time" content="2026-11-09">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Governance Paralysis Was The Victory">
     <meta name="twitter:description" content="Bitcoin is not captured. The implementation that writes the defaults is capturable. Block size war, CVE-2018-17144, and the case for implementation diversity.">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Governance Paralysis Was The Victory","description":"Bitcoin is not captured. The implementation that writes the defaults is capturable. Block size war, CVE-2018-17144, and the case for implementation diversity.","url":"https://secsov.com/articles/governance-paralysis-was-the-victory","mainEntityOfPage":{"@type":"WebPage","@id":"https://secsov.com/articles/governance-paralysis-was-the-victory"},"author":{"@type":"Person","name":"Josh","alternateName":"Secure Sovereign","url":"https://secsov.com/"},"publisher":{"@type":"Organization","name":"SecureSovereign","url":"https://secsov.com/"},"isPartOf":{"@type":"WebSite","name":"SecureSovereign","url":"https://secsov.com/"},"datePublished":"2026-02-02","dateModified":"2026-09-20"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Governance Paralysis Was The Victory","description":"Bitcoin is not captured. The implementation that writes the defaults is capturable. Block size war, CVE-2018-17144, and the case for implementation diversity.","url":"https://secsov.com/articles/governance-paralysis-was-the-victory","mainEntityOfPage":{"@type":"WebPage","@id":"https://secsov.com/articles/governance-paralysis-was-the-victory"},"author":{"@type":"Person","name":"Josh","alternateName":"Secure Sovereign","url":"https://secsov.com/"},"publisher":{"@type":"Organization","name":"SecureSovereign","url":"https://secsov.com/"},"isPartOf":{"@type":"WebSite","name":"SecureSovereign","url":"https://secsov.com/"},"datePublished":"2026-02-02","dateModified":"2026-11-09"}</script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/article.css" rel="stylesheet">
@@ -42,7 +42,7 @@
     <div class="article-wrap">
         <header class="article-meta">
         <div class="article-meta-row">
-            <p class="article-dates"><time datetime="2026-02-02">Published February 2, 2026</time><span class="article-meta-sep" aria-hidden="true">·</span><time datetime="2026-09-20">Updated September 20, 2026</time></p>
+            <p class="article-dates"><time datetime="2026-02-02">Published February 2, 2026</time><span class="article-meta-sep" aria-hidden="true">·</span><time datetime="2026-11-09">Updated November 9, 2026</time></p>
             <p class="article-downloads">
         <a class="article-file-link" href="index.pdf" download="governance-paralysis-was-the-victory.pdf">PDF</a>
         <a class="article-file-link" href="index.md" download="governance-paralysis-was-the-victory.md">Markdown</a>
@@ -79,7 +79,7 @@
 <hr>
 <h2 id="cve-2018-17144-the-bug-that-proved-gavin-right">CVE-2018-17144: The Bug That Proved Gavin Right</h2>
 <p>On September 17, 2018, at 14:57 UTC, an anonymous reporter responsibly disclosed the crash bug to developers of Bitcoin Core, Bitcoin ABC, and Bitcoin Unlimited. It was initially presented as a denial-of-service bug, but at 17:47 UTC Bitcoin Core contributor Matt Corallo determined it was also an inflation vulnerability. He opened pull request 14247 at 21:57 UTC, with a patch and a test, and Wladimir van der Laan merged it at 23:21 UTC. <a href="https://www.bitcoinabc.org/2018-09-26-incident-report/">Bitcoin ABC's September 26 report</a> says this person later self-identified as Awemany, a Bitcoin Unlimited developer. A miner could create Bitcoin out of thin air by spending the same inputs multiple times within a single transaction.</p>
-<p>The bug was introduced in Bitcoin Core 0.14.0 in March 2017 and had been present in the codebase for over a year and a half before anyone found it. It was created by an optimization that removed a costly duplicate-input check during block validation. The duplicate-input path was never mined. Replaying the live chain would have matched Core. The find was in the source. A second client would have seen it on a crafted transaction, not on those blocks.</p>
+<p>The skipped check was introduced in Bitcoin Core 0.14.0 in March 2017. Inflation was possible from 0.15.0 (14 September 2017) through 0.16.2, 12 months and 4 days. The crash, through the 0.16.3 fix on 18 September 2018, is 18 months and 10 days. It was created by an optimization that removed a costly duplicate-input check during block validation. The duplicate-input path was never mined. Replaying the live chain would have matched Core. The find was in the source. A second client would have seen it on a crafted transaction, not on those blocks.</p>
 <p>Bitcoin Core developers chose to initially patch and release only the denial-of-service fix, deliberately withholding full disclosure of the inflation vulnerability to encourage upgrades before the attack surface was public knowledge. Eight months after the patch, more than half of Bitcoin’s full nodes were still running vulnerable software. Luke Dashjr, Bitcoin Core developer, stated plainly: “The inflation bug is in practice a network-wide risk. It would allow a 51% miner attack to cause inflation, something such attacks can’t normally do.”</p>
 <p><strong>The bug was in Bitcoin Core, not in Bitcoin</strong>, and Bitcoin Core's monopoly is what made the bug potentially catastrophic for Bitcoin.</p>
 <hr>

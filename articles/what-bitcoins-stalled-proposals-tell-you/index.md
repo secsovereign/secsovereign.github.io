@@ -109,7 +109,7 @@ The spec is a public good that extends beyond Commons. Any implementation can ve
 
 ## The BLVM Specification Lock
 
-The BLVM Specification Lock uses Z3 to check annotated implementation paths against the Orange Paper. Coverage will expand. That is not a claim every consensus property is proven on every merge, or that every CI job has zero-divergence proof to tip. When a locked check fails, the merge fails because the contract failed, not because a reviewer happened to notice.
+The BLVM Specification Lock uses Z3 to check annotated implementation paths against the Orange Paper. Coverage will expand. That is not a claim every consensus property is proved on every merge, or that every CI job has zero-divergence proof to tip. When a locked check fails, that is the contract failing. The repositories do not require the check before a commit lands.
 
 That is the direction Quarkslab named as the next step for Bitcoin consensus code. Commons is building it.
 
@@ -137,7 +137,7 @@ The BLVM’s secp256k1 implementation is pure Rust and benchmarks 10 to 22% fast
 
 ## Governance
 
-Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. The design has no self-merge at protocol level. Maintainers cannot simultaneously propose and merge their own code. Crate-scoped voting weights contributions proportionally to the subsystem being changed, conflict of interest disclosure is a required part of the process, and the reviewer pool is not gated by years of pipeline navigation through fellowship programs that select for ideological alignment as much as technical capability. The barrier to safe contribution is writing code that satisfies the contracts, which is a technical bar, not a social one.
+Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. The design has no self-merge, and that bar is not on. Crate-scoped voting weights contributions proportionally to the subsystem being changed, conflict of interest disclosure is a required part of the process, and the reviewer pool is not gated by years of pipeline navigation through fellowship programs that select for ideological alignment as much as technical capability. The barrier to safe contribution is writing code that satisfies the contracts, which is a technical bar, not a social one.
 
 ---
 

@@ -1510,7 +1510,14 @@ Sitemap: ${SITE}/sitemap.xml
   fs.writeFileSync(path.join(ROOT, 'robots.txt'), robots);
   console.log('Wrote robots.txt');
 
-  await writePdfs(pdfJobs);
+  const pdfOnly = (process.env.PDF_SLUGS || '')
+    .split(',')
+    .map((slug) => slug.trim())
+    .filter(Boolean);
+  const jobs = pdfOnly.length
+    ? pdfJobs.filter((job) => pdfOnly.includes(job.slug))
+    : pdfJobs;
+  await writePdfs(jobs);
 }
 
 main().catch((err) => {

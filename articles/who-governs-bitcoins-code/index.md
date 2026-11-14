@@ -6,7 +6,7 @@
 
 - Bitcoin ETF prospectuses disclose that a "loose community" of "core developers" informally manages the protocol's source code. The public record shows that community is a few dozen sustained contributors, and five people hold the keys that merge code.
 - Bitcoin Core's written process sets no review minimum. Maintainers merged their own pull requests in about a quarter of their merges over the project's history, and in one in five during 2025.
-- Measured against controls regulated firms already apply, SOX change management, SLSA two-person review, and DORA exit planning, Core meets none as written policy, though its practice has improved sharply since 2016.
+- Measured against controls regulated firms already apply, SOX change management, SLSA two-person review, and DORA exit planning, Core meets none as written policy, though its practice has improved sharply since 2017.
 - The supply cap has failed once and nearly failed again. A 2010 bug created 184 billion bitcoin, and a patched client shipped within five hours. A 2018 bug would have let a miner inflate supply. An anonymous reporter reported that bug privately on September 17, at 14:57 UTC, to developers of Bitcoin Core, Bitcoin ABC, and Bitcoin Unlimited. Matt Corallo identified the inflation bug at 17:47 UTC and opened pull request 14247 at 21:57 UTC. Wladimir van der Laan merged it at 23:21 UTC. Release binaries were available at 20:44 UTC on September 18, and the inflation flaw was disclosed on September 20. The patch landed the same day, the binaries the next day, and the public inflation disclosure three days after the report. The reporter later self-identified as Awemany, a Bitcoin Unlimited developer.
 - Every bitcoin ETF, custodian, and treasury company depends on the same software lineage, so switching products does not diversify the risk.
 - Diligence teams can price this today as a governance modifier on position size, using the seven questions at the end.
@@ -138,7 +138,7 @@ The standard answer is that operators can refuse an upgrade or switch software. 
 
 ## The objections, answered
 
-The first objection is that the system has worked for seventeen years. The record is real, and it belongs to particular people. The improvement since 2016 came from the habits of one group, and nothing written obliges its successors to keep them. Diligence treats a track record with no control behind it as reliance on management and prices it as key-person risk.
+The first objection is that the system has worked for seventeen years. The record is real, and it belongs to particular people. The improvement since 2017 came from the habits of one group, and nothing written obliges its successors to keep them. Diligence treats a track record with no control behind it as reliance on management and prices it as key-person risk.
 
 The second is that the network is decentralized. Validation is, since thousands of independent operators each check the chain. Code approval is not. Five key holders control what goes into the software most of those operators install, and the operators upgrade without auditing the diff.
 
@@ -162,19 +162,19 @@ Bitcoin Commons, the author's project, is a design for building and governing a 
 | --- | --- | --- | --- |
 | Who can merge | Five trusted-key holders who choose their successors | Signature thresholds by layer, from 2-of-3 to 6-of-7, checked by a merge gate that administrators cannot bypass | Designed, enforcement off |
 | How much review | No written minimum | Review periods from 14 days at the extension layer to 180 days at constitutional layers, and 365 days for consensus-rule changes | Configured, enforcement off |
-| What counts as correct | Core's own behavior | An independent specification of 159 consensus rules, with 251 production functions checked against it by the Z3 solver | Built |
+| What counts as correct | Core's own behavior | An independent specification. 281 annotated functions. 13 are proved from the body | 13 proved from the body |
 | Proof of compatibility | None | Differential testing against Core across chain history, targeted at about 900,000 blocks | Program exists, completion record not published |
 | Cost of exit | High, with no specification | Lower, because compatibility can be tested against a specification | Depends on the row above |
 
 The verification half is further along, and a node built from a written specification goes at the exit problem directly. The governance half is configured with enforcement switched off. Two public proofs would turn it from design into evidence, a completed full-history differential run and a fail-closed merge check on a real repository. What the design shows already is that written controls for a Bitcoin implementation can be specified.
 
-Peter Todd raised the standard objection to specifications during the 2013 chain split. "Specifications aren't magic; they're just words on paper," he wrote, and writing one "doesn't magically make code actually follow the spec" ([2013 thread](https://bitcointalk.org/index.php?topic=153170.msg1633620#msg1633620)). For a document that sits beside the code, he was right. The Commons design binds the two mechanically. A tool called spec-lock parses the formulas in the specification and the annotated Rust functions that implement them, ties each function to its rule, and uses the Z3 solver to check that they still agree, so drift between rule and code fails verification instead of waiting for a reviewer to notice. The binding covers the 251 locked functions, not the whole node, and a rule written wrong in the specification would be locked in wrong, which is what differential testing against Core is for.
+Peter Todd raised the standard objection to specifications during the 2013 chain split. "Specifications aren't magic; they're just words on paper," he wrote, and writing one "doesn't magically make code actually follow the spec" ([2013 thread](https://bitcointalk.org/index.php?topic=153170.msg1633620#msg1633620)). For a document that sits beside the code, he was right. The Commons design binds the two mechanically. A tool called spec-lock parses the formulas in the specification and the annotated Rust functions that implement them, ties each function to its rule, and uses the Z3 solver to check that they still agree, so drift between rule and code fails verification instead of waiting for a reviewer to notice. The binding covers 13 functions proved from the body, not the whole node, and a rule written wrong in the specification would be locked in wrong, which is what differential testing against Core is for.
 
 ## What allocators and counsel can do now
 
 1. Put the node software on the dependency register. Ask issuers and custodians which implementation and version they run, who approves upgrades, and whether that upgrade process falls inside their SOC 2 scope.
 2. Ask who can merge changes to the software and who decides who can. For Core, five trusted-key holders who choose their successors.
-3. Ask for the written review rule. For Core, none exists, and practice has improved since 2016.
+3. Ask for the written review rule. For Core, none exists, and practice has improved since 2017.
 4. Count independent implementations by code lineage, not by client name, and ask whether correctness is defined by a specification independent of the incumbent. For Core, most nodes run Core or its derivatives, and no formal specification has been published.
 5. Ask who funds the people with merge authority and on what terms. For Core, a small number of annual grants, concentrated around one donor at the time of the 2024 report.
 6. Ask how a fork would be handled. Read the issuer's redemption-suspension and forked-asset terms, and ask the custodian how it decides which chain is bitcoin.

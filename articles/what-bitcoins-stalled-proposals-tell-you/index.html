@@ -17,11 +17,11 @@
     <meta property="og:site_name" content="SecureSovereign">
     <meta property="og:locale" content="en_US">
     <meta property="article:published_time" content="2026-06-04">
-    <meta property="article:modified_time" content="2026-10-30">
+    <meta property="article:modified_time" content="2026-11-10">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="What Bitcoin's Stalled Proposals Tell You">
     <meta name="twitter:description" content="Why Dandelion, UTXO commitments, Erlay, and a formal spec sit unmerged, and what shipping them looks like.">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"What Bitcoin's Stalled Proposals Tell You","description":"Why Dandelion, UTXO commitments, Erlay, and a formal spec sit unmerged, and what shipping them looks like.","url":"https://secsov.com/articles/what-bitcoins-stalled-proposals-tell-you","mainEntityOfPage":{"@type":"WebPage","@id":"https://secsov.com/articles/what-bitcoins-stalled-proposals-tell-you"},"author":{"@type":"Person","name":"Josh","alternateName":"Secure Sovereign","url":"https://secsov.com/"},"publisher":{"@type":"Organization","name":"SecureSovereign","url":"https://secsov.com/"},"isPartOf":{"@type":"WebSite","name":"SecureSovereign","url":"https://secsov.com/"},"datePublished":"2026-06-04","dateModified":"2026-10-30"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"What Bitcoin's Stalled Proposals Tell You","description":"Why Dandelion, UTXO commitments, Erlay, and a formal spec sit unmerged, and what shipping them looks like.","url":"https://secsov.com/articles/what-bitcoins-stalled-proposals-tell-you","mainEntityOfPage":{"@type":"WebPage","@id":"https://secsov.com/articles/what-bitcoins-stalled-proposals-tell-you"},"author":{"@type":"Person","name":"Josh","alternateName":"Secure Sovereign","url":"https://secsov.com/"},"publisher":{"@type":"Organization","name":"SecureSovereign","url":"https://secsov.com/"},"isPartOf":{"@type":"WebSite","name":"SecureSovereign","url":"https://secsov.com/"},"datePublished":"2026-06-04","dateModified":"2026-11-10"}</script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="/article.css" rel="stylesheet">
@@ -42,7 +42,7 @@
     <div class="article-wrap">
         <header class="article-meta">
         <div class="article-meta-row">
-            <p class="article-dates"><time datetime="2026-06-04">Published June 4, 2026</time><span class="article-meta-sep" aria-hidden="true">·</span><time datetime="2026-10-30">Updated October 30, 2026</time></p>
+            <p class="article-dates"><time datetime="2026-06-04">Published June 4, 2026</time><span class="article-meta-sep" aria-hidden="true">·</span><time datetime="2026-11-10">Updated November 10, 2026</time></p>
             <p class="article-downloads">
         <a class="article-file-link" href="index.pdf" download="what-bitcoins-stalled-proposals-tell-you.pdf">PDF</a>
         <a class="article-file-link" href="index.md" download="what-bitcoins-stalled-proposals-tell-you.md">Markdown</a>
@@ -110,7 +110,7 @@
 <p>The Orange Paper is a formal mathematical specification of Bitcoin’s consensus rules. It defines signature validation, UTXO accounting, script execution, and block structure as mathematical objects with precise definitions rather than as the emergent behavior of a C++ codebase. The BLVM consensus layer is a pure implementation of that spec: deterministic, side-effect-free functions that directly implement the mathematical definitions with no room for undocumented behavioral drift.</p>
 <p>The spec is a public good that extends beyond Commons. Any implementation can verify against it. Consensus rule disputes can be resolved by appealing to a document rather than deferring to whoever controls the dominant codebase. The no-spec moat dissolves the moment the spec is published, for everyone.</p>
 <h2 id="the-blvm-specification-lock">The BLVM Specification Lock</h2>
-<p>The BLVM Specification Lock uses Z3 to check annotated implementation paths against the Orange Paper. Coverage will expand. That is not a claim every consensus property is proven on every merge, or that every CI job has zero-divergence proof to tip. When a locked check fails, the merge fails because the contract failed, not because a reviewer happened to notice.</p>
+<p>The BLVM Specification Lock uses Z3 to check annotated implementation paths against the Orange Paper. Coverage will expand. That is not a claim every consensus property is proved on every merge, or that every CI job has zero-divergence proof to tip. When a locked check fails, that is the contract failing. The repositories do not require the check before a commit lands.</p>
 <p>That is the direction Quarkslab named as the next step for Bitcoin consensus code. Commons is building it.</p>
 <p>The Specification Lock also changes who can safely contribute. The primary risk with AI-generated code is subtle behavioral changes that pass code review but alter consensus-critical behavior in ways that are hard to catch. A lock that actually covers the changed path makes that tractable. The barrier shifts from years of pipeline navigation toward writing code that satisfies the contracts.</p>
 <h2 id="utxo-commitments-without-a-consensus-change">UTXO Commitments Without a Consensus Change</h2>
@@ -124,7 +124,7 @@
 <p>All consensus logic lives in blvm-consensus, fully separated from storage, networking, and RPC. The architecture is six clean layers from the Orange Paper down to governance enforcement, with explicit interfaces between them. A developer working on the consensus layer cannot accidentally break the networking layer because the boundary is enforced architecturally, not by convention. That separation is what makes formal verification tractable. You cannot formally verify the whole entangled implementation. The 32.1 count is 151,004 implementation lines, 7% of them the rules. You can formally verify a bounded, well-defined consensus module.</p>
 <p>The BLVM’s secp256k1 implementation is pure Rust and benchmarks 10 to 22% faster than libsecp256k1 across signature verification workloads.</p>
 <h2 id="governance">Governance</h2>
-<p>Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. The design has no self-merge at protocol level. Maintainers cannot simultaneously propose and merge their own code. Crate-scoped voting weights contributions proportionally to the subsystem being changed, conflict of interest disclosure is a required part of the process, and the reviewer pool is not gated by years of pipeline navigation through fellowship programs that select for ideological alignment as much as technical capability. The barrier to safe contribution is writing code that satisfies the contracts, which is a technical bar, not a social one.</p>
+<p>Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. The design has no self-merge, and that bar is not on. Crate-scoped voting weights contributions proportionally to the subsystem being changed, conflict of interest disclosure is a required part of the process, and the reviewer pool is not gated by years of pipeline navigation through fellowship programs that select for ideological alignment as much as technical capability. The barrier to safe contribution is writing code that satisfies the contracts, which is a technical bar, not a social one.</p>
 <hr>
 <h2 id="the-proof">The Proof</h2>
 <p>The bottleneck was never engineering. The Dandelion papers are published. The UTXO commitment schemes are fully specified. Erlay has years of development behind it. Formal verification tooling exists and works.</p>

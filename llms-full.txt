@@ -621,7 +621,7 @@ At the till or checkout, Bitcoin competes with cards, cash, and local payment ap
 
 *A reference document for analytical reasoning about Bitcoin governance*
 
-**Note on “one codebase” and node counts.** Reachable-node surveys in the 2025 to mid-2026 window often split clients (e.g. Bitcoin Core vs Knots; percentages shift with time and methodology). This document uses **99%** and **single lineage** to mean software traceable to the **Bitcoin Core codebase** (the Core project plus Core-derived forks that remain on Bitcoin), not a claim about every machine running the branded “bitcoind” binary. The structural claim is near-monoculture of that lineage and concentrated merge authority over its upstream.
+**Note on “one codebase” and node counts.** Reachable-node surveys in the 2025 to mid-2026 window often split clients (e.g. Bitcoin Core vs Knots; percentages shift with time and methodology). This document uses **99%** and **single lineage** to mean software traceable to the **Bitcoin Core codebase** (the Core project plus Core-derived forks that remain on Bitcoin), not a claim about every machine running the branded “bitcoind” binary. The structural claim is near-monoculture of that lineage and concentrated merge authority over its upstream. On 12 November 2026 the same lineage was about 90% Core and about 9.5% Knots family.
 
 ---
 
@@ -649,7 +649,7 @@ This document presents the structural argument in full, supported by the adversa
 
 ### The Implementation Monopoly
 
-When the same upstream lineage supplies almost all economically relevant consensus nodes, **the distinction between Bitcoin the network and “whatever Bitcoin Core’s maintainers ship” becomes practically meaningless for what operators run.** The money rules are still what every node enforces. The program that holds those rules is still what that lineage releases. This is not a theoretical concern. CVE-2018-17144, an inflation bug that could have allowed Bitcoin to be created out of thin air, sat in production in Bitcoin Core for eighteen months. It sat unused on the chain. Another implementation replaying those blocks would have matched Core. Someone had to read the code to find it. The bug was in Core. **Core's monopoly is what made it dangerous.** Common defenses of that monopoly are addressed in *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)*.
+When the same upstream lineage supplies almost all economically relevant consensus nodes, **the distinction between Bitcoin the network and “whatever Bitcoin Core’s maintainers ship” becomes practically meaningless for what operators run.** The money rules are still what every node enforces. The program that holds those rules is still what that lineage releases. This is not a theoretical concern. CVE-2018-17144, an inflation bug that could have allowed Bitcoin to be created out of thin air, was in releases from 0.15.0 through 0.16.2, about a year. It sat unused on the chain. Another implementation replaying those blocks would have matched Core. Someone had to read the code to find it. The bug was in Core. **Core's monopoly is what made it dangerous.** Common defenses of that monopoly are addressed in *[Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies)*.
 
 A common objection points to miners: they may run any consensus-compatible software and need not adopt every release. That permission is real; the practiced behavior is not a distributed audit. Industrial mining largely follows operational defaults: pool infrastructure, hosting providers, and routine upgrades to stay compatible with peers and with the dominant client, rather than a deliberate, release-by-release review of consensus changes by the majority of hash rate. **A veto almost no one pays the cost to exercise is not the same as decentralized control over what merges.**
 
@@ -1415,25 +1415,25 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 
 <figure class="article-chart chart-stackbar">
-<div class="chart-heading">Effective Core codebase share on reachable nodes (2025 to mid-2026)</div>
-<div class="stackbar" role="img" aria-label="About 98 percent of reachable nodes run Core lineage code: 77 percent Core directly plus 21 percent Knots running mostly Core code">
-<span class="stack-seg stack-major" style="width:77%">Core 77%</span>
-<span class="stack-seg stack-knots" style="width:21.4%">Knots · Core code 21%</span>
-<span class="stack-seg stack-minor" style="width:1.6%">~1%</span>
+<div class="chart-heading">Reachable nodes by advertised client, 12 November 2026</div>
+<div class="stackbar" role="img" aria-label="About 90 percent Bitcoin Core, about 9.5 percent Knots family, about 0.5 percent other. The Knots family shares about 95 percent of Core's code, so about 99 percent ran one lineage.">
+<span class="stack-seg stack-major" style="width:90%">Core 90%</span>
+<span class="stack-seg stack-knots" style="width:9.5%">Knots family 9.5%</span>
+<span class="stack-seg stack-minor" style="width:0.5%">0.5%</span>
 </div>
 <div class="stackbar-legend">
 <span><strong style="color:var(--primary)">■</strong> Bitcoin Core</span>
-<span><strong style="color:#5a7a8a">■</strong> Knots (95% Core codebase)</span>
-<span><strong style="color:var(--border)">■</strong> Knots-only delta</span>
+<span><strong style="color:#5a7a8a">■</strong> Knots family (about 95% Core code)</span>
+<span><strong style="color:var(--border)">■</strong> Other</span>
 </div>
 <dl class="chart-stats">
-<div><dt>Node split</dt><dd>77% Core · 22.5% Knots</dd></div>
-<div><dt>Effective same recipe</dt><dd>~98%+</dd></div>
+<div><dt>Node split</dt><dd>about 90% Core · about 9.5% Knots family</dd></div>
+<div><dt>Effective same recipe</dt><dd>about 99%</dd></div>
 </dl>
-<figcaption>77% + (22.5% × 95% Core code) ≈ 98%. Node share alone understates how much of the network runs the same implementation lineage.</figcaption>
+<figcaption>12 November 2026, Coin Dance and Bitnodes. 90% + (9.5% × 95% Core code) is about 99% of reachable nodes on one lineage. The Knots share is one user-agent family.</figcaption>
 </figure>
 
-88. **One kitchen is preparing 98%+ of the menu.** In the 2025 to mid-2026 window, Core ran on roughly 77% of nodes directly. Knots ran on roughly 22.5%. That Knots was 95% Core's codebase. That means one kitchen was preparing 98%+ of the menu, because the only other kitchen was using 95% the same recipes. Luke's Knots later followed a BLAKE2b proof-of-work hard fork and left Bitcoin. Core-derived forks that stayed on Bitcoin are still that Core kitchen. No dated measurement exists for what share stayed after the split. Nobody is forcing you to eat anything. But if one kitchen is preparing every dish on every menu in every restaurant in town, that kitchen is governing what you eat whether they hold a gun to your head or not.
+88. **One kitchen is preparing about 99% of the menu.** On 12 November 2026, about 90% of reachable nodes advertised Bitcoin Core and about 9.5% advertised the Knots family. That family still shares about 95% of Core's code, so about 99% ran one lineage. Luke's Knots followed a BLAKE2b proof-of-work hard fork and left Bitcoin. Core-derived forks that stayed on Bitcoin are still that Core kitchen. Nobody is forcing you to eat anything. But if one kitchen is preparing every dish on every menu in every restaurant in town, that kitchen is governing what you eat whether they hold a gun to your head or not.
 
 89. **A Core-derived fork is the counterargument to Core's dominance. It is 95% Core. That is not a counterargument.** A Core-derived fork inherits Core's architecture, Core's codebase, and Core's technical debt. The only people who can maintain it are people who understand Core deeply enough to track its changes and merge them selectively. A bug that still lives in the shared code is a bug in the fork. Maintainers can patch after the fact. They cannot escape Core's architecture. If that architecture makes something impossible, the fork cannot do it either. Luke's Knots leaving Bitcoin on a BLAKE2b proof-of-work hard fork does not create a second Bitcoin implementation. That is not a free market in implementations. That is one implementation with a small permission slip to disagree on policy at the margins.
 
@@ -1449,13 +1449,13 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 
 *These arguments address a common position: that the ability to exit proves there is no governance.*
 
-93. **The 22.5% proves the cost, not the freedom.** When the evidence offered for a free market is that 22.5% of node operators, in the 2025 to mid-2026 window, staged a significant coordinated response to one decision by a handful of maintainers, that proves exit is expensive and exceptional, not easy and routine. A genuinely free market doesn't require a revolt to change suppliers.
+93. **The surge proves the cost, not the freedom.** When the evidence offered for a free market is that Knots reached 25.45% of reachable nodes on 14 September 2025, that proves exit is expensive and exceptional, not easy and routine. A genuinely free market doesn't require a revolt to change suppliers.
 
 94. **Building around the problem is evidence the problem was real.** Bitcoin Commons spent seven months building a ground-up Rust implementation from a formal mathematical specification precisely because ignoring Core's process while staying on its codebase is not a real alternative. That is the cost the governance problem predicts. One kitchen. Enormous switching cost to cook your own food. Not a gun. Still power.
 
 95. **The absence of coercion is not the absence of governance.** Elinor Ostrom won the Nobel Prize in Economics for demonstrating that commons can be governed successfully through voluntary, self-organized institutions with no coercive authority whatsoever. Her work documented hundreds of cases. The question is not whether Bitcoin's governance uses coercion. The question is whether it has the properties Ostrom identified as necessary for commons governance to work: visible rules, visible decision-making, accountability to participants, and genuine alternatives. Bitcoin currently fails most of those tests.
 
-96. **Ostrom's failure modes describe Bitcoin's current situation closely.** Ostrom documented how commons fail: rules are invisible, decision-making is captured by a small group, participants cannot see who is making decisions on their behalf, and exit options are theoretical rather than practical. A small group controls what 77% of the network ran in the 2025 to mid-2026 window, banned critics for naming conflicts of interest, and kept Core from adopting a formal spec for seventeen years. That is not friction. That is Ostrom's failure pattern.
+96. **Ostrom's failure modes describe Bitcoin's current situation closely.** Ostrom documented how commons fail: rules are invisible, decision-making is captured by a small group, participants cannot see who is making decisions on their behalf, and exit options are theoretical rather than practical. A small group controls what about 90% of reachable nodes ran on 12 November 2026, banned critics for naming conflicts of interest, and kept Core from adopting a formal spec for seventeen years. That is not friction. That is Ostrom's failure pattern.
 
 97. **Good governance and formalized government are not the same thing.** The goal is not foundations, steering committees, or stakeholder processes. Those are capture vectors. The goal is the same thing Ostrom's successful commons had: visible rules, visible decision-making, accountability to participants, and genuine alternatives so that exit is real rather than theoretical. That is compatible with everything Bitcoin's defenders claim to value. It is what they are not currently delivering.
 
@@ -1470,7 +1470,7 @@ For the consensus-vs-policy distinction and which embedding channels consensus c
 <tr><td>Visible rules</td><td>Informal process; no adopted formal consensus specification</td></tr>
 <tr><td>Visible decision-making</td><td>Concentrated merge authority; unpublished merge criteria</td></tr>
 <tr><td>Accountability to participants</td><td>Critics moderated off conflicts; no appeal mechanism</td></tr>
-<tr><td>Genuine alternatives</td><td>Core lineage runs ~98%+ of nodes; exit is costly and exceptional</td></tr>
+<tr><td>Genuine alternatives</td><td>Core lineage runs about 99% of reachable nodes; exit is costly and exceptional</td></tr>
 </tbody>
 </table>
 <figcaption>Ostrom's successful-commons criteria applied to reference-client governance (§95–97).</figcaption>
@@ -1756,7 +1756,7 @@ Bitcoin Cash forked off in 2017, but it wasn’t a solution. Bitcoin Cash left B
 
 On September 17, 2018, at 14:57 UTC, an anonymous reporter responsibly disclosed the crash bug to developers of Bitcoin Core, Bitcoin ABC, and Bitcoin Unlimited. It was initially presented as a denial-of-service bug, but at 17:47 UTC Bitcoin Core contributor Matt Corallo determined it was also an inflation vulnerability. He opened pull request 14247 at 21:57 UTC, with a patch and a test, and Wladimir van der Laan merged it at 23:21 UTC. [Bitcoin ABC's September 26 report](https://www.bitcoinabc.org/2018-09-26-incident-report/) says this person later self-identified as Awemany, a Bitcoin Unlimited developer. A miner could create Bitcoin out of thin air by spending the same inputs multiple times within a single transaction.
 
-The bug was introduced in Bitcoin Core 0.14.0 in March 2017 and had been present in the codebase for over a year and a half before anyone found it. It was created by an optimization that removed a costly duplicate-input check during block validation. The duplicate-input path was never mined. Replaying the live chain would have matched Core. The find was in the source. A second client would have seen it on a crafted transaction, not on those blocks.
+The skipped check was introduced in Bitcoin Core 0.14.0 in March 2017. Inflation was possible from 0.15.0 (14 September 2017) through 0.16.2, 12 months and 4 days. The crash, through the 0.16.3 fix on 18 September 2018, is 18 months and 10 days. It was created by an optimization that removed a costly duplicate-input check during block validation. The duplicate-input path was never mined. Replaying the live chain would have matched Core. The find was in the source. A second client would have seen it on a crafted transaction, not on those blocks.
 
 Bitcoin Core developers chose to initially patch and release only the denial-of-service fix, deliberately withholding full disclosure of the inflation vulnerability to encourage upgrades before the attack surface was public knowledge. Eight months after the patch, more than half of Bitcoin’s full nodes were still running vulnerable software. Luke Dashjr, Bitcoin Core developer, stated plainly: “The inflation bug is in practice a network-wide risk. It would allow a 51% miner attack to cause inflation, something such attacks can’t normally do.”
 
@@ -1912,7 +1912,7 @@ Analysis of 25,122 pull requests, 430,613 IRC messages, and 17 years of data tel
 
 ### Fallacy 1.1: "The process has improved, therefore the structural problem is being addressed"
 
-Process improvements are real. Zero-review merges dropped from 30.3% to 3.3%. First-review clocks are nearly equal (12.3 hours for maintainers, 12.4 for everyone else). These are genuine workflow gains. The self-merge rate, however, is **25.5%** of 9,793 maintainer-authored merges (95% CI 24.7–26.4). Raw maintainer versus non-maintainer merge rates of about 80% against 55% overstate the gap, because most of it is self-merge privilege. Peer-merge rates, excluding self-merges, are about 59% against 54% all-time, widening to about 63% against 51% since 2022. The review weight bias between maintainers and non-maintainers has held at 5.5 to 1. Top-10 authorship increased. The authorship Gini is essentially unchanged. Non-maintainers wait 1.41× longer to merge. The oligarchy got more efficient at processing pull requests and the concentration of authority did not move. **Those are two different things.**
+Process improvements are real. Zero-review self-merges fell from 42.2% in 2017 to 4.0% in partial 2026. First-review clocks are nearly equal (12.3 hours for maintainers, 12.4 for everyone else). These are genuine workflow gains. The self-merge rate, however, is **25.5%** of 9,793 maintainer-authored merges (95% CI 24.7–26.4). Raw maintainer versus non-maintainer merge rates of about 80% against 55% overstate the gap, because most of it is self-merge privilege. Peer-merge rates, excluding self-merges, are about 59% against 54% all-time, widening to about 63% against 51% since 2022. The review weight bias between maintainers and non-maintainers has held at 5.5 to 1. Top-10 authorship increased. The authorship Gini is essentially unchanged. Non-maintainers wait 1.41× longer to merge. The oligarchy got more efficient at processing pull requests and the concentration of authority did not move. **Those are two different things.**
 
 ### Fallacy 1.2: "Maintainers are just janitors, not decision-makers"
 
@@ -2113,7 +2113,7 @@ The spec is a public good that extends beyond Commons. Any implementation can ve
 
 ## The BLVM Specification Lock
 
-The BLVM Specification Lock uses Z3 to check annotated implementation paths against the Orange Paper. Coverage will expand. That is not a claim every consensus property is proven on every merge, or that every CI job has zero-divergence proof to tip. When a locked check fails, the merge fails because the contract failed, not because a reviewer happened to notice.
+The BLVM Specification Lock uses Z3 to check annotated implementation paths against the Orange Paper. Coverage will expand. That is not a claim every consensus property is proved on every merge, or that every CI job has zero-divergence proof to tip. When a locked check fails, that is the contract failing. The repositories do not require the check before a commit lands.
 
 That is the direction Quarkslab named as the next step for Bitcoin consensus code. Commons is building it.
 
@@ -2141,7 +2141,7 @@ The BLVM’s secp256k1 implementation is pure Rust and benchmarks 10 to 22% fast
 
 ## Governance
 
-Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. The design has no self-merge at protocol level. Maintainers cannot simultaneously propose and merge their own code. Crate-scoped voting weights contributions proportionally to the subsystem being changed, conflict of interest disclosure is a required part of the process, and the reviewer pool is not gated by years of pipeline navigation through fellowship programs that select for ideological alignment as much as technical capability. The barrier to safe contribution is writing code that satisfies the contracts, which is a technical bar, not a social one.
+Cryptographic merge authorization is designed and stays off until security review, key management, and community validation. The design has no self-merge, and that bar is not on. Crate-scoped voting weights contributions proportionally to the subsystem being changed, conflict of interest disclosure is a required part of the process, and the reviewer pool is not gated by years of pipeline navigation through fellowship programs that select for ideological alignment as much as technical capability. The barrier to safe contribution is writing code that satisfies the contracts, which is a technical bar, not a social one.
 
 ---
 
@@ -3268,13 +3268,13 @@ Bitcoin Commons exists to dissolve implementation concentration. The same princi
 
 Framing this as a choice between human readability and formal rigor misses the point. The right answer is a stack.
 
-Bitcoin Commons's verification approach has four layers. The Orange Paper is the normative reference: human-readable, tool-agnostic, auditable by any mathematician, targetable by any implementation team. The BLVM Specification Lock uses `Z3` to check on every merge that the Rust implementation still satisfies the mathematical contracts derived from the spec. Differential testing runs the implementation against Bitcoin Core across the full mainnet history. Those full-chain runs are operator-driven and resource-heavy. That is not a claim every CI job has zero-divergence proof to tip. Machine-checked proof leaves, following btc-verified's methodology, strengthen the byte layer where formal methods are most tractable today and will expand upward as tools mature.
+Bitcoin Commons's verification approach has four layers. The Orange Paper is the normative reference: human-readable, tool-agnostic, auditable by any mathematician, targetable by any implementation team. The BLVM Specification Lock uses Z3 to check annotated contracts against the spec. The check is not required before a commit lands. Differential testing runs the implementation against Bitcoin Core across the full mainnet history. Those full-chain runs are operator-driven and resource-heavy. That is not a claim every CI job has zero-divergence proof to tip. Machine-checked proof leaves, following btc-verified's methodology, strengthen the byte layer where formal methods are most tractable today and will expand upward as tools mature.
 
 The Specification Lock deserves particular attention because it solves the code generation problem without introducing one of its own.
 
 In a code generation system, the generator is the authoritative artifact. The implementation is derived from it. When something is wrong in the generated code, the fix travels through the generator first. A change to the generator can produce unexpected effects anywhere in its output. Every DSL and proof extraction pipeline has encountered edge cases the generator does not handle. The resolution is always the same: fix the generator, regenerate, verify again. The debugging surface is not the code but the thing that made the code.
 
-The Specification Lock inverts this. **The implementation is the authoritative artifact.** The Specification Lock reads the implementation against the specification rather than producing the implementation from it. When a check fails, the developer fixes whichever side is wrong, directly, without touching a generator. Nothing is regenerated. The Orange Paper can be read without the implementation. The implementation can be audited without the Orange Paper. The Specification Lock is the enforced relationship between them, not the thing that produces either one.
+The Specification Lock inverts this. **The implementation is the authoritative artifact.** The Specification Lock reads the implementation against the specification rather than producing the implementation from it. When a check fails, the developer fixes whichever side is wrong, directly, without touching a generator. Nothing is regenerated. The Orange Paper can be read without the implementation. The implementation can be audited without the Orange Paper. The Specification Lock is the check between them, not the thing that produces either one.
 
 This is how every durable technical standard works. TCP/IP, TLS, POSIX, and the C standard are human-readable specifications implemented independently by teams who never needed to run the specification as code.
 
@@ -3491,7 +3491,7 @@ Here is the uncomfortable part.
 
 Bitcoin Core was first released in January 2009. Its first independent third-party security audit was completed in September 2025, **sixteen years later**, and it was partial. In those sixteen years, the review process that was supposed to substitute for independent audit produced three notable visible failures.
 
-An inflation bug was introduced in Bitcoin Core 0.14.0 in March 2017 as a performance optimization that skipped a block validation check considered redundant. The skipped check was not redundant. The bug allowed a miner to inflate Bitcoin's supply by spending the same inputs twice. It sat in production through multiple reviewed releases for roughly eighteen months before a developer outside Bitcoin Core discovered and disclosed it. It was never exploited on mainnet, but **the inflation bug in the software designed to enforce Bitcoin's 21 million cap passed review repeatedly before anyone found it.**
+A skipped block-validation check was introduced in Bitcoin Core 0.14.0 in March 2017 as a performance optimization considered redundant. The skipped check was not redundant. The bug allowed a miner to inflate Bitcoin's supply by spending the same inputs twice. Inflation was possible from 0.15.0 through 0.16.2, about a year, before a developer outside Bitcoin Core discovered and disclosed it. It was never exploited on mainnet, but **the inflation bug in the software designed to enforce Bitcoin's 21 million cap passed review repeatedly before anyone found it.**
 
 Bitcoin Core 30.0, shipped in late 2025, contained a wallet migration bug that under specific conditions deleted all wallet files in the user's wallet directory, with no recovery path if backups didn't exist. The dangerous code pattern, using `fs::remove_all()` on user wallet directories, was introduced in 2022 and self-merged by Ava Chow. The PR itself received substantial review, but the specific lines containing the dangerous pattern received essentially none. In 2024, maintainer ryanofsky explicitly identified the exact risk in a code review, writing that the pattern "could wipe out a lot of other data," and recommended a followup PR to fix it. No followup was created. In 2025, an unrelated PR changed backup locations in a way that removed an earlier failure point that had been accidentally preventing the dangerous code from executing. The bug could now run. Users lost wallets. The fix arrived 18 days after the bug report. **A maintainer had named the precise failure mode a year earlier, recommended fixing it, and the warning was not acted on.**
 
@@ -3767,7 +3767,7 @@ Bitcoin is hard to undo at scale. By the time bugs surface, the damage is often 
 
 Bitcoin Core 30.0 and 30.1 had a wallet migration bug that, under specific conditions, could delete all files in the wallet directory when migration of an unnamed legacy `wallet.dat` failed, with no recovery if backups did not exist. Bitcoin Core's own [advisory](https://bitcoincore.org/en/2026/01/05/wallet-migration-bug/) states the risk of fund loss and pulled the affected downloads. The dangerous `fs::remove_all` pattern had been introduced years earlier. In 2024, Core maintainer ryanofsky named the exact risk in code review and recommended a follow-up fix. No follow-up was created. A later change removed an earlier accidental stop that had been blocking the dangerous path. Users lost wallets. The fix landed in [PR #34156](https://github.com/bitcoin/bitcoin/pull/34156) after the bug was reported ([issue #34128](https://github.com/bitcoin/bitcoin/issues/34128)).
 
-CVE-2018-17144 makes the same point for the money rules themselves. An inflation bug that could have created Bitcoin out of thin air sat in the live software for roughly eighteen months before disclosure. Bitcoin Core's [September 20, 2018 notice](https://bitcoincore.org/en/2018/09/20/notice/) documents it. Neither bug was a clever attack. The wallet risk was named a year early and still shipped. The inflation bug sat unused. No mined block used the hole, so a second node program checking the same chain would have agreed with Core. Finding it took someone reading the code, not two clients disagreeing on live blocks. Other clients existed on paper. A fork of Core inherits the bugs it still copies. Genuinely separate clients hold almost no node share, so neither functions as a real check. Almost everyone ran Core.
+CVE-2018-17144 makes the same point for the money rules themselves. An inflation bug that could have created Bitcoin out of thin air was in releases from 0.15.0 through 0.16.2, about a year, before disclosure. The crash reached 0.14.0. Bitcoin Core's [September 20, 2018 notice](https://bitcoincore.org/en/2018/09/20/notice/) documents it. Neither bug was a clever attack. The wallet risk was named a year early and still shipped. The inflation bug sat unused. No mined block used the hole, so a second node program checking the same chain would have agreed with Core. Finding it took someone reading the code, not two clients disagreeing on live blocks. Other clients existed on paper. A fork of Core inherits the bugs it still copies. Genuinely separate clients hold almost no node share, so neither functions as a real check. Almost everyone ran Core.
 
 Being wrong in Bitcoin costs more than being wrong in most other engineering work. Harsh public pressure on proposed changes, including upgrades that look uncontested, is a rational response. The other option is a nicer culture that is also a more dangerous one.
 
@@ -3874,7 +3874,7 @@ The concentration that matters more is who builds the block, not who hashes it. 
 
 Stratum V2 with Job Declaration lets a miner build the template while staying in a pool so payouts stay even. The first live Job Declaration block was mined June 25, 2026 (block 955,318, DMND pool, GoMining template). Seven major pools, about 75% of global hashrate, joined the Stratum V2 Working Group in May 2026. Joining the working group is not the same as turning Job Declaration on. As of mid-2026, only DMND and Braiins run V2 natively in production. Ocean got the same result through DATUM before its leadership situation deteriorated. Most of the network is still on V1 with the pool picking the transactions.
 
-The nodes tell the same story. As of May 2026, only about 16% of nodes were running Core v30 with the higher OP_RETURN limits, which is the version Core actually shipped (source: [Clark Moody dashboard](https://bitcoin.clarkmoody.com/dashboard/), May 2026). More nodes were running pre-v30 software or Knots than were running Core's own controversial change. Knots peaked at roughly 25% of public nodes in September 2025 and settled around 20% as of mid-2026, the last pre-split reading (source: [Coin Dance](https://coin.dance/)). That is demand for a policy alternative, not implementation diversity. In 2025 that client was Knots, still Core's lineage on Bitcoin. Luke's Knots later followed a BLAKE2b proof-of-work hard fork and left Bitcoin. Core-derived forks that stayed on Bitcoin are still that lineage, which is why *[Who Controls Bitcoin](/articles/bitcoin-governance)* treats reachable-node splits as demand, not as a break in the monoculture. No dated measurement exists for what share stayed after the split. The missing piece is not demand but a separately written client that an exchange or payment processor can actually run, and a clear answer to who is liable if that client splits the chain.
+The nodes tell the same story. As of May 2026, only about 16% of nodes were running Core v30 with the higher OP_RETURN limits, which is the version Core actually shipped (source: [Clark Moody dashboard](https://bitcoin.clarkmoody.com/dashboard/), May 2026). More nodes were running pre-v30 software or Knots than were running Core's own controversial change. Knots peaked at roughly 25% of public nodes in September 2025 and settled around 20% as of mid-2026, the last pre-split reading (source: [Coin Dance](https://coin.dance/)). That is demand for a policy alternative, not implementation diversity. In 2025 that client was Knots, still Core's lineage on Bitcoin. Luke's Knots later followed a BLAKE2b proof-of-work hard fork and left Bitcoin. Core-derived forks that stayed on Bitcoin are still that lineage, which is why *[Who Controls Bitcoin](/articles/bitcoin-governance)* treats reachable-node splits as demand, not as a break in the monoculture. On 12 November 2026 the Knots family was about 9.5% of reachable nodes. The missing piece is not demand but a separately written client that an exchange or payment processor can actually run, and a clear answer to who is liable if that client splits the chain.
 
 DCG owns Foundry, the largest pool, and also owns Grayscale, the largest Bitcoin asset manager. Fortitude Mining is trying to go public under that same roof. There is no documented funding tie between DCG and the organizations that pay Core developers. There does not have to be. Hashrate, asset management, and mining infrastructure already sit in one parent company.
 
@@ -3904,7 +3904,7 @@ The Orange Paper is the document that node is built from, Bitcoin's consensus ru
 
 The BLVM consensus layer is the code that implements those rules, a bounded set of deterministic functions. Wallet, networking, and policy are not mixed into it. That isolation is what makes a proof about the money rules tractable.
 
-The Specification Lock is the check that runs on every merge. It uses Z3, a theorem prover, to ask whether the Rust still satisfies the contracts taken from the Orange Paper. The spec does not write the code. People write the code. If a change would break a consensus property, the merge fails.
+The Specification Lock uses Z3 to ask whether the Rust still satisfies the contracts taken from the Orange Paper. The spec does not write the code. People write the code. The check is not required before a commit lands, and a passing check is not a proof of every function.
 
 Full-chain differential replay against Bitcoin Core is the scale test. `blvm-bench` targets on the order of 900,000 blocks. Those runs are operator-driven and resource-heavy. That is not a claim every CI job has zero-divergence proof to tip. Methodology lives in the [differential testing guide](https://docs.thebitcoincommons.org/development/differential-testing.html). The usual objections about proofs and tests are answered in *[Why Bitcoin Needs a Specification](/articles/why-bitcoin-needs-a-specification)*.
 
@@ -4127,7 +4127,7 @@ Review activity Gini sits near 0.92, while merge-authority Gini is lower because
 
 That dataset covers seventeen years of Core history and counts comments, ACKs, and review submissions on GitHub. It does not count hours spent checking consensus-critical code or how deep each review went, so these figures describe who shows up in the record, not who understood the code best in any given week.
 
-The bug usually cited with these numbers is CVE-2018-17144, the inflation bug that sat in Core for eighteen months. People use it to prove Core is incompetent, which it does not prove. It sat in production, was never exploited, and was patched quickly after disclosure. Patching it fast after disclosure is not the same as catching it.
+The bug usually cited with these numbers is CVE-2018-17144, the inflation bug that sat in Core for about a year, from 0.15.0 through 0.16.2. The longer span, back to 0.14.0, is the crash. People use it to prove Core is incompetent, which it does not prove. It sat in production, was never exploited, and was patched quickly after disclosure. Patching it fast after disclosure is not the same as catching it.
 
 It propagated to Knots, ABC, and Unlimited, because those clients descend from Core's codebase. Listing those clients as independent checks is a mistake when they share a lineage. The case study is *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory#cve-2018-17144-the-bug-that-proved-gavin-right)*.
 
@@ -5162,7 +5162,7 @@ The cost of storing the chain this program validates is a separate account, in *
 
 **Forks.** leveldb in this release is `13da2d67` (11 August 2026). The shared ancestor with Google is `0c40829` (5 November 2019). The Google tip in the comparison is `bb74ef73` (8 October 2026). crc32c is `efb8ea04` (30 August 2024), ancestor `21fc8ef` (8 February 2022), Google tip `2bbb3be` (7 April 2025). The bars are git numstat and include comments and blanks.
 
-**The three-way cut.** Rule files are the SHA-256 and RIPEMD-160 sources, `hash.cpp` and `hash.h`, the script interpreter and script data, `pubkey`, `arith_uint256`, `uint256`, `src/primitives`, `src/consensus`, proof of work, versionbits, deployments, and signet. `validation.cpp` is split by function start, comment-stripped, then scaled from 4,187 raw code-like lines to tokei's 4,247. Adjacent is chainstate and storage, policy and mempool, indexes, and mining templates, including the matching parts of `validation.cpp`. SHA-1, SHA-3, and SHA-512 stay in the rest. The three parts sum to 151,004.
+**The three-way cut.** Rule files are the SHA-256 and RIPEMD-160 sources, `hash.cpp` and `hash.h`, the script interpreter and script data, `pubkey`, `arith_uint256`, `uint256`, `src/primitives`, `src/consensus`, proof of work, versionbits, deployments, and signet. `validation.cpp` is split by function start, comment-stripped, then scaled from 4,187 raw code-like lines to tokei's 4,247. Adjacent is chainstate and storage, policy and mempool, indexes, and mining templates, including the matching parts of `validation.cpp`. SHA-1, SHA-3, and SHA-512 stay in the rest. The three parts sum to 151,004. Those rule lines are 10,122, 6.7%, titled 7%. A different file cut of this commit prints 6.3%.
 
 **Tests.** The named rule unit and fuzz files are the earlier filename list (4,517) plus integer, hash, script, and block tests that name a rule type (1,403). Functional rule tests are an explicit basename list: `feature_block`, `feature_taproot`, `feature_segwit`, `feature_cltv`, `feature_csv_activation`, `feature_dersig`, `feature_nulldummy`, `feature_bip68_sequence`, `feature_signet`, `feature_versionbits_warning`, `p2p_segwit`, `p2p_invalid_block`, `p2p_invalid_tx`, `p2p_mutated_blocks`. Adjacent adds an explicit list of mining, assumeutxo, pruning, index, fee, package, and chainstate tests to the mempool and policy filename prefix. A test outside those lists stays in the rest. That undercounts a functional test that exercises the interpreter under another name.
 
@@ -5199,7 +5199,7 @@ The cost of storing the chain this program validates is a separate account, in *
 
 - Bitcoin ETF prospectuses disclose that a "loose community" of "core developers" informally manages the protocol's source code. The public record shows that community is a few dozen sustained contributors, and five people hold the keys that merge code.
 - Bitcoin Core's written process sets no review minimum. Maintainers merged their own pull requests in about a quarter of their merges over the project's history, and in one in five during 2025.
-- Measured against controls regulated firms already apply, SOX change management, SLSA two-person review, and DORA exit planning, Core meets none as written policy, though its practice has improved sharply since 2016.
+- Measured against controls regulated firms already apply, SOX change management, SLSA two-person review, and DORA exit planning, Core meets none as written policy, though its practice has improved sharply since 2017.
 - The supply cap has failed once and nearly failed again. A 2010 bug created 184 billion bitcoin, and a patched client shipped within five hours. A 2018 bug would have let a miner inflate supply. An anonymous reporter reported that bug privately on September 17, at 14:57 UTC, to developers of Bitcoin Core, Bitcoin ABC, and Bitcoin Unlimited. Matt Corallo identified the inflation bug at 17:47 UTC and opened pull request 14247 at 21:57 UTC. Wladimir van der Laan merged it at 23:21 UTC. Release binaries were available at 20:44 UTC on September 18, and the inflation flaw was disclosed on September 20. The patch landed the same day, the binaries the next day, and the public inflation disclosure three days after the report. The reporter later self-identified as Awemany, a Bitcoin Unlimited developer.
 - Every bitcoin ETF, custodian, and treasury company depends on the same software lineage, so switching products does not diversify the risk.
 - Diligence teams can price this today as a governance modifier on position size, using the seven questions at the end.
@@ -5250,7 +5250,7 @@ A regulated firm already holds its critical software to three tests. Bitcoin Cor
 | Control the firm already applies | What it requires | Bitcoin Core |
 | --- | --- | --- |
 | Change management under SOX IT general controls | No single person can develop, approve, and deploy a change | Maintainers merged their own pull requests in 2,501 of 9,793 maintainer merges, and no written rule bars it |
-| SLSA source integrity, Level 3 | Every change approved by two trusted persons before submission | No written review minimum, though zero-review self-merges fell from 83.9% of self-merges in 2016 to 4.0% in 2026 |
+| SLSA source integrity, Level 3 | Every change approved by two trusted persons before submission | No written review minimum, though zero-review self-merges fell from 42.2% of self-merges in 2017 to 4.0% in 2026. 2016 is excluded because it is the first year review objects exist in the dump |
 | ICT third-party risk under EU DORA | An assessment of concentration risk and a documented exit strategy | Core or code derived from it runs on most nodes, with no independent specification to exit against |
 
 The third test shows the deepest gap. DORA's Article 28 says that "for ICT services supporting critical or important functions, financial entities shall put in place exit strategies," and third-party risk programs enforce that through contracts, with audit rights, service levels, and termination clauses. Bitcoin Core has no CEO or foundation, no contract, and no counterparty, so the most critical dependency in a bitcoin position sits outside the program built to catch it.
@@ -5293,11 +5293,11 @@ Diligence asks about funding concentration because it is how influence enters an
 ## Review practice has improved, and it rests on custom
 
 <figure class="chart-preserve">
-<img src="charts/review-practice.png?v=dark3" alt="Unreviewed self-merges fell from 84% to 4% since 2016, yet no rule requires review. Maintainer-merged pull requests, 2016 to 2026. Self-merges with zero reviews fall from 83.9% in 2016 to 4.0% in 2026, with 30.3% in 2021 marked. Self-merge rate falls from about 25% to 10.9%. Average review depth on maintainer-merged pull requests rises from 1.0 in 2016 to 10.0 in 2025 and 7.8 in 2026. A written rule sets no minimum review count.">
+<img src="charts/review-practice.png?v=2017" alt="Unreviewed self-merges fell from 42.2% in 2017 to 4.0% in 2026, yet no rule requires review. The chart starts in 2017. Self-merge rate is 30.3% in 2021 and 10.9% in partial 2026. Average review depth ends at 7.8. A written rule sets no minimum review count.">
 <figcaption>BTCDecoded Bitcoin Core governance research, TEMPORAL_ANALYSIS_REPORT, 2016 to 2026 to date (2026 is a partial year). GitHub review records exist from 2016.</figcaption>
 </figure>
 
-Since GitHub review records begin in 2016, average review depth on maintainer-merged pull requests has risen from 1.0 to 7.8, and zero-review self-merges have fallen from 83.9% of self-merges to 4.0%. Active reviewers grew from 22 to 94 by 2021, and pull requests per reviewer fell from 71 to 21. A 2025 [Quarkslab audit](https://blog.quarkslab.com/bitcoin-core-audit.html) called Core the most mature and well tested codebase its engineers had assessed and found no high-impact issues in its peer-to-peer scope.
+Since GitHub review records begin in 2016, average review depth on maintainer-merged pull requests has risen from 1.0 to 7.8, and zero-review self-merges have fallen from 42.2% of self-merges in 2017 to 4.0%. Active reviewers grew from 22 to 94 by 2021, and pull requests per reviewer fell from 71 to 21. A 2025 [Quarkslab audit](https://blog.quarkslab.com/bitcoin-core-audit.html) called Core the most mature and well tested codebase its engineers had assessed and found no high-impact issues in its peer-to-peer scope.
 
 Incident handling has matured too. Since 2024 the project has published [security advisories](https://bitcoincore.org/en/security-advisories/) under a written disclosure policy that ranks bugs from low to critical and sets disclosure timelines for each grade. The list now holds 28 entries, one of them critical, the 2018 inflation bug. The policy also says critical bugs fall outside its standard timelines and would need an ad hoc procedure, so the most serious class of defect still has no written process.
 
@@ -5331,7 +5331,7 @@ The standard answer is that operators can refuse an upgrade or switch software. 
 
 ## The objections, answered
 
-The first objection is that the system has worked for seventeen years. The record is real, and it belongs to particular people. The improvement since 2016 came from the habits of one group, and nothing written obliges its successors to keep them. Diligence treats a track record with no control behind it as reliance on management and prices it as key-person risk.
+The first objection is that the system has worked for seventeen years. The record is real, and it belongs to particular people. The improvement since 2017 came from the habits of one group, and nothing written obliges its successors to keep them. Diligence treats a track record with no control behind it as reliance on management and prices it as key-person risk.
 
 The second is that the network is decentralized. Validation is, since thousands of independent operators each check the chain. Code approval is not. Five key holders control what goes into the software most of those operators install, and the operators upgrade without auditing the diff.
 
@@ -5355,19 +5355,19 @@ Bitcoin Commons, the author's project, is a design for building and governing a 
 | --- | --- | --- | --- |
 | Who can merge | Five trusted-key holders who choose their successors | Signature thresholds by layer, from 2-of-3 to 6-of-7, checked by a merge gate that administrators cannot bypass | Designed, enforcement off |
 | How much review | No written minimum | Review periods from 14 days at the extension layer to 180 days at constitutional layers, and 365 days for consensus-rule changes | Configured, enforcement off |
-| What counts as correct | Core's own behavior | An independent specification of 159 consensus rules, with 251 production functions checked against it by the Z3 solver | Built |
+| What counts as correct | Core's own behavior | An independent specification. 281 annotated functions. 13 are proved from the body | 13 proved from the body |
 | Proof of compatibility | None | Differential testing against Core across chain history, targeted at about 900,000 blocks | Program exists, completion record not published |
 | Cost of exit | High, with no specification | Lower, because compatibility can be tested against a specification | Depends on the row above |
 
 The verification half is further along, and a node built from a written specification goes at the exit problem directly. The governance half is configured with enforcement switched off. Two public proofs would turn it from design into evidence, a completed full-history differential run and a fail-closed merge check on a real repository. What the design shows already is that written controls for a Bitcoin implementation can be specified.
 
-Peter Todd raised the standard objection to specifications during the 2013 chain split. "Specifications aren't magic; they're just words on paper," he wrote, and writing one "doesn't magically make code actually follow the spec" ([2013 thread](https://bitcointalk.org/index.php?topic=153170.msg1633620#msg1633620)). For a document that sits beside the code, he was right. The Commons design binds the two mechanically. A tool called spec-lock parses the formulas in the specification and the annotated Rust functions that implement them, ties each function to its rule, and uses the Z3 solver to check that they still agree, so drift between rule and code fails verification instead of waiting for a reviewer to notice. The binding covers the 251 locked functions, not the whole node, and a rule written wrong in the specification would be locked in wrong, which is what differential testing against Core is for.
+Peter Todd raised the standard objection to specifications during the 2013 chain split. "Specifications aren't magic; they're just words on paper," he wrote, and writing one "doesn't magically make code actually follow the spec" ([2013 thread](https://bitcointalk.org/index.php?topic=153170.msg1633620#msg1633620)). For a document that sits beside the code, he was right. The Commons design binds the two mechanically. A tool called spec-lock parses the formulas in the specification and the annotated Rust functions that implement them, ties each function to its rule, and uses the Z3 solver to check that they still agree, so drift between rule and code fails verification instead of waiting for a reviewer to notice. The binding covers 13 functions proved from the body, not the whole node, and a rule written wrong in the specification would be locked in wrong, which is what differential testing against Core is for.
 
 ## What allocators and counsel can do now
 
 1. Put the node software on the dependency register. Ask issuers and custodians which implementation and version they run, who approves upgrades, and whether that upgrade process falls inside their SOC 2 scope.
 2. Ask who can merge changes to the software and who decides who can. For Core, five trusted-key holders who choose their successors.
-3. Ask for the written review rule. For Core, none exists, and practice has improved since 2016.
+3. Ask for the written review rule. For Core, none exists, and practice has improved since 2017.
 4. Count independent implementations by code lineage, not by client name, and ask whether correctness is defined by a specification independent of the incumbent. For Core, most nodes run Core or its derivatives, and no formal specification has been published.
 5. Ask who funds the people with merge authority and on what terms. For Core, a small number of annual grants, concentrated around one donor at the time of the 2024 report.
 6. Ask how a fork would be handled. Read the issuer's redemption-suspension and forked-asset terms, and ask the custodian how it decides which chain is bitcoin.
@@ -5441,6 +5441,9 @@ Quantitative record. [Bitcoin Governance Research](https://github.com/secsoverei
 
 Corrections. On November 9, 2026, the CVE-2018-17144 account was aligned with the Bitcoin Core notice timeline, and the reporter's later self-identification as Awemany was kept from the Bitcoin ABC report. The merge statistics now carry a published method.
 
+
+Correction dated 2026-11-11. The review-series baseline in this article was 2016 at 83.9 percent. That year is the first year GitHub review objects exist in the dump, so the rate mixes a missing instrument with the later practice. The baseline is 2017. Zero-review self-merges fell from 42.2 percent in 2017 to 4.0 percent in 2026, a partial year. Zero-review merges of other authors' pull requests fell from 32.4 percent in 2017 to 8.8 percent in 2026. The self-merge fall may reflect a maintainer norm, tooling, or how review is recorded. That question is open. The 2016 row stays in the research table. Source: Bitcoin Governance Research, findings/TEMPORAL_ANALYSIS_REPORT.md, note dated 2026-11-11, analysis/findings/data/temporal_analysis.json at commit 1225a188, repository c526cd03.
+
 ---
 
 <!-- source: https://secsov.com/articles/bitcoin-has-governance -->
@@ -5508,7 +5511,7 @@ Nine episodes since 2013 show identifiable people and groups making binding deci
 | Jan 2026 | A developer known as sedited was nominated at the regular developer meeting and added as the sixth key holder | Selection runs through a meeting and a pull request, not a published procedure |
 | Sept to Oct 2025 | Core version 30 raised the default limit on OP_RETURN, the field that lets a transaction carry arbitrary data. Opponents objected, and the share of reachable nodes running an alternative built from Core's code rose to 25.45% on September 14 | The maintainers settled a contested decision. Switching software over a policy difference was cheap, and about a quarter of reachable nodes did it, but the alternatives enforce the same consensus rules as Core and are built from its code |
 | 2021 | Activation of the Taproot upgrade stalled over a technical dispute until a developer proposed a compromise, called Speedy Trial, in a chat room | One developer's proposal broke the deadlock |
-| Sept 2018 | A bug in Core, present since version 0.14 in March 2017, was reported on September 17 and proved to let a miner inflate the coin supply. A fix shipped on September 18 after a handful of developers coordinated privately, and it was first described as a denial-of-service fix | The fix was fast, and the disclosure choices were made by a few people. Core's written security policy leaves critical bugs to an ad hoc procedure, and the bug sat in the only reference implementation for about a year and a half |
+| Sept 2018 | A bug in Core was reported on September 17 and proved to let a miner inflate the coin supply. A fix shipped on September 18 after a handful of developers coordinated privately, and it was first described as a denial-of-service fix. Inflation was possible from 0.15.0, about a year. The crash reached 0.14.0 | The fix was fast, and the disclosure choices were made by a few people. Core's written security policy leaves critical bugs to an ad hoc procedure |
 | Nov 2017 | Segwit2x, a plan backed by miners, exchanges and wallet providers to raise the block size limit, was cancelled after it failed to gain enough support | A coalition of miners and businesses could not force a change through |
 | Apr to Aug 2017 | BIP148 proposed a user-activated soft fork to force activation of the SegWit upgrade. Core developers did not merge it because they saw no consensus for it | Users coordinated outside the repository |
 | 2013 | A software upgrade accidentally split the network into two chains, and developers and miners coordinated a rollback | A crisis decision was made by coordination, with no formal authority |
@@ -5522,15 +5525,15 @@ The author's analysis of about 17,000 merged Bitcoin Core pull requests through 
 - Merging is more concentrated than the key count suggests. Since 2022 one current key holder has merged 50.2% of pull requests and three have merged 82.2%. Merge share is not decision share, since many merges are routine, but it shows where the gate is narrowest.
 - The proposal layer is far more open than the code layer. The repository that records Bitcoin Improvement Proposals has 443 distinct mergers and a top-three share of 10.6%, against 23 mergers and 76.4% for Core over its history.
 - Maintainers self-merged 25.5% of their merged pull requests, and 45.1% of those self-merges had no recorded review. No written rule sets a minimum number of reviews.
-- Practice has improved. Self-merges with no recorded review fell from 83.9% in 2016 to 4.0% so far in 2026.
+- Practice has improved. Self-merges with no recorded review fell from 42.2% in 2017 to 4.0% in 2026, a partial year. 2016 is not the baseline.
 - Outsiders face a hard start. A contributor's first pull request was merged about 29% of the time over the project's history and about 16% since 2022. Established outsiders with five or more earlier merges are merged about two thirds of the time.
 - No written rule says who receives merge keys. The contribution guidelines describe how a key holder judges consensus and say nothing about how keys are granted.
 - The files that define the rules drew 169 commits from 31 people over the last three years, and five of them accounted for half. Writing the code is spread more widely than the power to merge it.
 
-Review practice has tightened since 2016, while the self-merge rate stayed high until 2021. The self-merge rate is the share of merged pull requests merged by their own author.
+Review practice has tightened since 2017, while the self-merge rate stayed high until 2021. The self-merge rate is the share of merged pull requests merged by their own author.
 
 <figure class="chart-preserve">
-<img src="charts/self-merge-line.png?v=dark3" alt="Unreviewed self-merges fell from 83.9% to 4.0% between 2016 and 2026. Self-merges with no recorded review start at 83.9% in 2016, pass 30.3% in 2021, and end at 4.0% in partial 2026, shown dashed. Self-merge rate ends at 10.9% in partial 2026. Self-merge rate is the share of merged pull requests merged by their own author.">
+<img src="charts/self-merge-line.png?v=2017" alt="Unreviewed self-merges fell from 42.2% in 2017 to 4.0% in 2026. The chart starts in 2017. Self-merges with no recorded review pass 30.3% in 2021 and end at 4.0% in partial 2026, shown dashed. Self-merge rate ends at 10.9% in partial 2026.">
 </figure>
 
 Funding is concentrated as well. A 1A1z report found that $8.4 million was spent on Bitcoin developers in 2023. Among the eight sponsors that rely only on donations, the top three receive 62.25% of their funding from a single source, Jack Dorsey.
@@ -5563,7 +5566,7 @@ Seven of nine forms of governance can apply to the repository layer. Real system
 | Informal oligarchy | Yes, and it is the current form | Five key holders, chosen by pull request and meeting |
 | Formal oligarchy | Yes | A committee with published rules for selection, review and removal |
 | Elected council | Yes, with limits | Python elected a five-member steering council in 2019, but Bitcoin has no agreed electorate |
-| Mixed constitution with written vetoes | Yes | Separate powers for proposers, reviewers and deployers, with written thresholds. Bitcoin Commons, an alternative Bitcoin implementation, uses a five-tier version with signature thresholds |
+| Mixed constitution with written vetoes | Yes | Separate powers for proposers, reviewers and deployers, with written thresholds. Bitcoin Commons writes a five-tier schedule with those thresholds. Enforcement is off |
 | Commons governed by Ostrom's principles | Yes, conditional | Needs bounded membership and monitoring, and her cases were small and local |
 
 The two excluded forms need a counted electorate. Every form that survives needs only an accountable group and a written rule, which the repository layer largely lacks.
@@ -5587,7 +5590,7 @@ The chart isolates the comparison that matters, informal oligarchy against forma
 - Exit cost is 3 for every repository form. Switching software over a policy difference is cheap, as the move to alternatives during the version 30 dispute showed. Leaving the consensus rules means leaving the network, and that costs the same whoever maintains the repository. The failed BLAKE2b fork and Segwit2x show weak demand for those changes more than a high price for leaving. The one repository-level lever is a written, independent specification of the rules, which is a design choice separate from the form of governance.
 - Informal oligarchy scores 2 on legibility. Each merge is recorded with a name, but no written rule sets a minimum number of reviews or says how merge keys are granted, selection runs through a pull request and a meeting, Core's written security policy leaves critical bugs to an ad hoc procedure, and 45.1% of maintainers' self-merges had no recorded review. Who judged consensus, who objected and who coordinated in private is not recorded. A single maintainer scores 3, because every decision has one obvious author even with no written rule.
 - It scores 2 on capture resistance because five keys gate the repository, one key holder has merged half of all pull requests since 2022, and funding is concentrated.
-- It scores 3 on error correction because the 2013 rollback worked and a planned deprecation of the option that lets node operators cap OP_RETURN size was reversed on September 30, 2025, after protest. It does not score higher because the 2018 inflation bug sat in the code for about a year and a half and was first described as a denial-of-service fix, and because people affected by a decision have no formal route to challenge it.
+- It scores 3 on error correction because the 2013 rollback worked and a planned deprecation of the option that lets node operators cap OP_RETURN size was reversed on September 30, 2025, after protest. It does not score higher because the 2018 inflation bug sat in the code for about a year and was first described as a denial-of-service fix, and because people affected by a decision have no formal route to challenge it.
 - Decision cost also scores 3. The median merged pull request took 3.9 days for maintainers and 6.4 days for everyone else. Speed is the advantage informality usually claims, and here it only ties a formal oligarchy.
 
 **How far to trust the scores.** Every score is a judgment. Only informal oligarchy and the elected council have evidence behind them from Bitcoin or a comparable project. The two highest totals belong to forms untested at Bitcoin's scale, so the order at the top means little, and nothing in the conclusion depends on it. Legibility and credible commitment reward written rules by definition, so any written form beats an unwritten one on those two measures, and the score gap partly restates that. The case that the missing rules matter rests on the record. Keys are granted with no written procedure, merges need no minimum review, and critical bugs go to an ad hoc process. A reader who treats legal exposure as a capture risk would mark the foundation worse on capture resistance. That does not close the gap, which is legibility and credible commitment.
@@ -5643,6 +5646,9 @@ Bitcoin episodes
 - Line counts for Core 32.1, [The Rules Are 7% of the Program](/articles/the-rules-are-7-percent)
 
 Dataset. The merge, review and outsider figures come from the author's [Bitcoin Governance Research](https://github.com/secsovereign/bitcoin-governance-research) analysis of Core's pull request history, built from GitHub's public record of 16,811 merged pull requests. A self-merge is a merge by the pull request's author, and a review is any recorded approval, comment or change request. The Bitcoin Commons design comes from its governance documents.
+
+
+Correction dated 2026-11-11. The review-series baseline in this article was 2016 at 83.9 percent. That year is the first year GitHub review objects exist in the dump, so the rate mixes a missing instrument with the later practice. The baseline is 2017. Zero-review self-merges fell from 42.2 percent in 2017 to 4.0 percent in 2026, a partial year. Zero-review merges of other authors' pull requests fell from 32.4 percent in 2017 to 8.8 percent in 2026. The self-merge fall may reflect a maintainer norm, tooling, or how review is recorded. That question is open. The 2016 row stays in the research table. Source: Bitcoin Governance Research, findings/TEMPORAL_ANALYSIS_REPORT.md, note dated 2026-11-11, analysis/findings/data/temporal_analysis.json at commit 1225a188, repository c526cd03.
 
 ---
 

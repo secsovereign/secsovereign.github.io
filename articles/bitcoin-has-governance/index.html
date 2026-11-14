@@ -122,8 +122,8 @@
 </tr>
 <tr>
 <td>Sept 2018</td>
-<td>A bug in Core, present since version 0.14 in March 2017, was reported on September 17 and proved to let a miner inflate the coin supply. A fix shipped on September 18 after a handful of developers coordinated privately, and it was first described as a denial-of-service fix</td>
-<td>The fix was fast, and the disclosure choices were made by a few people. Core's written security policy leaves critical bugs to an ad hoc procedure, and the bug sat in the only reference implementation for about a year and a half</td>
+<td>A bug in Core was reported on September 17 and proved to let a miner inflate the coin supply. A fix shipped on September 18 after a handful of developers coordinated privately, and it was first described as a denial-of-service fix. Inflation was possible from 0.15.0, about a year. The crash reached 0.14.0</td>
+<td>The fix was fast, and the disclosure choices were made by a few people. Core's written security policy leaves critical bugs to an ad hoc procedure</td>
 </tr>
 <tr>
 <td>Nov 2017</td>
@@ -155,7 +155,7 @@
 <li>No written rule says who receives merge keys. The contribution guidelines describe how a key holder judges consensus and say nothing about how keys are granted.</li>
 <li>The files that define the rules drew 169 commits from 31 people over the last three years, and five of them accounted for half. Writing the code is spread more widely than the power to merge it.</li>
 </ul>
-<p>Review practice has tightened since 2016, while the self-merge rate stayed high until 2021. The self-merge rate is the share of merged pull requests merged by their own author.</p>
+<p>Review practice has tightened since 2017, while the self-merge rate stayed high until 2021. The self-merge rate is the share of merged pull requests merged by their own author.</p>
 <figure class="chart-preserve">
 <img src="charts/self-merge-line.png?v=2017" alt="Unreviewed self-merges fell from 42.2% in 2017 to 4.0% in 2026. The chart starts in 2017. Self-merges with no recorded review pass 30.3% in 2021 and end at 4.0% in partial 2026, shown dashed. Self-merge rate ends at 10.9% in partial 2026.">
 </figure>
@@ -251,7 +251,7 @@
 <tr>
 <td>Mixed constitution with written vetoes</td>
 <td>Yes</td>
-<td>Separate powers for proposers, reviewers and deployers, with written thresholds. Bitcoin Commons, an alternative Bitcoin implementation, uses a five-tier version with signature thresholds</td>
+<td>Separate powers for proposers, reviewers and deployers, with written thresholds. Bitcoin Commons writes a five-tier schedule with those thresholds. Enforcement is off</td>
 </tr>
 <tr>
 <td>Commons governed by Ostrom's principles</td>
@@ -276,7 +276,7 @@
 <li>Exit cost is 3 for every repository form. Switching software over a policy difference is cheap, as the move to alternatives during the version 30 dispute showed. Leaving the consensus rules means leaving the network, and that costs the same whoever maintains the repository. The failed BLAKE2b fork and Segwit2x show weak demand for those changes more than a high price for leaving. The one repository-level lever is a written, independent specification of the rules, which is a design choice separate from the form of governance.</li>
 <li>Informal oligarchy scores 2 on legibility. Each merge is recorded with a name, but no written rule sets a minimum number of reviews or says how merge keys are granted, selection runs through a pull request and a meeting, Core's written security policy leaves critical bugs to an ad hoc procedure, and 45.1% of maintainers' self-merges had no recorded review. Who judged consensus, who objected and who coordinated in private is not recorded. A single maintainer scores 3, because every decision has one obvious author even with no written rule.</li>
 <li>It scores 2 on capture resistance because five keys gate the repository, one key holder has merged half of all pull requests since 2022, and funding is concentrated.</li>
-<li>It scores 3 on error correction because the 2013 rollback worked and a planned deprecation of the option that lets node operators cap OP_RETURN size was reversed on September 30, 2025, after protest. It does not score higher because the 2018 inflation bug sat in the code for about a year and a half and was first described as a denial-of-service fix, and because people affected by a decision have no formal route to challenge it.</li>
+<li>It scores 3 on error correction because the 2013 rollback worked and a planned deprecation of the option that lets node operators cap OP_RETURN size was reversed on September 30, 2025, after protest. It does not score higher because the 2018 inflation bug sat in the code for about a year and was first described as a denial-of-service fix, and because people affected by a decision have no formal route to challenge it.</li>
 <li>Decision cost also scores 3. The median merged pull request took 3.9 days for maintainers and 6.4 days for everyone else. Speed is the advantage informality usually claims, and here it only ties a formal oligarchy.</li>
 </ul>
 <p><strong>How far to trust the scores.</strong> Every score is a judgment. Only informal oligarchy and the elected council have evidence behind them from Bitcoin or a comparable project. The two highest totals belong to forms untested at Bitcoin's scale, so the order at the top means little, and nothing in the conclusion depends on it. Legibility and credible commitment reward written rules by definition, so any written form beats an unwritten one on those two measures, and the score gap partly restates that. The case that the missing rules matter rests on the record. Keys are granted with no written procedure, merges need no minimum review, and critical bugs go to an ad hoc process. A reader who treats legal exposure as a capture risk would mark the foundation worse on capture resistance. That does not close the gap, which is legibility and credible commitment.</p>
@@ -344,9 +344,7 @@
 <li>Line counts for Core 32.1, <a href="/articles/the-rules-are-7-percent">The Rules Are 7% of the Program</a></li>
 </ul>
 <p>Dataset. The merge, review and outsider figures come from the author's <a href="https://github.com/secsovereign/bitcoin-governance-research">Bitcoin Governance Research</a> analysis of Core's pull request history, built from GitHub's public record of 16,811 merged pull requests. A self-merge is a merge by the pull request's author, and a review is any recorded approval, comment or change request. The Bitcoin Commons design comes from its governance documents.</p>
-
-<p>Correction dated 2026-11-11. The review-series baseline in this article was 2016 at 83.9 percent. That year is the first year GitHub review objects exist in the dump, so the rate mixes a missing instrument with the later practice. The baseline is 2017. Zero-review self-merges fell from 42.2 percent in 2017 to 4.0 percent in 2026, a partial year. Zero-review merges of other authors' pull requests fell from 32.4 percent in 2017 to 8.8 percent in 2026. The self-merge fall may reflect a maintainer norm, tooling, or how review is recorded. That question is open. The 2016 row stays in the research table. Source: Bitcoin Governance Research, findings/TEMPORAL_ANALYSIS_REPORT.md, note dated 2026-11-11, analysis/findings/data/temporal_analysis.json at commit 1225a188, repository c526cd03.
-</p>
+<p>Correction dated 2026-11-11. The review-series baseline in this article was 2016 at 83.9 percent. That year is the first year GitHub review objects exist in the dump, so the rate mixes a missing instrument with the later practice. The baseline is 2017. Zero-review self-merges fell from 42.2 percent in 2017 to 4.0 percent in 2026, a partial year. Zero-review merges of other authors' pull requests fell from 32.4 percent in 2017 to 8.8 percent in 2026. The self-merge fall may reflect a maintainer norm, tooling, or how review is recorded. That question is open. The 2016 row stays in the research table. Source: Bitcoin Governance Research, findings/TEMPORAL_ANALYSIS_REPORT.md, note dated 2026-11-11, analysis/findings/data/temporal_analysis.json at commit 1225a188, repository c526cd03.</p>
 </article>
         
         <div class="article-share-bar" data-share-url="https://secsov.com/articles/bitcoin-has-governance" data-share-title="Bitcoin Has Governance, and It Is an Informal Oligarchy" data-share-text="Bitcoin Has Governance, and It Is an Informal Oligarchy: Five merge keys gate the repository, and the deployment layer can only refuse what they offer. The shortfall is legibility and credible commitment.">

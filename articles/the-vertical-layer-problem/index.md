@@ -105,7 +105,7 @@ Review activity Gini sits near 0.92, while merge-authority Gini is lower because
 
 That dataset covers seventeen years of Core history and counts comments, ACKs, and review submissions on GitHub. It does not count hours spent checking consensus-critical code or how deep each review went, so these figures describe who shows up in the record, not who understood the code best in any given week.
 
-The bug usually cited with these numbers is CVE-2018-17144, the inflation bug that sat in Core for eighteen months. People use it to prove Core is incompetent, which it does not prove. It sat in production, was never exploited, and was patched quickly after disclosure. Patching it fast after disclosure is not the same as catching it.
+The bug usually cited with these numbers is CVE-2018-17144, the inflation bug that sat in Core for about a year, from 0.15.0 through 0.16.2. The longer span, back to 0.14.0, is the crash. People use it to prove Core is incompetent, which it does not prove. It sat in production, was never exploited, and was patched quickly after disclosure. Patching it fast after disclosure is not the same as catching it.
 
 It propagated to Knots, ABC, and Unlimited, because those clients descend from Core's codebase. Listing those clients as independent checks is a mistake when they share a lineage. The case study is *[Governance Paralysis Was The Victory](/articles/governance-paralysis-was-the-victory#cve-2018-17144-the-bug-that-proved-gavin-right)*.
 
