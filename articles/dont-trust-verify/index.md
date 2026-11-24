@@ -18,9 +18,9 @@ The Bitcoin community has a handful of commandments. "Not your keys, not your co
 
 Coldcard appropriated that commandment as a brand identity. "Don't Trust. Verify." was printed on the tamper-evident bag the device ships in. It was displayed on the device screen in Coinkite marketing copy. The four pillars on the Coinkite storefront: Bitcoin Only, Verifiable Source Code, Easy-to-use, Ultra-Secure. The tagline beneath the product: "Air-gapped signing options. Verifiable firmware." Reproducible builds. WalletScrutiny badge. **The entire commercial presentation was built around the idea that you don't have to trust Coinkite because you can verify everything yourself.** Verifiability was presented as the product.
 
-Coldcard never commissioned an independent third-party security audit of its seed generation path. Not once across its entire commercial life. From March 2021 onward, Coldcard firmware was silently routing seed generation through a weak software PRNG instead of the hardware TRNG. The code was available. **The verification that Coinkite was marketing as its core proposition was absent from the most important property the device had.**
+Coinkite never published an audit that traced seed generation from the user action to the entropy source. Reviews with the random-number generator in scope existed, and they missed the defect. On the affected releases, Mk2 and Mk3 firmware 4.0.1 through 4.1.9, Mk4 and Mk5 standard firmware before 5.6.0, Mk4 and Mk5 Edge firmware before 6.6.0X, Q standard firmware before 1.5.0Q, and Q Edge firmware before 6.6.0QX, Coldcard was silently routing seed generation through a weak software PRNG instead of the hardware TRNG. Thefts began on July 29, 2026. Coinkite identified the defect on July 30 and shipped fixed firmware on July 31. The code was available. **The verification that Coinkite was marketing as its core proposition was absent from the most important property the device had.**
 
-It has cost their audiences **$88 million** so far, and that number is still growing.
+It has cost their audiences **$112.7 million** so far, and that number is still growing.
 
 ---
 
@@ -46,7 +46,7 @@ A user following the most technically serious Bitcoin self-custody path, running
 
 Then the educators confirmed what the tooling assumed. Then the institutions integrated what the educators confirmed. Then the vendor cited the institutions on the homepage. Coinkite's website stacked WalletScrutiny's "passed all 10 tests" badge next to BTC Sessions calling it "one of the most secure Bitcoin hardware wallets ever built" next to Bitcoin Verdict calling it "the most secure you can buy." **Each layer appears to have treated the layer below as diligence.** None of the layers included a seed-path audit.
 
-From March 2021 onward, Coldcard was generating seeds from a far smaller entropy pool than anyone knew. Every influencer recommendation, every tutorial, every podcast episode, every institutional integration produced after that date was built on top of a device that had already failed the most fundamental test.
+Across that same affected window, Coldcard was generating seeds from a far smaller entropy pool than anyone knew. Every influencer recommendation, every tutorial, every podcast episode, every institutional integration produced after those releases shipped was built on top of a device that had already failed the most fundamental test.
 
 By July 2026, "Coldcard" and "most secure Bitcoin hardware wallet" were near-synonymous in serious self-custody discourse. **Disclosed sponsorship did not stop recommendations from functioning as trust signals.** "Don't trust, verify" had become trust the people who say "don't trust, verify."
 
@@ -60,7 +60,11 @@ Bitcoin Core contributor, AnchorWatch engineer. He publicly examined the Mk4's S
 
 He was right. The driver was correct. **The bug wasn't in the driver.**
 
-The defect was in the build-time preprocessor guard in a different file, the guard that determined whether the driver was called at all. When `MICROPY_HW_ENABLE_RNG` is defined as zero (which it always was), the `#ifndef` check passes, the error never triggers, and seed generation falls through to MicroPython's Yasmarang software PRNG seeded from the chip's serial number and clock registers. The driver PortlandHODL reviewed was fine. **It just wasn't running.**
+Coinkite's postmortem calls the cause a firmware configuration and linkage error. The firmware configuration set `MICROPY_HW_ENABLE_RNG` to zero, an ineffective guard in the pinned libNgU code accepted that configuration, and `rng_get()` resolved to MicroPython's Yasmarang generator instead of the STM32 hardware generator. Coinkite's earlier technical post calls the same failure a link-time error. The driver PortlandHODL reviewed was fine. **It just wasn't running.**
+
+Coinkite counts at least 15 independent reviews and security-research efforts from 2021 to 2026. Scopes varied, and many of those efforts were not full firmware audits. None of them identified the defect. Lazy Ninja, from March 1 to 14, 2022, did a paid private pre-release review of the Mk4. The scope included PIN handling, hardware boundaries, random-number generation, and entropy hardening. It led to changes before firmware 5.0.0 and did not identify the defect. The disclosure page describes that random-number work and does not say the review examined the seed-generation path. An early 2024 paid third-party review of the Q is on the same record. The report says the reviewer's name and exact scope are not in the public record. Nick Farrow's review, dated June 17, 2026, explicitly included weak RNG in scope and concluded the RNG path was sound. The postmortem does not count it among the commissioned product reviews. It predates the thefts by about six weeks. Rob Hamilton, from May 1 to June 26, 2026, used the OpenAI Cybersecurity Harness. The review produced 85 candidate findings, several led to fixes, and none identified the defect.
+
+PortlandHODL's 2022 review and the Farrow review show the same miss. The random-number generator was in scope, the component was found sound, and the failure was in the path to the component.
 
 A credentialed Bitcoin Core contributor performed visible technical work. The community had reason to trust that work. The work stopped at the wrong file. The community's trust remained, and so did the vulnerability, for four more years.
 
@@ -80,17 +84,19 @@ One more data point on how thoroughly Coldcard's reputation was constructed: Zac
 
 The irony runs deeper than that. Herbert built Foundation Devices' Passport on a fork of Coldcard's then-GPLv3 firmware, which was legally permitted under that license. GPL requires that anyone who forks and distributes must release their modifications under the same terms. NVK saw a competitor using his code exactly as the license allowed, publicly said he regretted releasing under GPL, and then Coinkite migrated to MIT plus Commons Clause. The Commons Clause addition is specifically designed to prevent commercial use, which is what Foundation Devices had done legally. The new license left the code source-visible but no longer open source by any standard definition. Coinkite began calling it "verifiable" rather than open source. Herbert and others publicly criticized the change.
 
-The large 120-file commit that executed the license migration also rewrote the seed generation path. That rewrite is where the defective preprocessor guard was introduced. **The same period that produced the most credentialed endorsement Coldcard ever received also produced the code change that, five years later, allowed attackers to drain over $88 million from addresses likely tied to innocent Coldcard customers.**
+The large 120-file commit that executed the license migration also rewrote the seed generation path. That rewrite is where the firmware configuration and linkage error entered the seed path. **The same period that produced the most credentialed endorsement Coldcard ever received also produced the code change that, five years later, allowed attackers to drain over $112.7 million from addresses likely tied to innocent Coldcard customers.**
 
 ---
 
 ## V. What Verification Would Have Required
 
-This is not a story about a sophisticated cryptographic attack or an exotic vulnerability class. **The defect was a configuration error.** Three files, one call chain.
+This is not a story about a sophisticated cryptographic attack or an exotic vulnerability class. **The defect was a firmware configuration and linkage error.** Three files, one call chain.
 
-An auditor asking "which entropy source actually runs when a user generates a seed?" would have read `shared/seed.py` to find the `generate_seed()` call, traced `ngu.random.bytes()` to the libngu guard in `external/libngu/ngu/random.c`, and checked the board configuration in `stm32/COLDCARD/mpconfigboard.h` where `MICROPY_HW_ENABLE_RNG` is set to zero. The guard uses `#ifndef`, which passes when the macro is defined to any value including zero. The hardware TRNG path is silently disabled. The fallback runs.
+An auditor asking "which entropy source actually runs when a user generates a seed?" would have read `shared/seed.py` to find the `generate_seed()` call, traced `ngu.random.bytes()` to the libngu guard in `external/libngu/ngu/random.c`, and checked the board configuration in `stm32/COLDCARD/mpconfigboard.h` where `MICROPY_HW_ENABLE_RNG` is set to zero. The guard uses `#ifndef`, which tests whether the macro is defined rather than whether its value enables the hardware RNG, so a setting of zero is accepted. `rng_get()` then resolves to Yasmarang. The hardware generator stays in the firmware and is not the one seed generation reaches.
 
 Findable. Not found by anyone in five years. **Found by an attacker, in the same public repository that the community had been citing as a reason to trust the device.**
+
+The repair mixes user input with the STM32 RNG and two Secure Elements, and it adds build-time and boot-time checks that seed generation reaches the hardware RNG. Coinkite also ships reproducible builds, and a user can check a seed with View TRNG Words and the public `verify_seed_mix.py` script. Keylabs reviewed the repaired path in source and in four signed binaries, used a pre-fix binary as a negative control, and found the defect closed within a stated scope that excludes Edge firmware. Coinkite says some review recommendations remain open. A script on a laptop is a narrower kind of verification than the bag slogan promised, and it does not reach the Edge track or any seed already generated on the broken firmware.
 
 ---
 
@@ -124,10 +130,14 @@ The commandment is real. **The question is whether the community actually lives 
 
 ## Sources
 
-- [Galaxy Research on Coldcard losses (via The Block)](https://www.theblock.co/post/410533/coldcard-hack-130-million-galaxy-research) — on-chain loss estimates cited in this article
-- [Coinkite, "Technical Deep Dive into the Entropy Issue"](https://blog.coinkite.com/technical-deep-dive-into-the-entropy-issue/) — firmware root cause
-- [Quarkslab, "Bitcoin Core Security Audit"](https://blog.quarkslab.com/bitcoin-core-audit.html) — September 2025 P2P/mempool scope
+- [Galaxy Research on Coldcard losses (via The Block)](https://www.theblock.co/post/410533/coldcard-hack-130-million-galaxy-research). Earlier on-chain loss estimates.
+- [Galaxy Research, "Coldcard Exploit Abates as Total Losses Climb to (at Least) 1,700 BTC"](https://www.galaxy.com/insights/research/coldcard-exploit-abates-as-total-losses-climb-to-at-least-1700-btc). High-confidence on-chain estimate cited in this article, 1,778.84 BTC and $112.7 million as of August 14, 2026.
+- [Coinkite, "Technical Deep Dive into the Entropy Issue"](https://blog.coinkite.com/entropy-technical-backgrounder/). Firmware root cause.
+- [Coinkite, "COLDCARD Seed-Generation Incident: Postmortem"](https://blog.coinkite.com/reports/coldcard-seed-generation-incident-postmortem-2026-11-23.pdf). November 23, 2026 incident report.
+- [Coinkite, historical disclosures](https://coinkite.com/historical-disclosures). Public review and disclosure chronology.
+- [Coinkite, "Keylabs Review of the COLDCARD Seed-Generation Remediation"](https://blog.coinkite.com/keylabs-coldcard-seed-generation-review/). Source and binary review of the repaired path.
+- [Quarkslab, "Bitcoin Core Security Audit"](https://blog.quarkslab.com/bitcoin-core-audit.html). September 2025 P2P/mempool scope.
 
 *Related: [The Social Layer Is the Attack Surface](/articles/bitcoin-social-capture), [Who Controls Bitcoin](/articles/bitcoin-governance), [Bitcoin Core: The Biggest Fallacies](/articles/bitcoin-core-the-biggest-fallacies), [The Rules Are 7% of the Program](/articles/the-rules-are-7-percent).*
 
-*This article is analytical commentary based on publicly available information. All factual claims are sourced from public records, public statements, and documented on-chain data. No malice or prior knowledge of the defect is attributed to any individual named. Dollar figures and victim counts reflect published on-chain estimates (e.g. [Galaxy Research](https://www.theblock.co/post/410533/coldcard-hack-130-million-galaxy-research)), not confirmed victim reports.*
+*This article is analytical commentary based on publicly available information. All factual claims are sourced from public records, public statements, and documented on-chain data. No malice or prior knowledge of the defect is attributed to any individual named. Dollar figures and victim counts reflect published on-chain estimates (e.g. [Galaxy Research](https://www.galaxy.com/insights/research/coldcard-exploit-abates-as-total-losses-climb-to-at-least-1700-btc)), not confirmed victim reports.*

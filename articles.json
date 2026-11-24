@@ -94,7 +94,7 @@
       "title": "Don't Trust, Verify",
       "description": "Coldcard's RNG defect, credentialed endorsement without seed-path audit, and the same verification gap in Bitcoin Core.",
       "published": "2026-08-02",
-      "updated": "2026-11-14"
+      "updated": "2026-11-24"
     },
     {
       "slug": "why-shitcoins-are-shitcoins",
